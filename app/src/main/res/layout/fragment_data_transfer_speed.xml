@@ -1,0 +1,246 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackgroundColor"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/data_transfer_speed_bps"
+            android:id="@+id/textView_data_transfer_speed_bps"
+            android:labelFor="@+id/editText_data_transfer_speed_bps"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.-"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:id="@+id/editText_data_transfer_speed_bps"
+            android:layout_below="@+id/textView_data_transfer_speed_bps"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/data_transfer_speed_bs"
+            android:id="@+id/textView_data_transfer_speed_bs"
+            android:labelFor="@+id/editText_data_transfer_speed_bs"
+            android:layout_below="@+id/editText_data_transfer_speed_bps"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.-"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:id="@+id/editText_data_transfer_speed_bs"
+            android:layout_below="@+id/textView_data_transfer_speed_bs"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/data_transfer_speed_kbps"
+            android:id="@+id/textView_data_transfer_speed_kbps"
+            android:labelFor="@+id/editText_data_transfer_speed_kbps"
+            android:layout_below="@+id/editText_data_transfer_speed_bs"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.-"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:id="@+id/editText_data_transfer_speed_kbps"
+            android:layout_below="@+id/textView_data_transfer_speed_kbps"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/data_transfer_speed_kbs"
+            android:id="@+id/textView_data_transfer_speed_kps"
+            android:labelFor="@+id/editText_data_transfer_speed_kps"
+            android:layout_below="@+id/editText_data_transfer_speed_kbps"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.-"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:id="@+id/editText_data_transfer_speed_kps"
+            android:layout_below="@+id/textView_data_transfer_speed_kps"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/data_transfer_speed_mbps"
+            android:id="@+id/textView_data_transfer_speed_mbps"
+            android:labelFor="@+id/editText_data_transfer_speed_mbps"
+            android:layout_below="@+id/editText_data_transfer_speed_kps"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.-"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:id="@+id/editText_data_transfer_speed_mbps"
+            android:layout_below="@+id/textView_data_transfer_speed_mbps"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/data_transfer_speed_mbs"
+            android:id="@+id/textView_data_transfer_speed_mbs"
+            android:labelFor="@+id/editText_data_transfer_speed_mbs"
+            android:layout_below="@+id/editText_data_transfer_speed_mbps"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.-"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:id="@+id/editText_data_transfer_speed_mbs"
+            android:layout_below="@+id/textView_data_transfer_speed_mbs"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/data_transfer_speed_gbps"
+            android:id="@+id/textView_data_transfer_speed_gbps"
+            android:labelFor="@+id/editText_data_transfer_speed_gbps"
+            android:layout_below="@+id/editText_data_transfer_speed_mbs"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.-"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:id="@+id/editText_data_transfer_speed_gbps"
+            android:layout_below="@+id/textView_data_transfer_speed_gbps"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/data_transfer_speed_gbs"
+            android:id="@+id/textView_data_transfer_speed_gbs"
+            android:labelFor="@+id/editText_data_transfer_speed_gbs"
+            android:layout_below="@+id/editText_data_transfer_speed_gbps"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.-"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:id="@+id/editText_data_transfer_speed_gbs"
+            android:layout_below="@+id/textView_data_transfer_speed_gbs"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/data_transfer_speed_tbps"
+            android:id="@+id/textView_data_transfer_speed_tbps"
+            android:labelFor="@+id/editText_data_transfer_speed_tbps"
+            android:layout_below="@+id/editText_data_transfer_speed_gbs"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.-"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:id="@+id/editText_data_transfer_speed_tbps"
+            android:layout_below="@+id/textView_data_transfer_speed_tbps"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/data_transfer_speed_tbs"
+            android:id="@+id/textView_data_transfer_speed_tbs"
+            android:labelFor="@+id/editText_data_transfer_speed_tbs"
+            android:layout_below="@+id/editText_data_transfer_speed_tbps"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.-"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:id="@+id/editText_data_transfer_speed_tbs"
+            android:layout_below="@+id/textView_data_transfer_speed_tbs"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</ScrollView>
