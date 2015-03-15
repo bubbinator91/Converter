@@ -1,7 +1,9 @@
 package com.bubbinator91.converter.fragments;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,9 +16,20 @@ import android.widget.TextView;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.Util;
 
+import java.math.BigDecimal;
+
+/**
+ * Inch, Foot, Yard, Mile, Millimeter, Centimeter, Meter, Kilometer
+ * Conversions comply with the conversions through Google.com
+ */
+
 public class FragmentLength extends Fragment {
-    private final boolean DEBUG = false;
+    private boolean DEBUG = false;
     private final String TAG = "FragmentLength";
+
+	private SharedPreferences mPrefs;
+
+	private int fieldLength = -1;
 
     private EditText editTextInch, editTextFoot, editTextYard, editTextMile, editTextMillimeter,
                     editTextCentimeter, editTextMeter, editTextKilometer;
@@ -41,22 +54,55 @@ public class FragmentLength extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double inch = Double.parseDouble(s.toString());
-                            double foot = (inch / 12.0);
-                            double yard = ((inch / 12.0) / 3.0);
-                            double mile = ((inch / 12.0) / 5280.0);
-                            double millimeter = (inch / 0.03937007874015748031496062992126);
-                            double centimeter = (inch / 0.3937007874015748031496062992126);
-                            double meter = (inch / 39.37007874015748031496062992126);
-                            double kilometer = (inch / 39370.07874015748031496062992126);
+							BigDecimal inch = new BigDecimal(s.toString());
+							BigDecimal foot = inch.divide(new BigDecimal("12")
+																 , fieldLength
+																 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal yard = foot.divide(new BigDecimal("3")
+																 , fieldLength
+																 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal mile = foot.divide(new BigDecimal("5280")
+																 , fieldLength
+																 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
+							BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
+																			 , fieldLength
+																			 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+																		, fieldLength
+																		, BigDecimal.ROUND_HALF_UP);
+							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+																			, fieldLength
+																			, BigDecimal.ROUND_HALF_UP);
 
-                            editTextFoot.setText(Double.toString(foot), TextView.BufferType.EDITABLE);
-                            editTextYard.setText(Double.toString(yard), TextView.BufferType.EDITABLE);
-                            editTextMile.setText(Double.toString(mile), TextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(Double.toString(millimeter), TextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(Double.toString(centimeter), TextView.BufferType.EDITABLE);
-                            editTextMeter.setText(Double.toString(meter), TextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(Double.toString(kilometer), TextView.BufferType.EDITABLE);
+                            editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+                            editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+                            editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+                            editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+                            editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+                            editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+                            editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															  .stripTrailingZeros()
+															  .toPlainString()
+															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -115,22 +161,53 @@ public class FragmentLength extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double foot = Double.parseDouble(s.toString());
-                            double inch = (foot * 12.0);
-                            double yard = (foot / 3.0);
-                            double mile = (foot / 5280.0);
-                            double millimeter = (foot / 0.00328083989501312335958005249344);
-                            double centimeter = (foot / 0.0328083989501312335958005249344);
-                            double meter = (foot / 3.28083989501312335958005249344);
-                            double kilometer = (foot / 3280.83989501312335958005249344);
+							BigDecimal foot = new BigDecimal(s.toString());
+							BigDecimal inch = foot.multiply(new BigDecimal("12"));
+							BigDecimal yard = foot.divide(new BigDecimal("3")
+																 , fieldLength
+																 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal mile = foot.divide(new BigDecimal("5280")
+																 , fieldLength
+																 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
+							BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
+																			 , fieldLength
+																			 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+																		, fieldLength
+																		, BigDecimal.ROUND_HALF_UP);
+							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+																			, fieldLength
+																			, BigDecimal.ROUND_HALF_UP);
 
-                            editTextInch.setText(Double.toString(inch), TextView.BufferType.EDITABLE);
-                            editTextYard.setText(Double.toString(yard), TextView.BufferType.EDITABLE);
-                            editTextMile.setText(Double.toString(mile), TextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(Double.toString(millimeter), TextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(Double.toString(centimeter), TextView.BufferType.EDITABLE);
-                            editTextMeter.setText(Double.toString(meter), TextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(Double.toString(kilometer), TextView.BufferType.EDITABLE);
+							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+							editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															  .stripTrailingZeros()
+															  .toPlainString()
+															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -189,22 +266,51 @@ public class FragmentLength extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double yard = Double.parseDouble(s.toString());
-                            double inch = (yard * 36.0);
-                            double foot = (yard * 3.0);
-                            double mile = (yard / 1760.0);
-                            double millimeter = (yard / 0.00109361329833770778652668416448);
-                            double centimeter = (yard / 0.0109361329833770778652668416448);
-                            double meter = (yard / 1.09361329833770778652668416448);
-                            double kilometer = (yard / 1093.61329833770778652668416448);
+							BigDecimal yard = new BigDecimal(s.toString());
+							BigDecimal inch = yard.multiply(new BigDecimal("36"));
+							BigDecimal foot = yard.multiply(new BigDecimal("3"));
+							BigDecimal mile = foot.divide(new BigDecimal("5280")
+																 , fieldLength
+																 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
+							BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
+																			 , fieldLength
+																			 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+																		, fieldLength
+																		, BigDecimal.ROUND_HALF_UP);
+							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+																			, fieldLength
+																			, BigDecimal.ROUND_HALF_UP);
 
-                            editTextInch.setText(Double.toString(inch), TextView.BufferType.EDITABLE);
-                            editTextFoot.setText(Double.toString(foot), TextView.BufferType.EDITABLE);
-                            editTextMile.setText(Double.toString(mile), TextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(Double.toString(millimeter), TextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(Double.toString(centimeter), TextView.BufferType.EDITABLE);
-                            editTextMeter.setText(Double.toString(meter), TextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(Double.toString(kilometer), TextView.BufferType.EDITABLE);
+							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+							editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															  .stripTrailingZeros()
+															  .toPlainString()
+															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -263,22 +369,49 @@ public class FragmentLength extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double mile = Double.parseDouble(s.toString());
-                            double inch = (mile * 63360.0);
-                            double foot = (mile * 5280.0);
-                            double yard = (mile * 1760.0);
-                            double millimeter = (mile / 0.00000062137119223733396961743418436332);
-                            double centimeter = (mile / 0.0000062137119223733396961743418436332);
-                            double meter = (mile / 0.00062137119223733396961743418436332);
-                            double kilometer = (mile / 0.62137119223733396961743418436332);
+							BigDecimal mile = new BigDecimal(s.toString());
+							BigDecimal inch = mile.multiply(new BigDecimal("63360"));
+							BigDecimal foot = mile.multiply(new BigDecimal("5280"));
+							BigDecimal yard = mile.multiply(new BigDecimal("1760"));
+							BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
+							BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
+																			 , fieldLength
+																			 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+																		, fieldLength
+																		, BigDecimal.ROUND_HALF_UP);
+							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+																			, fieldLength
+																			, BigDecimal.ROUND_HALF_UP);
 
-                            editTextInch.setText(Double.toString(inch), TextView.BufferType.EDITABLE);
-                            editTextFoot.setText(Double.toString(foot), TextView.BufferType.EDITABLE);
-                            editTextYard.setText(Double.toString(yard), TextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(Double.toString(millimeter), TextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(Double.toString(centimeter), TextView.BufferType.EDITABLE);
-                            editTextMeter.setText(Double.toString(meter), TextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(Double.toString(kilometer), TextView.BufferType.EDITABLE);
+							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+							editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															  .stripTrailingZeros()
+															  .toPlainString()
+															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -337,22 +470,51 @@ public class FragmentLength extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double millimeter = Double.parseDouble(s.toString());
-                            double inch = (millimeter * 0.03937007874015748031496062992126);
-                            double foot = (millimeter * 0.00328083989501312335958005249344);
-                            double yard = (millimeter * 0.00109361329833770778652668416448);
-                            double mile = (millimeter * 0.00000062137119223733396961743418436332);
-                            double centimeter = (millimeter / 10.0);
-                            double meter = (millimeter / 1000.0);
-                            double kilometer = (millimeter / 1000000.0);
+							BigDecimal millimeter = new BigDecimal(s.toString());
+							BigDecimal inch = millimeter.multiply(new BigDecimal("0.03937007874015748031496062992126"));
+							BigDecimal foot = millimeter.multiply(new BigDecimal("0.00328083989501312335958005249344"));
+							BigDecimal yard = millimeter.multiply(new BigDecimal("0.00109361329833770778652668416448"));
+							BigDecimal mile = foot.divide(new BigDecimal("5280")
+																 , fieldLength
+																 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
+																			 , fieldLength
+																			 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+																		, fieldLength
+																		, BigDecimal.ROUND_HALF_UP);
+							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+																			, fieldLength
+																			, BigDecimal.ROUND_HALF_UP);
 
-                            editTextInch.setText(Double.toString(inch), TextView.BufferType.EDITABLE);
-                            editTextFoot.setText(Double.toString(foot), TextView.BufferType.EDITABLE);
-                            editTextYard.setText(Double.toString(yard), TextView.BufferType.EDITABLE);
-                            editTextMile.setText(Double.toString(mile), TextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(Double.toString(centimeter), TextView.BufferType.EDITABLE);
-                            editTextMeter.setText(Double.toString(meter), TextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(Double.toString(kilometer), TextView.BufferType.EDITABLE);
+							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+							editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															  .stripTrailingZeros()
+															  .toPlainString()
+															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -411,22 +573,49 @@ public class FragmentLength extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double centimeter = Double.parseDouble(s.toString());
-                            double inch = (centimeter * 0.3937007874015748031496062992126);
-                            double foot = (centimeter * 0.0328083989501312335958005249344);
-                            double yard = (centimeter * 0.0109361329833770778652668416448);
-                            double mile = (centimeter * 0.0000062137119223733396961743418436332);
-                            double millimeter = (centimeter * 10.0);
-                            double meter = (centimeter / 100.0);
-                            double kilometer = (centimeter / 100000.0);
+							BigDecimal centimeter = new BigDecimal(s.toString());
+							BigDecimal inch = centimeter.multiply(new BigDecimal("0.3937007874015748031496062992126"));
+							BigDecimal foot = centimeter.multiply(new BigDecimal("0.0328083989501312335958005249344"));
+							BigDecimal yard = centimeter.multiply(new BigDecimal("0.0109361329833770778652668416448"));
+							BigDecimal mile = foot.divide(new BigDecimal("5280")
+																 , fieldLength
+																 , BigDecimal.ROUND_HALF_UP);
+							BigDecimal millimeter = centimeter.multiply(new BigDecimal("10"));
+							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+																		, fieldLength
+																		, BigDecimal.ROUND_HALF_UP);
+							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+																			, fieldLength
+																			, BigDecimal.ROUND_HALF_UP);
 
-                            editTextInch.setText(Double.toString(inch), TextView.BufferType.EDITABLE);
-                            editTextFoot.setText(Double.toString(foot), TextView.BufferType.EDITABLE);
-                            editTextYard.setText(Double.toString(yard), TextView.BufferType.EDITABLE);
-                            editTextMile.setText(Double.toString(mile), TextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(Double.toString(millimeter), TextView.BufferType.EDITABLE);
-                            editTextMeter.setText(Double.toString(meter), TextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(Double.toString(kilometer), TextView.BufferType.EDITABLE);
+							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															  .stripTrailingZeros()
+															  .toPlainString()
+															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -615,16 +804,29 @@ public class FragmentLength extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		if (DEBUG)
+			Log.d(TAG + "onCreateView", "Entered");
+
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+		if (mPrefs != null) {
+			fieldLength = mPrefs.getInt(Util.PREFERENCE_FIELD_LENGTH, -1);
+			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == 1)
+				DEBUG = true;
+		}
+		if (fieldLength == -1)
+			fieldLength = 8;
+
         View rootView = inflater.inflate(R.layout.fragment_length, container, false);
 
-        editTextInch = ((EditText)rootView.findViewById(R.id.editText_length_inch));
-        editTextFoot = ((EditText)rootView.findViewById(R.id.editText_length_foot));
-        editTextYard = ((EditText)rootView.findViewById(R.id.editText_length_yard));
-        editTextMile = ((EditText)rootView.findViewById(R.id.editText_length_mile));
-        editTextMillimeter = ((EditText)rootView.findViewById(R.id.editText_length_millimeter));
-        editTextCentimeter = ((EditText)rootView.findViewById(R.id.editText_length_centimeter));
-        editTextMeter = ((EditText)rootView.findViewById(R.id.editText_length_meter));
-        editTextKilometer = ((EditText)rootView.findViewById(R.id.editText_length_kilometer));
+        editTextInch = ((EditText) rootView.findViewById(R.id.editText_length_inch));
+        editTextFoot = ((EditText) rootView.findViewById(R.id.editText_length_foot));
+        editTextYard = ((EditText) rootView.findViewById(R.id.editText_length_yard));
+        editTextMile = ((EditText) rootView.findViewById(R.id.editText_length_mile));
+        editTextMillimeter = ((EditText) rootView.findViewById(R.id.editText_length_millimeter));
+        editTextCentimeter = ((EditText) rootView.findViewById(R.id.editText_length_centimeter));
+        editTextMeter = ((EditText) rootView.findViewById(R.id.editText_length_meter));
+        editTextKilometer = ((EditText) rootView.findViewById(R.id.editText_length_kilometer));
 
         editTextInch.addTextChangedListener(textWatcherInch);
         editTextFoot.addTextChangedListener(textWatcherFoot);
