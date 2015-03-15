@@ -9,15 +9,15 @@
     <string name="title_temperature">Temperature</string>
 
     <string name="data_transfer_speed_bps">Bits per second (bps):</string>
-    <string name="data_transfer_speed_bs">Bytes per second (Bps):</string>
+    <string name="data_transfer_speed_byps">Bytes per second (Bps):</string>
     <string name="data_transfer_speed_kbps">Kilobits per second (Kbps):</string>
-    <string name="data_transfer_speed_kbs">Kilobytes per second (KBps):</string>
+    <string name="data_transfer_speed_kbyps">Kilobytes per second (KBps):</string>
     <string name="data_transfer_speed_mbps">Megabits per second (Mbps):</string>
-    <string name="data_transfer_speed_mbs">Megabytes per second (MBps):</string>
+    <string name="data_transfer_speed_mbyps">Megabytes per second (MBps):</string>
     <string name="data_transfer_speed_gbps">Gigabits per second (Gbps):</string>
-    <string name="data_transfer_speed_gbs">Gigabytes per second (GBps):</string>
+    <string name="data_transfer_speed_gbyps">Gigabytes per second (GBps):</string>
     <string name="data_transfer_speed_tbps">Terabits per second (Tbps):</string>
-    <string name="data_transfer_speed_tbs">Terabytes per second (TBps):</string>
+    <string name="data_transfer_speed_tbyps">Terabytes per second (TBps):</string>
 
     <string name="length_inch">Inch (in):</string>
     <string name="length_foot">Foot (ft):</string>

@@ -1,201 +1,272 @@
 <ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/windowBackgroundColor"
-    tools:context=".MainActivity">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/windowBackgroundColor"
+	tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin">
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingLeft="@dimen/activity_horizontal_margin"
+		android:paddingRight="@dimen/activity_horizontal_margin"
+		android:paddingTop="@dimen/activity_vertical_margin"
+		android:paddingBottom="@dimen/activity_vertical_margin">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/length_inch"
-            android:id="@+id/textView_length_inch"
-            android:labelFor="@+id/editText_length_inch"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+		<RelativeLayout
+			android:id="@+id/card_length_inch"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/card"
+			android:padding="15dp">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:digits="0123456789.-"
-            android:selectAllOnFocus="true"
-            android:ems="10"
-            android:id="@+id/editText_length_inch"
-            android:layout_below="@+id/textView_length_inch"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/length_inch"
+				android:id="@+id/textView_length_inch"
+				android:labelFor="@+id/editText_length_inch"
+				android:layout_alignParentTop="true"
+				android:layout_alignParentStart="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/length_foot"
-            android:id="@+id/textView_length_foot"
-            android:labelFor="@+id/editText_length_foot"
-            android:layout_below="@+id/editText_length_inch"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"/>
+			<EditText
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:inputType="numberDecimal"
+				android:digits="0123456789."
+				android:selectAllOnFocus="true"
+				android:ems="10"
+				android:id="@+id/editText_length_inch"
+				android:layout_below="@+id/textView_length_inch"
+				android:layout_alignParentStart="true"
+				android:layout_alignParentEnd="true" />
+		</RelativeLayout>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:digits="0123456789.-"
-            android:selectAllOnFocus="true"
-            android:ems="10"
-            android:id="@+id/editText_length_foot"
-            android:layout_below="@+id/textView_length_foot"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+		<RelativeLayout
+			android:id="@+id/card_length_foot"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/card_length_inch"
+			android:layout_marginTop="10dp"
+			android:background="@drawable/card"
+			android:padding="15dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/length_yard"
-            android:id="@+id/textView_length_yard"
-            android:labelFor="@+id/editText_length_yard"
-            android:layout_below="@+id/editText_length_foot"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/length_foot"
+				android:id="@+id/textView_length_foot"
+				android:labelFor="@+id/editText_length_foot"
+				android:layout_alignParentStart="true"
+				android:layout_marginTop="16dp"/>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:digits="0123456789.-"
-            android:selectAllOnFocus="true"
-            android:ems="10"
-            android:id="@+id/editText_length_yard"
-            android:layout_below="@+id/textView_length_yard"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+			<EditText
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:inputType="numberDecimal"
+				android:digits="0123456789."
+				android:selectAllOnFocus="true"
+				android:ems="10"
+				android:id="@+id/editText_length_foot"
+				android:layout_below="@+id/textView_length_foot"
+				android:layout_alignParentStart="true"
+				android:layout_alignParentEnd="true" />
+		</RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/length_mile"
-            android:id="@+id/textView_length_mile"
-            android:labelFor="@+id/editText_length_mile"
-            android:layout_below="@+id/editText_length_yard"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"/>
+		<RelativeLayout
+			android:id="@+id/card_length_yard"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/card_length_foot"
+			android:layout_marginTop="10dp"
+			android:background="@drawable/card"
+			android:padding="15dp">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:digits="0123456789.-"
-            android:selectAllOnFocus="true"
-            android:ems="10"
-            android:id="@+id/editText_length_mile"
-            android:layout_below="@+id/textView_length_mile"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/length_yard"
+				android:id="@+id/textView_length_yard"
+				android:labelFor="@+id/editText_length_yard"
+				android:layout_alignParentStart="true"
+				android:layout_marginTop="16dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/length_millimeter"
-            android:id="@+id/textView_length_millimeter"
-            android:labelFor="@+id/editText_length_millimeter"
-            android:layout_below="@+id/editText_length_mile"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"/>
+			<EditText
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:inputType="numberDecimal"
+				android:digits="0123456789."
+				android:selectAllOnFocus="true"
+				android:ems="10"
+				android:id="@+id/editText_length_yard"
+				android:layout_below="@+id/textView_length_yard"
+				android:layout_alignParentStart="true"
+				android:layout_alignParentEnd="true" />
+		</RelativeLayout>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:digits="0123456789.-"
-            android:selectAllOnFocus="true"
-            android:ems="10"
-            android:id="@+id/editText_length_millimeter"
-            android:layout_below="@+id/textView_length_millimeter"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+		<RelativeLayout
+			android:id="@+id/card_length_mile"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/card_length_yard"
+			android:layout_marginTop="10dp"
+			android:background="@drawable/card"
+			android:padding="15dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/length_centimeter"
-            android:id="@+id/textView_length_centimeter"
-            android:labelFor="@+id/editText_length_centimeter"
-            android:layout_below="@+id/editText_length_millimeter"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/length_mile"
+				android:id="@+id/textView_length_mile"
+				android:labelFor="@+id/editText_length_mile"
+				android:layout_alignParentStart="true"
+				android:layout_marginTop="16dp"/>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:digits="0123456789.-"
-            android:selectAllOnFocus="true"
-            android:ems="10"
-            android:id="@+id/editText_length_centimeter"
-            android:layout_below="@+id/textView_length_centimeter"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+			<EditText
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:inputType="numberDecimal"
+				android:digits="0123456789."
+				android:selectAllOnFocus="true"
+				android:ems="10"
+				android:id="@+id/editText_length_mile"
+				android:layout_below="@+id/textView_length_mile"
+				android:layout_alignParentStart="true"
+				android:layout_alignParentEnd="true" />
+		</RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/length_meter"
-            android:id="@+id/textView_length_meter"
-            android:labelFor="@+id/editText_length_meter"
-            android:layout_below="@+id/editText_length_centimeter"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"/>
+		<RelativeLayout
+			android:id="@+id/card_length_millimeter"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/card_length_mile"
+			android:layout_marginTop="10dp"
+			android:background="@drawable/card"
+			android:padding="15dp">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:digits="0123456789.-"
-            android:selectAllOnFocus="true"
-            android:ems="10"
-            android:id="@+id/editText_length_meter"
-            android:layout_below="@+id/textView_length_meter"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/length_millimeter"
+				android:id="@+id/textView_length_millimeter"
+				android:labelFor="@+id/editText_length_millimeter"
+				android:layout_alignParentStart="true"
+				android:layout_marginTop="16dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/length_kilometer"
-            android:id="@+id/textView_length_kilometer"
-            android:labelFor="@+id/editText_length_kilometer"
-            android:layout_below="@+id/editText_length_meter"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"/>
+			<EditText
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:inputType="numberDecimal"
+				android:digits="0123456789."
+				android:selectAllOnFocus="true"
+				android:ems="10"
+				android:id="@+id/editText_length_millimeter"
+				android:layout_below="@+id/textView_length_millimeter"
+				android:layout_alignParentStart="true"
+				android:layout_alignParentEnd="true" />
+		</RelativeLayout>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:digits="0123456789.-"
-            android:selectAllOnFocus="true"
-            android:ems="10"
-            android:id="@+id/editText_length_kilometer"
-            android:layout_below="@+id/textView_length_kilometer"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+		<RelativeLayout
+			android:id="@+id/card_length_centimeter"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/card_length_millimeter"
+			android:layout_marginTop="10dp"
+			android:background="@drawable/card"
+			android:padding="15dp">
 
-    </RelativeLayout>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/length_centimeter"
+				android:id="@+id/textView_length_centimeter"
+				android:labelFor="@+id/editText_length_centimeter"
+				android:layout_alignParentStart="true"
+				android:layout_marginTop="16dp"/>
+
+			<EditText
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:inputType="numberDecimal"
+				android:digits="0123456789."
+				android:selectAllOnFocus="true"
+				android:ems="10"
+				android:id="@+id/editText_length_centimeter"
+				android:layout_below="@+id/textView_length_centimeter"
+				android:layout_alignParentStart="true"
+				android:layout_alignParentEnd="true" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/card_length_meter"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/card_length_centimeter"
+			android:layout_marginTop="10dp"
+			android:background="@drawable/card"
+			android:padding="15dp">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/length_meter"
+				android:id="@+id/textView_length_meter"
+				android:labelFor="@+id/editText_length_meter"
+				android:layout_alignParentStart="true"
+				android:layout_marginTop="16dp"/>
+
+			<EditText
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:inputType="numberDecimal"
+				android:digits="0123456789."
+				android:selectAllOnFocus="true"
+				android:ems="10"
+				android:id="@+id/editText_length_meter"
+				android:layout_below="@+id/textView_length_meter"
+				android:layout_alignParentStart="true"
+				android:layout_alignParentEnd="true" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/card_length_kilometer"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/card_length_meter"
+			android:layout_marginTop="10dp"
+			android:background="@drawable/card"
+			android:padding="15dp">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/length_kilometer"
+				android:id="@+id/textView_length_kilometer"
+				android:labelFor="@+id/editText_length_kilometer"
+				android:layout_alignParentStart="true"
+				android:layout_marginTop="16dp"/>
+
+			<EditText
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:inputType="numberDecimal"
+				android:digits="0123456789."
+				android:selectAllOnFocus="true"
+				android:ems="10"
+				android:id="@+id/editText_length_kilometer"
+				android:layout_below="@+id/textView_length_kilometer"
+				android:layout_alignParentStart="true"
+				android:layout_alignParentEnd="true" />
+		</RelativeLayout>
+
+	</RelativeLayout>
 </ScrollView>

@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/card"
             android:padding="15dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,6 +52,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/card"
             android:padding="15dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,6 +84,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/card"
             android:padding="15dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

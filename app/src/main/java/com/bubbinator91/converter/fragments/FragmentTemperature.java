@@ -164,7 +164,7 @@ public class FragmentTemperature extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (DEBUG)
-            Log.d(TAG + "onCreateView()", "Entered onCreateView()");
+            Log.d(TAG, "Entered onCreateView()");
 
         View rootView = inflater.inflate(R.layout.fragment_temperature, container, false);
 
