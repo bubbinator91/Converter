@@ -1,7 +1,9 @@
 package com.bubbinator91.converter.fragments;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,14 +16,20 @@ import android.widget.TextView;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.Util;
 
+import java.math.BigDecimal;
+
 /**
  * mph, ft/s, m/s, kph, knot
  * Conversions taken from https://en.wikipedia.org/wiki/Miles_per_hour
  */
 
 public class FragmentSpeed extends Fragment {
-    private final boolean DEBUG = false;
+    private boolean DEBUG = false;
     private final String TAG = "FragmentSpeed";
+
+	private SharedPreferences mPrefs;
+
+	private int fieldLength = -1;
 
     private EditText editTextFps, editTextKnot, editTextKph, editTextMps, editTextMph;
 
@@ -42,16 +50,31 @@ public class FragmentSpeed extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double fps = Double.parseDouble(s.toString());
-                            double mph = ((fps * 60.0 * 60.0) / 5280.0);
-                            double mps = (fps * .3048);
-                            double kph = (fps * 1.09728);
-                            double knot = (fps * .592484);
+							BigDecimal fps = new BigDecimal(s.toString());
+							BigDecimal mph = fps.multiply(new BigDecimal(60*60))
+													 .divide(new BigDecimal("5280")
+																	, fieldLength
+																	, BigDecimal.ROUND_HALF_UP);
+							BigDecimal mps = fps.multiply(new BigDecimal("0.3048"));
+							BigDecimal kph = fps.multiply(new BigDecimal("1.09728"));
+							BigDecimal knot = fps.multiply(new BigDecimal(".592484"));
 
-                            editTextKnot.setText(Double.toString(knot), TextView.BufferType.EDITABLE);
-                            editTextKph.setText(Double.toString(kph), TextView.BufferType.EDITABLE);
-                            editTextMps.setText(Double.toString(mps), TextView.BufferType.EDITABLE);
-                            editTextMph.setText(Double.toString(mph), TextView.BufferType.EDITABLE);
+                            editTextKnot.setText(knot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+                            editTextKph.setText(kph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+                            editTextMps.setText(mps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+                            editTextMph.setText(mph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -100,16 +123,30 @@ public class FragmentSpeed extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double knot = Double.parseDouble(s.toString());
-                            double fps = (knot / .592484);
-                            double mph = (knot * 1.150779);
-                            double mps = (knot * .514444);
-                            double kph = (knot * 1.852);
+							BigDecimal knot = new BigDecimal(s.toString());
+							BigDecimal fps = knot.divide(new BigDecimal(".592484")
+																, fieldLength
+																, BigDecimal.ROUND_HALF_UP);
+							BigDecimal mph = knot.multiply(new BigDecimal("1.150779"));
+							BigDecimal mps = knot.multiply(new BigDecimal(".514444"));
+							BigDecimal kph = knot.multiply(new BigDecimal("1.852"));
 
-                            editTextFps.setText(Double.toString(fps), TextView.BufferType.EDITABLE);
-                            editTextKph.setText(Double.toString(kph), TextView.BufferType.EDITABLE);
-                            editTextMps.setText(Double.toString(mps), TextView.BufferType.EDITABLE);
-                            editTextMph.setText(Double.toString(mph), TextView.BufferType.EDITABLE);
+                            editTextFps.setText(fps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+                            editTextKph.setText(kph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+                            editTextMps.setText(mps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+                            editTextMph.setText(mph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -317,6 +354,21 @@ public class FragmentSpeed extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		if (DEBUG)
+			Log.d(TAG, "Entered onCreateView()");
+
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+		if (mPrefs != null) {
+			fieldLength = mPrefs.getInt(Util.PREFERENCE_FIELD_LENGTH, -1);
+			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == 1)
+				DEBUG = true;
+			else
+				DEBUG = false;
+		}
+		if (fieldLength == -1)
+			fieldLength = 8;
+
         View rootView = inflater.inflate(R.layout.fragment_speed, container, false);
 
         editTextFps = ((EditText)rootView.findViewById(R.id.editText_speed_fps));

@@ -1,7 +1,9 @@
 package com.bubbinator91.converter.fragments;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,9 +16,15 @@ import android.widget.TextView;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.Util;
 
+import java.math.BigDecimal;
+
 public class FragmentTemperature extends Fragment {
-    private final boolean DEBUG = false;
+    private boolean DEBUG = false;
     private final String TAG = "FragmentTemperature";
+
+	private SharedPreferences mPrefs;
+
+	private int fieldLength = -1;
 
     private EditText editTextCelsius, editTextFahrenheit, editTextKelvin;
 
@@ -35,12 +43,19 @@ public class FragmentTemperature extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double c = Double.parseDouble(s.toString());
-                            double f = (((9.0 / 5.0) * c) + 32.0);
-                            double k = c + 273.15;
+							BigDecimal celsius = new BigDecimal(s.toString());
+							BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
+															.add(new BigDecimal("32"));
+							BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
 
-                            editTextFahrenheit.setText(Double.toString(f), TextView.BufferType.EDITABLE);
-                            editTextKelvin.setText(Double.toString(k), TextView.BufferType.EDITABLE);
+                            editTextFahrenheit.setText(fahrenheit.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
+                            editTextKelvin.setText(kelvin.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														   .stripTrailingZeros()
+														   .toPlainString()
+														  , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -82,12 +97,19 @@ public class FragmentTemperature extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double f = Double.parseDouble(s.toString());
-                            double c = ((f - 32.0) * (5.0 / 9.0));
-                            double k = c + 273.15;
+							BigDecimal fahrenheit = new BigDecimal(s.toString());
+							BigDecimal celsius = fahrenheit.subtract(new BigDecimal("32"))
+														 .multiply(new BigDecimal(5.0 / 9.0));
+							BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
 
-                            editTextCelsius.setText(Double.toString(c), TextView.BufferType.EDITABLE);
-                            editTextKelvin.setText(Double.toString(k), TextView.BufferType.EDITABLE);
+                            editTextCelsius.setText(celsius.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															.stripTrailingZeros()
+															.toPlainString()
+														   , TextView.BufferType.EDITABLE);
+                            editTextKelvin.setText(kelvin.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														   .stripTrailingZeros()
+														   .toPlainString()
+														  , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -129,12 +151,19 @@ public class FragmentTemperature extends Fragment {
                 if (s != null) {
                     if (Util.isNumeric(s.toString())) {
                         try {
-                            double k = Double.parseDouble(s.toString());
-                            double c = k - 273.15;
-                            double f = (((9.0 / 5.0) * c) + 32.0);
+							BigDecimal kelvin = new BigDecimal(s.toString());
+							BigDecimal celsius = kelvin.subtract(new BigDecimal("273.15"));
+							BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
+															.add(new BigDecimal("32"));
 
-                            editTextFahrenheit.setText(Double.toString(f), TextView.BufferType.EDITABLE);
-                            editTextCelsius.setText(Double.toString(c), TextView.BufferType.EDITABLE);
+                            editTextFahrenheit.setText(celsius.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															   .stripTrailingZeros()
+															   .toString()
+															  , TextView.BufferType.EDITABLE);
+                            editTextCelsius.setText(fahrenheit.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+															.stripTrailingZeros()
+															.toString()
+														   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
@@ -165,6 +194,18 @@ public class FragmentTemperature extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (DEBUG)
             Log.d(TAG, "Entered onCreateView()");
+
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+		if (mPrefs != null) {
+			fieldLength = mPrefs.getInt(Util.PREFERENCE_FIELD_LENGTH, -1);
+			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == 1)
+				DEBUG = true;
+			else
+				DEBUG = false;
+		}
+		if (fieldLength == -1)
+			fieldLength = 8;
 
         View rootView = inflater.inflate(R.layout.fragment_temperature, container, false);
 

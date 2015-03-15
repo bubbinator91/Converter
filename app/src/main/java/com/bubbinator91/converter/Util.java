@@ -163,6 +163,9 @@ import android.text.Editable;
  */
 
 public class Util {
+	public static String PREFERENCE_DEBUG = "is_debug_enabled";
+	public static String PREFERENCE_FIELD_LENGTH = "field_length";
+
     public Util() {}
 
     /**

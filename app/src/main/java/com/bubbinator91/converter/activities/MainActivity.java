@@ -1,6 +1,8 @@
 package com.bubbinator91.converter.activities;
 
+import android.app.ActivityOptions;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.Util;
 import com.bubbinator91.converter.fragments.FragmentDataTransferSpeed;
 import com.bubbinator91.converter.fragments.FragmentLength;
 import com.bubbinator91.converter.fragments.FragmentSpeed;
@@ -26,6 +29,7 @@ import com.bubbinator91.converter.fragments.FragmentTemperature;
 import java.lang.reflect.Field;
 
 public class MainActivity extends BaseActivity {
+	private  boolean DEBUG = false;
     private final String TAG = "MainActivity";
 
     private DrawerLayout mDrawerLayout;
@@ -39,7 +43,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG + ".onCreate", "Entered onCreate");
+		if (DEBUG)
+        	Log.d(TAG + ".onCreate", "Entered onCreate");
         super.onCreate(savedInstanceState);
         setActionBarIcon(R.drawable.ic_drawer);
 
@@ -56,6 +61,22 @@ public class MainActivity extends BaseActivity {
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if (mPrefs != null) {
+			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == -1) {
+				SharedPreferences.Editor editor = mPrefs.edit();
+				editor.putInt(Util.PREFERENCE_DEBUG, 0);
+				editor.apply();
+				DEBUG = false;
+			}
+
+			int fieldLength = mPrefs.getInt(Util.PREFERENCE_FIELD_LENGTH, -1);
+			if (fieldLength == -1) {
+				SharedPreferences.Editor editor = mPrefs.edit();
+				editor.putInt(Util.PREFERENCE_FIELD_LENGTH, 8);
+				editor.apply();
+			}
+		}
+
         TextView toolbarTitle = getToolbarTextView();
         if (toolbarTitle != null) {
             Typeface font = Typeface.create("sans-serif", Typeface.NORMAL);
@@ -65,31 +86,45 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        Log.d(TAG + ".onResume", "Entered onResume");
+		if (DEBUG)
+			Log.d(TAG + ".onResume", "Entered onResume");
         super.onResume();
         if (mPrefs != null) {
-            Log.d(TAG + ".onResume", "mPrefs is not null");
+			if (DEBUG)
+            	Log.d(TAG + ".onResume", "mPrefs is not null");
             lastSelectedPosition = mPrefs.getInt(STATE_SELECTED_POSITION, -1);
-            Log.d(TAG + ".onResume", "lastSelectedPosition = " + lastSelectedPosition);
+			if (DEBUG) {
+				Log.d(TAG + ".onResume", "lastSelectedPosition = " + lastSelectedPosition);
+				Log.d(TAG + ".onResume", "fieldLength = " + mPrefs.getInt(Util.PREFERENCE_FIELD_LENGTH, -1));
+			}
             if (lastSelectedPosition >= 0)
                 selectDrawerItem(lastSelectedPosition);
+			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == 1)
+				DEBUG = true;
+			else
+				DEBUG = false;
         } else {
-            Log.d(TAG + ".onResume", "mPrefs is null");
+			if (DEBUG)
+            	Log.d(TAG + ".onResume", "mPrefs is null");
         }
     }
 
     @Override
     protected void onPause() {
-        Log.d(TAG + ".onPause", "Entered onPause");
+		if (DEBUG)
+        	Log.d(TAG + ".onPause", "Entered onPause");
         super.onPause();
         if (mPrefs != null) {
-            Log.d(TAG + ".onPause", "mPrefs is not null");
-            Log.d(TAG + ".onPause", "lastSelectedPosition = " + lastSelectedPosition);
+			if (DEBUG) {
+				Log.d(TAG + ".onPause", "mPrefs is not null");
+				Log.d(TAG + ".onPause", "lastSelectedPosition = " + lastSelectedPosition);
+			}
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putInt(STATE_SELECTED_POSITION, lastSelectedPosition);
             editor.apply();
         } else {
-            Log.d(TAG + ".onPause", "mPrefs is null");
+			if (DEBUG)
+            	Log.d(TAG + ".onPause", "mPrefs is null");
         }
     }
 
@@ -100,26 +135,33 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d(TAG + ".onCreateOptionsMenu", "Entered onCreateOptionsMenu");
+		if (DEBUG)
+        	Log.d(TAG + ".onCreateOptionsMenu", "Entered onCreateOptionsMenu");
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d(TAG + ".onOptionsItemSelected", "Entered onOptionsItemSelected");
+		if (DEBUG)
+        	Log.d(TAG + ".onOptionsItemSelected", "Entered onOptionsItemSelected");
         switch(item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(Gravity.START);
                 return true;
+			case R.id.action_settings:
+				Intent intent = new Intent(this, SettingsActivity.class);
+				startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+				return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     private void selectDrawerItem(int position) {
-        Log.d(TAG + ".selectDrawerItem", "Entered selectDrawerItem");
+		if (DEBUG)
+        	Log.d(TAG + ".selectDrawerItem", "Entered selectDrawerItem");
         FragmentManager fragmentManager = getFragmentManager();
         boolean flag = true;
         switch (position) {
@@ -169,7 +211,8 @@ public class MainActivity extends BaseActivity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            Log.d(TAG + ".DrawerItemClickListener.onItemClick", "Entered onItemClick");
+			if (DEBUG)
+            	Log.d(TAG + ".DrawerItemClickListener.onItemClick", "Entered onItemClick");
             selectDrawerItem(position);
         }
     }
