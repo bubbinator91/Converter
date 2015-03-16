@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 		if (DEBUG)
-        	Log.d(TAG + ".onCreate", "Entered onCreate");
+        	Log.d(TAG + ".onCreate", "Entered");
         super.onCreate(savedInstanceState);
         setActionBarIcon(R.drawable.ic_drawer);
 
@@ -87,11 +87,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
 		if (DEBUG)
-			Log.d(TAG + ".onResume", "Entered onResume");
+			Log.d(TAG + ".onResume", "Entered");
         super.onResume();
         if (mPrefs != null) {
 			if (DEBUG)
-            	Log.d(TAG + ".onResume", "mPrefs is not null");
+            	Log.d(TAG + ".onResume", "mPrefs != null");
             lastSelectedPosition = mPrefs.getInt(STATE_SELECTED_POSITION, -1);
 			if (DEBUG) {
 				Log.d(TAG + ".onResume", "lastSelectedPosition = " + lastSelectedPosition);
@@ -101,22 +101,20 @@ public class MainActivity extends BaseActivity {
                 selectDrawerItem(lastSelectedPosition);
 			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == 1)
 				DEBUG = true;
-			else
-				DEBUG = false;
         } else {
 			if (DEBUG)
-            	Log.d(TAG + ".onResume", "mPrefs is null");
+            	Log.d(TAG + ".onResume", "mPrefs == null");
         }
     }
 
     @Override
     protected void onPause() {
 		if (DEBUG)
-        	Log.d(TAG + ".onPause", "Entered onPause");
+        	Log.d(TAG + ".onPause", "Entered");
         super.onPause();
         if (mPrefs != null) {
 			if (DEBUG) {
-				Log.d(TAG + ".onPause", "mPrefs is not null");
+				Log.d(TAG + ".onPause", "mPrefs != null");
 				Log.d(TAG + ".onPause", "lastSelectedPosition = " + lastSelectedPosition);
 			}
             SharedPreferences.Editor editor = mPrefs.edit();
@@ -124,7 +122,7 @@ public class MainActivity extends BaseActivity {
             editor.apply();
         } else {
 			if (DEBUG)
-            	Log.d(TAG + ".onPause", "mPrefs is null");
+            	Log.d(TAG + ".onPause", "mPrefs == null");
         }
     }
 
@@ -136,7 +134,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 		if (DEBUG)
-        	Log.d(TAG + ".onCreateOptionsMenu", "Entered onCreateOptionsMenu");
+        	Log.d(TAG + ".onCreateOptionsMenu", "Entered");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -145,7 +143,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 		if (DEBUG)
-        	Log.d(TAG + ".onOptionsItemSelected", "Entered onOptionsItemSelected");
+        	Log.d(TAG + ".onOptionsItemSelected", "Entered");
         switch(item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(Gravity.START);
@@ -161,24 +159,28 @@ public class MainActivity extends BaseActivity {
 
     private void selectDrawerItem(int position) {
 		if (DEBUG)
-        	Log.d(TAG + ".selectDrawerItem", "Entered selectDrawerItem");
+        	Log.d(TAG + ".selectDrawerItem", "Entered");
         FragmentManager fragmentManager = getFragmentManager();
         boolean flag = true;
         switch (position) {
             case 0:
-                fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                fragmentManager.beginTransaction()
+						//.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                         .replace(R.id.container, new FragmentDataTransferSpeed()).commit();
                 break;
             case 1:
-                fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                fragmentManager.beginTransaction()
+						//.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                         .replace(R.id.container, new FragmentLength()).commit();
                 break;
             case 2:
-                fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                fragmentManager.beginTransaction()
+						//.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                         .replace(R.id.container, new FragmentSpeed()).commit();
                 break;
             case 3:
-                fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                fragmentManager.beginTransaction()
+						//.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                         .replace(R.id.container, new FragmentTemperature()).commit();
                 break;
             default:
@@ -191,6 +193,10 @@ public class MainActivity extends BaseActivity {
             mDrawerList.setItemChecked(position, true);
             mToolbar.setTitle(mDrawerItems[position]);
             mDrawerLayout.closeDrawer(mDrawerList);
+
+			SharedPreferences.Editor editor = mPrefs.edit();
+			editor.putInt(STATE_SELECTED_POSITION, lastSelectedPosition);
+			editor.apply();
         }
     }
 
@@ -212,7 +218,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
 			if (DEBUG)
-            	Log.d(TAG + ".DrawerItemClickListener.onItemClick", "Entered onItemClick");
+            	Log.d(TAG + ".DrawerItemClickListener.onItemClick", "Entered");
             selectDrawerItem(position);
         }
     }

@@ -21,7 +21,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 public class FragmentDataTransferSpeed extends Fragment {
-	private final boolean DEBUG = true;
+	private boolean DEBUG = false;
 	private final String TAG = "FragmentDataTransferSpeed";
 
 	private SharedPreferences mPrefs;
@@ -64,15 +64,42 @@ public class FragmentDataTransferSpeed extends Fragment {
 							BigDecimal tbps = bps.multiply(new BigDecimal("0.000000000001"));
 							BigDecimal tbyps = bps.multiply(new BigDecimal("0.000000000000125"));
 
-							editTextByps.setText(byps.stripTrailingZeros().toString(), TextView.BufferType.EDITABLE);
-							editTextKbps.setText(kbps.stripTrailingZeros().toString(), TextView.BufferType.EDITABLE);
-							editTextKbyps.setText(kbyps.stripTrailingZeros().toString(), TextView.BufferType.EDITABLE);
-							editTextMbps.setText(mbps.stripTrailingZeros().toString(), TextView.BufferType.EDITABLE);
-							editTextMbyps.setText(mbyps.stripTrailingZeros().toString(), TextView.BufferType.EDITABLE);
-							editTextGbps.setText(gbps.stripTrailingZeros().toString(), TextView.BufferType.EDITABLE);
-							editTextGbyps.setText(gbyps.stripTrailingZeros().toString(), TextView.BufferType.EDITABLE);
-							editTextTbps.setText(tbps.stripTrailingZeros().toString(), TextView.BufferType.EDITABLE);
-							editTextTbyps.setText(tbyps.stripTrailingZeros().toString(), TextView.BufferType.EDITABLE);
+							editTextByps.setText(byps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+							editTextKbps.setText(kbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbyps.setText(kbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextMbps.setText(mbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMbyps.setText(mbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextGbps.setText(gbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextGbyps.setText(gbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextTbps.setText(tbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextTbyps.setText(tbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
 							if (DEBUG)
 								e.printStackTrace();
@@ -90,6 +117,11 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbps.setText("", TextView.BufferType.EDITABLE);
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
+
+			if (DEBUG && (s != null))
+				Log.d(TAG + ".textWatcherBps.s.after", s.toString());
+			else if (DEBUG && (s == null))
+				Log.d(TAG + ".textWatcherBps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -143,15 +175,42 @@ public class FragmentDataTransferSpeed extends Fragment {
 							BigDecimal tbps = byps.multiply(new BigDecimal("0.000000000008"));
 							BigDecimal tbyps = byps.multiply(new BigDecimal("0.000000000001"));
 
-							editTextBps.setText(bps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextKbps.setText(kbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextKbyps.setText(kbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextMbps.setText(mbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextMbyps.setText(mbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextGbps.setText(gbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextGbyps.setText(gbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextTbps.setText(tbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextTbyps.setText(tbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
+							editTextBps.setText(bps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+							editTextKbps.setText(kbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbyps.setText(kbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextMbps.setText(mbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMbyps.setText(mbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextGbps.setText(gbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextGbyps.setText(gbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextTbps.setText(tbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextTbyps.setText(tbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
 							if (DEBUG)
 								e.printStackTrace();
@@ -169,6 +228,11 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbps.setText("", TextView.BufferType.EDITABLE);
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
+
+			if (DEBUG && (s != null))
+				Log.d(TAG + ".textWatcherByps.s.after", s.toString());
+			else if (DEBUG && (s == null))
+				Log.d(TAG + ".textWatcherByps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -222,15 +286,42 @@ public class FragmentDataTransferSpeed extends Fragment {
 							BigDecimal tbps = kbps.multiply(new BigDecimal("0.000000001"));
 							BigDecimal tbyps = kbps.multiply(new BigDecimal("0.000000000125"));
 
-							editTextBps.setText(bps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextByps.setText(byps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextKbyps.setText(kbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextMbps.setText(mbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextMbyps.setText(mbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextGbps.setText(gbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextGbyps.setText(gbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextTbps.setText(tbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextTbyps.setText(tbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
+							editTextBps.setText(bps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+							editTextByps.setText(byps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbyps.setText(kbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMbps.setText(mbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMbyps.setText(mbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextGbps.setText(gbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextGbyps.setText(gbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextTbps.setText(tbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextTbyps.setText(tbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
 							if (DEBUG)
 								e.printStackTrace();
@@ -248,6 +339,11 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbps.setText("", TextView.BufferType.EDITABLE);
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
+
+			if (DEBUG && (s != null))
+				Log.d(TAG + ".textWatcherKbps.s.after", s.toString());
+			else if (DEBUG && (s == null))
+				Log.d(TAG + ".textWatcherKbps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -301,15 +397,42 @@ public class FragmentDataTransferSpeed extends Fragment {
 							BigDecimal tbps = kbyps.multiply(new BigDecimal("0.000000008"));
 							BigDecimal tbyps = kbyps.multiply(new BigDecimal("0.000000001"));
 
-							editTextBps.setText(bps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextByps.setText(byps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextKbps.setText(kbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextMbps.setText(mbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextMbyps.setText(mbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextGbps.setText(gbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextGbyps.setText(gbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextTbps.setText(tbps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
-							editTextTbyps.setText(tbyps.stripTrailingZeros().toPlainString(), TextView.BufferType.EDITABLE);
+							editTextBps.setText(bps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+							editTextByps.setText(byps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbps.setText(kbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMbps.setText(mbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextMbyps.setText(mbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextGbps.setText(gbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextGbyps.setText(gbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextTbps.setText(tbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextTbyps.setText(tbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
 							if (DEBUG)
 								e.printStackTrace();
@@ -327,6 +450,11 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbps.setText("", TextView.BufferType.EDITABLE);
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
+
+			if (DEBUG && (s != null))
+				Log.d(TAG + ".textWatcherKbyps.s.after", s.toString());
+			else if (DEBUG && (s == null))
+				Log.d(TAG + ".textWatcherKbyps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -361,7 +489,83 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			// conversion code here
+			if (DEBUG)
+				Log.d(TAG + ".textWatcherMbps.s.before", s.toString());
+
+			if (s.length() != 0) {
+				s = Util.sanitizeEditable(s);
+				if (s != null) {
+					if (Util.isNumeric(s.toString())) {
+						try {
+							BigDecimal mbps = new BigDecimal(s.toString());
+							BigDecimal bps = mbps.multiply(new BigDecimal("1000000"));
+							BigDecimal byps = mbps.multiply(new BigDecimal("125000"));
+							BigDecimal kbps = mbps.multiply(new BigDecimal("1000"));
+							BigDecimal kbyps = mbps.multiply(new BigDecimal("125"));
+							BigDecimal mbyps = mbps.multiply(new BigDecimal("0.125"));
+							BigDecimal gbps = mbps.multiply(new BigDecimal("0.001"));
+							BigDecimal gbyps = mbps.multiply(new BigDecimal("0.000125"));
+							BigDecimal tbps = mbps.multiply(new BigDecimal("0.000001"));
+							BigDecimal tbyps = mbps.multiply(new BigDecimal("0.000000125"));
+
+							editTextBps.setText(bps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+							editTextByps.setText(byps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbps.setText(kbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbyps.setText(kbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextMbyps.setText(mbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextGbps.setText(gbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextGbyps.setText(gbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextTbps.setText(tbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextTbyps.setText(tbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+						} catch (NumberFormatException e) {
+							if (DEBUG)
+								e.printStackTrace();
+						}
+					}
+				}
+			} else {
+				editTextBps.setText("", TextView.BufferType.EDITABLE);
+				editTextByps.setText("", TextView.BufferType.EDITABLE);
+				editTextKbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
+			}
+
+			if (DEBUG && (s != null))
+				Log.d(TAG + ".textWatcherMbps.s.after", s.toString());
+			else if (DEBUG && (s == null))
+				Log.d(TAG + ".textWatcherMbps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -396,7 +600,83 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			// conversion code here
+			if (DEBUG)
+				Log.d(TAG + ".textWatcherMbyps.s.before", s.toString());
+
+			if (s.length() != 0) {
+				s = Util.sanitizeEditable(s);
+				if (s != null) {
+					if (Util.isNumeric(s.toString())) {
+						try {
+							BigDecimal mbyps = new BigDecimal(s.toString());
+							BigDecimal bps = mbyps.multiply(new BigDecimal("8000000"));
+							BigDecimal byps = mbyps.multiply(new BigDecimal("1000000"));
+							BigDecimal kbps = mbyps.multiply(new BigDecimal("8000"));
+							BigDecimal kbyps = mbyps.multiply(new BigDecimal("1000"));
+							BigDecimal mbps = mbyps.multiply(new BigDecimal("8"));
+							BigDecimal gbps = mbyps.multiply(new BigDecimal("0.008"));
+							BigDecimal gbyps = mbyps.multiply(new BigDecimal("0.001"));
+							BigDecimal tbps = mbyps.multiply(new BigDecimal("0.000008"));
+							BigDecimal tbyps = mbyps.multiply(new BigDecimal("0.000001"));
+
+							editTextBps.setText(bps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+							editTextByps.setText(byps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbps.setText(kbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbyps.setText(kbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextMbps.setText(mbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextGbps.setText(gbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextGbyps.setText(gbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextTbps.setText(tbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextTbyps.setText(tbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+						} catch (NumberFormatException e) {
+							if (DEBUG)
+								e.printStackTrace();
+						}
+					}
+				}
+			} else {
+				editTextBps.setText("", TextView.BufferType.EDITABLE);
+				editTextByps.setText("", TextView.BufferType.EDITABLE);
+				editTextKbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
+			}
+
+			if (DEBUG && (s != null))
+				Log.d(TAG + ".textWatcherMbyps.s.after", s.toString());
+			else if (DEBUG && (s == null))
+				Log.d(TAG + ".textWatcherMbyps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -431,7 +711,83 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			// conversion code here
+			if (DEBUG)
+				Log.d(TAG + ".textWatcherGbps.s.before", s.toString());
+
+			if (s.length() != 0) {
+				s = Util.sanitizeEditable(s);
+				if (s != null) {
+					if (Util.isNumeric(s.toString())) {
+						try {
+							BigDecimal gbps = new BigDecimal(s.toString());
+							BigDecimal bps = gbps.multiply(new BigDecimal("1000000000"));
+							BigDecimal byps = gbps.multiply(new BigDecimal("125000000"));
+							BigDecimal kbps = gbps.multiply(new BigDecimal("1000000"));
+							BigDecimal kbyps = gbps.multiply(new BigDecimal("125000"));
+							BigDecimal mbps = gbps.multiply(new BigDecimal("1000"));
+							BigDecimal mbyps = gbps.multiply(new BigDecimal("125"));
+							BigDecimal gbyps = gbps.multiply(new BigDecimal("0.125"));
+							BigDecimal tbps = gbps.multiply(new BigDecimal("0.001"));
+							BigDecimal tbyps = gbps.multiply(new BigDecimal("0.000125"));
+
+							editTextBps.setText(bps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+							editTextByps.setText(byps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbps.setText(kbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbyps.setText(kbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextMbps.setText(mbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMbyps.setText(mbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextGbyps.setText(gbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextTbps.setText(tbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextTbyps.setText(tbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+						} catch (NumberFormatException e) {
+							if (DEBUG)
+								e.printStackTrace();
+						}
+					}
+				}
+			} else {
+				editTextBps.setText("", TextView.BufferType.EDITABLE);
+				editTextByps.setText("", TextView.BufferType.EDITABLE);
+				editTextKbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
+			}
+
+			if (DEBUG && (s != null))
+				Log.d(TAG + ".textWatcherGbps.s.after", s.toString());
+			else if (DEBUG && (s == null))
+				Log.d(TAG + ".textWatcherGbps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -466,7 +822,83 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			// conversion code here
+			if (DEBUG)
+				Log.d(TAG + ".textWatcherGbyps.s.before", s.toString());
+
+			if (s.length() != 0) {
+				s = Util.sanitizeEditable(s);
+				if (s != null) {
+					if (Util.isNumeric(s.toString())) {
+						try {
+							BigDecimal gbyps = new BigDecimal(s.toString());
+							BigDecimal bps = gbyps.multiply(new BigDecimal("8000000000"));
+							BigDecimal byps = gbyps.multiply(new BigDecimal("1000000000"));
+							BigDecimal kbps = gbyps.multiply(new BigDecimal("8000000"));
+							BigDecimal kbyps = gbyps.multiply(new BigDecimal("1000000"));
+							BigDecimal mbps = gbyps.multiply(new BigDecimal("8000"));
+							BigDecimal mbyps = gbyps.multiply(new BigDecimal("1000"));
+							BigDecimal gbps = gbyps.multiply(new BigDecimal("8"));
+							BigDecimal tbps = gbyps.multiply(new BigDecimal("0.008"));
+							BigDecimal tbyps = gbyps.multiply(new BigDecimal("0.001"));
+
+							editTextBps.setText(bps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+							editTextByps.setText(byps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbps.setText(kbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbyps.setText(kbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextMbps.setText(mbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMbyps.setText(mbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextGbps.setText(gbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextTbps.setText(tbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextTbyps.setText(tbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+						} catch (NumberFormatException e) {
+							if (DEBUG)
+								e.printStackTrace();
+						}
+					}
+				}
+			} else {
+				editTextBps.setText("", TextView.BufferType.EDITABLE);
+				editTextByps.setText("", TextView.BufferType.EDITABLE);
+				editTextKbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
+			}
+
+			if (DEBUG && (s != null))
+				Log.d(TAG + ".textWatcherGbyps.s.after", s.toString());
+			else if (DEBUG && (s == null))
+				Log.d(TAG + ".textWatcherGbyps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -501,7 +933,83 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			// conversion code here
+			if (DEBUG)
+				Log.d(TAG + ".textWatcherTbps.s.before", s.toString());
+
+			if (s.length() != 0) {
+				s = Util.sanitizeEditable(s);
+				if (s != null) {
+					if (Util.isNumeric(s.toString())) {
+						try {
+							BigDecimal tbps = new BigDecimal(s.toString());
+							BigDecimal bps = tbps.multiply(new BigDecimal("1000000000000"));
+							BigDecimal byps = tbps.multiply(new BigDecimal("125000000000"));
+							BigDecimal kbps = tbps.multiply(new BigDecimal("1000000000"));
+							BigDecimal kbyps = tbps.multiply(new BigDecimal("125000000"));
+							BigDecimal mbps = tbps.multiply(new BigDecimal("1000000"));
+							BigDecimal mbyps = tbps.multiply(new BigDecimal("125000"));
+							BigDecimal gbps = tbps.multiply(new BigDecimal("1000"));
+							BigDecimal gbyps = tbps.multiply(new BigDecimal("125"));
+							BigDecimal tbyps = tbps.multiply(new BigDecimal("0.125"));
+
+							editTextBps.setText(bps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+							editTextByps.setText(byps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbps.setText(kbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbyps.setText(kbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextMbps.setText(mbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMbyps.setText(mbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextGbps.setText(gbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextGbyps.setText(gbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextTbyps.setText(tbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+						} catch (NumberFormatException e) {
+							if (DEBUG)
+								e.printStackTrace();
+						}
+					}
+				}
+			} else {
+				editTextBps.setText("", TextView.BufferType.EDITABLE);
+				editTextByps.setText("", TextView.BufferType.EDITABLE);
+				editTextKbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
+			}
+
+			if (DEBUG && (s != null))
+				Log.d(TAG + ".textWatcherTbps.s.after", s.toString());
+			else if (DEBUG && (s == null))
+				Log.d(TAG + ".textWatcherTbps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -536,7 +1044,83 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			// conversion code here
+			if (DEBUG)
+				Log.d(TAG + ".textWatcherTbyps.s.before", s.toString());
+
+			if (s.length() != 0) {
+				s = Util.sanitizeEditable(s);
+				if (s != null) {
+					if (Util.isNumeric(s.toString())) {
+						try {
+							BigDecimal tbyps = new BigDecimal(s.toString());
+							BigDecimal bps = tbyps.multiply(new BigDecimal("8000000000000"));
+							BigDecimal byps = tbyps.multiply(new BigDecimal("1000000000000"));
+							BigDecimal kbps = tbyps.multiply(new BigDecimal("8000000000"));
+							BigDecimal kbyps = tbyps.multiply(new BigDecimal("1000000000"));
+							BigDecimal mbps = tbyps.multiply(new BigDecimal("8000000"));
+							BigDecimal mbyps = tbyps.multiply(new BigDecimal("1000000"));
+							BigDecimal gbps = tbyps.multiply(new BigDecimal("8000"));
+							BigDecimal gbyps = tbyps.multiply(new BigDecimal("1000"));
+							BigDecimal tbps = tbyps.multiply(new BigDecimal("8"));
+
+							editTextBps.setText(bps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+							editTextByps.setText(byps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbps.setText(kbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextKbyps.setText(kbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextMbps.setText(mbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextMbyps.setText(mbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextGbps.setText(gbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														 .stripTrailingZeros()
+														 .toPlainString()
+														, TextView.BufferType.EDITABLE);
+							editTextGbyps.setText(gbyps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+							editTextTbps.setText(tbps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+														  .stripTrailingZeros()
+														  .toPlainString()
+														 , TextView.BufferType.EDITABLE);
+						} catch (NumberFormatException e) {
+							if (DEBUG)
+								e.printStackTrace();
+						}
+					}
+				}
+			} else {
+				editTextBps.setText("", TextView.BufferType.EDITABLE);
+				editTextByps.setText("", TextView.BufferType.EDITABLE);
+				editTextKbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbps.setText("", TextView.BufferType.EDITABLE);
+				editTextMbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbps.setText("", TextView.BufferType.EDITABLE);
+				editTextGbyps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbps.setText("", TextView.BufferType.EDITABLE);
+				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
+			}
+
+			if (DEBUG && (s != null))
+				Log.d(TAG + ".textWatcherTbyps.s.after", s.toString());
+			else if (DEBUG && (s == null))
+				Log.d(TAG + ".textWatcherTbyps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -564,8 +1148,11 @@ public class FragmentDataTransferSpeed extends Fragment {
 
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-		if (mPrefs != null)
+		if (mPrefs != null) {
 			fieldLength = mPrefs.getInt(Util.PREFERENCE_FIELD_LENGTH, -1);
+			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == 1)
+				DEBUG = true;
+		}
 		if (fieldLength == -1)
 			fieldLength = 8;
 

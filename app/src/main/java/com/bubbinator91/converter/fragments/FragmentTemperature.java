@@ -167,12 +167,12 @@ public class FragmentTemperature extends Fragment {
 
                             editTextCelsius.setText(celsius.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
 															.stripTrailingZeros()
-															.toString()
+															.toPlainString()
 														   , TextView.BufferType.EDITABLE);
                             editTextFahrenheit.setText(fahrenheit.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
-															.stripTrailingZeros()
-															.toString()
-														   , TextView.BufferType.EDITABLE);
+															   .stripTrailingZeros()
+															   .toPlainString()
+															  , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
                             if (DEBUG)
                                 e.printStackTrace();
