@@ -1,9 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
-import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.Util;
+import com.bubbinator91.converter.util.Utils;
 
 import java.math.BigDecimal;
 
@@ -23,13 +20,8 @@ import java.math.BigDecimal;
  * Conversions comply with the conversions through Google.com
  */
 
-public class FragmentSpeed extends Fragment {
-    private boolean DEBUG = false;
+public class SpeedFragment extends BaseFragment {
     private final String TAG = "FragmentSpeed";
-
-	private SharedPreferences mPrefs;
-
-	private int fieldLength = -1;
 
     private EditText editTextFps, editTextKnot, editTextKph, editTextMps, editTextMph;
 
@@ -42,13 +34,13 @@ public class FragmentSpeed extends Fragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherFps.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal fps = new BigDecimal(s.toString());
 							BigDecimal mph = fps.multiply(new BigDecimal(60*60))
@@ -76,7 +68,7 @@ public class FragmentSpeed extends Fragment {
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -88,9 +80,9 @@ public class FragmentSpeed extends Fragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherFps.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherFps.s.after", "null");
 
             editTextFps.addTextChangedListener(textWatcherFps);
@@ -115,13 +107,13 @@ public class FragmentSpeed extends Fragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherKnot.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal knot = new BigDecimal(s.toString());
 							BigDecimal fps = knot.divide(new BigDecimal(".592484")
@@ -148,7 +140,7 @@ public class FragmentSpeed extends Fragment {
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -160,9 +152,9 @@ public class FragmentSpeed extends Fragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherKnot.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherKnot.s.after", "null");
 
             editTextFps.addTextChangedListener(textWatcherFps);
@@ -187,13 +179,13 @@ public class FragmentSpeed extends Fragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherKph.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal kph = new BigDecimal(s.toString());
 							BigDecimal fps = kph.divide(new BigDecimal("1.09728")
@@ -226,7 +218,7 @@ public class FragmentSpeed extends Fragment {
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -238,9 +230,9 @@ public class FragmentSpeed extends Fragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherKph.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherKph.s.after", "null");
 
             editTextFps.addTextChangedListener(textWatcherFps);
@@ -265,13 +257,13 @@ public class FragmentSpeed extends Fragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherMps.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal mps = new BigDecimal(s.toString());
 							BigDecimal fps = mps.divide(new BigDecimal("0.3048")
@@ -302,7 +294,7 @@ public class FragmentSpeed extends Fragment {
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -314,9 +306,9 @@ public class FragmentSpeed extends Fragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherMps.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherMps.s.after", "null");
 
             editTextFps.addTextChangedListener(textWatcherFps);
@@ -341,13 +333,13 @@ public class FragmentSpeed extends Fragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherMph.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal mph = new BigDecimal(s.toString());
 							BigDecimal fps = mph.multiply(new BigDecimal("5280"))
@@ -380,7 +372,7 @@ public class FragmentSpeed extends Fragment {
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -392,9 +384,9 @@ public class FragmentSpeed extends Fragment {
                 editTextMps.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherMph.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherMph.s.after", "null");
 
             editTextFps.addTextChangedListener(textWatcherFps);
@@ -412,33 +404,31 @@ public class FragmentSpeed extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if (DEBUG)
+		if (Utils.isDebugEnabled(getActivity()))
 			Log.d(TAG + ".onCreateView", "Entered");
 
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
-		if (mPrefs != null) {
-			fieldLength = mPrefs.getInt(Util.PREFERENCE_FIELD_LENGTH, -1);
-			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == 1)
-				DEBUG = true;
+		if (rootView != null) {
+			editTextFps = ((EditText) rootView.findViewById(R.id.editText_speed_fps));
+			editTextKnot = ((EditText) rootView.findViewById(R.id.editText_speed_knot));
+			editTextKph = ((EditText) rootView.findViewById(R.id.editText_speed_kph));
+			editTextMps = ((EditText) rootView.findViewById(R.id.editText_speed_mps));
+			editTextMph = ((EditText) rootView.findViewById(R.id.editText_speed_mph));
+
+			editTextFps.addTextChangedListener(textWatcherFps);
+			editTextKnot.addTextChangedListener(textWatcherKnot);
+			editTextKph.addTextChangedListener(textWatcherKph);
+			editTextMps.addTextChangedListener(textWatcherMps);
+			editTextMph.addTextChangedListener(textWatcherMph);
 		}
-		if (fieldLength == -1)
-			fieldLength = 8;
-
-        View rootView = inflater.inflate(R.layout.fragment_speed, container, false);
-
-        editTextFps = ((EditText) rootView.findViewById(R.id.editText_speed_fps));
-        editTextKnot = ((EditText) rootView.findViewById(R.id.editText_speed_knot));
-        editTextKph = ((EditText) rootView.findViewById(R.id.editText_speed_kph));
-        editTextMps = ((EditText) rootView.findViewById(R.id.editText_speed_mps));
-        editTextMph = ((EditText) rootView.findViewById(R.id.editText_speed_mph));
-
-        editTextFps.addTextChangedListener(textWatcherFps);
-        editTextKnot.addTextChangedListener(textWatcherKnot);
-        editTextKph.addTextChangedListener(textWatcherKph);
-        editTextMps.addTextChangedListener(textWatcherMps);
-        editTextMph.addTextChangedListener(textWatcherMph);
 
         return rootView;
     }
+
+	@Override
+	protected int getLayoutResource() { return R.layout.fragment_speed; }
+
+	@Override
+	protected int getScrollViewResource() { return  R.id.fragment_speed; }
 }

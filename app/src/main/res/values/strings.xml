@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Converter</string>
-    <string name="action_settings">Settings</string>
+	<string name="app_name">Converter</string>
+	<string name="action_settings">Settings</string>
 
-    <string name="title_data_transfer_speed">Data Transfer Speed</string>
-    <string name="title_length">Length</string>
-    <string name="title_speed">Speed</string>
-    <string name="title_temperature">Temperature</string>
+	<string name="title_data_transfer_speed">Data Transfer Speed</string>
+	<string name="title_length">Length</string>
+	<string name="title_speed">Speed</string>
+	<string name="title_temperature">Temperature</string>
 	<string name="title_activity_settings">Settings</string>
 
-    <string name="data_transfer_speed_bps">Bits per second (bps):</string>
-    <string name="data_transfer_speed_byps">Bytes per second (Bps):</string>
-    <string name="data_transfer_speed_kbps">Kilobits per second (Kbps):</string>
-    <string name="data_transfer_speed_kbyps">Kilobytes per second (KBps):</string>
-    <string name="data_transfer_speed_mbps">Megabits per second (Mbps):</string>
-    <string name="data_transfer_speed_mbyps">Megabytes per second (MBps):</string>
-    <string name="data_transfer_speed_gbps">Gigabits per second (Gbps):</string>
-    <string name="data_transfer_speed_gbyps">Gigabytes per second (GBps):</string>
-    <string name="data_transfer_speed_tbps">Terabits per second (Tbps):</string>
-    <string name="data_transfer_speed_tbyps">Terabytes per second (TBps):</string>
+	<string name="data_transfer_speed_bps">Bits per second (bps):</string>
+	<string name="data_transfer_speed_byps">Bytes per second (Bps):</string>
+	<string name="data_transfer_speed_kbps">Kilobits per second (Kbps):</string>
+	<string name="data_transfer_speed_kbyps">Kilobytes per second (KBps):</string>
+	<string name="data_transfer_speed_mbps">Megabits per second (Mbps):</string>
+	<string name="data_transfer_speed_mbyps">Megabytes per second (MBps):</string>
+	<string name="data_transfer_speed_gbps">Gigabits per second (Gbps):</string>
+	<string name="data_transfer_speed_gbyps">Gigabytes per second (GBps):</string>
+	<string name="data_transfer_speed_tbps">Terabits per second (Tbps):</string>
+	<string name="data_transfer_speed_tbyps">Terabytes per second (TBps):</string>
 
-    <string name="length_inch">Inch (in):</string>
-    <string name="length_foot">Foot (ft):</string>
-    <string name="length_yard">Yard (yd):</string>
-    <string name="length_mile">Mile (mi):</string>
-    <string name="length_millimeter">Millimeter (mm):</string>
-    <string name="length_centimeter">Centimeter (cm):</string>
-    <string name="length_meter">Meter (m):</string>
-    <string name="length_kilometer">Kilometer (km):</string>
+	<string name="length_inch">Inch (in):</string>
+	<string name="length_foot">Foot (ft):</string>
+	<string name="length_yard">Yard (yd):</string>
+	<string name="length_mile">Mile (mi):</string>
+	<string name="length_millimeter">Millimeter (mm):</string>
+	<string name="length_centimeter">Centimeter (cm):</string>
+	<string name="length_meter">Meter (m):</string>
+	<string name="length_kilometer">Kilometer (km):</string>
 
-    <string name="speed_fps">Feet/Second (fps):</string>
-    <string name="speed_knot">Knot:</string>
-    <string name="speed_kph">Kilometer/Hour (kph):</string>
-    <string name="speed_mps">Meter/Second (mps):</string>
-    <string name="speed_mph">Mile/Hour (mph):</string>
+	<string name="speed_fps">Feet/Second (fps):</string>
+	<string name="speed_knot">Knot:</string>
+	<string name="speed_kph">Kilometer/Hour (kph):</string>
+	<string name="speed_mps">Meter/Second (mps):</string>
+	<string name="speed_mph">Mile/Hour (mph):</string>
 
-    <string name="temperature_celsius">Celsius:</string>
-    <string name="temperature_kelvin">Kelvin:</string>
-    <string name="temperature_fahrenheit">Fahrenheit:</string>
+	<string name="temperature_celsius">Celsius:</string>
+	<string name="temperature_kelvin">Kelvin:</string>
+	<string name="temperature_fahrenheit">Fahrenheit:</string>
 
-    <string-array name="drawer_list_labels">
-        <item>Data Transfer Speed</item>
-        <item>Length</item>
-        <item>Speed</item>
-        <item>Temperature</item>
-    </string-array>
+	<string-array name="drawer_list_labels">
+		<item>Data Transfer Speed</item>
+		<item>Length</item>
+		<item>Speed</item>
+		<item>Temperature</item>
+	</string-array>
 
 	<string name="activity_settings_debug">Debug mode</string>
 	<string name="activity_settings_length">Field length</string>

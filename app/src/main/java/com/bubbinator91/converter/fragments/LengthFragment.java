@@ -1,9 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
-import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.Util;
+import com.bubbinator91.converter.util.Utils;
 
 import java.math.BigDecimal;
 
@@ -23,13 +20,8 @@ import java.math.BigDecimal;
  * Conversions comply with the conversions through Google.com
  */
 
-public class FragmentLength extends Fragment {
-    private boolean DEBUG = false;
+public class LengthFragment extends BaseFragment {
     private final String TAG = "FragmentLength";
-
-	private SharedPreferences mPrefs;
-
-	private int fieldLength = -1;
 
     private EditText editTextInch, editTextFoot, editTextYard, editTextMile, editTextMillimeter,
                     editTextCentimeter, editTextMeter, editTextKilometer;
@@ -46,13 +38,13 @@ public class FragmentLength extends Fragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherInch.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal inch = new BigDecimal(s.toString());
 							BigDecimal foot = inch.divide(new BigDecimal("12")
@@ -104,7 +96,7 @@ public class FragmentLength extends Fragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -119,9 +111,9 @@ public class FragmentLength extends Fragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherInch.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherInch.s.after", "null");
 
             editTextInch.addTextChangedListener(textWatcherInch);
@@ -153,13 +145,13 @@ public class FragmentLength extends Fragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherFoot.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal foot = new BigDecimal(s.toString());
 							BigDecimal inch = foot.multiply(new BigDecimal("12"));
@@ -209,7 +201,7 @@ public class FragmentLength extends Fragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -224,9 +216,9 @@ public class FragmentLength extends Fragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherFoot.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherFoot.s.after", "null");
 
             editTextInch.addTextChangedListener(textWatcherInch);
@@ -258,13 +250,13 @@ public class FragmentLength extends Fragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherYard.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal yard = new BigDecimal(s.toString());
 							BigDecimal inch = yard.multiply(new BigDecimal("36"));
@@ -312,7 +304,7 @@ public class FragmentLength extends Fragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -327,9 +319,9 @@ public class FragmentLength extends Fragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherYard.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherYard.s.after", "null");
 
             editTextInch.addTextChangedListener(textWatcherInch);
@@ -361,13 +353,13 @@ public class FragmentLength extends Fragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherMile.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal mile = new BigDecimal(s.toString());
 							BigDecimal inch = mile.multiply(new BigDecimal("63360"));
@@ -413,7 +405,7 @@ public class FragmentLength extends Fragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -428,9 +420,9 @@ public class FragmentLength extends Fragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherMile.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherMile.s.after", "null");
 
             editTextInch.addTextChangedListener(textWatcherInch);
@@ -462,13 +454,13 @@ public class FragmentLength extends Fragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherMillimeter.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal millimeter = new BigDecimal(s.toString());
 							BigDecimal inch = millimeter.multiply(new BigDecimal("0.03937007874015748031496062992126"));
@@ -516,7 +508,7 @@ public class FragmentLength extends Fragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -531,9 +523,9 @@ public class FragmentLength extends Fragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherMillimeter.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherMillimeter.s.after", "null");
 
             editTextInch.addTextChangedListener(textWatcherInch);
@@ -565,13 +557,13 @@ public class FragmentLength extends Fragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherCentimeter.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal centimeter = new BigDecimal(s.toString());
 							BigDecimal inch = centimeter.multiply(new BigDecimal("0.3937007874015748031496062992126"));
@@ -617,7 +609,7 @@ public class FragmentLength extends Fragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -632,9 +624,9 @@ public class FragmentLength extends Fragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherCentimeter.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherCentimeter.s.after", "null");
 
             editTextInch.addTextChangedListener(textWatcherInch);
@@ -666,13 +658,13 @@ public class FragmentLength extends Fragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherMeter.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal meter = new BigDecimal(s.toString());
 							BigDecimal inch = meter.multiply(new BigDecimal("39.37007874015748031496062992126"));
@@ -716,7 +708,7 @@ public class FragmentLength extends Fragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -731,9 +723,9 @@ public class FragmentLength extends Fragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherMeter.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherMeter.s.after", "null");
 
             editTextInch.addTextChangedListener(textWatcherInch);
@@ -765,13 +757,13 @@ public class FragmentLength extends Fragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherKilometer.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal kilometer = new BigDecimal(s.toString());
 							BigDecimal inch = kilometer.multiply(new BigDecimal("39370.07874015748031496062992126"));
@@ -813,7 +805,7 @@ public class FragmentLength extends Fragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -828,9 +820,9 @@ public class FragmentLength extends Fragment {
                 editTextMeter.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (DEBUG && (s != null))
+            if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherKilometer.s.after", s.toString());
-            else if (DEBUG && (s == null))
+            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
                 Log.d(TAG + ".textWatcherKilometer.s.after", "null");
 
             editTextInch.addTextChangedListener(textWatcherInch);
@@ -852,20 +844,10 @@ public class FragmentLength extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if (DEBUG)
-			Log.d(TAG + "onCreateView", "Entered");
+		if (Utils.isDebugEnabled(getActivity()))
+			Log.d(TAG + ".onCreateView", "Entered");
 
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-		if (mPrefs != null) {
-			fieldLength = mPrefs.getInt(Util.PREFERENCE_FIELD_LENGTH, -1);
-			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == 1)
-				DEBUG = true;
-		}
-		if (fieldLength == -1)
-			fieldLength = 8;
-
-        View rootView = inflater.inflate(R.layout.fragment_length, container, false);
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
         editTextInch = ((EditText) rootView.findViewById(R.id.editText_length_inch));
         editTextFoot = ((EditText) rootView.findViewById(R.id.editText_length_foot));
@@ -887,4 +869,10 @@ public class FragmentLength extends Fragment {
 
         return rootView;
     }
+
+	@Override
+	protected int getLayoutResource() { return R.layout.fragment_length; }
+
+	@Override
+	protected int getScrollViewResource() { return  R.id.fragment_length; }
 }

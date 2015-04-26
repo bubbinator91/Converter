@@ -1,5 +1,8 @@
-package com.bubbinator91.converter;
+package com.bubbinator91.converter.util;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 
 /**
@@ -162,11 +165,32 @@ import android.text.Editable;
  *  -imperial gallons per minute (gpm)
  */
 
-public class Util {
+public class Utils {
 	public static String PREFERENCE_DEBUG = "is_debug_enabled";
 	public static String PREFERENCE_FIELD_LENGTH = "field_length";
+	public static String PREFERENCE_TRANS_TO_SETTINGS = "transitioned_to_settings";
 
-    public Util() {}
+	public static SharedPreferences PREFS = null;
+
+    public Utils() {}
+
+	public static boolean isDebugEnabled(Context context) {
+		if (context != null) {
+			PREFS = PreferenceManager.getDefaultSharedPreferences(context);
+			if (PREFS.getInt(Utils.PREFERENCE_DEBUG, -1) == -1) {
+				SharedPreferences.Editor editor = PREFS.edit();
+				editor.putInt(Utils.PREFERENCE_DEBUG, 0);
+				editor.apply();
+				return false;
+			} else if (PREFS.getInt(Utils.PREFERENCE_DEBUG, -1) == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			throw new NullPointerException("Context parameter cannot be null");
+		}
+	}
 
     /**
      * Method that sanitizes the incoming Editable to filter

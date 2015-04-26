@@ -1,9 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
-import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.Util;
+import com.bubbinator91.converter.util.Utils;
 
 import java.math.BigDecimal;
 
@@ -23,13 +20,8 @@ import java.math.BigDecimal;
  * Conversions comply with the conversions through Google.com
  */
 
-public class FragmentTemperature extends Fragment {
-    private boolean DEBUG = false;
+public class TemperatureFragment extends BaseFragment {
     private final String TAG = "FragmentTemperature";
-
-	private SharedPreferences mPrefs;
-
-	private int fieldLength = -1;
 
     private EditText editTextCelsius, editTextFahrenheit, editTextKelvin;
 
@@ -40,13 +32,13 @@ public class FragmentTemperature extends Fragment {
             editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
             editTextKelvin.removeTextChangedListener(textWatcherKelvin);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherCelsius.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal celsius = new BigDecimal(s.toString());
 							BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
@@ -62,7 +54,7 @@ public class FragmentTemperature extends Fragment {
 														   .toPlainString()
 														  , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -72,9 +64,9 @@ public class FragmentTemperature extends Fragment {
                 editTextKelvin.setText("", TextView.BufferType.EDITABLE);
             }
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
                 Log.d(TAG + ".textWatcherCelsius.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherCelsius.s.after", "null");
 
             editTextCelsius.addTextChangedListener(textWatcherCelsius);
@@ -96,13 +88,13 @@ public class FragmentTemperature extends Fragment {
             editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
             editTextKelvin.removeTextChangedListener(textWatcherKelvin);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherFahrenheit.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal fahrenheit = new BigDecimal(s.toString());
 							BigDecimal celsius = fahrenheit.subtract(new BigDecimal("32"))
@@ -118,7 +110,7 @@ public class FragmentTemperature extends Fragment {
 														   .toPlainString()
 														  , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -128,9 +120,9 @@ public class FragmentTemperature extends Fragment {
                 editTextKelvin.setText("", TextView.BufferType.EDITABLE);
             }
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherFahrenheit.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherFahrenheit.s.after", "null");
 
             editTextCelsius.addTextChangedListener(textWatcherCelsius);
@@ -152,13 +144,13 @@ public class FragmentTemperature extends Fragment {
             editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
             editTextKelvin.removeTextChangedListener(textWatcherKelvin);
 
-            if (DEBUG)
+            if (Utils.isDebugEnabled(getActivity()))
                 Log.d(TAG + ".textWatcherKelvin.s.before", s.toString());
 
             if (s.length() != 0) {
-                s = Util.sanitizeEditable(s);
+                s = Utils.sanitizeEditable(s);
                 if (s != null) {
-                    if (Util.isNumeric(s.toString())) {
+                    if (Utils.isNumeric(s.toString())) {
                         try {
 							BigDecimal kelvin = new BigDecimal(s.toString());
 							BigDecimal celsius = kelvin.subtract(new BigDecimal("273.15"));
@@ -174,7 +166,7 @@ public class FragmentTemperature extends Fragment {
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (DEBUG)
+                            if (Utils.isDebugEnabled(getActivity()))
                                 e.printStackTrace();
                         }
                     }
@@ -184,9 +176,9 @@ public class FragmentTemperature extends Fragment {
                 editTextFahrenheit.setText("", TextView.BufferType.EDITABLE);
             }
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherKelvin.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherKelvin.s.after", "null");
 
             editTextCelsius.addTextChangedListener(textWatcherCelsius);
@@ -203,29 +195,26 @@ public class FragmentTemperature extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (DEBUG)
+        if (Utils.isDebugEnabled(getActivity()))
             Log.d(TAG + "onCreateView", "Entered");
+		View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		if (rootView != null) {
+			editTextCelsius = ((EditText) rootView.findViewById(R.id.editText_temperature_celsius));
+			editTextFahrenheit = ((EditText) rootView.findViewById(R.id.editText_temperature_fahrenheit));
+			editTextKelvin = ((EditText) rootView.findViewById(R.id.editText_temperature_kelvin));
 
-		if (mPrefs != null) {
-			fieldLength = mPrefs.getInt(Util.PREFERENCE_FIELD_LENGTH, -1);
-			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == 1)
-				DEBUG = true;
+			editTextCelsius.addTextChangedListener(textWatcherCelsius);
+			editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
+			editTextKelvin.addTextChangedListener(textWatcherKelvin);
 		}
-		if (fieldLength == -1)
-			fieldLength = 8;
-
-        View rootView = inflater.inflate(R.layout.fragment_temperature, container, false);
-
-        editTextCelsius = ((EditText) rootView.findViewById(R.id.editText_temperature_celsius));
-        editTextFahrenheit = ((EditText) rootView.findViewById(R.id.editText_temperature_fahrenheit));
-        editTextKelvin = ((EditText) rootView.findViewById(R.id.editText_temperature_kelvin));
-
-        editTextCelsius.addTextChangedListener(textWatcherCelsius);
-        editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
-        editTextKelvin.addTextChangedListener(textWatcherKelvin);
 
         return rootView;
     }
+
+	@Override
+	protected int getLayoutResource() { return R.layout.fragment_temperature; }
+
+	@Override
+	protected int getScrollViewResource() { return R.id.fragment_temperature; }
 }

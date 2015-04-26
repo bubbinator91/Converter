@@ -1,9 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
-import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,19 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.Util;
+import com.bubbinator91.converter.util.Utils;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 
-public class FragmentDataTransferSpeed extends Fragment {
-	private boolean DEBUG = false;
+public class DataTransferSpeedFragment extends BaseFragment {
 	private final String TAG = "FragmentDataTransferSpeed";
-
-	private SharedPreferences mPrefs;
-
-	private int fieldLength = -1;
 
 	private EditText editTextBps, editTextByps, editTextKbps, editTextKbyps, editTextMbps,
 			editTextMbyps, editTextGbps, editTextGbyps, editTextTbps, editTextTbyps;
@@ -45,13 +35,13 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (DEBUG)
+			if (Utils.isDebugEnabled(getActivity()))
 				Log.d(TAG + ".textWatcherBps.s.before", s.toString());
 
 			if (s.length() != 0) {
-				s = Util.sanitizeEditable(s);
+				s = Utils.sanitizeEditable(s);
 				if (s != null) {
-					if (Util.isNumeric(s.toString())) {
+					if (Utils.isNumeric(s.toString())) {
 						try {
 							BigDecimal bps = new BigDecimal(s.toString());
 							BigDecimal byps = bps.multiply(new BigDecimal("0.125"));
@@ -101,7 +91,7 @@ public class FragmentDataTransferSpeed extends Fragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (DEBUG)
+							if (Utils.isDebugEnabled(getActivity()))
 								e.printStackTrace();
 						}
 					}
@@ -118,9 +108,9 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherBps.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherBps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
@@ -156,13 +146,13 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (DEBUG)
+			if (Utils.isDebugEnabled(getActivity()))
 				Log.d(TAG + ".textWatcherByps.s.before", s.toString());
 
 			if (s.length() != 0) {
-				s = Util.sanitizeEditable(s);
+				s = Utils.sanitizeEditable(s);
 				if (s != null) {
-					if (Util.isNumeric(s.toString())) {
+					if (Utils.isNumeric(s.toString())) {
 						try {
 							BigDecimal byps = new BigDecimal(s.toString());
 							BigDecimal bps = byps.multiply(new BigDecimal("8"));
@@ -212,7 +202,7 @@ public class FragmentDataTransferSpeed extends Fragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (DEBUG)
+							if (Utils.isDebugEnabled(getActivity()))
 								e.printStackTrace();
 						}
 					}
@@ -229,9 +219,9 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherByps.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherByps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
@@ -267,13 +257,13 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (DEBUG)
+			if (Utils.isDebugEnabled(getActivity()))
 				Log.d(TAG + ".textWatcherKbps.s.before", s.toString());
 
 			if (s.length() != 0) {
-				s = Util.sanitizeEditable(s);
+				s = Utils.sanitizeEditable(s);
 				if (s != null) {
-					if (Util.isNumeric(s.toString())) {
+					if (Utils.isNumeric(s.toString())) {
 						try {
 							BigDecimal kbps = new BigDecimal(s.toString());
 							BigDecimal bps = kbps.multiply(new BigDecimal("1000"));
@@ -323,7 +313,7 @@ public class FragmentDataTransferSpeed extends Fragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (DEBUG)
+							if (Utils.isDebugEnabled(getActivity()))
 								e.printStackTrace();
 						}
 					}
@@ -340,9 +330,9 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherKbps.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherKbps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
@@ -378,13 +368,13 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (DEBUG)
+			if (Utils.isDebugEnabled(getActivity()))
 				Log.d(TAG + ".textWatcherKbyps.s.before", s.toString());
 
 			if (s.length() != 0) {
-				s = Util.sanitizeEditable(s);
+				s = Utils.sanitizeEditable(s);
 				if (s != null) {
-					if (Util.isNumeric(s.toString())) {
+					if (Utils.isNumeric(s.toString())) {
 						try {
 							BigDecimal kbyps = new BigDecimal(s.toString());
 							BigDecimal bps = kbyps.multiply(new BigDecimal("8000"));
@@ -434,7 +424,7 @@ public class FragmentDataTransferSpeed extends Fragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (DEBUG)
+							if (Utils.isDebugEnabled(getActivity()))
 								e.printStackTrace();
 						}
 					}
@@ -451,9 +441,9 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherKbyps.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherKbyps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
@@ -489,13 +479,13 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (DEBUG)
+			if (Utils.isDebugEnabled(getActivity()))
 				Log.d(TAG + ".textWatcherMbps.s.before", s.toString());
 
 			if (s.length() != 0) {
-				s = Util.sanitizeEditable(s);
+				s = Utils.sanitizeEditable(s);
 				if (s != null) {
-					if (Util.isNumeric(s.toString())) {
+					if (Utils.isNumeric(s.toString())) {
 						try {
 							BigDecimal mbps = new BigDecimal(s.toString());
 							BigDecimal bps = mbps.multiply(new BigDecimal("1000000"));
@@ -545,7 +535,7 @@ public class FragmentDataTransferSpeed extends Fragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (DEBUG)
+							if (Utils.isDebugEnabled(getActivity()))
 								e.printStackTrace();
 						}
 					}
@@ -562,9 +552,9 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherMbps.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherMbps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
@@ -600,13 +590,13 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (DEBUG)
+			if (Utils.isDebugEnabled(getActivity()))
 				Log.d(TAG + ".textWatcherMbyps.s.before", s.toString());
 
 			if (s.length() != 0) {
-				s = Util.sanitizeEditable(s);
+				s = Utils.sanitizeEditable(s);
 				if (s != null) {
-					if (Util.isNumeric(s.toString())) {
+					if (Utils.isNumeric(s.toString())) {
 						try {
 							BigDecimal mbyps = new BigDecimal(s.toString());
 							BigDecimal bps = mbyps.multiply(new BigDecimal("8000000"));
@@ -656,7 +646,7 @@ public class FragmentDataTransferSpeed extends Fragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (DEBUG)
+							if (Utils.isDebugEnabled(getActivity()))
 								e.printStackTrace();
 						}
 					}
@@ -673,9 +663,9 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherMbyps.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherMbyps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
@@ -711,13 +701,13 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (DEBUG)
+			if (Utils.isDebugEnabled(getActivity()))
 				Log.d(TAG + ".textWatcherGbps.s.before", s.toString());
 
 			if (s.length() != 0) {
-				s = Util.sanitizeEditable(s);
+				s = Utils.sanitizeEditable(s);
 				if (s != null) {
-					if (Util.isNumeric(s.toString())) {
+					if (Utils.isNumeric(s.toString())) {
 						try {
 							BigDecimal gbps = new BigDecimal(s.toString());
 							BigDecimal bps = gbps.multiply(new BigDecimal("1000000000"));
@@ -767,7 +757,7 @@ public class FragmentDataTransferSpeed extends Fragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (DEBUG)
+							if (Utils.isDebugEnabled(getActivity()))
 								e.printStackTrace();
 						}
 					}
@@ -784,9 +774,9 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherGbps.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherGbps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
@@ -822,13 +812,13 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (DEBUG)
+			if (Utils.isDebugEnabled(getActivity()))
 				Log.d(TAG + ".textWatcherGbyps.s.before", s.toString());
 
 			if (s.length() != 0) {
-				s = Util.sanitizeEditable(s);
+				s = Utils.sanitizeEditable(s);
 				if (s != null) {
-					if (Util.isNumeric(s.toString())) {
+					if (Utils.isNumeric(s.toString())) {
 						try {
 							BigDecimal gbyps = new BigDecimal(s.toString());
 							BigDecimal bps = gbyps.multiply(new BigDecimal("8000000000"));
@@ -878,7 +868,7 @@ public class FragmentDataTransferSpeed extends Fragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (DEBUG)
+							if (Utils.isDebugEnabled(getActivity()))
 								e.printStackTrace();
 						}
 					}
@@ -895,9 +885,9 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherGbyps.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherGbyps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
@@ -933,13 +923,13 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (DEBUG)
+			if (Utils.isDebugEnabled(getActivity()))
 				Log.d(TAG + ".textWatcherTbps.s.before", s.toString());
 
 			if (s.length() != 0) {
-				s = Util.sanitizeEditable(s);
+				s = Utils.sanitizeEditable(s);
 				if (s != null) {
-					if (Util.isNumeric(s.toString())) {
+					if (Utils.isNumeric(s.toString())) {
 						try {
 							BigDecimal tbps = new BigDecimal(s.toString());
 							BigDecimal bps = tbps.multiply(new BigDecimal("1000000000000"));
@@ -989,7 +979,7 @@ public class FragmentDataTransferSpeed extends Fragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (DEBUG)
+							if (Utils.isDebugEnabled(getActivity()))
 								e.printStackTrace();
 						}
 					}
@@ -1006,9 +996,9 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherTbps.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherTbps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
@@ -1044,13 +1034,13 @@ public class FragmentDataTransferSpeed extends Fragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (DEBUG)
+			if (Utils.isDebugEnabled(getActivity()))
 				Log.d(TAG + ".textWatcherTbyps.s.before", s.toString());
 
 			if (s.length() != 0) {
-				s = Util.sanitizeEditable(s);
+				s = Utils.sanitizeEditable(s);
 				if (s != null) {
-					if (Util.isNumeric(s.toString())) {
+					if (Utils.isNumeric(s.toString())) {
 						try {
 							BigDecimal tbyps = new BigDecimal(s.toString());
 							BigDecimal bps = tbyps.multiply(new BigDecimal("8000000000000"));
@@ -1100,7 +1090,7 @@ public class FragmentDataTransferSpeed extends Fragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (DEBUG)
+							if (Utils.isDebugEnabled(getActivity()))
 								e.printStackTrace();
 						}
 					}
@@ -1117,9 +1107,9 @@ public class FragmentDataTransferSpeed extends Fragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (DEBUG && (s != null))
+			if (Utils.isDebugEnabled(getActivity()) && (s != null))
 				Log.d(TAG + ".textWatcherTbyps.s.after", s.toString());
-			else if (DEBUG && (s == null))
+			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
 				Log.d(TAG + ".textWatcherTbyps.s.after", "null");
 
 			editTextBps.addTextChangedListener(textWatcherBps);
@@ -1143,43 +1133,41 @@ public class FragmentDataTransferSpeed extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if (DEBUG)
+		if (Utils.isDebugEnabled(getActivity()))
 			Log.d(TAG, "Entered onCreateView");
 
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
-		if (mPrefs != null) {
-			fieldLength = mPrefs.getInt(Util.PREFERENCE_FIELD_LENGTH, -1);
-			if (mPrefs.getInt(Util.PREFERENCE_DEBUG, -1) == 1)
-				DEBUG = true;
+		if (rootView != null) {
+			editTextBps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_bps));
+			editTextByps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_byps));
+			editTextKbps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_kbps));
+			editTextKbyps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_kbyps));
+			editTextMbps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_mbps));
+			editTextMbyps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_mbyps));
+			editTextGbps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_gbps));
+			editTextGbyps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_gbyps));
+			editTextTbps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_tbps));
+			editTextTbyps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_tbyps));
+
+			editTextBps.addTextChangedListener(textWatcherBps);
+			editTextByps.addTextChangedListener(textWatcherByps);
+			editTextKbps.addTextChangedListener(textWatcherKbps);
+			editTextKbyps.addTextChangedListener(textWatcherKbyps);
+			editTextMbps.addTextChangedListener(textWatcherMbps);
+			editTextMbyps.addTextChangedListener(textWatcherMbyps);
+			editTextGbps.addTextChangedListener(textWatcherGbps);
+			editTextGbyps.addTextChangedListener(textWatcherGbyps);
+			editTextTbps.addTextChangedListener(textWatcherTbps);
+			editTextTbyps.addTextChangedListener(textWatcherTbyps);
 		}
-		if (fieldLength == -1)
-			fieldLength = 8;
-
-		View rootView = inflater.inflate(R.layout.fragment_data_transfer_speed, container, false);
-
-		editTextBps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_bps));
-		editTextByps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_byps));
-		editTextKbps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_kbps));
-		editTextKbyps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_kbyps));
-		editTextMbps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_mbps));
-		editTextMbyps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_mbyps));
-		editTextGbps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_gbps));
-		editTextGbyps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_gbyps));
-		editTextTbps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_tbps));
-		editTextTbyps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_tbyps));
-
-		editTextBps.addTextChangedListener(textWatcherBps);
-		editTextByps.addTextChangedListener(textWatcherByps);
-		editTextKbps.addTextChangedListener(textWatcherKbps);
-		editTextKbyps.addTextChangedListener(textWatcherKbyps);
-		editTextMbps.addTextChangedListener(textWatcherMbps);
-		editTextMbyps.addTextChangedListener(textWatcherMbyps);
-		editTextGbps.addTextChangedListener(textWatcherGbps);
-		editTextGbyps.addTextChangedListener(textWatcherGbyps);
-		editTextTbps.addTextChangedListener(textWatcherTbps);
-		editTextTbyps.addTextChangedListener(textWatcherTbyps);
 
         return rootView;
     }
+
+	@Override
+	protected int getLayoutResource() { return R.layout.fragment_data_transfer_speed; }
+
+	@Override
+	protected int getScrollViewResource() { return  R.id.fragment_dts; }
 }

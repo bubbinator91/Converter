@@ -5,11 +5,11 @@
 	android:layout_height="match_parent"
 	android:background="@color/windowBackgroundColor"
 	android:fitsSystemWindows="true"
-	tools:context="com.bubbinator91.converter.activities.SettingsActivity">
+	tools:context=".SettingsActivity">
 
 	<include
 		android:id="@+id/toolbar"
-		layout="@layout/toolbar" />
+		layout="@layout/util_toolbar"/>
 
 	<RelativeLayout
 		android:id="@+id/activity_settings_layout"
@@ -30,7 +30,7 @@
 			android:layout_alignParentTop="true"
 			android:layout_alignParentStart="true"
 			android:layout_alignParentEnd="true"
-			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textAppearance="@style/AppTheme.TextAppearanceLarge"
 			android:onClick="onDebugSwitchToggled"/>
 
 		<TextView
@@ -38,7 +38,7 @@
 			android:labelFor="@+id/editText_activity_settings_length"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textAppearance="@style/AppTheme.TextAppearanceLarge"
 			android:text="@string/activity_settings_length"
 			android:layout_below="@+id/activity_settings_switch_debug"
 			android:layout_alignParentStart="true"
@@ -53,9 +53,8 @@
 			android:selectAllOnFocus="true"
 			android:ems="10"
 			android:layout_alignParentEnd="true"
-			android:layout_alignBottom="@+id/textView_activity_settings_length"
-			/>
-	</RelativeLayout>
+			android:layout_alignBottom="@+id/textView_activity_settings_length"/>
 
+	</RelativeLayout>
 
 </RelativeLayout>
