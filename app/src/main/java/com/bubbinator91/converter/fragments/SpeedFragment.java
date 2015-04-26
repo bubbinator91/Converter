@@ -34,8 +34,9 @@ public class SpeedFragment extends BaseFragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherFps.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherFps.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -68,8 +69,9 @@ public class SpeedFragment extends BaseFragment {
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -80,10 +82,11 @@ public class SpeedFragment extends BaseFragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherFps.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherFps.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherFps.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherFps.s.after", "null");
+			}
 
             editTextFps.addTextChangedListener(textWatcherFps);
             editTextKnot.addTextChangedListener(textWatcherKnot);
@@ -107,8 +110,9 @@ public class SpeedFragment extends BaseFragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherKnot.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherKnot.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -140,8 +144,9 @@ public class SpeedFragment extends BaseFragment {
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -152,10 +157,11 @@ public class SpeedFragment extends BaseFragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherKnot.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherKnot.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherKnot.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherKnot.s.after", "null");
+			}
 
             editTextFps.addTextChangedListener(textWatcherFps);
             editTextKnot.addTextChangedListener(textWatcherKnot);
@@ -179,8 +185,9 @@ public class SpeedFragment extends BaseFragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherKph.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherKph.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -218,8 +225,9 @@ public class SpeedFragment extends BaseFragment {
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -230,10 +238,11 @@ public class SpeedFragment extends BaseFragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherKph.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherKph.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherKph.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherKph.s.after", "null");
+			}
 
             editTextFps.addTextChangedListener(textWatcherFps);
             editTextKnot.addTextChangedListener(textWatcherKnot);
@@ -257,8 +266,9 @@ public class SpeedFragment extends BaseFragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherMps.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherMps.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -294,8 +304,9 @@ public class SpeedFragment extends BaseFragment {
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -306,10 +317,11 @@ public class SpeedFragment extends BaseFragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherMps.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherMps.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherMps.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherMps.s.after", "null");
+			}
 
             editTextFps.addTextChangedListener(textWatcherFps);
             editTextKnot.addTextChangedListener(textWatcherKnot);
@@ -333,8 +345,9 @@ public class SpeedFragment extends BaseFragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherMph.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherMph.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -372,8 +385,9 @@ public class SpeedFragment extends BaseFragment {
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -384,10 +398,11 @@ public class SpeedFragment extends BaseFragment {
                 editTextMps.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherMph.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherMph.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherMph.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherMph.s.after", "null");
+			}
 
             editTextFps.addTextChangedListener(textWatcherFps);
             editTextKnot.addTextChangedListener(textWatcherKnot);
@@ -404,8 +419,9 @@ public class SpeedFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if (Utils.isDebugEnabled(getActivity()))
+		if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 			Log.d(TAG + ".onCreateView", "Entered");
+		}
 
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
 

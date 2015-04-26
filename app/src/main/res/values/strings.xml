@@ -46,8 +46,14 @@
 		<item>Temperature</item>
 	</string-array>
 
-	<string name="activity_settings_debug">Debug mode</string>
-	<string name="activity_settings_length">Field length</string>
+	<string name="activity_settings_debug">Debug</string>
+	<string name="activity_settings_debug_summary">Turn on debugging</string>
+	<string name="activity_settings_decimal">Decimal Places</string>
+	<string name="activity_settings_decimal_summary">Number of decimal places you want to see</string>
+
+	<string name="util_key_debug">is_debug_enabled</string>
+	<string name="util_key_decimal">decimal_places</string>
+	<string name="util_key_trans_from_settings">transitioned_from_settings</string>
 
 	<string name="hello_world">Hello world!</string>
 </resources>

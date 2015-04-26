@@ -35,8 +35,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (Utils.isDebugEnabled(getActivity()))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherBps.s.before", s.toString());
+			}
 
 			if (s.length() != 0) {
 				s = Utils.sanitizeEditable(s);
@@ -91,8 +92,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity()))
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -108,10 +110,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherBps.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherBps.s.after", "null");
+			}
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -146,8 +149,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (Utils.isDebugEnabled(getActivity()))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherByps.s.before", s.toString());
+			}
 
 			if (s.length() != 0) {
 				s = Utils.sanitizeEditable(s);
@@ -202,8 +206,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity()))
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -219,10 +224,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherByps.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherByps.s.after", "null");
+			}
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -257,8 +263,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (Utils.isDebugEnabled(getActivity()))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherKbps.s.before", s.toString());
+			}
 
 			if (s.length() != 0) {
 				s = Utils.sanitizeEditable(s);
@@ -313,8 +320,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity()))
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -330,10 +338,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherKbps.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherKbps.s.after", "null");
+			}
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -368,8 +377,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (Utils.isDebugEnabled(getActivity()))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherKbyps.s.before", s.toString());
+			}
 
 			if (s.length() != 0) {
 				s = Utils.sanitizeEditable(s);
@@ -424,8 +434,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity()))
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -441,10 +452,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherKbyps.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherKbyps.s.after", "null");
+			}
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -479,8 +491,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (Utils.isDebugEnabled(getActivity()))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherMbps.s.before", s.toString());
+			}
 
 			if (s.length() != 0) {
 				s = Utils.sanitizeEditable(s);
@@ -535,8 +548,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity()))
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -552,10 +566,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherMbps.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherMbps.s.after", "null");
+			}
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -590,8 +605,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (Utils.isDebugEnabled(getActivity()))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherMbyps.s.before", s.toString());
+			}
 
 			if (s.length() != 0) {
 				s = Utils.sanitizeEditable(s);
@@ -646,8 +662,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity()))
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -663,10 +680,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherMbyps.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherMbyps.s.after", "null");
+			}
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -701,8 +719,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (Utils.isDebugEnabled(getActivity()))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherGbps.s.before", s.toString());
+			}
 
 			if (s.length() != 0) {
 				s = Utils.sanitizeEditable(s);
@@ -757,8 +776,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity()))
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -774,10 +794,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherGbps.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherGbps.s.after", "null");
+			}
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -812,8 +833,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (Utils.isDebugEnabled(getActivity()))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherGbyps.s.before", s.toString());
+			}
 
 			if (s.length() != 0) {
 				s = Utils.sanitizeEditable(s);
@@ -868,8 +890,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity()))
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -885,10 +908,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherGbyps.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherGbyps.s.after", "null");
+			}
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -923,8 +947,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (Utils.isDebugEnabled(getActivity()))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherTbps.s.before", s.toString());
+			}
 
 			if (s.length() != 0) {
 				s = Utils.sanitizeEditable(s);
@@ -979,8 +1004,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity()))
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -996,10 +1022,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherTbps.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherTbps.s.after", "null");
+			}
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -1034,8 +1061,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			editTextTbps.removeTextChangedListener(textWatcherTbps);
 			editTextTbyps.removeTextChangedListener(textWatcherTbyps);
 
-			if (Utils.isDebugEnabled(getActivity()))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherTbyps.s.before", s.toString());
+			}
 
 			if (s.length() != 0) {
 				s = Utils.sanitizeEditable(s);
@@ -1090,8 +1118,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity()))
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -1107,10 +1136,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				editTextTbyps.setText("", TextView.BufferType.EDITABLE);
 			}
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherTbyps.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherTbyps.s.after", "null");
+			}
 
 			editTextBps.addTextChangedListener(textWatcherBps);
 			editTextByps.addTextChangedListener(textWatcherByps);
@@ -1133,8 +1163,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if (Utils.isDebugEnabled(getActivity()))
+		if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 			Log.d(TAG, "Entered onCreateView");
+		}
 
 		View rootView = super.onCreateView(inflater, container, savedInstanceState);
 

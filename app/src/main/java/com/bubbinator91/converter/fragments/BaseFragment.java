@@ -1,7 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -32,7 +31,7 @@ public abstract class BaseFragment extends Fragment implements ViewTreeObserver.
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(getLayoutResource(), container, false);
 
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
 		TypedArray actionBarAttrs = getActivity().obtainStyledAttributes(new int[] { android.R.attr.actionBarSize });
 		mToolbarHeight = ((int) actionBarAttrs.getDimension(0, 0) + 10);
@@ -48,10 +47,10 @@ public abstract class BaseFragment extends Fragment implements ViewTreeObserver.
 	@Override
 	public void onResume() {
 		if (mPrefs == null) {
-			mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+			mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 		}
 		if (mPrefs != null) {
-			fieldLength = mPrefs.getInt(Utils.PREFERENCE_FIELD_LENGTH, -1);
+			fieldLength = Integer.parseInt(mPrefs.getString(Utils.PREFERENCE_DECIMAL_PLACES, "-1"));
 		}
 		if (fieldLength == -1)
 			fieldLength = 8;

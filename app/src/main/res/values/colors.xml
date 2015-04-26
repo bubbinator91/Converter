@@ -9,7 +9,5 @@
 	<color name="colorIcons">#FFFFFF</color>
 	<color name="colorDivider">#B6B6B6</color>
 
-	<color name="windowBackgroundColor">#ffe4e4e4</color>
 	<color name="navDrawerBackgroundColor">#fffafafa</color>
-	<color name="cardZColor">#CABBBBBB</color>
 </resources>

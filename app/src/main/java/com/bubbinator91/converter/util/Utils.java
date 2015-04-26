@@ -167,8 +167,8 @@ import android.text.Editable;
 
 public class Utils {
 	public static String PREFERENCE_DEBUG = "is_debug_enabled";
-	public static String PREFERENCE_FIELD_LENGTH = "field_length";
-	public static String PREFERENCE_TRANS_TO_SETTINGS = "transitioned_to_settings";
+	public static String PREFERENCE_DECIMAL_PLACES = "decimal_places";
+	public static String PREFERENCE_TRANS_FROM_SETTINGS = "transitioned_from_settings";
 
 	public static SharedPreferences PREFS = null;
 
@@ -177,16 +177,7 @@ public class Utils {
 	public static boolean isDebugEnabled(Context context) {
 		if (context != null) {
 			PREFS = PreferenceManager.getDefaultSharedPreferences(context);
-			if (PREFS.getInt(Utils.PREFERENCE_DEBUG, -1) == -1) {
-				SharedPreferences.Editor editor = PREFS.edit();
-				editor.putInt(Utils.PREFERENCE_DEBUG, 0);
-				editor.apply();
-				return false;
-			} else if (PREFS.getInt(Utils.PREFERENCE_DEBUG, -1) == 0) {
-				return false;
-			} else {
-				return true;
-			}
+			return PREFS.getBoolean(PREFERENCE_DEBUG, false);
 		} else {
 			throw new NullPointerException("Context parameter cannot be null");
 		}

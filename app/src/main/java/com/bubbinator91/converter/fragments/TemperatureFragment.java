@@ -32,8 +32,9 @@ public class TemperatureFragment extends BaseFragment {
             editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
             editTextKelvin.removeTextChangedListener(textWatcherKelvin);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherCelsius.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherCelsius.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -54,8 +55,9 @@ public class TemperatureFragment extends BaseFragment {
 														   .toPlainString()
 														  , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+                            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -64,10 +66,11 @@ public class TemperatureFragment extends BaseFragment {
                 editTextKelvin.setText("", TextView.BufferType.EDITABLE);
             }
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherCelsius.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherCelsius.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherCelsius.s.after", "null");
+			}
 
             editTextCelsius.addTextChangedListener(textWatcherCelsius);
             editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
@@ -88,8 +91,9 @@ public class TemperatureFragment extends BaseFragment {
             editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
             editTextKelvin.removeTextChangedListener(textWatcherKelvin);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherFahrenheit.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherFahrenheit.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -110,8 +114,9 @@ public class TemperatureFragment extends BaseFragment {
 														   .toPlainString()
 														  , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+                            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -120,10 +125,11 @@ public class TemperatureFragment extends BaseFragment {
                 editTextKelvin.setText("", TextView.BufferType.EDITABLE);
             }
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherFahrenheit.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherFahrenheit.s.after", "null");
+			}
 
             editTextCelsius.addTextChangedListener(textWatcherCelsius);
             editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
@@ -144,8 +150,9 @@ public class TemperatureFragment extends BaseFragment {
             editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
             editTextKelvin.removeTextChangedListener(textWatcherKelvin);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherKelvin.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherKelvin.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -166,8 +173,9 @@ public class TemperatureFragment extends BaseFragment {
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+                            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -176,10 +184,11 @@ public class TemperatureFragment extends BaseFragment {
                 editTextFahrenheit.setText("", TextView.BufferType.EDITABLE);
             }
 
-			if (Utils.isDebugEnabled(getActivity()) && (s != null))
+			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherKelvin.s.after", s.toString());
-			else if (Utils.isDebugEnabled(getActivity()) && (s == null))
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherKelvin.s.after", "null");
+			}
 
             editTextCelsius.addTextChangedListener(textWatcherCelsius);
             editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
@@ -195,8 +204,10 @@ public class TemperatureFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (Utils.isDebugEnabled(getActivity()))
-            Log.d(TAG + "onCreateView", "Entered");
+        if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+			Log.d(TAG + "onCreateView", "Entered");
+		}
+
 		View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
 		if (rootView != null) {

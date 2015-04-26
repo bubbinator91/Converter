@@ -38,8 +38,9 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherInch.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherInch.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -96,8 +97,9 @@ public class LengthFragment extends BaseFragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+                            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -111,10 +113,11 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherInch.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherInch.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherInch.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherInch.s.after", "null");
+			}
 
             editTextInch.addTextChangedListener(textWatcherInch);
             editTextFoot.addTextChangedListener(textWatcherFoot);
@@ -145,8 +148,9 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherFoot.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherFoot.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -201,8 +205,9 @@ public class LengthFragment extends BaseFragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -216,10 +221,11 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherFoot.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherFoot.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherFoot.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherFoot.s.after", "null");
+			}
 
             editTextInch.addTextChangedListener(textWatcherInch);
             editTextFoot.addTextChangedListener(textWatcherFoot);
@@ -250,8 +256,9 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherYard.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherYard.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -304,8 +311,9 @@ public class LengthFragment extends BaseFragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -319,10 +327,11 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherYard.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherYard.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherYard.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherYard.s.after", "null");
+			}
 
             editTextInch.addTextChangedListener(textWatcherInch);
             editTextFoot.addTextChangedListener(textWatcherFoot);
@@ -353,8 +362,9 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherMile.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherMile.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -405,8 +415,9 @@ public class LengthFragment extends BaseFragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -420,10 +431,11 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherMile.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherMile.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherMile.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherMile.s.after", "null");
+			}
 
             editTextInch.addTextChangedListener(textWatcherInch);
             editTextFoot.addTextChangedListener(textWatcherFoot);
@@ -454,8 +466,9 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherMillimeter.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherMillimeter.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -508,8 +521,9 @@ public class LengthFragment extends BaseFragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -523,10 +537,11 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherMillimeter.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherMillimeter.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherMillimeter.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherMillimeter.s.after", "null");
+			}
 
             editTextInch.addTextChangedListener(textWatcherInch);
             editTextFoot.addTextChangedListener(textWatcherFoot);
@@ -557,8 +572,9 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherCentimeter.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherCentimeter.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -609,8 +625,9 @@ public class LengthFragment extends BaseFragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -624,10 +641,11 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherCentimeter.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherCentimeter.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherCentimeter.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherCentimeter.s.after", "null");
+			}
 
             editTextInch.addTextChangedListener(textWatcherInch);
             editTextFoot.addTextChangedListener(textWatcherFoot);
@@ -658,8 +676,9 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherMeter.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherMeter.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -708,8 +727,9 @@ public class LengthFragment extends BaseFragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -723,10 +743,11 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherMeter.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherMeter.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherMeter.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherMeter.s.after", "null");
+			}
 
             editTextInch.addTextChangedListener(textWatcherInch);
             editTextFoot.addTextChangedListener(textWatcherFoot);
@@ -757,8 +778,9 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity()))
-                Log.d(TAG + ".textWatcherKilometer.s.before", s.toString());
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+				Log.d(TAG + ".textWatcherKilometer.s.before", s.toString());
+			}
 
             if (s.length() != 0) {
                 s = Utils.sanitizeEditable(s);
@@ -805,8 +827,9 @@ public class LengthFragment extends BaseFragment {
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity()))
-                                e.printStackTrace();
+							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
                         }
                     }
                 }
@@ -820,10 +843,11 @@ public class LengthFragment extends BaseFragment {
                 editTextMeter.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity()) && (s != null))
-                Log.d(TAG + ".textWatcherKilometer.s.after", s.toString());
-            else if (Utils.isDebugEnabled(getActivity()) && (s == null))
-                Log.d(TAG + ".textWatcherKilometer.s.after", "null");
+            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+				Log.d(TAG + ".textWatcherKilometer.s.after", s.toString());
+			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+				Log.d(TAG + ".textWatcherKilometer.s.after", "null");
+			}
 
             editTextInch.addTextChangedListener(textWatcherInch);
             editTextFoot.addTextChangedListener(textWatcherFoot);
@@ -844,28 +868,31 @@ public class LengthFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if (Utils.isDebugEnabled(getActivity()))
+		if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
 			Log.d(TAG + ".onCreateView", "Entered");
+		}
 
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
-        editTextInch = ((EditText) rootView.findViewById(R.id.editText_length_inch));
-        editTextFoot = ((EditText) rootView.findViewById(R.id.editText_length_foot));
-        editTextYard = ((EditText) rootView.findViewById(R.id.editText_length_yard));
-        editTextMile = ((EditText) rootView.findViewById(R.id.editText_length_mile));
-        editTextMillimeter = ((EditText) rootView.findViewById(R.id.editText_length_millimeter));
-        editTextCentimeter = ((EditText) rootView.findViewById(R.id.editText_length_centimeter));
-        editTextMeter = ((EditText) rootView.findViewById(R.id.editText_length_meter));
-        editTextKilometer = ((EditText) rootView.findViewById(R.id.editText_length_kilometer));
+		if (rootView != null) {
+			editTextInch = ((EditText) rootView.findViewById(R.id.editText_length_inch));
+			editTextFoot = ((EditText) rootView.findViewById(R.id.editText_length_foot));
+			editTextYard = ((EditText) rootView.findViewById(R.id.editText_length_yard));
+			editTextMile = ((EditText) rootView.findViewById(R.id.editText_length_mile));
+			editTextMillimeter = ((EditText) rootView.findViewById(R.id.editText_length_millimeter));
+			editTextCentimeter = ((EditText) rootView.findViewById(R.id.editText_length_centimeter));
+			editTextMeter = ((EditText) rootView.findViewById(R.id.editText_length_meter));
+			editTextKilometer = ((EditText) rootView.findViewById(R.id.editText_length_kilometer));
 
-        editTextInch.addTextChangedListener(textWatcherInch);
-        editTextFoot.addTextChangedListener(textWatcherFoot);
-        editTextYard.addTextChangedListener(textWatcherYard);
-        editTextMile.addTextChangedListener(textWatcherMile);
-        editTextMillimeter.addTextChangedListener(textWatcherMillimeter);
-        editTextCentimeter.addTextChangedListener(textWatcherCentimeter);
-        editTextMeter.addTextChangedListener(textWatcherMeter);
-        editTextKilometer.addTextChangedListener(textWatcherKilometer);
+			editTextInch.addTextChangedListener(textWatcherInch);
+			editTextFoot.addTextChangedListener(textWatcherFoot);
+			editTextYard.addTextChangedListener(textWatcherYard);
+			editTextMile.addTextChangedListener(textWatcherMile);
+			editTextMillimeter.addTextChangedListener(textWatcherMillimeter);
+			editTextCentimeter.addTextChangedListener(textWatcherCentimeter);
+			editTextMeter.addTextChangedListener(textWatcherMeter);
+			editTextKilometer.addTextChangedListener(textWatcherKilometer);
+		}
 
         return rootView;
     }

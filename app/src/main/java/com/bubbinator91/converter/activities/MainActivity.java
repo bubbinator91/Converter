@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -35,14 +36,21 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		if (Utils.isDebugEnabled(this)) {
+		if (Utils.isDebugEnabled(getApplicationContext())) {
 			Log.d(TAG + ".onCreate", "Entered");
 		}
 		super.onCreate(savedInstanceState);
 		setToolbarIcon(R.drawable.ic_drawer);
 
 		mDrawerLayout = ((DrawerLayout) findViewById(R.id.activity_main_layout));
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.app_name, R.string.app_name);
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.app_name, R.string.app_name) {
+			@Override
+			public void onDrawerSlide(View drawerView, float slideOffset) {
+				super.onDrawerSlide(drawerView, slideOffset);
+				InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
+				imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
 
@@ -51,18 +59,12 @@ public class MainActivity extends BaseActivity {
 		mDrawerList.setAdapter(new ArrayAdapter<>(this, R.layout.util_drawer_list_item, mDrawerItems));
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		if (mPrefs != null) {
-			if (mPrefs.getInt(Utils.PREFERENCE_DEBUG, -1) == -1) {
+			String fieldLength = mPrefs.getString(Utils.PREFERENCE_DECIMAL_PLACES, null);
+			if (fieldLength == null) {
 				SharedPreferences.Editor editor = mPrefs.edit();
-				// TODO Switch this to false (0) for release
-				editor.putInt(Utils.PREFERENCE_DEBUG, 1);
-				editor.apply();
-			}
-			int fieldLength = mPrefs.getInt(Utils.PREFERENCE_FIELD_LENGTH, -1);
-			if (fieldLength == -1) {
-				SharedPreferences.Editor editor = mPrefs.edit();
-				editor.putInt(Utils.PREFERENCE_FIELD_LENGTH, 8);
+				editor.putString(Utils.PREFERENCE_DECIMAL_PLACES, "8");
 				editor.apply();
 			}
 		}
@@ -73,35 +75,50 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected void onResume() {
-		if (Utils.isDebugEnabled(this)) {
+		if (Utils.isDebugEnabled(getApplicationContext())) {
 			Log.d(TAG + ".onResume", "Entered");
 		}
 		super.onResume();
 
 		if (mPrefs != null) {
-			if (Utils.isDebugEnabled(this)) {
+			if (Utils.isDebugEnabled(getApplicationContext())) {
 				Log.d(TAG + ".onResume", "mPrefs != null");
 			}
 			lastSelectedPosition = mPrefs.getInt(STATE_SELECTED_POSITION, -1);
-			if (Utils.isDebugEnabled(this)) {
+			if (Utils.isDebugEnabled(getApplicationContext())) {
 				Log.d(TAG + ".onResume", "lastSelectedPosition = " + lastSelectedPosition);
-				Log.d(TAG + ".onResume", "fieldLength = " + mPrefs.getInt(Utils.PREFERENCE_FIELD_LENGTH, -1));
+				Log.d(TAG + ".onResume", "fieldLength = " + mPrefs.getString(Utils.PREFERENCE_DECIMAL_PLACES, "null"));
 			}
-			if (mPrefs.getInt(Utils.PREFERENCE_TRANS_TO_SETTINGS, -1) != 1) {
+			if (mPrefs.getInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, -1) != 1) {
 				if (lastSelectedPosition >= 0) {
 					selectDrawerItem(lastSelectedPosition);
 				}
+			} else {
+				SharedPreferences.Editor editor = mPrefs.edit();
+				editor.putInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, 0);
+				editor.apply();
 			}
 		} else {
-			if (Utils.isDebugEnabled(this)) {
+			if (Utils.isDebugEnabled(getApplicationContext())) {
 				Log.d(TAG + ".onResume", "mPrefs == null");
 			}
 		}
 	}
 
 	@Override
+	protected void onPause() {
+		if (Utils.isDebugEnabled(getApplicationContext())) {
+			Log.d(TAG + ".onPause", "Entered");
+		}
+		super.onPause();
+
+		InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
+		imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		if (Utils.isDebugEnabled(this)) {
+		if (Utils.isDebugEnabled(getApplicationContext())) {
 			Log.d(TAG + ".onCreateOptionsMenu", "Entered");
 		}
 
@@ -111,8 +128,15 @@ public class MainActivity extends BaseActivity {
 	}
 
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
+		imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+		return true;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (Utils.isDebugEnabled(this)) {
+		if (Utils.isDebugEnabled(getApplicationContext())) {
 			Log.d(TAG + ".onOptionsItemSelected", "Entered");
 		}
 
@@ -136,7 +160,7 @@ public class MainActivity extends BaseActivity {
 	}
 
 	private void selectDrawerItem(int position) {
-		if (Utils.isDebugEnabled(this)) {
+		if (Utils.isDebugEnabled(getApplicationContext())) {
 			Log.d(TAG + ".selectDrawerItem", "Entered");
 		}
 
@@ -184,9 +208,12 @@ public class MainActivity extends BaseActivity {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
-			if (Utils.isDebugEnabled(getApplicationContext()))
+			if (Utils.isDebugEnabled(getApplicationContext())) {
 				Log.d(TAG + ".DrawerItemClickListener.onItemClick", "Entered");
-			selectDrawerItem(position);
+			}
+			if (position != lastSelectedPosition) {
+				selectDrawerItem(position);
+			}
 		}
 	}
 }
