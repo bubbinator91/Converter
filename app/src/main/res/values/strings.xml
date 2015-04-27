@@ -46,6 +46,17 @@
 		<item>Temperature</item>
 	</string-array>
 
+	<array name="drawer_list_icons">
+		<item>@drawable/ic_warning_grey600_48dp</item>
+		<item>@drawable/ic_computer_grey600_48dp</item>
+		<item>@drawable/ic_ruler_grey600_48dp</item>
+		<item>@drawable/ic_bike_grey600_48dp</item>
+		<item>@drawable/ic_heat_grey600_48dp</item>
+	</array>
+
+	<string name="activity_main_drawer_header_description">The header of the navigation drawer.</string>
+	<string name="activity_main_drawer_icon_description">The icon of the current item.</string>
+
 	<string name="activity_settings_debug">Debug</string>
 	<string name="activity_settings_debug_summary">Turn on debugging</string>
 	<string name="activity_settings_decimal">Decimal Places</string>

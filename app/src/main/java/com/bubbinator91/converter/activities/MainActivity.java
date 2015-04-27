@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -20,15 +21,30 @@ import android.widget.ListView;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.fragments.*;
+import com.bubbinator91.converter.util.NavigationDrawerItem;
+import com.bubbinator91.converter.util.NavigationDrawerListAdapter;
 import com.bubbinator91.converter.util.Utils;
 
+import java.util.ArrayList;
+
+/**
+ * The main activity of the application. Inherits from the
+ * BaseActivity, uses a toolbar, and implements a navigation
+ * drawer. The navigation drawer is used to switch between
+ * fragments, with each of the said fragments implementing
+ * functionality for converting between units of a specific
+ * category or class.
+ */
 public class MainActivity extends BaseActivity {
 	private final String TAG = "MainActivity";
 
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private ListView mDrawerList;
-	private String[] mDrawerItems;
+	private ArrayList<NavigationDrawerItem> mDrawerItems;
+	private NavigationDrawerListAdapter mDrawerListAdapter;
+	private String[] mDrawerTitles;
+	private TypedArray mDrawerIcons;
 
 	private SharedPreferences mPrefs;
 	private int lastSelectedPosition;
@@ -40,23 +56,32 @@ public class MainActivity extends BaseActivity {
 			Log.d(TAG + ".onCreate", "Entered");
 		}
 		super.onCreate(savedInstanceState);
-		setToolbarIcon(R.drawable.ic_drawer);
+		setToolbarIcon(-1, true);
+
+		mDrawerTitles = getResources().getStringArray(R.array.drawer_list_labels);
+		mDrawerIcons = getResources().obtainTypedArray(R.array.drawer_list_icons);
+
+		mDrawerItems = new ArrayList<>();
+		for (int i = 0; i < mDrawerTitles.length; i++) {
+			mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[i], mDrawerIcons.getResourceId((i + 1), 0)));
+		}
+		mDrawerIcons.recycle();
 
 		mDrawerLayout = ((DrawerLayout) findViewById(R.id.activity_main_layout));
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.app_name, R.string.app_name) {
 			@Override
 			public void onDrawerSlide(View drawerView, float slideOffset) {
-				super.onDrawerSlide(drawerView, slideOffset);
+				super.onDrawerSlide(drawerView, 0);
 				InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
 				imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
+		mDrawerToggle.syncState();
 
-		mDrawerItems = getResources().getStringArray(R.array.drawer_list_labels);
 		mDrawerList = ((ListView) findViewById(R.id.drawer_list));
-		mDrawerList.setAdapter(new ArrayAdapter<>(this, R.layout.util_drawer_list_item, mDrawerItems));
+		mDrawerListAdapter = new NavigationDrawerListAdapter(getApplicationContext(), mDrawerItems);
+		mDrawerList.setAdapter(mDrawerListAdapter);
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -159,6 +184,14 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * Switches to the fragment that is selected by the user in
+	 * the navigation drawer.
+	 *
+	 * @param position		the integer position of the selected fragment,
+	 *                      which is used to determine which fragment to
+	 *                      switch to
+	 */
 	private void selectDrawerItem(int position) {
 		if (Utils.isDebugEnabled(getApplicationContext())) {
 			Log.d(TAG + ".selectDrawerItem", "Entered");
@@ -195,8 +228,8 @@ public class MainActivity extends BaseActivity {
 		if (flag) {
 			lastSelectedPosition = position;
 			mDrawerList.setItemChecked(position, true);
-			mToolbar.setTitle(mDrawerItems[position]);
-			//mDrawerLayout.closeDrawer(mDrawerList);
+			mDrawerList.setSelection(position);
+			mToolbar.setTitle(mDrawerTitles[position]);
 			mDrawerLayout.closeDrawers();
 
 			SharedPreferences.Editor editor = mPrefs.edit();
@@ -205,13 +238,23 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * A listener class that handles the event of the user selecting an item
+	 * in the navigation drawer. If the selected position is a new position,
+	 * the overridden {@link #onItemClick(AdapterView, View, int, long)} method
+	 * passes that position into {@link #selectDrawerItem(int)}, which switches
+	 * to the selected fragment.
+	 */
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
 			if (Utils.isDebugEnabled(getApplicationContext())) {
 				Log.d(TAG + ".DrawerItemClickListener.onItemClick", "Entered");
 			}
-			if (position != lastSelectedPosition) {
+			if ((position != lastSelectedPosition) && (position >= 0)) {
+				if (Utils.isDebugEnabled(getApplicationContext())) {
+					Log.d(TAG + ".DrawerItemClickListener.onItemClick", "position = " + position);
+				}
 				selectDrawerItem(position);
 			}
 		}

@@ -11,7 +11,11 @@ import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Utils;
 
 /**
- * Created by Christopher on 4/25/2015.
+ * The activity that handles the settings for the application.
+ * It inherits from the BaseActivity, and the layout has only
+ * a toolbar and a simple FrameLayout that gets replaced by
+ * a {@link SettingsFragment}, which inherits from
+ * {@link PreferenceFragment}.
  */
 public class SettingsActivity extends BaseActivity {
 	private final String TAG = "SettingsActivity";
@@ -60,11 +64,6 @@ public class SettingsActivity extends BaseActivity {
 		public void onCreate(final Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.settings);
-		}
-
-		@Override
-		public void onStart() {
-			super.onStart();
 		}
 	}
 }

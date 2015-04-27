@@ -5,6 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:fitsSystemWindows="true"
+	android:elevation="7dp"
 	tools:context=".MainActivity">
 
 	<FrameLayout
@@ -37,20 +38,23 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
-			<ImageView
-				android:id="@+id/drawer_header"
+			<RelativeLayout
+				android:id="@+id/drawer_list_header"
 				android:layout_width="@dimen/navigation_drawer_width"
 				android:layout_height="@dimen/navigation_drawer_header_height"
-				android:src="@drawable/header"/>
+				android:contentDescription="@string/activity_main_drawer_header_description"
+				android:background="@drawable/header"/>
 
 			<ListView
 				android:id="@+id/drawer_list"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:layout_below="@+id/drawer_header"
+				android:layout_below="@+id/drawer_list_header"
 				android:choiceMode="singleChoice"
-				android:divider="@color/colorDivider"
-				android:dividerHeight="1dp"/>
+				android:overScrollHeader="@color/colorAccent"
+				android:divider="@null"
+				android:scrollbars="none"/>
+
 		</RelativeLayout>
 
 	</com.bubbinator91.converter.util.ScrimInsetsFrameLayout>

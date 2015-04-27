@@ -8,6 +8,7 @@
 	<color name="colorTextSecondary">#727272</color>
 	<color name="colorIcons">#FFFFFF</color>
 	<color name="colorDivider">#B6B6B6</color>
+	<color name="colorHighlight">#ffe6e6e6</color>
 
 	<color name="navDrawerBackgroundColor">#fffafafa</color>
 </resources>
