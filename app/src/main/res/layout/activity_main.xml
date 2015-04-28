@@ -40,7 +40,7 @@
 
 			<RelativeLayout
 				android:id="@+id/drawer_list_header"
-				android:layout_width="@dimen/navigation_drawer_width"
+				android:layout_width="match_parent"
 				android:layout_height="@dimen/navigation_drawer_header_height"
 				android:contentDescription="@string/activity_main_drawer_header_description"
 				android:background="@drawable/header"/>

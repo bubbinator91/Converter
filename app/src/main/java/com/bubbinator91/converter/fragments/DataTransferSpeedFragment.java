@@ -1,5 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -1167,9 +1168,33 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			Log.d(TAG, "Entered onCreateView");
 		}
 
-		View rootView = super.onCreateView(inflater, container, savedInstanceState);
+		super.onCreateView(inflater, container, savedInstanceState);
 
 		if (rootView != null) {
+			Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+
+			TextView textViewBps = ((TextView) rootView.findViewById(R.id.textView_data_transfer_speed_bps));
+			TextView textViewByps = ((TextView) rootView.findViewById(R.id.textView_data_transfer_speed_byps));
+			TextView textViewKbps = ((TextView) rootView.findViewById(R.id.textView_data_transfer_speed_kbps));
+			TextView textViewKbyps = ((TextView) rootView.findViewById(R.id.textView_data_transfer_speed_kbyps));
+			TextView textViewMbps = ((TextView) rootView.findViewById(R.id.textView_data_transfer_speed_mbps));
+			TextView textViewMbyps = ((TextView) rootView.findViewById(R.id.textView_data_transfer_speed_mbyps));
+			TextView textViewGbps = ((TextView) rootView.findViewById(R.id.textView_data_transfer_speed_gbps));
+			TextView textViewGbyps = ((TextView) rootView.findViewById(R.id.textView_data_transfer_speed_gbyps));
+			TextView textViewTbps = ((TextView) rootView.findViewById(R.id.textView_data_transfer_speed_tbps));
+			TextView textViewTbyps = ((TextView) rootView.findViewById(R.id.textView_data_transfer_speed_tbyps));
+
+			textViewBps.setTypeface(tf);
+			textViewByps.setTypeface(tf);
+			textViewKbps.setTypeface(tf);
+			textViewKbyps.setTypeface(tf);
+			textViewMbps.setTypeface(tf);
+			textViewMbyps.setTypeface(tf);
+			textViewGbps.setTypeface(tf);
+			textViewGbyps.setTypeface(tf);
+			textViewTbps.setTypeface(tf);
+			textViewTbyps.setTypeface(tf);
+
 			editTextBps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_bps));
 			editTextByps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_byps));
 			editTextKbps = ((EditText) rootView.findViewById(R.id.editText_data_transfer_speed_kbps));

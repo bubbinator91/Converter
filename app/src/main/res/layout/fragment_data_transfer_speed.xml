@@ -5,7 +5,7 @@
 	android:id="@+id/fragment_dts"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:paddingTop="?attr/actionBarSize"
+    android:paddingTop="?android:attr/actionBarSize"
 	android:clipToPadding="false"
 	android:overScrollMode="never"
 	tools:context=".MainActivity">
@@ -23,18 +23,20 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			cards:cardCornerRadius="4dp">
+			cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
 			<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:padding="15dp">
+				android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/data_transfer_speed_bps"
 					android:id="@+id/textView_data_transfer_speed_bps"
 					android:labelFor="@+id/editText_data_transfer_speed_bps"
@@ -66,24 +68,25 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_data_transfer_speed_bps"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+			android:layout_marginTop="@dimen/card_margin_top"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/data_transfer_speed_byps"
 					android:id="@+id/textView_data_transfer_speed_byps"
 					android:labelFor="@+id/editText_data_transfer_speed_byps"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"
@@ -110,24 +113,25 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_data_transfer_speed_byps"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/card_margin_top"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/data_transfer_speed_kbps"
 					android:id="@+id/textView_data_transfer_speed_kbps"
 					android:labelFor="@+id/editText_data_transfer_speed_kbps"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"
@@ -154,24 +158,25 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_data_transfer_speed_kbps"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/card_margin_top"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/data_transfer_speed_kbyps"
 					android:id="@+id/textView_data_transfer_speed_kbyps"
 					android:labelFor="@+id/editText_data_transfer_speed_kbyps"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"
@@ -198,24 +203,25 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_data_transfer_speed_kbyps"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/card_margin_top"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/data_transfer_speed_mbps"
 					android:id="@+id/textView_data_transfer_speed_mbps"
 					android:labelFor="@+id/editText_data_transfer_speed_mbps"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"
@@ -242,24 +248,25 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_data_transfer_speed_mbps"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/card_margin_top"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/data_transfer_speed_mbyps"
 					android:id="@+id/textView_data_transfer_speed_mbyps"
 					android:labelFor="@+id/editText_data_transfer_speed_mbyps"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"
@@ -286,24 +293,25 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_data_transfer_speed_mbyps"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/card_margin_top"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/data_transfer_speed_gbps"
 					android:id="@+id/textView_data_transfer_speed_gbps"
 					android:labelFor="@+id/editText_data_transfer_speed_gbps"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"
@@ -330,24 +338,25 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_data_transfer_speed_gbps"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/card_margin_top"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/data_transfer_speed_gbyps"
 					android:id="@+id/textView_data_transfer_speed_gbyps"
 					android:labelFor="@+id/editText_data_transfer_speed_gbyps"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"
@@ -374,24 +383,25 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_data_transfer_speed_gbyps"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/card_margin_top"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/data_transfer_speed_tbps"
 					android:id="@+id/textView_data_transfer_speed_tbps"
 					android:labelFor="@+id/editText_data_transfer_speed_tbps"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"
@@ -418,24 +428,26 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_data_transfer_speed_tbps"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/card_margin_top"
+			android:paddingBottom="2dp"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/data_transfer_speed_tbyps"
 					android:id="@+id/textView_data_transfer_speed_tbyps"
 					android:labelFor="@+id/editText_data_transfer_speed_tbyps"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"

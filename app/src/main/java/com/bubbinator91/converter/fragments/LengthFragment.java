@@ -1,5 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -872,9 +873,29 @@ public class LengthFragment extends BaseFragment {
 			Log.d(TAG + ".onCreateView", "Entered");
 		}
 
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
 
 		if (rootView != null) {
+			Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+
+			TextView textViewInch = ((TextView) rootView.findViewById(R.id.textView_length_inch));
+			TextView textViewFoot = ((TextView) rootView.findViewById(R.id.textView_length_foot));
+			TextView textViewYard = ((TextView) rootView.findViewById(R.id.textView_length_yard));
+			TextView textViewMile = ((TextView) rootView.findViewById(R.id.textView_length_mile));
+			TextView textViewMillimeter = ((TextView) rootView.findViewById(R.id.textView_length_millimeter));
+			TextView textViewCentimeter = ((TextView) rootView.findViewById(R.id.textView_length_centimeter));
+			TextView textViewMeter = ((TextView) rootView.findViewById(R.id.textView_length_meter));
+			TextView textViewKilometer = ((TextView) rootView.findViewById(R.id.textView_length_kilometer));
+
+			textViewInch.setTypeface(tf);
+			textViewFoot.setTypeface(tf);
+			textViewYard.setTypeface(tf);
+			textViewMile.setTypeface(tf);
+			textViewMillimeter.setTypeface(tf);
+			textViewCentimeter.setTypeface(tf);
+			textViewMeter.setTypeface(tf);
+			textViewKilometer.setTypeface(tf);
+
 			editTextInch = ((EditText) rootView.findViewById(R.id.editText_length_inch));
 			editTextFoot = ((EditText) rootView.findViewById(R.id.editText_length_foot));
 			editTextYard = ((EditText) rootView.findViewById(R.id.editText_length_yard));

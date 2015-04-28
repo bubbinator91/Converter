@@ -2,6 +2,7 @@ package com.bubbinator91.converter.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
 		icon.setImageResource(mNavigationDrawerItems.get(position).getIcon());
 		text.setText(mNavigationDrawerItems.get(position).getTitle());
+		text.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Medium.ttf"));
 
 		return view;
 	}

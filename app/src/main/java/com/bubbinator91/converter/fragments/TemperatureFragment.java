@@ -1,5 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -208,9 +209,21 @@ public class TemperatureFragment extends BaseFragment {
 			Log.d(TAG + "onCreateView", "Entered");
 		}
 
-		View rootView = super.onCreateView(inflater, container, savedInstanceState);
+		super.onCreateView(inflater, container, savedInstanceState);
+
+		shouldHideToolbarOnScroll = false;
 
 		if (rootView != null) {
+			Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+
+			TextView textViewCelsius = ((TextView) rootView.findViewById(R.id.textView_temperature_celsius));
+			TextView textViewFahrenheit = ((TextView) rootView.findViewById(R.id.textView_temperature_fahrenheit));
+			TextView textViewKelvin = ((TextView) rootView.findViewById(R.id.textView_temperature_kelvin));
+
+			textViewCelsius.setTypeface(tf);
+			textViewFahrenheit.setTypeface(tf);
+			textViewKelvin.setTypeface(tf);
+
 			editTextCelsius = ((EditText) rootView.findViewById(R.id.editText_temperature_celsius));
 			editTextFahrenheit = ((EditText) rootView.findViewById(R.id.editText_temperature_fahrenheit));
 			editTextKelvin = ((EditText) rootView.findViewById(R.id.editText_temperature_kelvin));

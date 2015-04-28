@@ -3,6 +3,7 @@ package com.bubbinator91.converter.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 
 /**
@@ -174,13 +175,9 @@ public class Utils {
 
     public Utils() {}
 
-	public static boolean isDebugEnabled(Context context) {
-		if (context != null) {
-			PREFS = PreferenceManager.getDefaultSharedPreferences(context);
-			return PREFS.getBoolean(PREFERENCE_DEBUG, false);
-		} else {
-			throw new NullPointerException("Context parameter cannot be null");
-		}
+	public static boolean isDebugEnabled(@NonNull Context context) {
+		PREFS = PreferenceManager.getDefaultSharedPreferences(context);
+		return PREFS.getBoolean(PREFERENCE_DEBUG, false);
 	}
 
     /**

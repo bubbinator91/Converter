@@ -2,9 +2,7 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:paddingTop="@dimen/navigation_drawer_list_item_padding_vertical"
-	android:paddingBottom="@dimen/navigation_drawer_list_item_padding_vertical"
+	android:layout_height="@dimen/navigation_drawer_list_item_height"
 	android:background="@drawable/util_drawer_list_selector"
 	android:orientation="horizontal">
 
@@ -13,8 +11,8 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:contentDescription="@string/activity_main_drawer_icon_description"
-		android:paddingStart="@dimen/navigation_drawer_list_item_padding_horizontal"
-		android:paddingEnd="@dimen/navigation_drawer_list_item_padding_horizontal"
+		android:paddingStart="@dimen/navigation_drawer_list_item_icon_padding_start"
+		android:paddingEnd="@dimen/navigation_drawer_list_item_icon_padding_end"
 		android:src="@drawable/ic_warning_grey600_48dp"
 		android:scaleX=".54"
 		android:scaleY=".54"/>

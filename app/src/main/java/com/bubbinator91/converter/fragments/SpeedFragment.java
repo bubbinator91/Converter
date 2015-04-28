@@ -1,5 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -423,9 +424,25 @@ public class SpeedFragment extends BaseFragment {
 			Log.d(TAG + ".onCreateView", "Entered");
 		}
 
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+		super.onCreateView(inflater, container, savedInstanceState);
+
+		shouldHideToolbarOnScroll = false;
 
 		if (rootView != null) {
+			Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+
+			TextView textViewFps = ((TextView) rootView.findViewById(R.id.textView_speed_fps));
+			TextView textViewKnot = ((TextView) rootView.findViewById(R.id.textView_speed_knot));
+			TextView textViewKph = ((TextView) rootView.findViewById(R.id.textView_speed_kph));
+			TextView textViewMps = ((TextView) rootView.findViewById(R.id.textView_speed_mps));
+			TextView textViewMph = ((TextView) rootView.findViewById(R.id.textView_speed_mph));
+
+			textViewFps.setTypeface(tf);
+			textViewKnot.setTypeface(tf);
+			textViewKph.setTypeface(tf);
+			textViewMps.setTypeface(tf);
+			textViewMph.setTypeface(tf);
+
 			editTextFps = ((EditText) rootView.findViewById(R.id.editText_speed_fps));
 			editTextKnot = ((EditText) rootView.findViewById(R.id.editText_speed_knot));
 			editTextKph = ((EditText) rootView.findViewById(R.id.editText_speed_kph));

@@ -5,7 +5,7 @@
 	android:id="@+id/fragment_temperature"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:paddingTop="?attr/actionBarSize"
+	android:paddingTop="?android:attr/actionBarSize"
 	android:clipToPadding="false"
 	android:overScrollMode="never"
 	tools:context=".MainActivity">
@@ -23,18 +23,20 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			cards:cardCornerRadius="4dp">
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/temperature_celsius"
 					android:id="@+id/textView_temperature_celsius"
 					android:labelFor="@+id/editText_temperature_celsius"
@@ -66,24 +68,25 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_temperature_celsius"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/card_margin_top"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/temperature_fahrenheit"
 					android:id="@+id/textView_temperature_fahrenheit"
 					android:labelFor="@+id/editText_temperature_fahrenheit"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"
@@ -110,24 +113,25 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_below="@+id/card_temperature_fahrenheit"
-			android:layout_marginTop="10dp"
-			cards:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/card_margin_top"
+            cards:cardCornerRadius="@dimen/card_corner_radius"
+			cards:cardUseCompatPadding="true"
+			cards:cardElevation="@dimen/card_elevation">
 
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_content_padding">
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textColor="@color/colorTextPrimary"
+					android:textSize="@dimen/card_title_text_size"
 					android:text="@string/temperature_kelvin"
 					android:id="@+id/textView_temperature_kelvin"
 					android:labelFor="@+id/editText_temperature_kelvin"
-					android:layout_alignParentStart="true"
-					android:layout_marginTop="16dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<EditText
 					android:layout_width="wrap_content"

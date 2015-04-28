@@ -9,22 +9,26 @@
 	<style name="AppTheme.Base" parent="Theme.AppCompat.Light">
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <item name="divider">@color/colorDivider</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorHighlight</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="android:editTextStyle">@style/AppTheme.EditText</item>
-		<item name="colorControlNormal">@color/colorAccent</item>
-		<item name="colorControlHighlight">@color/colorAccent</item>
-		<item name="colorControlActivated">@color/colorAccent</item>
 	</style>
 
 	<style name="AppTheme.EditText" parent="android:Widget.EditText">
 		<item name="android:textColor">@color/colorTextSecondary</item>
 	</style>
 
-	<style name="AppTheme.Toolbar" parent="Theme.AppCompat.Light">
-		<item name="android:textColorPrimary">@android:color/white</item>
-		<item name="android:textColorSecondary">@android:color/white</item>
-		<item name="android:background">@color/colorPrimary</item>
+	<style name="AppTheme.Toolbar" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+		<item name="android:foreground">?android:windowContentOverlay</item>
 	</style>
 
 </resources>
