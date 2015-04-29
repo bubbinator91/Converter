@@ -38,7 +38,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherBps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			afterTextChangedBps(s);
+            if (s != null) {
+                afterTextChangedBps(s);
+            }
 		}
 
 		@Override
@@ -51,7 +53,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherByps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			afterTextChangedByps(s);
+            if (s != null) {
+                afterTextChangedByps(s);
+            }
 		}
 
 		@Override
@@ -64,7 +68,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherKbps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			afterTextChangedKbps(s);
+            if (s != null) {
+                afterTextChangedKbps(s);
+            }
 		}
 
 		@Override
@@ -77,7 +83,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherKbyps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			afterTextChangedKbyps(s);
+            if (s != null) {
+                afterTextChangedKbyps(s);
+            }
 		}
 
 		@Override
@@ -90,7 +98,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherMbps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			afterTextChangedMbps(s);
+            if (s != null) {
+                afterTextChangedMbps(s);
+            }
 		}
 
 		@Override
@@ -103,7 +113,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherMbyps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			afterTextChangedMbyps(s);
+            if (s != null) {
+                afterTextChangedMbyps(s);
+            }
 		}
 
 		@Override
@@ -116,7 +128,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherGbps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			afterTextChangedGbps(s);
+            if (s != null) {
+                afterTextChangedGbps(s);
+            }
 		}
 
 		@Override
@@ -129,7 +143,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherGbyps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			afterTextChangedGbyps(s);
+            if (s != null) {
+                afterTextChangedGbyps(s);
+            }
 		}
 
 		@Override
@@ -142,7 +158,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherTbps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			afterTextChangedTbps(s);
+            if (s != null) {
+                afterTextChangedTbps(s);
+            }
 		}
 
 		@Override
@@ -155,7 +173,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherTbyps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			afterTextChangedTbyps(s);
+            if (s != null) {
+                afterTextChangedTbyps(s);
+            }
 		}
 
 		@Override
@@ -223,49 +243,53 @@ public class DataTransferSpeedFragment extends BaseFragment {
 		super.onResume();
 
 		if (lastEditTextFocused == LastEditTextFocused.BPS) {
-			if (!editTextBps.getText().toString().isEmpty()) {
+			if (editTextBps.getText() != null) {
 				afterTextChangedBps(editTextBps.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.BYPS) {
-			if (!editTextByps.getText().toString().isEmpty()) {
+			if (editTextByps.getText() != null) {
 				afterTextChangedByps(editTextByps.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.KBPS) {
-			if (!editTextKbps.getText().toString().isEmpty()) {
+			if (editTextKbps.getText() != null) {
 				afterTextChangedKbps(editTextKbps.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.KBYPS) {
-			if (!editTextKbyps.getText().toString().isEmpty()) {
+			if (editTextKbyps.getText() != null) {
 				afterTextChangedKbyps(editTextKbyps.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.MBPS) {
-			if (!editTextMbps.getText().toString().isEmpty()) {
+			if (editTextMbps.getText() != null) {
 				afterTextChangedMbps(editTextMbps.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.MBYPS) {
-			if (!editTextMbyps.getText().toString().isEmpty()) {
+			if (editTextMbyps.getText() != null) {
 				afterTextChangedMbyps(editTextMbyps.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.GBPS) {
-			if (!editTextGbps.getText().toString().isEmpty()) {
+			if (editTextGbps.getText() != null) {
 				afterTextChangedGbps(editTextGbps.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.GBYPS) {
-			if (!editTextGbyps.getText().toString().isEmpty()) {
+			if (editTextGbyps.getText() != null) {
 				afterTextChangedGbyps(editTextGbyps.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.TBPS) {
-			if (!editTextTbps.getText().toString().isEmpty()) {
+			if (editTextTbps.getText() != null) {
 				afterTextChangedTbps(editTextTbps.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.TBYPS) {
-			if (!editTextTbyps.getText().toString().isEmpty()) {
+			if (editTextTbyps.getText() != null) {
 				afterTextChangedTbyps(editTextTbyps.getText());
 			}
 		}
 	}
 
 	private void addTextChangedListeners() {
+        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+            Log.d(TAG + ".addTextChangedListeners", "Entered");
+        }
+
 		editTextBps.addTextChangedListener(textWatcherBps);
 		editTextByps.addTextChangedListener(textWatcherByps);
 		editTextKbps.addTextChangedListener(textWatcherKbps);
@@ -279,6 +303,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	}
 
 	private void removeTextChangedListeners() {
+        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+            Log.d(TAG + ".removeTextChangedListeners", "Entered");
+        }
+
 		editTextBps.removeTextChangedListener(textWatcherBps);
 		editTextByps.removeTextChangedListener(textWatcherByps);
 		editTextKbps.removeTextChangedListener(textWatcherKbps);

@@ -26,7 +26,7 @@ public class TemperatureFragment extends BaseFragment {
 		CELSIUS,
 		FAHRENHEIT,
 		KELVIN
-	};
+	}
 
     private final String TAG = "FragmentTemperature";
 
@@ -36,7 +36,9 @@ public class TemperatureFragment extends BaseFragment {
     private TextWatcher textWatcherCelsius = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-			afterTextChangedCelsius(s);
+            if (s != null) {
+                afterTextChangedCelsius(s);
+            }
         }
 
         @Override
@@ -49,7 +51,9 @@ public class TemperatureFragment extends BaseFragment {
     private TextWatcher textWatcherFahrenheit = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-			afterTextChangedFahrenheit(s);
+            if (s != null) {
+                afterTextChangedFahrenheit(s);
+            }
         }
 
         @Override
@@ -62,7 +66,9 @@ public class TemperatureFragment extends BaseFragment {
     private TextWatcher textWatcherKelvin = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-			afterTextChangedKelvin(s);
+            if (s != null) {
+                afterTextChangedKelvin(s);
+            }
         }
 
         @Override
@@ -106,38 +112,50 @@ public class TemperatureFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + "onResume", "Entered");
+			Log.d(TAG + ".onResume", "Entered");
 		}
 		super.onResume();
 
 		if (lastEditTextFocused == LastEditTextFocused.CELSIUS) {
-			if (!editTextCelsius.getText().toString().isEmpty()) {
+			if (editTextCelsius.getText() != null) {
 				afterTextChangedCelsius(editTextCelsius.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.FAHRENHEIT) {
-			if (!editTextFahrenheit.getText().toString().isEmpty()) {
+			if (editTextFahrenheit.getText() != null) {
 				afterTextChangedFahrenheit(editTextFahrenheit.getText());
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.KELVIN) {
-			if (!editTextKelvin.getText().toString().isEmpty()) {
+			if (editTextKelvin.getText() != null) {
 				afterTextChangedKelvin(editTextKelvin.getText());
 			}
 		}
 	}
 
 	private void addTextChangedListeners() {
+        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+            Log.d(TAG + ".addTextChangedListeners", "Entered");
+        }
+
 		editTextCelsius.addTextChangedListener(textWatcherCelsius);
 		editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
 		editTextKelvin.addTextChangedListener(textWatcherKelvin);
 	}
 
 	private void removeTextChangedListeners() {
+        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+            Log.d(TAG + ".removeTextChangedListeners", "Entered");
+        }
+
 		editTextCelsius.removeTextChangedListener(textWatcherCelsius);
 		editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
 		editTextKelvin.removeTextChangedListener(textWatcherKelvin);
 	}
 
 	private void afterTextChangedCelsius(Editable editableCelsius) {
+        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+            Log.d(TAG + ".afterTextChangedCelsius", "Entered");
+        }
+
 		removeTextChangedListeners();
 
 		lastEditTextFocused = LastEditTextFocused.CELSIUS;
@@ -186,6 +204,10 @@ public class TemperatureFragment extends BaseFragment {
 	}
 
 	public void afterTextChangedFahrenheit(Editable editableFahrenheit) {
+        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+            Log.d(TAG + ".afterTextChangedFahrenheit", "Entered");
+        }
+
 		removeTextChangedListeners();
 
 		lastEditTextFocused = LastEditTextFocused.FAHRENHEIT;
@@ -234,6 +256,10 @@ public class TemperatureFragment extends BaseFragment {
 	}
 
 	private void afterTextChangedKelvin(Editable editableKelvin) {
+        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+            Log.d(TAG + ".afterTextChangedKelvin", "Entered");
+        }
+
 		removeTextChangedListeners();
 
 		lastEditTextFocused = LastEditTextFocused.KELVIN;
