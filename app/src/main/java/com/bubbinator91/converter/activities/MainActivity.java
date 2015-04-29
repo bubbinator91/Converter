@@ -37,6 +37,7 @@ import java.util.ArrayList;
  * functionality for converting between units of a specific
  * category or class.
  */
+// TODO Fix a bug with PREFERENCE_TRANS_FROM_SETTINGS being set to 1 erroneously
 public class MainActivity extends BaseActivity {
 	private final String TAG = "MainActivity";
 	private boolean wasActivityRestarted = false;
@@ -130,6 +131,10 @@ public class MainActivity extends BaseActivity {
 			if ((mPrefs != null) && !wasActivityRestarted) {
 				if (Utils.isDebugEnabled(getApplicationContext())) {
 					Log.d(TAG + ".onStart", "mPrefs != null");
+					Toast.makeText(getApplicationContext(),
+								   "PREFERENCE_TRANS_FROM_SETTINGS = "
+								   + mPrefs.getInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, -1),
+								   Toast.LENGTH_LONG).show();
 				}
 				lastSelectedPosition = mPrefs.getInt(STATE_SELECTED_POSITION, -1);
 				if (Utils.isDebugEnabled(getApplicationContext())) {
@@ -148,7 +153,7 @@ public class MainActivity extends BaseActivity {
 				}
 			} else if (mPrefs == null) {
 				throw new NullPointerException("mPrefs cannot be null");
-			} else if (wasActivityRestarted) {
+			} else {
 				preChangeToFragment(lastSelectedPosition);
 			}
 		} catch (NullPointerException e) {
