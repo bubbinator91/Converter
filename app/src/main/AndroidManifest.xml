@@ -28,6 +28,15 @@
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value="com.bubbinator91.converter.activities.MainActivity"/>
 		</activity>
+		<activity
+			android:name=".activities.TestFragmentsActivity"
+			android:label="@string/title_activity_test_fragments"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme"
+			android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+			android:exported="false">
+
+		</activity>
 	</application>
 
 </manifest>

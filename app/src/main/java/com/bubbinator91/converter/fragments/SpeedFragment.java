@@ -35,7 +35,7 @@ public class SpeedFragment extends BaseFragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherFps.s.before", s.toString());
 			}
 
@@ -47,30 +47,30 @@ public class SpeedFragment extends BaseFragment {
 							BigDecimal fps = new BigDecimal(s.toString());
 							BigDecimal mph = fps.multiply(new BigDecimal(60*60))
 													 .divide(new BigDecimal("5280")
-																	, fieldLength
+																	, getFieldLength()
 																	, BigDecimal.ROUND_HALF_UP);
 							BigDecimal mps = fps.multiply(new BigDecimal("0.3048"));
 							BigDecimal kph = fps.multiply(new BigDecimal("1.09728"));
 							BigDecimal knot = fps.multiply(new BigDecimal(".592484"));
 
-                            editTextKnot.setText(knot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextKnot.setText(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextKph.setText(kph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextKph.setText(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextMps.setText(mps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextMps.setText(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextMph.setText(mph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextMph.setText(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -83,9 +83,9 @@ public class SpeedFragment extends BaseFragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherFps.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherFps.s.after", "null");
 			}
 
@@ -111,7 +111,7 @@ public class SpeedFragment extends BaseFragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherKnot.s.before", s.toString());
 			}
 
@@ -122,30 +122,30 @@ public class SpeedFragment extends BaseFragment {
                         try {
 							BigDecimal knot = new BigDecimal(s.toString());
 							BigDecimal fps = knot.divide(new BigDecimal(".592484")
-																, fieldLength
+																, getFieldLength()
 																, BigDecimal.ROUND_HALF_UP);
 							BigDecimal mph = knot.multiply(new BigDecimal("1.150779"));
 							BigDecimal mps = knot.multiply(new BigDecimal(".514444"));
 							BigDecimal kph = knot.multiply(new BigDecimal("1.852"));
 
-                            editTextFps.setText(fps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextFps.setText(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextKph.setText(kph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextKph.setText(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextMps.setText(mps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextMps.setText(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextMph.setText(mph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextMph.setText(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -158,9 +158,9 @@ public class SpeedFragment extends BaseFragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherKnot.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherKnot.s.after", "null");
 			}
 
@@ -186,7 +186,7 @@ public class SpeedFragment extends BaseFragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherKph.s.before", s.toString());
 			}
 
@@ -197,36 +197,36 @@ public class SpeedFragment extends BaseFragment {
                         try {
 							BigDecimal kph = new BigDecimal(s.toString());
 							BigDecimal fps = kph.divide(new BigDecimal("1.09728")
-															   , fieldLength
+															   , getFieldLength()
 															   , BigDecimal.ROUND_HALF_UP);
 							BigDecimal mph = kph.divide(new BigDecimal("1.609344")
-															   , fieldLength
+															   , getFieldLength()
 															   , BigDecimal.ROUND_HALF_UP);
 							BigDecimal mps = kph.divide(new BigDecimal("3.6")
-															   , fieldLength
+															   , getFieldLength()
 															   , BigDecimal.ROUND_HALF_UP);
 							BigDecimal knot = kph.divide(new BigDecimal("1.852")
-															   , fieldLength
+															   , getFieldLength()
 															   , BigDecimal.ROUND_HALF_UP);
 
-                            editTextFps.setText(fps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextFps.setText(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextKnot.setText(knot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextKnot.setText(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextMps.setText(mps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextMps.setText(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextMph.setText(mph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextMph.setText(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -239,9 +239,9 @@ public class SpeedFragment extends BaseFragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherKph.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherKph.s.after", "null");
 			}
 
@@ -267,7 +267,7 @@ public class SpeedFragment extends BaseFragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherMps.s.before", s.toString());
 			}
 
@@ -278,34 +278,34 @@ public class SpeedFragment extends BaseFragment {
                         try {
 							BigDecimal mps = new BigDecimal(s.toString());
 							BigDecimal fps = mps.divide(new BigDecimal("0.3048")
-															   , fieldLength
+															   , getFieldLength()
 															   , BigDecimal.ROUND_HALF_UP);
 							BigDecimal mph = mps.divide(new BigDecimal("0.44704")
-															   , fieldLength
+															   , getFieldLength()
 															   , BigDecimal.ROUND_HALF_UP);
 							BigDecimal kph = mps.multiply(new BigDecimal("3.6"));
 							BigDecimal knot = mps.divide(new BigDecimal("0.514444")
-															   , fieldLength
+															   , getFieldLength()
 															   , BigDecimal.ROUND_HALF_UP);
 
-							editTextFps.setText(fps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextFps.setText(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-							editTextKnot.setText(knot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextKnot.setText(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-							editTextMps.setText(kph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMps.setText(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-							editTextMph.setText(mph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMph.setText(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -318,9 +318,9 @@ public class SpeedFragment extends BaseFragment {
                 editTextMph.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherMps.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherMps.s.after", "null");
 			}
 
@@ -346,7 +346,7 @@ public class SpeedFragment extends BaseFragment {
             editTextMps.removeTextChangedListener(textWatcherMps);
             editTextMph.removeTextChangedListener(textWatcherMph);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherMph.s.before", s.toString());
 			}
 
@@ -358,35 +358,35 @@ public class SpeedFragment extends BaseFragment {
 							BigDecimal mph = new BigDecimal(s.toString());
 							BigDecimal fps = mph.multiply(new BigDecimal("5280"))
 													 .divide(new BigDecimal("60")
-																	, fieldLength
+																	, getFieldLength()
 																	, BigDecimal.ROUND_HALF_UP)
 													 .divide(new BigDecimal("60")
-																	, fieldLength
+																	, getFieldLength()
 																	, BigDecimal.ROUND_HALF_UP);
 							BigDecimal mps = mph.multiply(new BigDecimal("0.44704"));
 							BigDecimal kph = mph.multiply(new BigDecimal("1.609344"));
 							BigDecimal knot = mph.divide(new BigDecimal("1.150779")
-																, fieldLength
+																, getFieldLength()
 																, BigDecimal.ROUND_HALF_UP);
 
-                            editTextFps.setText(fps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextFps.setText(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextKnot.setText(knot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextKnot.setText(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextKph.setText(kph.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextKph.setText(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
-                            editTextMps.setText(mps.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextMps.setText(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														.stripTrailingZeros()
 														.toPlainString()
 													   , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -399,9 +399,9 @@ public class SpeedFragment extends BaseFragment {
                 editTextMps.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherMph.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherMph.s.after", "null");
 			}
 
@@ -420,22 +420,22 @@ public class SpeedFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 			Log.d(TAG + ".onCreateView", "Entered");
 		}
 
 		super.onCreateView(inflater, container, savedInstanceState);
 
-		shouldHideToolbarOnScroll = false;
+		setShouldHideToolbarOnScroll(false);
 
-		if (rootView != null) {
-			Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+		if (getRootView() != null) {
+			Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
 
-			TextView textViewFps = ((TextView) rootView.findViewById(R.id.textView_speed_fps));
-			TextView textViewKnot = ((TextView) rootView.findViewById(R.id.textView_speed_knot));
-			TextView textViewKph = ((TextView) rootView.findViewById(R.id.textView_speed_kph));
-			TextView textViewMps = ((TextView) rootView.findViewById(R.id.textView_speed_mps));
-			TextView textViewMph = ((TextView) rootView.findViewById(R.id.textView_speed_mph));
+			TextView textViewFps = ((TextView) getRootView().findViewById(R.id.textView_speed_fps));
+			TextView textViewKnot = ((TextView) getRootView().findViewById(R.id.textView_speed_knot));
+			TextView textViewKph = ((TextView) getRootView().findViewById(R.id.textView_speed_kph));
+			TextView textViewMps = ((TextView) getRootView().findViewById(R.id.textView_speed_mps));
+			TextView textViewMph = ((TextView) getRootView().findViewById(R.id.textView_speed_mph));
 
 			textViewFps.setTypeface(tf);
 			textViewKnot.setTypeface(tf);
@@ -443,11 +443,11 @@ public class SpeedFragment extends BaseFragment {
 			textViewMps.setTypeface(tf);
 			textViewMph.setTypeface(tf);
 
-			editTextFps = ((EditText) rootView.findViewById(R.id.editText_speed_fps));
-			editTextKnot = ((EditText) rootView.findViewById(R.id.editText_speed_knot));
-			editTextKph = ((EditText) rootView.findViewById(R.id.editText_speed_kph));
-			editTextMps = ((EditText) rootView.findViewById(R.id.editText_speed_mps));
-			editTextMph = ((EditText) rootView.findViewById(R.id.editText_speed_mph));
+			editTextFps = ((EditText) getRootView().findViewById(R.id.editText_speed_fps));
+			editTextKnot = ((EditText) getRootView().findViewById(R.id.editText_speed_knot));
+			editTextKph = ((EditText) getRootView().findViewById(R.id.editText_speed_kph));
+			editTextMps = ((EditText) getRootView().findViewById(R.id.editText_speed_mps));
+			editTextMph = ((EditText) getRootView().findViewById(R.id.editText_speed_mph));
 
 			editTextFps.addTextChangedListener(textWatcherFps);
 			editTextKnot.addTextChangedListener(textWatcherKnot);
@@ -456,8 +456,11 @@ public class SpeedFragment extends BaseFragment {
 			editTextMph.addTextChangedListener(textWatcherMph);
 		}
 
-        return rootView;
+        return getRootView();
     }
+
+	@Override
+	protected String getChildTag() { return TAG; }
 
 	@Override
 	protected int getLayoutResource() { return R.layout.fragment_speed; }

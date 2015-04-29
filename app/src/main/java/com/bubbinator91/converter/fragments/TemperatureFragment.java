@@ -22,60 +22,21 @@ import java.math.BigDecimal;
  */
 
 public class TemperatureFragment extends BaseFragment {
+	private enum LastEditTextFocused {
+		CELSIUS,
+		FAHRENHEIT,
+		KELVIN
+	};
+
     private final String TAG = "FragmentTemperature";
 
     private EditText editTextCelsius, editTextFahrenheit, editTextKelvin;
+	private LastEditTextFocused lastEditTextFocused;
 
     private TextWatcher textWatcherCelsius = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            editTextCelsius.removeTextChangedListener(textWatcherCelsius);
-            editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
-            editTextKelvin.removeTextChangedListener(textWatcherKelvin);
-
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
-				Log.d(TAG + ".textWatcherCelsius.s.before", s.toString());
-			}
-
-            if (s.length() != 0) {
-                s = Utils.sanitizeEditable(s);
-                if (s != null) {
-                    if (Utils.isNumeric(s.toString())) {
-                        try {
-							BigDecimal celsius = new BigDecimal(s.toString());
-							BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
-															.add(new BigDecimal("32"));
-							BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
-
-                            editTextFahrenheit.setText(fahrenheit.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
-															   .stripTrailingZeros()
-															   .toPlainString()
-															  , TextView.BufferType.EDITABLE);
-                            editTextKelvin.setText(kelvin.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
-														   .stripTrailingZeros()
-														   .toPlainString()
-														  , TextView.BufferType.EDITABLE);
-                        } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
-                        }
-                    }
-                }
-            } else {
-                editTextFahrenheit.setText("", TextView.BufferType.EDITABLE);
-                editTextKelvin.setText("", TextView.BufferType.EDITABLE);
-            }
-
-			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
-				Log.d(TAG + ".textWatcherCelsius.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
-				Log.d(TAG + ".textWatcherCelsius.s.after", "null");
-			}
-
-            editTextCelsius.addTextChangedListener(textWatcherCelsius);
-            editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
-            editTextKelvin.addTextChangedListener(textWatcherKelvin);
+			afterTextChangedCelsius(s);
         }
 
         @Override
@@ -88,53 +49,7 @@ public class TemperatureFragment extends BaseFragment {
     private TextWatcher textWatcherFahrenheit = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            editTextCelsius.removeTextChangedListener(textWatcherCelsius);
-            editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
-            editTextKelvin.removeTextChangedListener(textWatcherKelvin);
-
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
-				Log.d(TAG + ".textWatcherFahrenheit.s.before", s.toString());
-			}
-
-            if (s.length() != 0) {
-                s = Utils.sanitizeEditable(s);
-                if (s != null) {
-                    if (Utils.isNumeric(s.toString())) {
-                        try {
-							BigDecimal fahrenheit = new BigDecimal(s.toString());
-							BigDecimal celsius = fahrenheit.subtract(new BigDecimal("32"))
-														 .multiply(new BigDecimal(5.0 / 9.0));
-							BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
-
-                            editTextCelsius.setText(celsius.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
-															.stripTrailingZeros()
-															.toPlainString()
-														   , TextView.BufferType.EDITABLE);
-                            editTextKelvin.setText(kelvin.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
-														   .stripTrailingZeros()
-														   .toPlainString()
-														  , TextView.BufferType.EDITABLE);
-                        } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
-                        }
-                    }
-                }
-            } else {
-                editTextCelsius.setText("", TextView.BufferType.EDITABLE);
-                editTextKelvin.setText("", TextView.BufferType.EDITABLE);
-            }
-
-			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
-				Log.d(TAG + ".textWatcherFahrenheit.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
-				Log.d(TAG + ".textWatcherFahrenheit.s.after", "null");
-			}
-
-            editTextCelsius.addTextChangedListener(textWatcherCelsius);
-            editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
-            editTextKelvin.addTextChangedListener(textWatcherKelvin);
+			afterTextChangedFahrenheit(s);
         }
 
         @Override
@@ -147,53 +62,7 @@ public class TemperatureFragment extends BaseFragment {
     private TextWatcher textWatcherKelvin = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            editTextCelsius.removeTextChangedListener(textWatcherCelsius);
-            editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
-            editTextKelvin.removeTextChangedListener(textWatcherKelvin);
-
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
-				Log.d(TAG + ".textWatcherKelvin.s.before", s.toString());
-			}
-
-            if (s.length() != 0) {
-                s = Utils.sanitizeEditable(s);
-                if (s != null) {
-                    if (Utils.isNumeric(s.toString())) {
-                        try {
-							BigDecimal kelvin = new BigDecimal(s.toString());
-							BigDecimal celsius = kelvin.subtract(new BigDecimal("273.15"));
-							BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
-															.add(new BigDecimal("32"));
-
-                            editTextCelsius.setText(celsius.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
-															.stripTrailingZeros()
-															.toPlainString()
-														   , TextView.BufferType.EDITABLE);
-                            editTextFahrenheit.setText(fahrenheit.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
-															   .stripTrailingZeros()
-															   .toPlainString()
-															  , TextView.BufferType.EDITABLE);
-                        } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
-                        }
-                    }
-                }
-            } else {
-                editTextCelsius.setText("", TextView.BufferType.EDITABLE);
-                editTextFahrenheit.setText("", TextView.BufferType.EDITABLE);
-            }
-
-			if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
-				Log.d(TAG + ".textWatcherKelvin.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
-				Log.d(TAG + ".textWatcherKelvin.s.after", "null");
-			}
-
-            editTextCelsius.addTextChangedListener(textWatcherCelsius);
-            editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
-            editTextKelvin.addTextChangedListener(textWatcherKelvin);
+			afterTextChangedKelvin(s);
         }
 
         @Override
@@ -205,36 +74,215 @@ public class TemperatureFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 			Log.d(TAG + "onCreateView", "Entered");
 		}
 
 		super.onCreateView(inflater, container, savedInstanceState);
 
-		shouldHideToolbarOnScroll = false;
+		setShouldHideToolbarOnScroll(false);
 
-		if (rootView != null) {
-			Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+		if (getRootView() != null) {
+			Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
 
-			TextView textViewCelsius = ((TextView) rootView.findViewById(R.id.textView_temperature_celsius));
-			TextView textViewFahrenheit = ((TextView) rootView.findViewById(R.id.textView_temperature_fahrenheit));
-			TextView textViewKelvin = ((TextView) rootView.findViewById(R.id.textView_temperature_kelvin));
+			TextView textViewCelsius = ((TextView) getRootView().findViewById(R.id.textView_temperature_celsius));
+			TextView textViewFahrenheit = ((TextView) getRootView().findViewById(R.id.textView_temperature_fahrenheit));
+			TextView textViewKelvin = ((TextView) getRootView().findViewById(R.id.textView_temperature_kelvin));
 
 			textViewCelsius.setTypeface(tf);
 			textViewFahrenheit.setTypeface(tf);
 			textViewKelvin.setTypeface(tf);
 
-			editTextCelsius = ((EditText) rootView.findViewById(R.id.editText_temperature_celsius));
-			editTextFahrenheit = ((EditText) rootView.findViewById(R.id.editText_temperature_fahrenheit));
-			editTextKelvin = ((EditText) rootView.findViewById(R.id.editText_temperature_kelvin));
+			editTextCelsius = ((EditText) getRootView().findViewById(R.id.editText_temperature_celsius));
+			editTextFahrenheit = ((EditText) getRootView().findViewById(R.id.editText_temperature_fahrenheit));
+			editTextKelvin = ((EditText) getRootView().findViewById(R.id.editText_temperature_kelvin));
 
-			editTextCelsius.addTextChangedListener(textWatcherCelsius);
-			editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
-			editTextKelvin.addTextChangedListener(textWatcherKelvin);
+			addTextChangedListeners();
 		}
 
-        return rootView;
+        return getRootView();
     }
+
+	@Override
+	public void onResume() {
+		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+			Log.d(TAG + "onResume", "Entered");
+		}
+		super.onResume();
+
+		if (lastEditTextFocused == LastEditTextFocused.CELSIUS) {
+			if (!editTextCelsius.getText().toString().isEmpty()) {
+				afterTextChangedCelsius(editTextCelsius.getText());
+			}
+		} else if (lastEditTextFocused == LastEditTextFocused.FAHRENHEIT) {
+			if (!editTextFahrenheit.getText().toString().isEmpty()) {
+				afterTextChangedFahrenheit(editTextFahrenheit.getText());
+			}
+		} else if (lastEditTextFocused == LastEditTextFocused.KELVIN) {
+			if (!editTextKelvin.getText().toString().isEmpty()) {
+				afterTextChangedKelvin(editTextKelvin.getText());
+			}
+		}
+	}
+
+	private void addTextChangedListeners() {
+		editTextCelsius.addTextChangedListener(textWatcherCelsius);
+		editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
+		editTextKelvin.addTextChangedListener(textWatcherKelvin);
+	}
+
+	private void removeTextChangedListeners() {
+		editTextCelsius.removeTextChangedListener(textWatcherCelsius);
+		editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
+		editTextKelvin.removeTextChangedListener(textWatcherKelvin);
+	}
+
+	private void afterTextChangedCelsius(Editable editableCelsius) {
+		removeTextChangedListeners();
+
+		lastEditTextFocused = LastEditTextFocused.CELSIUS;
+
+		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+			Log.d(TAG + ".afterTextChangedCelsius.before", editableCelsius.toString());
+		}
+
+		if (editableCelsius.length() != 0) {
+			editableCelsius = Utils.sanitizeEditable(editableCelsius);
+			if (editableCelsius != null) {
+				if (Utils.isNumeric(editableCelsius.toString())) {
+					try {
+						BigDecimal celsius = new BigDecimal(editableCelsius.toString());
+						BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
+														.add(new BigDecimal("32"));
+						BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
+
+						editTextFahrenheit.setText(fahrenheit.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+														   .stripTrailingZeros()
+														   .toPlainString()
+														  , TextView.BufferType.EDITABLE);
+						editTextKelvin.setText(kelvin.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+													   .stripTrailingZeros()
+													   .toPlainString()
+													  , TextView.BufferType.EDITABLE);
+					} catch (NumberFormatException e) {
+						if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		} else {
+			editTextFahrenheit.setText("", TextView.BufferType.EDITABLE);
+			editTextKelvin.setText("", TextView.BufferType.EDITABLE);
+		}
+
+		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableCelsius != null)) {
+			Log.d(TAG + ".afterTextChangedCelsius.after", editableCelsius.toString());
+		} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableCelsius == null)) {
+			Log.d(TAG + ".afterTextChangedCelsius.after", "null");
+		}
+
+		addTextChangedListeners();
+	}
+
+	public void afterTextChangedFahrenheit(Editable editableFahrenheit) {
+		removeTextChangedListeners();
+
+		lastEditTextFocused = LastEditTextFocused.FAHRENHEIT;
+
+		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+			Log.d(TAG + ".afterTextChangedFahrenheit.before", editableFahrenheit.toString());
+		}
+
+		if (editableFahrenheit.length() != 0) {
+			editableFahrenheit = Utils.sanitizeEditable(editableFahrenheit);
+			if (editableFahrenheit != null) {
+				if (Utils.isNumeric(editableFahrenheit.toString())) {
+					try {
+						BigDecimal fahrenheit = new BigDecimal(editableFahrenheit.toString());
+						BigDecimal celsius = fahrenheit.subtract(new BigDecimal("32"))
+													 .multiply(new BigDecimal(5.0 / 9.0));
+						BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
+
+						editTextCelsius.setText(celsius.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+						editTextKelvin.setText(kelvin.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+													   .stripTrailingZeros()
+													   .toPlainString()
+													  , TextView.BufferType.EDITABLE);
+					} catch (NumberFormatException e) {
+						if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		} else {
+			editTextCelsius.setText("", TextView.BufferType.EDITABLE);
+			editTextKelvin.setText("", TextView.BufferType.EDITABLE);
+		}
+
+		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableFahrenheit != null)) {
+			Log.d(TAG + ".afterTextChangedFahrenheit.after", editableFahrenheit.toString());
+		} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableFahrenheit == null)) {
+			Log.d(TAG + ".afterTextChangedFahrenheit.after", "null");
+		}
+
+		addTextChangedListeners();
+	}
+
+	private void afterTextChangedKelvin(Editable editableKelvin) {
+		removeTextChangedListeners();
+
+		lastEditTextFocused = LastEditTextFocused.KELVIN;
+
+		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+			Log.d(TAG + ".afterTextChangedKelvin.before", editableKelvin.toString());
+		}
+
+		if (editableKelvin.length() != 0) {
+			editableKelvin = Utils.sanitizeEditable(editableKelvin);
+			if (editableKelvin != null) {
+				if (Utils.isNumeric(editableKelvin.toString())) {
+					try {
+						BigDecimal kelvin = new BigDecimal(editableKelvin.toString());
+						BigDecimal celsius = kelvin.subtract(new BigDecimal("273.15"));
+						BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
+														.add(new BigDecimal("32"));
+
+						editTextCelsius.setText(celsius.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+														.stripTrailingZeros()
+														.toPlainString()
+													   , TextView.BufferType.EDITABLE);
+						editTextFahrenheit.setText(fahrenheit.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+														   .stripTrailingZeros()
+														   .toPlainString()
+														  , TextView.BufferType.EDITABLE);
+					} catch (NumberFormatException e) {
+						if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		} else {
+			editTextCelsius.setText("", TextView.BufferType.EDITABLE);
+			editTextFahrenheit.setText("", TextView.BufferType.EDITABLE);
+		}
+
+		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableKelvin != null)) {
+			Log.d(TAG + ".afterTextChangedKelvin.after", editableKelvin.toString());
+		} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableKelvin == null)) {
+			Log.d(TAG + ".afterTextChangedKelvin.after", "null");
+		}
+
+		addTextChangedListeners();
+	}
+
+	@Override
+	protected String getChildTag() { return TAG; }
 
 	@Override
 	protected int getLayoutResource() { return R.layout.fragment_temperature; }

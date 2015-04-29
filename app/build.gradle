@@ -10,11 +10,18 @@ android {
 		targetSdkVersion 22
 		versionCode 1
 		versionName "1.0"
+		testApplicationId "com.bubbinator91.converter.tests"
 	}
 	buildTypes {
-		release {
+		debug {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			zipAlignEnabled false
+		}
+		release {
+			minifyEnabled true
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			zipAlignEnabled true
 		}
 	}
 }
@@ -24,4 +31,5 @@ dependencies {
 	compile 'com.android.support:appcompat-v7:22.1.1'
 	compile 'com.android.support:cardview-v7:22.1.1'
 	compile 'com.android.support:support-v4:22.1.1'
+	testCompile 'junit:junit:4.12'
 }

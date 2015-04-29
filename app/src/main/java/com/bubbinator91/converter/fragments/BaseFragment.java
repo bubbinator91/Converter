@@ -20,24 +20,25 @@ import com.bubbinator91.converter.util.Utils;
 /**
  * Created by Christopher on 4/25/2015.
  */
-// TODO replace all calls to getActivity() with mActivity
-public abstract class BaseFragment extends Fragment implements ViewTreeObserver.OnScrollChangedListener {
+public abstract class BaseFragment
+		extends Fragment
+		implements ViewTreeObserver.OnScrollChangedListener {
 	private final String TAG = "BaseFragment";
 
-	protected Activity mActivity;
-	protected SharedPreferences mPrefs;
-	protected int fieldLength = -1, lastY = 0;
-	protected View rootView;
-	protected ScrollView mScrollView;
+	private Activity mActivity = null;
+	private SharedPreferences mPrefs = null;
+	private int fieldLength = -1, lastY = 0;
+	private View rootView = null;
+	private ScrollView mScrollView = null;
 
-	protected boolean shouldHideToolbarOnScroll = true;
-	private int mToolbarHeight;
+	private boolean shouldHideToolbarOnScroll = true;
+	private int mToolbarHeight = 0;
 	private int mToolbarOffset = 0;
 
 	@Override
 	public void onAttach(Activity activity) {
 		if (Utils.isDebugEnabled(activity.getApplicationContext())) {
-			Log.d(TAG + ".onAttach", "Entered");
+			Log.d(TAG + "." + getChildTag() + ".onAttach", "Entered");
 		}
 		super.onAttach(activity);
 		mActivity = activity;
@@ -46,7 +47,7 @@ public abstract class BaseFragment extends Fragment implements ViewTreeObserver.
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (Utils.isDebugEnabled(mActivity.getApplicationContext())) {
-			Log.d(TAG + ".onCreateView", "Entered");
+			Log.d(TAG + "." + getChildTag() + ".onCreateView", "Entered");
 		}
 		rootView = inflater.inflate(getLayoutResource(), container, false);
 
@@ -65,7 +66,7 @@ public abstract class BaseFragment extends Fragment implements ViewTreeObserver.
 	@Override
 	public void onResume() {
 		if (Utils.isDebugEnabled(mActivity.getApplicationContext())) {
-			Log.d(TAG + ".onResume", "Entered");
+			Log.d(TAG + "." + getChildTag() + ".onResume", "Entered");
 		}
 
 		if (mPrefs == null) {
@@ -83,7 +84,7 @@ public abstract class BaseFragment extends Fragment implements ViewTreeObserver.
 	@Override
 	public void onPause() {
 		if (Utils.isDebugEnabled(mActivity.getApplicationContext())) {
-			Log.d(TAG + ".onPause", "Entered");
+			Log.d(TAG + "." + getChildTag() + ".onPause", "Entered");
 		}
 		super.onPause();
 
@@ -109,7 +110,7 @@ public abstract class BaseFragment extends Fragment implements ViewTreeObserver.
 			}
 
 			try {
-				Toolbar toolbar = ((Toolbar) getActivity().findViewById(R.id.toolbar));
+				Toolbar toolbar = ((Toolbar) mActivity.findViewById(R.id.toolbar));
 				if (toolbar != null) {
 					if (dy > 0) {
 						while (mToolbarOffset < mToolbarHeight) {
@@ -125,7 +126,7 @@ public abstract class BaseFragment extends Fragment implements ViewTreeObserver.
 				}
 			} catch (NullPointerException e) {
 				if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
-					Log.d("FragmentBase.onScrollChanged", "Toolbar is null\n" + e.toString());
+					Log.d(TAG + "." + getChildTag() +".onScrollChanged", "Toolbar is null\n" + e.toString());
 				}
 			}
 
@@ -133,6 +134,27 @@ public abstract class BaseFragment extends Fragment implements ViewTreeObserver.
 		}
 	}
 
+	protected Activity getCurrentActivity() {
+		return mActivity;
+	}
+
+	protected int getFieldLength() {
+		return fieldLength;
+	}
+
+	protected View getRootView() {
+		return rootView;
+	}
+
+	protected View getScrollView() {
+		return mScrollView;
+	}
+
+	protected void setShouldHideToolbarOnScroll(boolean value) {
+		shouldHideToolbarOnScroll = value;
+	}
+
+	protected abstract String getChildTag();
 	protected abstract int getLayoutResource();
 	protected abstract int getScrollViewResource();
 }

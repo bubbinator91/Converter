@@ -175,9 +175,13 @@ public class Utils {
 
     public Utils() {}
 
-	public static boolean isDebugEnabled(@NonNull Context context) {
-		PREFS = PreferenceManager.getDefaultSharedPreferences(context);
-		return PREFS.getBoolean(PREFERENCE_DEBUG, false);
+	public static boolean isDebugEnabled(Context context) {
+		if (context != null) {
+			PREFS = PreferenceManager.getDefaultSharedPreferences(context);
+			return PREFS.getBoolean(PREFERENCE_DEBUG, false);
+		} else {
+			return false;
+		}
 	}
 
     /**

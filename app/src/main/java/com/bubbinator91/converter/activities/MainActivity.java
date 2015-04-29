@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity {
 		mDrawerIcons.recycle();
 
 		mDrawerLayout = ((DrawerLayout) findViewById(R.id.activity_main_layout));
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.app_name, R.string.app_name) {
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, getToolbar(), R.string.app_name, R.string.app_name) {
 			@Override
 			public void onDrawerSlide(View drawerView, float slideOffset) {
 				super.onDrawerSlide(drawerView, 0);
@@ -262,7 +262,7 @@ public class MainActivity extends BaseActivity {
         lastSelectedPosition = position;
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
-        mToolbar.setTitle(mDrawerTitles[position]);
+        getToolbar().setTitle(mDrawerTitles[position]);
 		mDrawerLayout.closeDrawer(Gravity.START);
 
         if (mPrefs != null) {

@@ -13,7 +13,7 @@ import com.bubbinator91.converter.R;
  * disables the Action Bar (ex. Theme.AppCompat.NoActionBar).
  */
 public abstract class BaseActivity extends AppCompatActivity {
-	protected Toolbar mToolbar;
+	private Toolbar mToolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 	 * @return		the integer value of the resource id of the activity's layout
 	 */
 	protected abstract int getLayoutResourceId();
+
+	protected Toolbar getToolbar() {
+		return mToolbar;
+	}
 
 	/**
 	 * Sets the icon on the left side of the toolbar to a user

@@ -39,7 +39,7 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherInch.s.before", s.toString());
 			}
 
@@ -50,55 +50,55 @@ public class LengthFragment extends BaseFragment {
                         try {
 							BigDecimal inch = new BigDecimal(s.toString());
 							BigDecimal foot = inch.divide(new BigDecimal("12")
-																 , fieldLength
+																 , getFieldLength()
 																 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal yard = foot.divide(new BigDecimal("3")
-																 , fieldLength
+																 , getFieldLength()
 																 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal mile = foot.divide(new BigDecimal("5280")
-																 , fieldLength
+																 , getFieldLength()
 																 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
 							BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-																			 , fieldLength
+																			 , getFieldLength()
 																			 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-																		, fieldLength
+																		, getFieldLength()
 																		, BigDecimal.ROUND_HALF_UP);
 							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-																			, fieldLength
+																			, getFieldLength()
 																			, BigDecimal.ROUND_HALF_UP);
 
-                            editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextFoot.setText(foot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-                            editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextYard.setText(yard.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-                            editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextMile.setText(mile.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextMillimeter.setText(millimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextCentimeter.setText(centimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-                            editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextMeter.setText(meter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														  .stripTrailingZeros()
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+                            editTextKilometer.setText(kilometer.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															  .stripTrailingZeros()
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+                            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -114,9 +114,9 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherInch.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherInch.s.after", "null");
 			}
 
@@ -149,7 +149,7 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherFoot.s.before", s.toString());
 			}
 
@@ -161,52 +161,52 @@ public class LengthFragment extends BaseFragment {
 							BigDecimal foot = new BigDecimal(s.toString());
 							BigDecimal inch = foot.multiply(new BigDecimal("12"));
 							BigDecimal yard = foot.divide(new BigDecimal("3")
-																 , fieldLength
+																 , getFieldLength()
 																 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal mile = foot.divide(new BigDecimal("5280")
-																 , fieldLength
+																 , getFieldLength()
 																 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
 							BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-																			 , fieldLength
+																			 , getFieldLength()
 																			 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-																		, fieldLength
+																		, getFieldLength()
 																		, BigDecimal.ROUND_HALF_UP);
 							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-																			, fieldLength
+																			, getFieldLength()
 																			, BigDecimal.ROUND_HALF_UP);
 
-							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextInch.setText(inch.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextYard.setText(yard.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMile.setText(mile.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMillimeter.setText(millimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextCentimeter.setText(centimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMeter.setText(meter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														  .stripTrailingZeros()
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
-							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextKilometer.setText(kilometer.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															  .stripTrailingZeros()
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -222,9 +222,9 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherFoot.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherFoot.s.after", "null");
 			}
 
@@ -257,7 +257,7 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherYard.s.before", s.toString());
 			}
 
@@ -270,49 +270,49 @@ public class LengthFragment extends BaseFragment {
 							BigDecimal inch = yard.multiply(new BigDecimal("36"));
 							BigDecimal foot = yard.multiply(new BigDecimal("3"));
 							BigDecimal mile = foot.divide(new BigDecimal("5280")
-																 , fieldLength
+																 , getFieldLength()
 																 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
 							BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-																			 , fieldLength
+																			 , getFieldLength()
 																			 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-																		, fieldLength
+																		, getFieldLength()
 																		, BigDecimal.ROUND_HALF_UP);
 							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-																			, fieldLength
+																			, getFieldLength()
 																			, BigDecimal.ROUND_HALF_UP);
 
-							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextInch.setText(inch.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextFoot.setText(foot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMile.setText(mile.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMillimeter.setText(millimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextCentimeter.setText(centimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMeter.setText(meter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														  .stripTrailingZeros()
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
-							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextKilometer.setText(kilometer.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															  .stripTrailingZeros()
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -328,9 +328,9 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherYard.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherYard.s.after", "null");
 			}
 
@@ -363,7 +363,7 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherMile.s.before", s.toString());
 			}
 
@@ -378,45 +378,45 @@ public class LengthFragment extends BaseFragment {
 							BigDecimal yard = mile.multiply(new BigDecimal("1760"));
 							BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
 							BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-																			 , fieldLength
+																			 , getFieldLength()
 																			 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-																		, fieldLength
+																		, getFieldLength()
 																		, BigDecimal.ROUND_HALF_UP);
 							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-																			, fieldLength
+																			, getFieldLength()
 																			, BigDecimal.ROUND_HALF_UP);
 
-							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextInch.setText(inch.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextFoot.setText(foot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextYard.setText(yard.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMillimeter.setText(millimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextCentimeter.setText(centimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMeter.setText(meter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														  .stripTrailingZeros()
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
-							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextKilometer.setText(kilometer.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															  .stripTrailingZeros()
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -432,9 +432,9 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherMile.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherMile.s.after", "null");
 			}
 
@@ -467,7 +467,7 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherMillimeter.s.before", s.toString());
 			}
 
@@ -481,48 +481,48 @@ public class LengthFragment extends BaseFragment {
 							BigDecimal foot = millimeter.multiply(new BigDecimal("0.00328083989501312335958005249344"));
 							BigDecimal yard = millimeter.multiply(new BigDecimal("0.00109361329833770778652668416448"));
 							BigDecimal mile = foot.divide(new BigDecimal("5280")
-																 , fieldLength
+																 , getFieldLength()
 																 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-																			 , fieldLength
+																			 , getFieldLength()
 																			 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-																		, fieldLength
+																		, getFieldLength()
 																		, BigDecimal.ROUND_HALF_UP);
 							BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-																			, fieldLength
+																			, getFieldLength()
 																			, BigDecimal.ROUND_HALF_UP);
 
-							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextInch.setText(inch.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextFoot.setText(foot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextYard.setText(yard.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMile.setText(mile.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextCentimeter.setText(centimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMeter.setText(meter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														  .stripTrailingZeros()
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
-							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextKilometer.setText(kilometer.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															  .stripTrailingZeros()
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -538,9 +538,9 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherMillimeter.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherMillimeter.s.after", "null");
 			}
 
@@ -573,7 +573,7 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherCentimeter.s.before", s.toString());
 			}
 
@@ -587,46 +587,46 @@ public class LengthFragment extends BaseFragment {
 							BigDecimal foot = centimeter.multiply(new BigDecimal("0.0328083989501312335958005249344"));
 							BigDecimal yard = centimeter.multiply(new BigDecimal("0.0109361329833770778652668416448"));
 							BigDecimal mile = foot.divide(new BigDecimal("5280")
-																 , fieldLength
+																 , getFieldLength()
 																 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal millimeter = centimeter.multiply(new BigDecimal("10"));
 							BigDecimal meter = centimeter.divide(new BigDecimal("100")
-																		, fieldLength
+																		, getFieldLength()
 																		, BigDecimal.ROUND_HALF_UP);
 							BigDecimal kilometer = centimeter.divide(new BigDecimal("100000")
-																			, fieldLength
+																			, getFieldLength()
 																			, BigDecimal.ROUND_HALF_UP);
 
-							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextInch.setText(inch.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextFoot.setText(foot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextYard.setText(yard.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMile.setText(mile.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMillimeter.setText(millimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMeter.setText(meter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														  .stripTrailingZeros()
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
-							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextKilometer.setText(kilometer.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															  .stripTrailingZeros()
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -642,9 +642,9 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherCentimeter.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherCentimeter.s.after", "null");
 			}
 
@@ -677,7 +677,7 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherMeter.s.before", s.toString());
 			}
 
@@ -691,44 +691,44 @@ public class LengthFragment extends BaseFragment {
 							BigDecimal foot = meter.multiply(new BigDecimal("3.28083989501312335958005249344"));
 							BigDecimal yard = meter.multiply(new BigDecimal("1.09361329833770778652668416448"));
 							BigDecimal mile = foot.divide(new BigDecimal("5280")
-																 , fieldLength
+																 , getFieldLength()
 																 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal millimeter = meter.multiply(new BigDecimal("1000"));
 							BigDecimal centimeter = meter.multiply(new BigDecimal("100"));
 							BigDecimal kilometer = meter.divide(new BigDecimal("1000")
-																			, fieldLength
+																			, getFieldLength()
 																			, BigDecimal.ROUND_HALF_UP);
 
-							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextInch.setText(inch.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextFoot.setText(foot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextYard.setText(yard.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMile.setText(mile.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMillimeter.setText(millimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextCentimeter.setText(centimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														  .stripTrailingZeros()
 														  .toPlainString()
 														 , TextView.BufferType.EDITABLE);
-							editTextKilometer.setText(kilometer.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextKilometer.setText(kilometer.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															  .stripTrailingZeros()
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -744,9 +744,9 @@ public class LengthFragment extends BaseFragment {
                 editTextKilometer.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherMeter.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherMeter.s.after", "null");
 			}
 
@@ -779,7 +779,7 @@ public class LengthFragment extends BaseFragment {
             editTextMeter.removeTextChangedListener(textWatcherMeter);
             editTextKilometer.removeTextChangedListener(textWatcherKilometer);
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 				Log.d(TAG + ".textWatcherKilometer.s.before", s.toString());
 			}
 
@@ -793,42 +793,42 @@ public class LengthFragment extends BaseFragment {
 							BigDecimal foot = kilometer.multiply(new BigDecimal("3280.83989501312335958005249344"));
 							BigDecimal yard = kilometer.multiply(new BigDecimal("1093.61329833770778652668416448"));
 							BigDecimal mile = foot.divide(new BigDecimal("5280")
-																 , fieldLength
+																 , getFieldLength()
 																 , BigDecimal.ROUND_HALF_UP);
 							BigDecimal millimeter = kilometer.multiply(new BigDecimal("1000000"));
 							BigDecimal centimeter = kilometer.multiply(new BigDecimal("100000"));
 							BigDecimal meter = kilometer.multiply(new BigDecimal("1000"));
 
-							editTextInch.setText(inch.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextInch.setText(inch.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextFoot.setText(foot.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextFoot.setText(foot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextYard.setText(yard.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextYard.setText(yard.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMile.setText(mile.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMile.setText(mile.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 														 .stripTrailingZeros()
 														 .toPlainString()
 														, TextView.BufferType.EDITABLE);
-							editTextMillimeter.setText(millimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMillimeter.setText(millimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextCentimeter.setText(centimeter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextCentimeter.setText(centimeter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															   .stripTrailingZeros()
 															   .toPlainString()
 															  , TextView.BufferType.EDITABLE);
-							editTextMeter.setText(meter.setScale(fieldLength, BigDecimal.ROUND_HALF_UP)
+							editTextMeter.setText(meter.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
 															  .stripTrailingZeros()
 															  .toPlainString()
 															 , TextView.BufferType.EDITABLE);
                         } catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
                         }
@@ -844,9 +844,9 @@ public class LengthFragment extends BaseFragment {
                 editTextMeter.setText("", TextView.BufferType.EDITABLE);
             }
 
-            if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s != null)) {
+            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s != null)) {
 				Log.d(TAG + ".textWatcherKilometer.s.after", s.toString());
-			} else if (Utils.isDebugEnabled(getActivity().getApplicationContext()) && (s == null)) {
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (s == null)) {
 				Log.d(TAG + ".textWatcherKilometer.s.after", "null");
 			}
 
@@ -869,23 +869,23 @@ public class LengthFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
+		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 			Log.d(TAG + ".onCreateView", "Entered");
 		}
 
         super.onCreateView(inflater, container, savedInstanceState);
 
-		if (rootView != null) {
-			Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+		if (getRootView() != null) {
+			Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
 
-			TextView textViewInch = ((TextView) rootView.findViewById(R.id.textView_length_inch));
-			TextView textViewFoot = ((TextView) rootView.findViewById(R.id.textView_length_foot));
-			TextView textViewYard = ((TextView) rootView.findViewById(R.id.textView_length_yard));
-			TextView textViewMile = ((TextView) rootView.findViewById(R.id.textView_length_mile));
-			TextView textViewMillimeter = ((TextView) rootView.findViewById(R.id.textView_length_millimeter));
-			TextView textViewCentimeter = ((TextView) rootView.findViewById(R.id.textView_length_centimeter));
-			TextView textViewMeter = ((TextView) rootView.findViewById(R.id.textView_length_meter));
-			TextView textViewKilometer = ((TextView) rootView.findViewById(R.id.textView_length_kilometer));
+			TextView textViewInch = ((TextView) getRootView().findViewById(R.id.textView_length_inch));
+			TextView textViewFoot = ((TextView) getRootView().findViewById(R.id.textView_length_foot));
+			TextView textViewYard = ((TextView) getRootView().findViewById(R.id.textView_length_yard));
+			TextView textViewMile = ((TextView) getRootView().findViewById(R.id.textView_length_mile));
+			TextView textViewMillimeter = ((TextView) getRootView().findViewById(R.id.textView_length_millimeter));
+			TextView textViewCentimeter = ((TextView) getRootView().findViewById(R.id.textView_length_centimeter));
+			TextView textViewMeter = ((TextView) getRootView().findViewById(R.id.textView_length_meter));
+			TextView textViewKilometer = ((TextView) getRootView().findViewById(R.id.textView_length_kilometer));
 
 			textViewInch.setTypeface(tf);
 			textViewFoot.setTypeface(tf);
@@ -896,14 +896,14 @@ public class LengthFragment extends BaseFragment {
 			textViewMeter.setTypeface(tf);
 			textViewKilometer.setTypeface(tf);
 
-			editTextInch = ((EditText) rootView.findViewById(R.id.editText_length_inch));
-			editTextFoot = ((EditText) rootView.findViewById(R.id.editText_length_foot));
-			editTextYard = ((EditText) rootView.findViewById(R.id.editText_length_yard));
-			editTextMile = ((EditText) rootView.findViewById(R.id.editText_length_mile));
-			editTextMillimeter = ((EditText) rootView.findViewById(R.id.editText_length_millimeter));
-			editTextCentimeter = ((EditText) rootView.findViewById(R.id.editText_length_centimeter));
-			editTextMeter = ((EditText) rootView.findViewById(R.id.editText_length_meter));
-			editTextKilometer = ((EditText) rootView.findViewById(R.id.editText_length_kilometer));
+			editTextInch = ((EditText) getRootView().findViewById(R.id.editText_length_inch));
+			editTextFoot = ((EditText) getRootView().findViewById(R.id.editText_length_foot));
+			editTextYard = ((EditText) getRootView().findViewById(R.id.editText_length_yard));
+			editTextMile = ((EditText) getRootView().findViewById(R.id.editText_length_mile));
+			editTextMillimeter = ((EditText) getRootView().findViewById(R.id.editText_length_millimeter));
+			editTextCentimeter = ((EditText) getRootView().findViewById(R.id.editText_length_centimeter));
+			editTextMeter = ((EditText) getRootView().findViewById(R.id.editText_length_meter));
+			editTextKilometer = ((EditText) getRootView().findViewById(R.id.editText_length_kilometer));
 
 			editTextInch.addTextChangedListener(textWatcherInch);
 			editTextFoot.addTextChangedListener(textWatcherFoot);
@@ -915,8 +915,11 @@ public class LengthFragment extends BaseFragment {
 			editTextKilometer.addTextChangedListener(textWatcherKilometer);
 		}
 
-        return rootView;
+        return getRootView();
     }
+
+	@Override
+	protected String getChildTag() { return TAG; }
 
 	@Override
 	protected int getLayoutResource() { return R.layout.fragment_length; }
