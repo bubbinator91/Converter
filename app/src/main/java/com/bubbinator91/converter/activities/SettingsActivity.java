@@ -1,5 +1,6 @@
 package com.bubbinator91.converter.activities;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -24,7 +25,11 @@ public class SettingsActivity extends BaseActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		if (Utils.isDebugEnabled(getApplicationContext())) {
+			Log.d(TAG + ".onCreate", "Entered");
+		}
 		super.onCreate(savedInstanceState);
+
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		getFragmentManager().beginTransaction()
 				.replace(R.id.prefs_container, new SettingsFragment())
@@ -35,8 +40,15 @@ public class SettingsActivity extends BaseActivity {
 	protected int getLayoutResourceId() { return R.layout.activity_settings; }
 
 	@Override
+	protected String getChildTag() { return TAG; }
+
+	@Override
 	public void finish() {
+		if (Utils.isDebugEnabled(getApplicationContext())) {
+			Log.d(TAG + ".finish", "Entered");
+		}
 		super.finish();
+
 		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 
 		SharedPreferences.Editor editor = mPrefs.edit();
@@ -60,8 +72,25 @@ public class SettingsActivity extends BaseActivity {
 	}
 
 	public static class SettingsFragment extends PreferenceFragment {
+		private final String TAG = "SettingsFragment";
+
+		private Activity mActivity = null;
+
+		@Override
+		public void onAttach(Activity activity) {
+			if (Utils.isDebugEnabled(activity.getApplicationContext())) {
+				Log.d(TAG + ".onAttach", "Entered");
+			}
+			super.onAttach(activity);
+			mActivity = activity;
+		}
+
 		@Override
 		public void onCreate(final Bundle savedInstanceState) {
+			if (Utils.isDebugEnabled(mActivity.getApplicationContext())) {
+				Log.d(TAG + ".onCreate", "Entered");
+			}
+
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.settings);
 		}

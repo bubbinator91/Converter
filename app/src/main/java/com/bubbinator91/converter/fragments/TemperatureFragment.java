@@ -81,7 +81,7 @@ public class TemperatureFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + "onCreateView", "Entered");
+			Log.d(TAG + ".onCreateView", "Entered");
 		}
 
 		super.onCreateView(inflater, container, savedInstanceState);

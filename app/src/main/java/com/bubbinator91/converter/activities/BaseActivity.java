@@ -3,8 +3,10 @@ package com.bubbinator91.converter.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.util.Utils;
 
 /**
  * The base activity that all activities should inherit from.
@@ -13,10 +15,15 @@ import com.bubbinator91.converter.R;
  * disables the Action Bar (ex. Theme.AppCompat.NoActionBar).
  */
 public abstract class BaseActivity extends AppCompatActivity {
+	private final String TAG = "BaseActivity";
+
 	private Toolbar mToolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (Utils.isDebugEnabled(getApplicationContext())) {
+			Log.d(TAG + "." + getChildTag() + ".onCreate", "Entered");
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(getLayoutResourceId());
 		mToolbar = ((Toolbar) findViewById(R.id.toolbar));
@@ -35,6 +42,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 	 * @return		the integer value of the resource id of the activity's layout
 	 */
 	protected abstract int getLayoutResourceId();
+
+	protected abstract String getChildTag();
 
 	protected Toolbar getToolbar() {
 		return mToolbar;

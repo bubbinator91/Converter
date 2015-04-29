@@ -5,9 +5,11 @@ import android.os.Bundle;
 import com.bubbinator91.converter.R;
 
 /**
- * Created by Christopher on 4/28/2015.
+ * An activity created to integrate with the testing framework
+ * to facilitate the testing of fragments.
  */
 public class TestFragmentsActivity extends BaseActivity {
+	private final String TAG = "TestFragmentsActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,4 +18,7 @@ public class TestFragmentsActivity extends BaseActivity {
 
 	@Override
 	protected int getLayoutResourceId() { return R.layout.activity_test_fragments; }
+
+	@Override
+	protected String getChildTag() { return TAG; }
 }

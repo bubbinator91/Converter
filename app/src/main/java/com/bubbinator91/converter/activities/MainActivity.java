@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.fragments.*;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
  */
 public class MainActivity extends BaseActivity {
 	private final String TAG = "MainActivity";
-	private boolean wasActivityRestarted;
+	private boolean wasActivityRestarted = false;
 
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -106,46 +107,62 @@ public class MainActivity extends BaseActivity {
 	protected int getLayoutResourceId() { return R.layout.activity_main; }
 
 	@Override
+	protected String getChildTag() { return TAG; }
+
+	@Override
 	protected void onRestart() {
 		if (Utils.isDebugEnabled(getApplicationContext())) {
 			Log.d(TAG + ".onRestart", "Entered");
 		}
 		super.onRestart();
 		wasActivityRestarted = true;
-		preChangeToFragment(lastSelectedPosition);
 	}
 
 	@Override
 	protected void onStart() {
 		if (Utils.isDebugEnabled(getApplicationContext())) {
 			Log.d(TAG + ".onStart", "Entered");
+			Log.d(TAG + ".onStart", "wasActivityRestarted = " + wasActivityRestarted);
 		}
 		super.onStart();
 
-		if ((mPrefs != null) && !wasActivityRestarted) {
-			if (Utils.isDebugEnabled(getApplicationContext())) {
-				Log.d(TAG + ".onStart", "mPrefs != null");
-			}
-			lastSelectedPosition = mPrefs.getInt(STATE_SELECTED_POSITION, -1);
-			if (Utils.isDebugEnabled(getApplicationContext())) {
-				Log.d(TAG + ".onStart", "lastSelectedPosition = " + lastSelectedPosition);
-				Log.d(TAG + ".onStart", "fieldLength = " + mPrefs.getString(Utils.PREFERENCE_DECIMAL_PLACES, "null"));
-			}
-			if (mPrefs.getInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, -1) != 1) {
-				if (lastSelectedPosition >= 0) {
-					preChangeToFragment(lastSelectedPosition);
-					selectFragment(lastSelectedPosition);
+		try {
+			if ((mPrefs != null) && !wasActivityRestarted) {
+				if (Utils.isDebugEnabled(getApplicationContext())) {
+					Log.d(TAG + ".onStart", "mPrefs != null");
 				}
-			} else {
-				SharedPreferences.Editor editor = mPrefs.edit();
-				editor.putInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, 0);
-				editor.apply();
+				lastSelectedPosition = mPrefs.getInt(STATE_SELECTED_POSITION, -1);
+				if (Utils.isDebugEnabled(getApplicationContext())) {
+					Log.d(TAG + ".onStart", "lastSelectedPosition = " + lastSelectedPosition);
+					Log.d(TAG + ".onStart", "fieldLength = " + mPrefs.getString(Utils.PREFERENCE_DECIMAL_PLACES, "null"));
+				}
+				if (mPrefs.getInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, -1) != 1) {
+					if (lastSelectedPosition >= 0) {
+						preChangeToFragment(lastSelectedPosition);
+						selectFragment(lastSelectedPosition);
+					}
+				} else {
+					SharedPreferences.Editor editor = mPrefs.edit();
+					editor.putInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, 0);
+					editor.apply();
+				}
+			} else if (mPrefs == null) {
+				throw new NullPointerException("mPrefs cannot be null");
+			} else if (wasActivityRestarted) {
+				preChangeToFragment(lastSelectedPosition);
 			}
-		} else {
+		} catch (NullPointerException e) {
 			if (Utils.isDebugEnabled(getApplicationContext())) {
-				Log.d(TAG + ".onStart", "mPrefs == null");
+				Log.e(TAG + ".onStart", "mPrefs was null, and it cannot be null. exiting");
+				Toast.makeText(getApplicationContext(),
+							   "There has been an error getting the preferences for the" +
+							   " application. Please contact the developer.",
+							   Toast.LENGTH_LONG).show();
+				finish();
 			}
 		}
+
+		wasActivityRestarted = false;
 	}
 
 	@Override
@@ -208,6 +225,8 @@ public class MainActivity extends BaseActivity {
 				mDrawerLayout.openDrawer(Gravity.START);
 				return true;
 			case R.id.action_settings:
+				InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
+				imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 				Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
 				startActivity(
 					settingsIntent,
@@ -232,7 +251,7 @@ public class MainActivity extends BaseActivity {
 	 */
 	private void selectFragment(int position) {
 		if (Utils.isDebugEnabled(getApplicationContext())) {
-			Log.d(TAG + ".selectDrawerItem", "Entered");
+			Log.d(TAG + ".selectFragment", "Entered");
 		}
 
 		switch (position) {
