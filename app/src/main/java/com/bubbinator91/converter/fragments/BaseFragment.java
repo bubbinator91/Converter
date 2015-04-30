@@ -15,11 +15,17 @@ import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.util.Globals;
 import com.bubbinator91.converter.util.Utils;
 
 /**
- * Created by Christopher on 4/25/2015.
+ * The base fragment that all fragments should inherit from.
+ * The purpose of this fragment to help reduce the amount of
+ * duplicated code.
  */
+
+// TODO Update to use global variables
+// TODO Improve performance by using a second thread
 public abstract class BaseFragment
 		extends Fragment
 		implements ViewTreeObserver.OnScrollChangedListener {
@@ -35,12 +41,14 @@ public abstract class BaseFragment
 	private int mToolbarHeight = 0;
 	private int mToolbarOffset = 0;
 
+	// region Lifecycle methods
+
 	@Override
 	public void onAttach(Activity activity) {
+		super.onAttach(activity);
 		if (Utils.isDebugEnabled(activity.getApplicationContext())) {
 			Log.d(TAG + "." + getChildTag() + ".onAttach", "Entered");
 		}
-		super.onAttach(activity);
 		mActivity = activity;
 	}
 
@@ -51,9 +59,12 @@ public abstract class BaseFragment
 		}
 		rootView = inflater.inflate(getLayoutResource(), container, false);
 
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
 
-		TypedArray actionBarAttrs = getActivity().obtainStyledAttributes(new int[] { android.R.attr.actionBarSize });
+		TypedArray actionBarAttrs = getActivity()
+									.obtainStyledAttributes(new int[] {
+																android.R.attr.actionBarSize
+									});
 		mToolbarHeight = ((int) actionBarAttrs.getDimension(0, 0) + 10);
 		actionBarAttrs.recycle();
 
@@ -65,6 +76,7 @@ public abstract class BaseFragment
 
 	@Override
 	public void onResume() {
+		super.onResume();
 		if (Utils.isDebugEnabled(mActivity.getApplicationContext())) {
 			Log.d(TAG + "." + getChildTag() + ".onResume", "Entered");
 		}
@@ -73,20 +85,19 @@ public abstract class BaseFragment
 			mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 		}
 		if (mPrefs != null) {
-			fieldLength = Integer.parseInt(mPrefs.getString(Utils.PREFERENCE_DECIMAL_PLACES, "-1"));
+			fieldLength = Integer.parseInt(mPrefs.getString(Globals.PREFERENCE_DECIMAL_PLACES, "-1"));
 		}
 		if (fieldLength == -1) {
 			fieldLength = 8;
 		}
-		super.onResume();
 	}
 
 	@Override
 	public void onPause() {
+		super.onPause();
 		if (Utils.isDebugEnabled(mActivity.getApplicationContext())) {
 			Log.d(TAG + "." + getChildTag() + ".onPause", "Entered");
 		}
-		super.onPause();
 
 		Toolbar toolbar = ((Toolbar) mActivity.findViewById(R.id.toolbar));
 		if (toolbar != null) {
@@ -97,6 +108,10 @@ public abstract class BaseFragment
 			}
 		}
 	}
+
+	// endregion
+
+	// region Helper methods
 
 	@Override
 	public void onScrollChanged() {
@@ -154,7 +169,13 @@ public abstract class BaseFragment
 		shouldHideToolbarOnScroll = value;
 	}
 
+	// endregion
+
+	// region Abstract methods
+
 	protected abstract String getChildTag();
 	protected abstract int getLayoutResource();
 	protected abstract int getScrollViewResource();
+
+	// endregion
 }

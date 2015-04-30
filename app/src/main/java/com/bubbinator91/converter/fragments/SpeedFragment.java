@@ -21,6 +21,8 @@ import java.math.BigDecimal;
  * Conversions comply with the conversions through Google.com
  */
 
+// TODO Update to use global variables
+// TODO Improve performance by using a second thread
 public class SpeedFragment extends BaseFragment {
 	private enum LastEditTextFocused {
 		FPS,
@@ -33,7 +35,10 @@ public class SpeedFragment extends BaseFragment {
     private final String TAG = "FragmentSpeed";
 
     private EditText editTextFps, editTextKnot, editTextKph, editTextMps, editTextMph;
+
 	private LastEditTextFocused lastEditTextFocused;
+
+	// region TextWatchers
 
     private TextWatcher textWatcherFps = new TextWatcher() {
         @Override
@@ -105,13 +110,16 @@ public class SpeedFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
+	// endregion
+
+	// region Lifecycle methods
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 			Log.d(TAG + ".onCreateView", "Entered");
 		}
-
-		super.onCreateView(inflater, container, savedInstanceState);
 
 		setShouldHideToolbarOnScroll(false);
 
@@ -144,10 +152,10 @@ public class SpeedFragment extends BaseFragment {
 
 	@Override
 	public void onResume() {
+		super.onResume();
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 			Log.d(TAG + ".onResume", "Entered");
 		}
-		super.onResume();
 
 		if (lastEditTextFocused == LastEditTextFocused.FPS) {
 			if (editTextFps.getText() != null) {
@@ -171,6 +179,10 @@ public class SpeedFragment extends BaseFragment {
 			}
 		}
 	}
+
+	// endregion
+
+	// region Helper methods
 
 	private void addTextChangedListeners() {
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
@@ -538,6 +550,10 @@ public class SpeedFragment extends BaseFragment {
 		addTextChangedListeners();
 	}
 
+	// endregion
+
+	// region Overridden BaseFragment methods
+
 	@Override
 	protected String getChildTag() { return TAG; }
 
@@ -546,4 +562,6 @@ public class SpeedFragment extends BaseFragment {
 
 	@Override
 	protected int getScrollViewResource() { return  R.id.fragment_speed; }
+
+	// endregion
 }

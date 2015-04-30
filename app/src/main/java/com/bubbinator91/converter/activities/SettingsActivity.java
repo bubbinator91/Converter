@@ -3,12 +3,15 @@ package com.bubbinator91.converter.activities;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.util.Log;
 import android.view.MenuItem;
 
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.util.Globals;
 import com.bubbinator91.converter.util.Utils;
 
 /**
@@ -21,20 +24,23 @@ import com.bubbinator91.converter.util.Utils;
 public class SettingsActivity extends BaseActivity {
 	private final String TAG = "SettingsActivity";
 
-	private SharedPreferences mPrefs;
+	// region Lifecycle methods
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
+		super.onCreate(savedInstanceState);
+		if (Globals.isDebugEnabled) {
 			Log.d(TAG + ".onCreate", "Entered");
 		}
-		super.onCreate(savedInstanceState);
 
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		getFragmentManager().beginTransaction()
 				.replace(R.id.prefs_container, new SettingsFragment())
 				.commit();
 	}
+
+	// endregion
+
+	// region Overridden BaseActivity methods
 
 	@Override
 	protected int getLayoutResourceId() { return R.layout.activity_settings; }
@@ -42,23 +48,33 @@ public class SettingsActivity extends BaseActivity {
 	@Override
 	protected String getChildTag() { return TAG; }
 
+	// endregion
+
+	// region Other overridden methods
+
 	@Override
 	public void finish() {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
+		super.finish();
+		if (Globals.isDebugEnabled) {
 			Log.d(TAG + ".finish", "Entered");
 		}
-		super.finish();
+
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		if (preferences != null) {
+			Globals.decimalPlaceLength = Integer.parseInt(preferences
+														  .getString(
+																Globals.PREFERENCE_DECIMAL_PLACES,
+																"8")
+														 );
+		}
+		Globals.isTransitioningBackToMainActivity = true;
 
 		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-
-		SharedPreferences.Editor editor = mPrefs.edit();
-		editor.putInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, 1);
-		editor.apply();
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
+		if (Globals.isDebugEnabled) {
 			Log.d(TAG + ".onOptionsItemSelected", "Entered");
 		}
 
@@ -71,10 +87,14 @@ public class SettingsActivity extends BaseActivity {
 		}
 	}
 
+	// endregion
+
 	public static class SettingsFragment extends PreferenceFragment {
 		private final String TAG = "SettingsFragment";
 
 		private Activity mActivity = null;
+
+		// region Lifecycle methods
 
 		@Override
 		public void onAttach(Activity activity) {
@@ -87,12 +107,34 @@ public class SettingsActivity extends BaseActivity {
 
 		@Override
 		public void onCreate(final Bundle savedInstanceState) {
-			if (Utils.isDebugEnabled(mActivity.getApplicationContext())) {
+			if (Utils.isDebugEnabled(mActivity)) {
 				Log.d(TAG + ".onCreate", "Entered");
 			}
 
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.settings);
+
+			SwitchPreference debugSwitch =
+					((SwitchPreference) findPreference(
+											getResources().getString(R.string.util_key_debug)
+										)
+					);
+			debugSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					if (((boolean) newValue) != Globals.isDebugEnabled) {
+						Globals.isDebugEnabled = ((boolean) newValue);
+						return true;
+					} else if (((boolean) newValue) == Globals.isDebugEnabled) {
+						Globals.isDebugEnabled = !Globals.isDebugEnabled;
+						return false;
+					} else {
+						return false;
+					}
+				}
+			});
 		}
+
+		// endregion
 	}
 }

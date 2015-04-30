@@ -3,7 +3,6 @@ package com.bubbinator91.converter.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.text.Editable;
 
 /**
@@ -167,10 +166,6 @@ import android.text.Editable;
  */
 
 public class Utils {
-	public static String PREFERENCE_DEBUG = "is_debug_enabled";
-	public static String PREFERENCE_DECIMAL_PLACES = "decimal_places";
-	public static String PREFERENCE_TRANS_FROM_SETTINGS = "transitioned_from_settings";
-
 	public static SharedPreferences PREFS = null;
 
     public Utils() {}
@@ -178,8 +173,11 @@ public class Utils {
 	public static boolean isDebugEnabled(Context context) {
 		if (context != null) {
 			PREFS = PreferenceManager.getDefaultSharedPreferences(context);
-			return PREFS.getBoolean(PREFERENCE_DEBUG, false);
+			boolean ret = PREFS.getBoolean(Globals.PREFERENCE_DEBUG, false);
+			PREFS = null;
+			return ret;
 		} else {
+			PREFS = null;
 			return false;
 		}
 	}
@@ -193,70 +191,70 @@ public class Utils {
      * leading zeroes that are not proceeded by a decimal
      * point ("00009" or "-00009").
      *
-     * @param s Editable to sanitize
+     * @param editable		Editable to sanitize
+	 *
      * @return An object of type Editable that has been sanitized
      */
-    public static Editable sanitizeEditable(Editable s) {
-        if (s == null)
+    public static Editable sanitizeEditable(Editable editable) {
+        if (editable == null)
             return null;
 
-        Editable ret = s;
-        if (ret.length() >= 2) {
+        if (editable.length() >= 2) {
             //check for (a) leading zero(s) without a decimal point after it/them
-            if ((ret.charAt(0) == '0')) {
+            if ((editable.charAt(0) == '0')) {
                 int j = 0;
                 boolean containsAllZeroes = false;
-                for (int i = 0; i < ret.length(); i++) {
-                    if (ret.charAt(i) == '0') {
+                for (int i = 0; i < editable.length(); i++) {
+                    if (editable.charAt(i) == '0') {
                         j++;
                     } else {
                         break;
                     }
-                    if (i == (ret.length() - 1))
+                    if (i == (editable.length() - 1))
                         containsAllZeroes = true;
                 }
                 if (!containsAllZeroes)
-                    ret.delete(0, j);
-            } else if ((ret.charAt(0) == '-') && (ret.charAt(1) == '0')) {
+					editable.delete(0, j);
+            } else if ((editable.charAt(0) == '-') && (editable.charAt(1) == '0')) {
                 int j = 0;
                 boolean containsAllZeroes = false;
-                for (int i = 1; i < ret.length(); i++) {
-                    if (ret.charAt(i) == '0') {
+                for (int i = 1; i < editable.length(); i++) {
+                    if (editable.charAt(i) == '0') {
                         j++;
                     } else {
                         break;
                     }
-                    if (i == (ret.length() - 1))
+                    if (i == (editable.length() - 1))
                         containsAllZeroes = true;
                 }
                 if (!containsAllZeroes)
-                    ret.delete(1, j+1);
+					editable.delete(1, j+1);
             }
         }
         // check for weird decimals and weird negative signs
         boolean containsDecimal = false;
-        for (int i = 0; i < ret.length(); i++) {
+        for (int i = 0; i < editable.length(); i++) {
             if (i == 0) {
-                if (ret.charAt(0) == '.')
+                if (editable.charAt(0) == '.')
                     containsDecimal = true;
             } else if (i > 0) {
-                if ((ret.charAt(i) == '-') || ((ret.charAt(i) == '.') && containsDecimal)) {
-                    ret.delete(i, i + 1);
-                } else if (s.charAt(i) == '.') {
+                if ((editable.charAt(i) == '-') || ((editable.charAt(i) == '.') && containsDecimal)) {
+					editable.delete(i, i + 1);
+                } else if (editable.charAt(i) == '.') {
                     containsDecimal = true;
                 }
             }
         }
 
-        return ret;
+        return editable;
     }
 
     /**
-     * Method to check if a string is purely numeric
+     * Method to check if a string is purely numeric.
      *
-     * @param str The string to check
-     * @return A boolean value indicating whether or not
-     * the string is numeric
+     * @param str		The string to check
+	 *
+     * @return A boolean value indicating whether or not the string is numeric
      */
     public static boolean isNumeric(final String str) {
         if (str.isEmpty()) {
@@ -361,7 +359,7 @@ public class Utils {
             return false;
         }
         // allowSigns is true iff the val ends in 'E'
-        // found digit it to make sure weird stuff like '.' and '1E-' doesn't pass
+        // found digit is to make sure weird stuff like '.' and '1E-' doesn't pass
         return !allowSigns && foundDigit;
     }
 }

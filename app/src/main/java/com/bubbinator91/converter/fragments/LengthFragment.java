@@ -21,6 +21,8 @@ import java.math.BigDecimal;
  * Conversions comply with the conversions through Google.com
  */
 
+// TODO Update to use global variables
+// TODO Improve performance by using a second thread
 public class LengthFragment extends BaseFragment {
     private enum LastEditTextFocused {
         INCH,
@@ -37,7 +39,10 @@ public class LengthFragment extends BaseFragment {
 
     private EditText editTextInch, editTextFoot, editTextYard, editTextMile, editTextMillimeter,
                     editTextCentimeter, editTextMeter, editTextKilometer;
+
     private LastEditTextFocused lastEditTextFocused;
+
+	// region TextWatchers
 
     private TextWatcher textWatcherInch = new TextWatcher() {
         @Override
@@ -159,13 +164,16 @@ public class LengthFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
+	// endregion
+
+	// region Lifecycle methods
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 			Log.d(TAG + ".onCreateView", "Entered");
 		}
-
-        super.onCreateView(inflater, container, savedInstanceState);
 
 		if (getRootView() != null) {
 			Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
@@ -205,10 +213,10 @@ public class LengthFragment extends BaseFragment {
 
     @Override
     public void onResume() {
+		super.onResume();
         if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
             Log.d(TAG + ".onResume", "Entered");
         }
-        super.onResume();
 
         if (lastEditTextFocused == LastEditTextFocused.INCH) {
             if (editTextInch.getText() != null) {
@@ -244,6 +252,10 @@ public class LengthFragment extends BaseFragment {
             }
         }
     }
+
+	// endregion
+
+	// region Helper methods
 
     private void addTextChangedListeners() {
         if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
@@ -979,6 +991,10 @@ public class LengthFragment extends BaseFragment {
         addTextChangedListeners();
     }
 
+	// endregion
+
+	// region Overridden BaseFragment methods
+
 	@Override
 	protected String getChildTag() { return TAG; }
 
@@ -987,4 +1003,6 @@ public class LengthFragment extends BaseFragment {
 
 	@Override
 	protected int getScrollViewResource() { return  R.id.fragment_length; }
+
+	// endregion
 }

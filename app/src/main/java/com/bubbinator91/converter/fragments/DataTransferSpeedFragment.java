@@ -16,6 +16,8 @@ import com.bubbinator91.converter.util.Utils;
 
 import java.math.BigDecimal;
 
+// TODO Update to use global variables
+// TODO Improve performance by using a second thread
 public class DataTransferSpeedFragment extends BaseFragment {
 	private enum LastEditTextFocused {
 		BPS,
@@ -33,7 +35,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 	private EditText editTextBps, editTextByps, editTextKbps, editTextKbyps, editTextMbps,
 			editTextMbyps, editTextGbps, editTextGbyps, editTextTbps, editTextTbyps;
+
 	private LastEditTextFocused lastEditTextFocused;
+
+	// region TextWatchers
 
 	private TextWatcher textWatcherBps = new TextWatcher() {
 		@Override
@@ -185,13 +190,16 @@ public class DataTransferSpeedFragment extends BaseFragment {
 		public void onTextChanged(CharSequence s, int start, int before, int count) {}
 	};
 
+	// endregion
+
+	// region Lifecycle methods
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 			Log.d(TAG + ".onCreateView", "Entered");
 		}
-
-		super.onCreateView(inflater, container, savedInstanceState);
 
 		if (getRootView() != null) {
 			Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
@@ -237,10 +245,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 	@Override
 	public void onResume() {
+		super.onResume();
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 			Log.d(TAG + ".onResume", "Entered");
 		}
-		super.onResume();
 
 		if (lastEditTextFocused == LastEditTextFocused.BPS) {
 			if (editTextBps.getText() != null) {
@@ -284,6 +292,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 			}
 		}
 	}
+
+	// endregion
+
+	// region Helper methods
 
 	private void addTextChangedListeners() {
         if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
@@ -1249,6 +1261,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 		addTextChangedListeners();
 	}
 
+	// endregion
+
+	// region Overridden BaseFragment methods
+
 	@Override
 	protected String getChildTag() { return TAG; }
 
@@ -1257,4 +1273,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 	@Override
 	protected int getScrollViewResource() { return  R.id.fragment_dts; }
+
+	// endregion
 }

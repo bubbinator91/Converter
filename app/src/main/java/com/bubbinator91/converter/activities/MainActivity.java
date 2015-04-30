@@ -19,13 +19,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.fragments.*;
+import com.bubbinator91.converter.util.Globals;
 import com.bubbinator91.converter.util.NavigationDrawerItem;
 import com.bubbinator91.converter.util.NavigationDrawerListAdapter;
-import com.bubbinator91.converter.util.Utils;
 
 import java.util.ArrayList;
 
@@ -37,10 +36,8 @@ import java.util.ArrayList;
  * functionality for converting between units of a specific
  * category or class.
  */
-// TODO Fix a bug with PREFERENCE_TRANS_FROM_SETTINGS being set to 1 erroneously
 public class MainActivity extends BaseActivity {
 	private final String TAG = "MainActivity";
-	private boolean wasActivityRestarted = false;
 
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -49,19 +46,20 @@ public class MainActivity extends BaseActivity {
 	private NavigationDrawerListAdapter mDrawerListAdapter;
 	private String[] mDrawerTitles;
 	private TypedArray mDrawerIcons;
-
-	private SharedPreferences mPrefs;
 	private int lastSelectedPosition;
 	private final String STATE_SELECTED_POSITION = "selected_fragment";
 
 	private Handler mHandler;
+	private boolean wasActivityRestarted = false;
+
+	// region Lifecycle methods
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
+		super.onCreate(savedInstanceState);
+		if (Globals.isDebugEnabled) {
 			Log.d(TAG + ".onCreate", "Entered");
 		}
-		super.onCreate(savedInstanceState);
 		wasActivityRestarted = false;
 		setToolbarIcon(-1, true);
 
@@ -92,78 +90,45 @@ public class MainActivity extends BaseActivity {
 		mDrawerListAdapter = new NavigationDrawerListAdapter(getApplicationContext(), mDrawerItems);
 		mDrawerList.setAdapter(mDrawerListAdapter);
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		if (mPrefs != null) {
-			String fieldLength = mPrefs.getString(Utils.PREFERENCE_DECIMAL_PLACES, null);
-			if (fieldLength == null) {
-				SharedPreferences.Editor editor = mPrefs.edit();
-				editor.putString(Utils.PREFERENCE_DECIMAL_PLACES, "8");
-				editor.apply();
-			}
-		}
 	}
 
 	@Override
-	protected int getLayoutResourceId() { return R.layout.activity_main; }
-
-	@Override
-	protected String getChildTag() { return TAG; }
-
-	@Override
 	protected void onRestart() {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
+		super.onRestart();
+		if (Globals.isDebugEnabled) {
 			Log.d(TAG + ".onRestart", "Entered");
 		}
-		super.onRestart();
+
 		wasActivityRestarted = true;
 	}
 
 	@Override
 	protected void onStart() {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
-			Log.d(TAG + ".onStart", "Entered");
-			Log.d(TAG + ".onStart", "wasActivityRestarted = " + wasActivityRestarted);
-		}
 		super.onStart();
+		if (Globals.isDebugEnabled) {
+			Log.d(TAG + ".onStart", "Entered");
+		}
 
-		try {
-			if ((mPrefs != null) && !wasActivityRestarted) {
-				if (Utils.isDebugEnabled(getApplicationContext())) {
-					Log.d(TAG + ".onStart", "mPrefs != null");
-					Toast.makeText(getApplicationContext(),
-								   "PREFERENCE_TRANS_FROM_SETTINGS = "
-								   + mPrefs.getInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, -1),
-								   Toast.LENGTH_LONG).show();
-				}
-				lastSelectedPosition = mPrefs.getInt(STATE_SELECTED_POSITION, -1);
-				if (Utils.isDebugEnabled(getApplicationContext())) {
-					Log.d(TAG + ".onStart", "lastSelectedPosition = " + lastSelectedPosition);
-					Log.d(TAG + ".onStart", "fieldLength = " + mPrefs.getString(Utils.PREFERENCE_DECIMAL_PLACES, "null"));
-				}
-				if (mPrefs.getInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, -1) != 1) {
-					if (lastSelectedPosition >= 0) {
-						preChangeToFragment(lastSelectedPosition);
-						selectFragment(lastSelectedPosition);
-					}
-				} else {
-					SharedPreferences.Editor editor = mPrefs.edit();
-					editor.putInt(Utils.PREFERENCE_TRANS_FROM_SETTINGS, 0);
-					editor.apply();
-				}
-			} else if (mPrefs == null) {
-				throw new NullPointerException("mPrefs cannot be null");
-			} else {
-				preChangeToFragment(lastSelectedPosition);
+		if (!wasActivityRestarted) {
+			if (Globals.isDebugEnabled) {
+				Log.d(TAG + ".onStart", "Activity was not restarted");
 			}
-		} catch (NullPointerException e) {
-			if (Utils.isDebugEnabled(getApplicationContext())) {
-				Log.e(TAG + ".onStart", "mPrefs was null, and it cannot be null. exiting");
-				Toast.makeText(getApplicationContext(),
-							   "There has been an error getting the preferences for the" +
-							   " application. Please contact the developer.",
-							   Toast.LENGTH_LONG).show();
-				finish();
+			lastSelectedPosition = PreferenceManager
+										   .getDefaultSharedPreferences(this)
+										   .getInt(STATE_SELECTED_POSITION, 0);
+			if (Globals.isDebugEnabled) {
+				Log.d(TAG + ".onStart", "lastSelectedPosition = " + lastSelectedPosition);
+			}
+			if (!Globals.isTransitioningBackToMainActivity) {
+				if (lastSelectedPosition >= 0) {
+					preChangeToFragment(lastSelectedPosition);
+					selectFragment(lastSelectedPosition);
+				}
+			} else {
+				Globals.isTransitioningBackToMainActivity = false;
+				if (lastSelectedPosition >= 0) {
+					preChangeToFragment(lastSelectedPosition);
+				}
 			}
 		}
 
@@ -172,10 +137,12 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected void onResume() {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
-			Log.d(TAG + ".onResume", "Entered");
-		}
 		super.onResume();
+		if (Globals.isDebugEnabled) {
+			Log.d(TAG + ".onResume", "Entered");
+			Log.d(TAG + ".onResume", "isDebugEnabled = " + Globals.isDebugEnabled);
+			Log.d(TAG + ".onResume", "decimalPlaceLength = " + Globals.decimalPlaceLength);
+		}
 
 		if (lastSelectedPosition >= 0) {
 			preChangeToFragment(lastSelectedPosition);
@@ -184,10 +151,10 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected void onPause() {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
+		super.onPause();
+		if (Globals.isDebugEnabled) {
 			Log.d(TAG + ".onPause", "Entered");
 		}
-		super.onPause();
 
 		InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
 		imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -195,15 +162,29 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected void onStop() {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
+		super.onStop();
+		if (Globals.isDebugEnabled) {
 			Log.d(TAG + ".onStop", "Entered");
 		}
-		super.onStop();
 	}
+
+	// endregion
+
+	// region Overridden BaseActivity methods
+
+	@Override
+	protected int getLayoutResourceId() { return R.layout.activity_main; }
+
+	@Override
+	protected String getChildTag() { return TAG; }
+
+	// endregion
+
+	// region Options Menu methods
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
+		if (Globals.isDebugEnabled) {
 			Log.d(TAG + ".onCreateOptionsMenu", "Entered");
 		}
 
@@ -221,7 +202,7 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
+		if (Globals.isDebugEnabled) {
 			Log.d(TAG + ".onOptionsItemSelected", "Entered");
 		}
 
@@ -246,6 +227,10 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
+	// endregion
+
+	// region Fragment switching methods
+
 	/**
 	 * Switches to the fragment that is selected by the user in
 	 * the navigation drawer.
@@ -255,7 +240,7 @@ public class MainActivity extends BaseActivity {
 	 *                      switch to
 	 */
 	private void selectFragment(int position) {
-		if (Utils.isDebugEnabled(getApplicationContext())) {
+		if (Globals.isDebugEnabled) {
 			Log.d(TAG + ".selectFragment", "Entered");
 		}
 
@@ -278,7 +263,7 @@ public class MainActivity extends BaseActivity {
 	}
 
     private void preChangeToFragment(int position) {
-        if (Utils.isDebugEnabled(getApplicationContext())) {
+        if (Globals.isDebugEnabled) {
             Log.d(TAG + ".preChangeToFragment", "Entered");
             Log.d(TAG + ".preChangeToFragment", "position = " + position);
         }
@@ -289,15 +274,16 @@ public class MainActivity extends BaseActivity {
         getToolbar().setTitle(mDrawerTitles[position]);
 		mDrawerLayout.closeDrawer(Gravity.START);
 
-        if (mPrefs != null) {
-            SharedPreferences.Editor editor = mPrefs.edit();
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (preferences != null) {
+            SharedPreferences.Editor editor = preferences.edit();
             editor.putInt(STATE_SELECTED_POSITION, lastSelectedPosition);
             editor.apply();
         }
     }
 
     private void changeToFragment(final Fragment fragment) {
-        if (Utils.isDebugEnabled(getApplicationContext())) {
+        if (Globals.isDebugEnabled) {
             Log.d(TAG + ".changeToFragment", "Entered");
         }
 
@@ -307,10 +293,14 @@ public class MainActivity extends BaseActivity {
 				FragmentManager fragmentManager = getFragmentManager();
 				fragmentManager.beginTransaction()
 						.setCustomAnimations(R.anim.fragment_slide_in_right, R.anim.fragment_slide_out_left)
-						.replace(R.id.container, fragment).commit();
+						.replace(R.id.container, fragment)
+						.addToBackStack(null)
+						.commit();
 			}
 		}, 225);
     }
+
+	// endregion
 
 	/**
 	 * A listener class that handles the event of the user selecting an item
@@ -322,11 +312,11 @@ public class MainActivity extends BaseActivity {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
-			if (Utils.isDebugEnabled(getApplicationContext())) {
+			if (Globals.isDebugEnabled) {
 				Log.d(TAG + ".DrawerItemClickListener.onItemClick", "Entered");
 			}
 			if ((position != lastSelectedPosition) && (position >= 0)) {
-				if (Utils.isDebugEnabled(getApplicationContext())) {
+				if (Globals.isDebugEnabled) {
 					Log.d(TAG + ".DrawerItemClickListener.onItemClick", "position = " + position);
 				}
 				preChangeToFragment(position);
