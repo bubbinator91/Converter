@@ -32,90 +32,90 @@ public class SpeedFragment extends BaseFragment {
 		MPH
 	}
 
-    private final String TAG = "FragmentSpeed";
+	private final String TAG = "FragmentSpeed";
 
-    private EditText editTextFps, editTextKnot, editTextKph, editTextMps, editTextMph;
+	private EditText editTextFps, editTextKnot, editTextKph, editTextMps, editTextMph;
 
 	private LastEditTextFocused lastEditTextFocused;
 
 	// region TextWatchers
 
-    private TextWatcher textWatcherFps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
+	private TextWatcher textWatcherFps = new TextWatcher() {
+		@Override
+		public void afterTextChanged(Editable s) {
 			if (s != null) {
 				afterTextChangedFps(s);
 			}
-        }
+		}
 
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {}
+	};
 
-    private TextWatcher textWatcherKnot = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
+	private TextWatcher textWatcherKnot = new TextWatcher() {
+		@Override
+		public void afterTextChanged(Editable s) {
 			if (s != null) {
 				afterTextChangedKnot(s);
 			}
-        }
+		}
 
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {}
+	};
 
-    private TextWatcher textWatcherKph = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
+	private TextWatcher textWatcherKph = new TextWatcher() {
+		@Override
+		public void afterTextChanged(Editable s) {
 			if (s != null) {
 				afterTextChangedKph(s);
 			}
-        }
+		}
 
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {}
+	};
 
-    private TextWatcher textWatcherMps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
+	private TextWatcher textWatcherMps = new TextWatcher() {
+		@Override
+		public void afterTextChanged(Editable s) {
 			if (s != null) {
 				afterTextChangedMps(s);
 			}
-        }
+		}
 
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {}
+	};
 
-    private TextWatcher textWatcherMph = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
+	private TextWatcher textWatcherMph = new TextWatcher() {
+		@Override
+		public void afterTextChanged(Editable s) {
 			if (s != null) {
 				afterTextChangedMph(s);
 			}
-        }
+		}
 
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {}
+	};
 
 	// endregion
 
 	// region Lifecycle methods
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 			Log.d(TAG + ".onCreateView", "Entered");
@@ -147,8 +147,8 @@ public class SpeedFragment extends BaseFragment {
 			addTextChangedListeners();
 		}
 
-        return getRootView();
-    }
+		return getRootView();
+	}
 
 	@Override
 	public void onResume() {

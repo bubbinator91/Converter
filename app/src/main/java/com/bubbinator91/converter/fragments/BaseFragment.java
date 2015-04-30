@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -32,8 +33,10 @@ public abstract class BaseFragment
 	private final String TAG = "BaseFragment";
 
 	private Activity mActivity = null;
+	private Handler mHandler = null;
 	private SharedPreferences mPrefs = null;
 	private int fieldLength = -1, lastY = 0;
+
 	private View rootView = null;
 	private ScrollView mScrollView = null;
 
@@ -58,6 +61,8 @@ public abstract class BaseFragment
 			Log.d(TAG + "." + getChildTag() + ".onCreateView", "Entered");
 		}
 		rootView = inflater.inflate(getLayoutResource(), container, false);
+
+		mHandler = mActivity.getWindow().getDecorView().getHandler();
 
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
 
@@ -149,25 +154,19 @@ public abstract class BaseFragment
 		}
 	}
 
-	protected Activity getCurrentActivity() {
-		return mActivity;
-	}
+	protected Activity getCurrentActivity() { return mActivity; }
 
-	protected int getFieldLength() {
-		return fieldLength;
-	}
+	protected int getFieldLength() { return fieldLength; }
 
-	protected View getRootView() {
-		return rootView;
-	}
+	protected Handler getHandler() { return mHandler; }
 
-	protected View getScrollView() {
-		return mScrollView;
-	}
+	protected View getRootView() { return rootView; }
 
-	protected void setShouldHideToolbarOnScroll(boolean value) {
-		shouldHideToolbarOnScroll = value;
-	}
+	protected View getScrollView() { return mScrollView; }
+
+	protected void setHandler(Handler handler) { mHandler = handler; }
+
+	protected void setShouldHideToolbarOnScroll(boolean value) { shouldHideToolbarOnScroll = value; }
 
 	// endregion
 
