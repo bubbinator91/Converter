@@ -15,6 +15,7 @@ import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Utils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 /**
  * mph, ft/s, m/s, kph, knot
@@ -43,8 +44,10 @@ public class SpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherFps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			if (s != null) {
-				afterTextChangedFps(s);
+			lastEditTextFocused = LastEditTextFocused.FPS;
+
+			if ((getHandler() != null) && (s != null)) {
+				new Thread(new ConversionFromFpsRunnable(s, "textWatcherFps")).start();
 			}
 		}
 
@@ -57,8 +60,10 @@ public class SpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherKnot = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			if (s != null) {
-				afterTextChangedKnot(s);
+			lastEditTextFocused = LastEditTextFocused.KNOT;
+
+			if ((getHandler() != null) && (s != null)) {
+				new Thread(new ConversionFromKnotRunnable(s, "textWatcherKnot")).start();
 			}
 		}
 
@@ -71,8 +76,10 @@ public class SpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherKph = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			if (s != null) {
-				afterTextChangedKph(s);
+			lastEditTextFocused = LastEditTextFocused.KPH;
+
+			if ((getHandler() != null) && (s != null)) {
+				new Thread(new ConversionFromKphRunnable(s, "textWatcherKph")).start();
 			}
 		}
 
@@ -85,8 +92,10 @@ public class SpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherMps = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			if (s != null) {
-				afterTextChangedMps(s);
+			lastEditTextFocused = LastEditTextFocused.MPS;
+
+			if ((getHandler() != null) && (s != null)) {
+				new Thread(new ConversionFromMpsRunnable(s, "textWatcherMps")).start();
 			}
 		}
 
@@ -99,8 +108,10 @@ public class SpeedFragment extends BaseFragment {
 	private TextWatcher textWatcherMph = new TextWatcher() {
 		@Override
 		public void afterTextChanged(Editable s) {
-			if (s != null) {
-				afterTextChangedMph(s);
+			lastEditTextFocused = LastEditTextFocused.MPH;
+
+			if ((getHandler() != null) && (s != null)) {
+				new Thread(new ConversionFromMphRunnable(s, "textWatcherMph")).start();
 			}
 		}
 
@@ -144,7 +155,7 @@ public class SpeedFragment extends BaseFragment {
 			editTextMps = ((EditText) getRootView().findViewById(R.id.editText_speed_mps));
 			editTextMph = ((EditText) getRootView().findViewById(R.id.editText_speed_mph));
 
-			addTextChangedListeners();
+			addTextChangedListeners(null);
 		}
 
 		return getRootView();
@@ -158,24 +169,24 @@ public class SpeedFragment extends BaseFragment {
 		}
 
 		if (lastEditTextFocused == LastEditTextFocused.FPS) {
-			if (editTextFps.getText() != null) {
-				afterTextChangedFps(editTextFps.getText());
+			if ((getHandler() != null) && (editTextFps.getText() != null)) {
+				new Thread(new ConversionFromFpsRunnable(editTextFps.getText(), "onResume")).start();
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.KNOT) {
-			if (editTextKnot.getText() != null) {
-				afterTextChangedKnot(editTextKnot.getText());
+			if ((getHandler() != null) && (editTextKnot.getText() != null)) {
+				new Thread(new ConversionFromKnotRunnable(editTextKnot.getText(), "onResume")).start();
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.KPH) {
-			if (editTextKph.getText() != null) {
-				afterTextChangedKph(editTextKph.getText());
+			if ((getHandler() != null) && (editTextKph.getText() != null)) {
+				new Thread(new ConversionFromKphRunnable(editTextKph.getText(), "onResume")).start();
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.MPS) {
-			if (editTextMps.getText() != null) {
-				afterTextChangedMps(editTextMps.getText());
+			if ((getHandler() != null) && (editTextMps.getText() != null)) {
+				new Thread(new ConversionFromMpsRunnable(editTextMps.getText(), "onResume")).start();
 			}
 		} else if (lastEditTextFocused == LastEditTextFocused.MPH) {
-			if (editTextMph.getText() != null) {
-				afterTextChangedMph(editTextMph.getText());
+			if ((getHandler() != null) && (editTextMph.getText() != null)) {
+				new Thread(new ConversionFromMphRunnable(editTextMph.getText(), "onResume")).start();
 			}
 		}
 	}
@@ -184,9 +195,13 @@ public class SpeedFragment extends BaseFragment {
 
 	// region Helper methods
 
-	private void addTextChangedListeners() {
+	private void addTextChangedListeners(String callingClassName) {
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".addTextChangedListeners", "Entered");
+			if (callingClassName != null) {
+				Log.d(TAG + "." + callingClassName + ".addTextChangedListeners", "Entered");
+			} else {
+				Log.d(TAG + ".addTextChangedListeners", "Entered");
+			}
 		}
 
 		editTextFps.addTextChangedListener(textWatcherFps);
@@ -196,9 +211,13 @@ public class SpeedFragment extends BaseFragment {
 		editTextMph.addTextChangedListener(textWatcherMph);
 	}
 
-	private void removeTextChangedListeners() {
+	private void removeTextChangedListeners(String callingClassName) {
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".removeTextChangedListeners", "Entered");
+			if (callingClassName != null) {
+				Log.d(TAG + "." + callingClassName + ".removeTextChangedListeners", "Entered");
+			} else {
+				Log.d(TAG + ".removeTextChangedListeners", "Entered");
+			}
 		}
 
 		editTextFps.removeTextChangedListener(textWatcherFps);
@@ -206,348 +225,6 @@ public class SpeedFragment extends BaseFragment {
 		editTextKph.removeTextChangedListener(textWatcherKph);
 		editTextMps.removeTextChangedListener(textWatcherMps);
 		editTextMph.removeTextChangedListener(textWatcherMph);
-	}
-
-	private void afterTextChangedFps(Editable editableFps) {
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".afterTextChangedFps", "Entered");
-		}
-
-		removeTextChangedListeners();
-
-		lastEditTextFocused = LastEditTextFocused.FPS;
-
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".afterTextChangedFps.before", editableFps.toString());
-		}
-
-		if (editableFps.length() != 0) {
-			editableFps = Utils.sanitizeEditable(editableFps);
-			if (editableFps != null) {
-				if (Utils.isNumeric(editableFps.toString())) {
-					try {
-						BigDecimal fps = new BigDecimal(editableFps.toString());
-						BigDecimal mph = fps.multiply(new BigDecimal(60*60))
-												 .divide(new BigDecimal("5280")
-																, getFieldLength()
-																, BigDecimal.ROUND_HALF_UP);
-						BigDecimal mps = fps.multiply(new BigDecimal("0.3048"));
-						BigDecimal kph = fps.multiply(new BigDecimal("1.09728"));
-						BigDecimal knot = fps.multiply(new BigDecimal(".592484"));
-
-						editTextKnot.setText(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													 .stripTrailingZeros()
-													 .toPlainString()
-													, TextView.BufferType.EDITABLE);
-						editTextKph.setText(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextMps.setText(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextMph.setText(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-					} catch (NumberFormatException e) {
-						if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		} else {
-			editTextKnot.setText("", TextView.BufferType.EDITABLE);
-			editTextKph.setText("", TextView.BufferType.EDITABLE);
-			editTextMps.setText("", TextView.BufferType.EDITABLE);
-			editTextMph.setText("", TextView.BufferType.EDITABLE);
-		}
-
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableFps != null)) {
-			Log.d(TAG + ".afterTextChangedFps.after", editableFps.toString());
-		} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableFps == null)) {
-			Log.d(TAG + ".afterTextChangedFps.after", "null");
-		}
-
-		addTextChangedListeners();
-	}
-
-	private void afterTextChangedKnot(Editable editableKnot) {
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".afterTextChangedKnot", "Entered");
-		}
-
-		removeTextChangedListeners();
-
-		lastEditTextFocused = LastEditTextFocused.KNOT;
-
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".afterTextChangedKnot.before", editableKnot.toString());
-		}
-
-		if (editableKnot.length() != 0) {
-			editableKnot = Utils.sanitizeEditable(editableKnot);
-			if (editableKnot != null) {
-				if (Utils.isNumeric(editableKnot.toString())) {
-					try {
-						BigDecimal knot = new BigDecimal(editableKnot.toString());
-						BigDecimal fps = knot.divide(new BigDecimal(".592484")
-															, getFieldLength()
-															, BigDecimal.ROUND_HALF_UP);
-						BigDecimal mph = knot.multiply(new BigDecimal("1.150779"));
-						BigDecimal mps = knot.multiply(new BigDecimal(".514444"));
-						BigDecimal kph = knot.multiply(new BigDecimal("1.852"));
-
-						editTextFps.setText(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextKph.setText(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextMps.setText(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextMph.setText(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-					} catch (NumberFormatException e) {
-						if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		} else {
-			editTextFps.setText("", TextView.BufferType.EDITABLE);
-			editTextKph.setText("", TextView.BufferType.EDITABLE);
-			editTextMps.setText("", TextView.BufferType.EDITABLE);
-			editTextMph.setText("", TextView.BufferType.EDITABLE);
-		}
-
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableKnot != null)) {
-			Log.d(TAG + ".afterTextChangedKnot.after", editableKnot.toString());
-		} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableKnot == null)) {
-			Log.d(TAG + ".afterTextChangedKnot.after", "null");
-		}
-
-		addTextChangedListeners();
-	}
-
-	private void afterTextChangedKph(Editable editableKph) {
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".afterTextChangedKph", "Entered");
-		}
-
-		removeTextChangedListeners();
-
-		lastEditTextFocused = LastEditTextFocused.KPH;
-
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".afterTextChangedKph.before", editableKph.toString());
-		}
-
-		if (editableKph.length() != 0) {
-			editableKph = Utils.sanitizeEditable(editableKph);
-			if (editableKph != null) {
-				if (Utils.isNumeric(editableKph.toString())) {
-					try {
-						BigDecimal kph = new BigDecimal(editableKph.toString());
-						BigDecimal fps = kph.divide(new BigDecimal("1.09728")
-														   , getFieldLength()
-														   , BigDecimal.ROUND_HALF_UP);
-						BigDecimal mph = kph.divide(new BigDecimal("1.609344")
-														   , getFieldLength()
-														   , BigDecimal.ROUND_HALF_UP);
-						BigDecimal mps = kph.divide(new BigDecimal("3.6")
-														   , getFieldLength()
-														   , BigDecimal.ROUND_HALF_UP);
-						BigDecimal knot = kph.divide(new BigDecimal("1.852")
-															, getFieldLength()
-															, BigDecimal.ROUND_HALF_UP);
-
-						editTextFps.setText(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextKnot.setText(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													 .stripTrailingZeros()
-													 .toPlainString()
-													, TextView.BufferType.EDITABLE);
-						editTextMps.setText(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextMph.setText(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-					} catch (NumberFormatException e) {
-						if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		} else {
-			editTextFps.setText("", TextView.BufferType.EDITABLE);
-			editTextKnot.setText("", TextView.BufferType.EDITABLE);
-			editTextMps.setText("", TextView.BufferType.EDITABLE);
-			editTextMph.setText("", TextView.BufferType.EDITABLE);
-		}
-
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableKph != null)) {
-			Log.d(TAG + ".afterTextChangedKph.after", editableKph.toString());
-		} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableKph == null)) {
-			Log.d(TAG + ".afterTextChangedKph.after", "null");
-		}
-
-		addTextChangedListeners();
-	}
-
-	private void afterTextChangedMps(Editable editableMps) {
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".afterTextChangedMps", "Entered");
-		}
-
-		removeTextChangedListeners();
-
-		lastEditTextFocused = LastEditTextFocused.MPS;
-
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".afterTextChangedMps.before", editableMps.toString());
-		}
-
-		if (editableMps.length() != 0) {
-			editableMps = Utils.sanitizeEditable(editableMps);
-			if (editableMps != null) {
-				if (Utils.isNumeric(editableMps.toString())) {
-					try {
-						BigDecimal mps = new BigDecimal(editableMps.toString());
-						BigDecimal fps = mps.divide(new BigDecimal("0.3048")
-														   , getFieldLength()
-														   , BigDecimal.ROUND_HALF_UP);
-						BigDecimal mph = mps.divide(new BigDecimal("0.44704")
-														   , getFieldLength()
-														   , BigDecimal.ROUND_HALF_UP);
-						BigDecimal kph = mps.multiply(new BigDecimal("3.6"));
-						BigDecimal knot = mps.divide(new BigDecimal("0.514444")
-															, getFieldLength()
-															, BigDecimal.ROUND_HALF_UP);
-
-						editTextFps.setText(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextKnot.setText(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													 .stripTrailingZeros()
-													 .toPlainString()
-													, TextView.BufferType.EDITABLE);
-						editTextKph.setText(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextMph.setText(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-					} catch (NumberFormatException e) {
-						if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		} else {
-			editTextFps.setText("", TextView.BufferType.EDITABLE);
-			editTextKnot.setText("", TextView.BufferType.EDITABLE);
-			editTextKph.setText("", TextView.BufferType.EDITABLE);
-			editTextMph.setText("", TextView.BufferType.EDITABLE);
-		}
-
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableMps != null)) {
-			Log.d(TAG + ".afterTextChangedMps.after", editableMps.toString());
-		} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableMps == null)) {
-			Log.d(TAG + ".afterTextChangedMps.after", "null");
-		}
-
-		addTextChangedListeners();
-	}
-
-	private void afterTextChangedMph(Editable editableMph) {
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".afterTextChangedMph", "Entered");
-		}
-
-		removeTextChangedListeners();
-
-		lastEditTextFocused = LastEditTextFocused.MPH;
-
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".afterTextChangedMph.before", editableMph.toString());
-		}
-
-		if (editableMph.length() != 0) {
-			editableMph = Utils.sanitizeEditable(editableMph);
-			if (editableMph != null) {
-				if (Utils.isNumeric(editableMph.toString())) {
-					try {
-						BigDecimal mph = new BigDecimal(editableMph.toString());
-						BigDecimal fps = mph.multiply(new BigDecimal("5280"))
-												 .divide(new BigDecimal("60")
-																, getFieldLength()
-																, BigDecimal.ROUND_HALF_UP)
-												 .divide(new BigDecimal("60")
-																, getFieldLength()
-																, BigDecimal.ROUND_HALF_UP);
-						BigDecimal mps = mph.multiply(new BigDecimal("0.44704"));
-						BigDecimal kph = mph.multiply(new BigDecimal("1.609344"));
-						BigDecimal knot = mph.divide(new BigDecimal("1.150779")
-															, getFieldLength()
-															, BigDecimal.ROUND_HALF_UP);
-
-						editTextFps.setText(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextKnot.setText(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													 .stripTrailingZeros()
-													 .toPlainString()
-													, TextView.BufferType.EDITABLE);
-						editTextKph.setText(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-						editTextMps.setText(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-													.stripTrailingZeros()
-													.toPlainString()
-												   , TextView.BufferType.EDITABLE);
-					} catch (NumberFormatException e) {
-						if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		} else {
-			editTextFps.setText("", TextView.BufferType.EDITABLE);
-			editTextKnot.setText("", TextView.BufferType.EDITABLE);
-			editTextKph.setText("", TextView.BufferType.EDITABLE);
-			editTextMps.setText("", TextView.BufferType.EDITABLE);
-		}
-
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableMph != null)) {
-			Log.d(TAG + ".afterTextChangedMph.after", editableMph.toString());
-		} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (editableMph == null)) {
-			Log.d(TAG + ".afterTextChangedMph.after", "null");
-		}
-
-		addTextChangedListeners();
 	}
 
 	// endregion
@@ -562,6 +239,447 @@ public class SpeedFragment extends BaseFragment {
 
 	@Override
 	protected int getScrollViewResource() { return  R.id.fragment_speed; }
+
+	// endregion
+
+	// region Private classes
+
+	private class ConversionFromFpsRunnable implements Runnable {
+		private final String TAG = "ConversionFromFpsRunnable";
+
+		private Editable mEditableFps;
+		private String mCallingClassName;
+
+		public ConversionFromFpsRunnable() {
+			throw new UnsupportedOperationException("Cannot use this constructor");
+		}
+
+		public ConversionFromFpsRunnable(Editable editableFps, String callingClassName) {
+			mEditableFps = editableFps;
+			mCallingClassName = callingClassName;
+		}
+
+		@Override
+		public void run() {
+			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
+				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableFps.toString());
+			}
+
+			final ArrayList<String> results = new ArrayList<>();
+			if (mEditableFps.length() != 0) {
+				mEditableFps = Utils.sanitizeEditable(mEditableFps);
+				if (mEditableFps != null) {
+					if (Utils.isNumeric(mEditableFps.toString())) {
+						try {
+							BigDecimal fps = new BigDecimal(mEditableFps.toString());
+							BigDecimal mph = fps.multiply(new BigDecimal(60*60))
+													 .divide(new BigDecimal("5280")
+																	, getFieldLength()
+																	, BigDecimal.ROUND_HALF_UP);
+							BigDecimal mps = fps.multiply(new BigDecimal("0.3048"));
+							BigDecimal kph = fps.multiply(new BigDecimal("1.09728"));
+							BigDecimal knot = fps.multiply(new BigDecimal(".592484"));
+
+							results.add(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+						} catch (NumberFormatException e) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
+							addWhitespaceItems(results, 4);
+						}
+					} else {
+						addWhitespaceItems(results, 4);
+					}
+				} else {
+					addWhitespaceItems(results, 4);
+				}
+			} else {
+				addWhitespaceItems(results, 4);
+			}
+
+			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableFps != null)) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableFps.toString());
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableFps == null)) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			}
+
+			getHandler().post(new Runnable() {
+				@Override
+				public void run() {
+					removeTextChangedListeners(TAG + "." + mCallingClassName);
+					editTextKnot.setText(results.get(0), TextView.BufferType.EDITABLE);
+					editTextKph.setText(results.get(1), TextView.BufferType.EDITABLE);
+					editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
+					editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+					addTextChangedListeners(TAG + "." + mCallingClassName);
+				}
+			});
+		}
+	}
+
+	private class ConversionFromKnotRunnable implements Runnable {
+		private final String TAG = "ConversionFromKnotRunnable";
+
+		private Editable mEditableKnot;
+		private String mCallingClassName;
+
+		public ConversionFromKnotRunnable() {
+			throw new UnsupportedOperationException("Cannot use this constructor");
+		}
+
+		public ConversionFromKnotRunnable(Editable editableKnot, String callingClassName) {
+			mEditableKnot = editableKnot;
+			mCallingClassName = callingClassName;
+		}
+
+		@Override
+		public void run() {
+			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
+				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableKnot.toString());
+			}
+
+			final ArrayList<String> results = new ArrayList<>();
+			if (mEditableKnot.length() != 0) {
+				mEditableKnot = Utils.sanitizeEditable(mEditableKnot);
+				if (mEditableKnot != null) {
+					if (Utils.isNumeric(mEditableKnot.toString())) {
+						try {
+							BigDecimal knot = new BigDecimal(mEditableKnot.toString());
+							BigDecimal fps = knot.divide(new BigDecimal(".592484")
+																, getFieldLength()
+																, BigDecimal.ROUND_HALF_UP);
+							BigDecimal mph = knot.multiply(new BigDecimal("1.150779"));
+							BigDecimal mps = knot.multiply(new BigDecimal(".514444"));
+							BigDecimal kph = knot.multiply(new BigDecimal("1.852"));
+
+							results.add(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+						} catch (NumberFormatException e) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
+							addWhitespaceItems(results, 4);
+						}
+					} else {
+						addWhitespaceItems(results, 4);
+					}
+				} else {
+					addWhitespaceItems(results, 4);
+				}
+			} else {
+				addWhitespaceItems(results, 4);
+			}
+
+			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKnot != null)) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableKnot.toString());
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKnot == null)) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			}
+
+			getHandler().post(new Runnable() {
+				@Override
+				public void run() {
+					removeTextChangedListeners(TAG + "." + mCallingClassName);
+					editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
+					editTextKph.setText(results.get(1), TextView.BufferType.EDITABLE);
+					editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
+					editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+					addTextChangedListeners(TAG + "." + mCallingClassName);
+				}
+			});
+		}
+	}
+
+	private class ConversionFromKphRunnable implements Runnable {
+		private final String TAG = "ConversionFromKphRunnable";
+
+		private Editable mEditableKph;
+		private String mCallingClassName;
+
+		public ConversionFromKphRunnable() {
+			throw new UnsupportedOperationException("Cannot use this constructor");
+		}
+
+		public ConversionFromKphRunnable(Editable editableKph, String callingClassName) {
+			mEditableKph = editableKph;
+			mCallingClassName = callingClassName;
+		}
+
+		@Override
+		public void run() {
+			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
+				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableKph.toString());
+			}
+
+			final ArrayList<String> results = new ArrayList<>();
+			if (mEditableKph.length() != 0) {
+				mEditableKph = Utils.sanitizeEditable(mEditableKph);
+				if (mEditableKph != null) {
+					if (Utils.isNumeric(mEditableKph.toString())) {
+						try {
+							BigDecimal kph = new BigDecimal(mEditableKph.toString());
+							BigDecimal fps = kph.divide(new BigDecimal("1.09728")
+															   , getFieldLength()
+															   , BigDecimal.ROUND_HALF_UP);
+							BigDecimal mph = kph.divide(new BigDecimal("1.609344")
+															   , getFieldLength()
+															   , BigDecimal.ROUND_HALF_UP);
+							BigDecimal mps = kph.divide(new BigDecimal("3.6")
+															   , getFieldLength()
+															   , BigDecimal.ROUND_HALF_UP);
+							BigDecimal knot = kph.divide(new BigDecimal("1.852")
+																, getFieldLength()
+																, BigDecimal.ROUND_HALF_UP);
+
+							results.add(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+						} catch (NumberFormatException e) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
+							addWhitespaceItems(results, 4);
+						}
+					} else {
+						addWhitespaceItems(results, 4);
+					}
+				} else {
+					addWhitespaceItems(results, 4);
+				}
+			} else {
+				addWhitespaceItems(results, 4);
+			}
+
+			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKph != null)) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableKph.toString());
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKph == null)) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			}
+
+			getHandler().post(new Runnable() {
+				@Override
+				public void run() {
+					removeTextChangedListeners(TAG + "." + mCallingClassName);
+					editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
+					editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
+					editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
+					editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+					addTextChangedListeners(TAG + "." + mCallingClassName);
+				}
+			});
+		}
+	}
+
+	private class ConversionFromMpsRunnable implements Runnable {
+		private final String TAG = "ConversionFromMpsRunnable";
+
+		private Editable mEditableMps;
+		private String mCallingClassName;
+
+		public ConversionFromMpsRunnable() {
+			throw new UnsupportedOperationException("Cannot use this constructor");
+		}
+
+		public ConversionFromMpsRunnable(Editable editableMps, String callingClassName) {
+			mEditableMps = editableMps;
+			mCallingClassName = callingClassName;
+		}
+
+		@Override
+		public void run() {
+			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
+				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableMps.toString());
+			}
+
+			final ArrayList<String> results = new ArrayList<>();
+			if (mEditableMps.length() != 0) {
+				mEditableMps = Utils.sanitizeEditable(mEditableMps);
+				if (mEditableMps != null) {
+					if (Utils.isNumeric(mEditableMps.toString())) {
+						try {
+							BigDecimal mps = new BigDecimal(mEditableMps.toString());
+							BigDecimal fps = mps.divide(new BigDecimal("0.3048")
+															   , getFieldLength()
+															   , BigDecimal.ROUND_HALF_UP);
+							BigDecimal mph = mps.divide(new BigDecimal("0.44704")
+															   , getFieldLength()
+															   , BigDecimal.ROUND_HALF_UP);
+							BigDecimal kph = mps.multiply(new BigDecimal("3.6"));
+							BigDecimal knot = mps.divide(new BigDecimal("0.514444")
+																, getFieldLength()
+																, BigDecimal.ROUND_HALF_UP);
+
+							results.add(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+						} catch (NumberFormatException e) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
+							addWhitespaceItems(results, 4);
+						}
+					} else {
+						addWhitespaceItems(results, 4);
+					}
+				} else {
+					addWhitespaceItems(results, 4);
+				}
+			} else {
+				addWhitespaceItems(results, 4);
+			}
+
+			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMps != null)) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableMps.toString());
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMps == null)) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			}
+
+			getHandler().post(new Runnable() {
+				@Override
+				public void run() {
+					removeTextChangedListeners(TAG + "." + mCallingClassName);
+					editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
+					editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
+					editTextKph.setText(results.get(2), TextView.BufferType.EDITABLE);
+					editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+					addTextChangedListeners(TAG + "." + mCallingClassName);
+				}
+			});
+		}
+	}
+
+	private class ConversionFromMphRunnable implements Runnable {
+		private final String TAG = "ConversionFromMphRunnable";
+
+		private Editable mEditableMph;
+		private String mCallingClassName;
+
+		public ConversionFromMphRunnable() {
+			throw new UnsupportedOperationException("Cannot use this constructor");
+		}
+
+		public ConversionFromMphRunnable(Editable editableMph, String callingClassName) {
+			mEditableMph = editableMph;
+			mCallingClassName = callingClassName;
+		}
+
+		@Override
+		public void run() {
+			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
+				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableMph.toString());
+			}
+
+			final ArrayList<String> results = new ArrayList<>();
+			if (mEditableMph.length() != 0) {
+				mEditableMph = Utils.sanitizeEditable(mEditableMph);
+				if (mEditableMph != null) {
+					if (Utils.isNumeric(mEditableMph.toString())) {
+						try {
+							BigDecimal mph = new BigDecimal(mEditableMph.toString());
+							BigDecimal fps = mph.multiply(new BigDecimal("5280"))
+													 .divide(new BigDecimal("60")
+																	, getFieldLength()
+																	, BigDecimal.ROUND_HALF_UP)
+													 .divide(new BigDecimal("60")
+																	, getFieldLength()
+																	, BigDecimal.ROUND_HALF_UP);
+							BigDecimal mps = mph.multiply(new BigDecimal("0.44704"));
+							BigDecimal kph = mph.multiply(new BigDecimal("1.609344"));
+							BigDecimal knot = mph.divide(new BigDecimal("1.150779")
+																, getFieldLength()
+																, BigDecimal.ROUND_HALF_UP);
+
+							results.add(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+							results.add(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+												.stripTrailingZeros()
+												.toPlainString());
+						} catch (NumberFormatException e) {
+							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
+								e.printStackTrace();
+							}
+							addWhitespaceItems(results, 4);
+						}
+					} else {
+						addWhitespaceItems(results, 4);
+					}
+				} else {
+					addWhitespaceItems(results, 4);
+				}
+			} else {
+				addWhitespaceItems(results, 4);
+			}
+
+			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMph != null)) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableMph.toString());
+			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMph == null)) {
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			}
+
+			getHandler().post(new Runnable() {
+				@Override
+				public void run() {
+					removeTextChangedListeners(TAG + "." + mCallingClassName);
+					editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
+					editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
+					editTextKph.setText(results.get(2), TextView.BufferType.EDITABLE);
+					editTextMps.setText(results.get(3), TextView.BufferType.EDITABLE);
+					addTextChangedListeners(TAG + "." + mCallingClassName);
+				}
+			});
+		}
+	}
 
 	// endregion
 }

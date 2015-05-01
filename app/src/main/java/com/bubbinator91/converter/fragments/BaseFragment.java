@@ -19,6 +19,8 @@ import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Globals;
 import com.bubbinator91.converter.util.Utils;
 
+import java.util.ArrayList;
+
 /**
  * The base fragment that all fragments should inherit from.
  * The purpose of this fragment to help reduce the amount of
@@ -151,6 +153,13 @@ public abstract class BaseFragment
 			}
 
 			lastY = mScrollView.getScrollY();
+		}
+	}
+
+	protected void addWhitespaceItems(ArrayList<String> list, int numItems) {
+		list.clear();
+		for (int i = 0; i < numItems; i++) {
+			list.add("");
 		}
 	}
 

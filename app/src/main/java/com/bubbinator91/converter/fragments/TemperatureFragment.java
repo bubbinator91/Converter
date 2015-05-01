@@ -150,10 +150,10 @@ public class TemperatureFragment extends BaseFragment {
 
 	// region Helper methods
 
-	private void addTextChangedListeners(String callingClass) {
+	private void addTextChangedListeners(String callingClassName) {
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			if (callingClass != null) {
-				Log.d(TAG + "." + callingClass + ".addTextChangedListeners", "Entered");
+			if (callingClassName != null) {
+				Log.d(TAG + "." + callingClassName + ".addTextChangedListeners", "Entered");
 			} else {
 				Log.d(TAG + ".addTextChangedListeners", "Entered");
 			}
@@ -164,10 +164,10 @@ public class TemperatureFragment extends BaseFragment {
 		editTextKelvin.addTextChangedListener(textWatcherKelvin);
 	}
 
-	private void removeTextChangedListeners(String callingClass) {
+	private void removeTextChangedListeners(String callingClassName) {
 		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			if (callingClass != null) {
-				Log.d(TAG + "." + callingClass + ".removeTextChangedListeners", "Entered");
+			if (callingClassName != null) {
+				Log.d(TAG + "." + callingClassName + ".removeTextChangedListeners", "Entered");
 			} else {
 				Log.d(TAG + ".removeTextChangedListeners", "Entered");
 			}
@@ -176,12 +176,6 @@ public class TemperatureFragment extends BaseFragment {
 		editTextCelsius.removeTextChangedListener(textWatcherCelsius);
 		editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
 		editTextKelvin.removeTextChangedListener(textWatcherKelvin);
-	}
-
-	private void addTwoWhitespaceItems(ArrayList<String> list) {
-		list.clear();
-		list.add("");
-		list.add("");
 	}
 
 	// endregion
@@ -203,6 +197,7 @@ public class TemperatureFragment extends BaseFragment {
 
 	private class ConversionFromCelsiusRunnable implements Runnable {
 		private final String TAG = "ConversionFromCelsiusRunnable";
+
 		private Editable mEditableCelsius;
 		private String mCallingClassName;
 
@@ -239,16 +234,16 @@ public class TemperatureFragment extends BaseFragment {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
-							addTwoWhitespaceItems(results);
+							addWhitespaceItems(results, 2);
 						}
 					} else {
-						addTwoWhitespaceItems(results);
+						addWhitespaceItems(results, 2);
 					}
 				} else {
-					addTwoWhitespaceItems(results);
+					addWhitespaceItems(results, 2);
 				}
 			} else {
-				addTwoWhitespaceItems(results);
+				addWhitespaceItems(results, 2);
 			}
 
 			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableCelsius != null)) {
@@ -273,6 +268,7 @@ public class TemperatureFragment extends BaseFragment {
 
 	private class ConversionFromFahrenheitRunnable implements Runnable {
 		private final String TAG = "ConversionFromFahrenheitRunnable";
+
 		private Editable mEditableFahrenheit;
 		private String mCallingClassName;
 
@@ -309,16 +305,16 @@ public class TemperatureFragment extends BaseFragment {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
-							addTwoWhitespaceItems(results);
+							addWhitespaceItems(results, 2);
 						}
 					} else {
-						addTwoWhitespaceItems(results);
+						addWhitespaceItems(results, 2);
 					}
 				} else {
-					addTwoWhitespaceItems(results);
+					addWhitespaceItems(results, 2);
 				}
 			} else {
-				addTwoWhitespaceItems(results);
+				addWhitespaceItems(results, 2);
 			}
 
 			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableFahrenheit != null)) {
@@ -343,6 +339,7 @@ public class TemperatureFragment extends BaseFragment {
 
 	private class ConversionFromKelvinRunnable implements Runnable {
 		private final String TAG = "ConversionFromKelvinRunnable";
+
 		private Editable mEditableKelvin;
 		private String mCallingClassName;
 
@@ -379,16 +376,16 @@ public class TemperatureFragment extends BaseFragment {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
 							}
-							addTwoWhitespaceItems(results);
+							addWhitespaceItems(results, 2);
 						}
 					} else {
-						addTwoWhitespaceItems(results);
+						addWhitespaceItems(results, 2);
 					}
 				} else {
-					addTwoWhitespaceItems(results);
+					addWhitespaceItems(results, 2);
 				}
 			} else {
-				addTwoWhitespaceItems(results);
+				addWhitespaceItems(results, 2);
 			}
 
 			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKelvin != null)) {
