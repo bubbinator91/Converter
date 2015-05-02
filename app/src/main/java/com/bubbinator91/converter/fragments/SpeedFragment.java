@@ -274,25 +274,29 @@ public class SpeedFragment extends BaseFragment {
 						try {
 							BigDecimal fps = new BigDecimal(mEditableFps.toString());
 							BigDecimal mph = fps.multiply(new BigDecimal(60*60))
-													 .divide(new BigDecimal("5280")
-																	, getFieldLength()
-																	, BigDecimal.ROUND_HALF_UP);
+									.divide(new BigDecimal("5280")
+											, getFieldLength()
+											, BigDecimal.ROUND_HALF_UP);
 							BigDecimal mps = fps.multiply(new BigDecimal("0.3048"));
 							BigDecimal kph = fps.multiply(new BigDecimal("1.09728"));
 							BigDecimal knot = fps.multiply(new BigDecimal(".592484"));
 
-							results.add(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
+							results.add(knot
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(kph
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(mps
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(mph
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
 						} catch (NumberFormatException e) {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
@@ -359,24 +363,28 @@ public class SpeedFragment extends BaseFragment {
 						try {
 							BigDecimal knot = new BigDecimal(mEditableKnot.toString());
 							BigDecimal fps = knot.divide(new BigDecimal(".592484")
-																, getFieldLength()
-																, BigDecimal.ROUND_HALF_UP);
+									, getFieldLength()
+									, BigDecimal.ROUND_HALF_UP);
 							BigDecimal mph = knot.multiply(new BigDecimal("1.150779"));
 							BigDecimal mps = knot.multiply(new BigDecimal(".514444"));
 							BigDecimal kph = knot.multiply(new BigDecimal("1.852"));
 
-							results.add(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
+							results.add(fps
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(kph
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(mps
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(mph
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
 						} catch (NumberFormatException e) {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
@@ -443,30 +451,34 @@ public class SpeedFragment extends BaseFragment {
 						try {
 							BigDecimal kph = new BigDecimal(mEditableKph.toString());
 							BigDecimal fps = kph.divide(new BigDecimal("1.09728")
-															   , getFieldLength()
-															   , BigDecimal.ROUND_HALF_UP);
+									, getFieldLength()
+									, BigDecimal.ROUND_HALF_UP);
 							BigDecimal mph = kph.divide(new BigDecimal("1.609344")
-															   , getFieldLength()
-															   , BigDecimal.ROUND_HALF_UP);
+									, getFieldLength()
+									, BigDecimal.ROUND_HALF_UP);
 							BigDecimal mps = kph.divide(new BigDecimal("3.6")
-															   , getFieldLength()
-															   , BigDecimal.ROUND_HALF_UP);
+									, getFieldLength()
+									, BigDecimal.ROUND_HALF_UP);
 							BigDecimal knot = kph.divide(new BigDecimal("1.852")
-																, getFieldLength()
-																, BigDecimal.ROUND_HALF_UP);
+									, getFieldLength()
+									, BigDecimal.ROUND_HALF_UP);
 
-							results.add(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
+							results.add(fps
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(knot
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(mps
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(mph
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
 						} catch (NumberFormatException e) {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
@@ -533,28 +545,32 @@ public class SpeedFragment extends BaseFragment {
 						try {
 							BigDecimal mps = new BigDecimal(mEditableMps.toString());
 							BigDecimal fps = mps.divide(new BigDecimal("0.3048")
-															   , getFieldLength()
-															   , BigDecimal.ROUND_HALF_UP);
+									, getFieldLength()
+									, BigDecimal.ROUND_HALF_UP);
 							BigDecimal mph = mps.divide(new BigDecimal("0.44704")
-															   , getFieldLength()
-															   , BigDecimal.ROUND_HALF_UP);
+									, getFieldLength()
+									, BigDecimal.ROUND_HALF_UP);
 							BigDecimal kph = mps.multiply(new BigDecimal("3.6"));
 							BigDecimal knot = mps.divide(new BigDecimal("0.514444")
-																, getFieldLength()
-																, BigDecimal.ROUND_HALF_UP);
+									, getFieldLength()
+									, BigDecimal.ROUND_HALF_UP);
 
-							results.add(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(mph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
+							results.add(fps
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(knot
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(kph
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(mph
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
 						} catch (NumberFormatException e) {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
@@ -621,30 +637,34 @@ public class SpeedFragment extends BaseFragment {
 						try {
 							BigDecimal mph = new BigDecimal(mEditableMph.toString());
 							BigDecimal fps = mph.multiply(new BigDecimal("5280"))
-													 .divide(new BigDecimal("60")
-																	, getFieldLength()
-																	, BigDecimal.ROUND_HALF_UP)
-													 .divide(new BigDecimal("60")
-																	, getFieldLength()
-																	, BigDecimal.ROUND_HALF_UP);
+									.divide(new BigDecimal("60")
+											, getFieldLength()
+											, BigDecimal.ROUND_HALF_UP)
+									.divide(new BigDecimal("60")
+											, getFieldLength()
+											, BigDecimal.ROUND_HALF_UP);
 							BigDecimal mps = mph.multiply(new BigDecimal("0.44704"));
 							BigDecimal kph = mph.multiply(new BigDecimal("1.609344"));
 							BigDecimal knot = mph.divide(new BigDecimal("1.150779")
-																, getFieldLength()
-																, BigDecimal.ROUND_HALF_UP);
+									, getFieldLength()
+									, BigDecimal.ROUND_HALF_UP);
 
-							results.add(fps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(knot.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(kph.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(mps.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
+							results.add(fps
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(knot
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(kph
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(mps
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
 						} catch (NumberFormatException e) {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();

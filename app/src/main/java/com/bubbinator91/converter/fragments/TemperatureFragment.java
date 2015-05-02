@@ -201,6 +201,10 @@ public class TemperatureFragment extends BaseFragment {
 		private Editable mEditableCelsius;
 		private String mCallingClassName;
 
+		public ConversionFromCelsiusRunnable() {
+			throw new UnsupportedOperationException("Cannot use this constructor");
+		}
+
 		public ConversionFromCelsiusRunnable(Editable editableCelsius, String callingClassName) {
 			mEditableCelsius = editableCelsius;
 			mCallingClassName = callingClassName;
@@ -209,8 +213,8 @@ public class TemperatureFragment extends BaseFragment {
 		@Override
 		public void run() {
 			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-					Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-					Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableCelsius.toString());
+				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
+				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableCelsius.toString());
 			}
 
 			final ArrayList<String> results = new ArrayList<>();
@@ -221,15 +225,17 @@ public class TemperatureFragment extends BaseFragment {
 						try {
 							BigDecimal celsius = new BigDecimal(mEditableCelsius.toString());
 							BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
-															.add(new BigDecimal("32"));
+									.add(new BigDecimal("32"));
 							BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
 
-							results.add(fahrenheit.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(kelvin.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
+							results.add(fahrenheit
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(kelvin
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
 						} catch (NumberFormatException e) {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
@@ -247,9 +253,9 @@ public class TemperatureFragment extends BaseFragment {
 			}
 
 			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableCelsius != null)) {
-					Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableCelsius.toString());
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableCelsius.toString());
 			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableCelsius == null)) {
-					Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -257,9 +263,9 @@ public class TemperatureFragment extends BaseFragment {
 				public void run() {
 					removeTextChangedListeners(TAG + "." + mCallingClassName);
 					editTextFahrenheit.setText(results.get(0)
-													  , TextView.BufferType.EDITABLE);
+							, TextView.BufferType.EDITABLE);
 					editTextKelvin.setText(results.get(1)
-												  , TextView.BufferType.EDITABLE);
+							, TextView.BufferType.EDITABLE);
 					addTextChangedListeners(TAG + "." + mCallingClassName);
 				}
 			});
@@ -271,6 +277,10 @@ public class TemperatureFragment extends BaseFragment {
 
 		private Editable mEditableFahrenheit;
 		private String mCallingClassName;
+
+		public ConversionFromFahrenheitRunnable() {
+			throw new UnsupportedOperationException("Cannot use this constructor");
+		}
 
 		public ConversionFromFahrenheitRunnable(Editable editableFahrenheit, String callingClassName) {
 			mEditableFahrenheit = editableFahrenheit;
@@ -292,15 +302,17 @@ public class TemperatureFragment extends BaseFragment {
 						try {
 							BigDecimal fahrenheit = new BigDecimal(mEditableFahrenheit.toString());
 							BigDecimal celsius = fahrenheit.subtract(new BigDecimal("32"))
-														 .multiply(new BigDecimal(5.0 / 9.0));
+									.multiply(new BigDecimal(5.0 / 9.0));
 							BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
 
-							results.add(celsius.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(kelvin.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
+							results.add(celsius
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(kelvin
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
 						} catch (NumberFormatException e) {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
@@ -328,9 +340,9 @@ public class TemperatureFragment extends BaseFragment {
 				public void run() {
 					removeTextChangedListeners(TAG + "." + mCallingClassName);
 					editTextCelsius.setText(results.get(0)
-												   , TextView.BufferType.EDITABLE);
+							, TextView.BufferType.EDITABLE);
 					editTextKelvin.setText(results.get(1)
-												  , TextView.BufferType.EDITABLE);
+							, TextView.BufferType.EDITABLE);
 					addTextChangedListeners(TAG + "." + mCallingClassName);
 				}
 			});
@@ -342,6 +354,10 @@ public class TemperatureFragment extends BaseFragment {
 
 		private Editable mEditableKelvin;
 		private String mCallingClassName;
+
+		public ConversionFromKelvinRunnable() {
+			throw new UnsupportedOperationException("Cannot use this constructor");
+		}
 
 		public ConversionFromKelvinRunnable(Editable editableKelvin, String callingClassName) {
 			mEditableKelvin = editableKelvin;
@@ -364,14 +380,16 @@ public class TemperatureFragment extends BaseFragment {
 							BigDecimal kelvin = new BigDecimal(mEditableKelvin.toString());
 							BigDecimal celsius = kelvin.subtract(new BigDecimal("273.15"));
 							BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
-															.add(new BigDecimal("32"));
+									.add(new BigDecimal("32"));
 
-							results.add(celsius.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
-							results.add(fahrenheit.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-												.stripTrailingZeros()
-												.toPlainString());
+							results.add(celsius
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
+							results.add(fahrenheit
+									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+									.stripTrailingZeros()
+									.toPlainString());
 						} catch (NumberFormatException e) {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
@@ -399,9 +417,9 @@ public class TemperatureFragment extends BaseFragment {
 				public void run() {
 					removeTextChangedListeners(TAG + "." + mCallingClassName);
 					editTextCelsius.setText(results.get(0)
-												   , TextView.BufferType.EDITABLE);
+							, TextView.BufferType.EDITABLE);
 					editTextFahrenheit.setText(results.get(1)
-													  , TextView.BufferType.EDITABLE);
+							, TextView.BufferType.EDITABLE);
 					addTextChangedListeners(TAG + "." + mCallingClassName);
 				}
 			});
