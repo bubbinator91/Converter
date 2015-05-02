@@ -335,10 +335,6 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableInch;
         private String mCallingClassName;
 
-        public ConversionFromInchRunnable() {
-            throw new UnsupportedOperationException("Cannot use this constructor");
-        }
-
         public ConversionFromInchRunnable(Editable editableInch, String callingClassName) {
             mEditableInch = editableInch;
             mCallingClassName = callingClassName;
@@ -451,10 +447,6 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableFoot;
         private String mCallingClassName;
 
-        public ConversionFromFootRunnable() {
-            throw new UnsupportedOperationException("Cannot use this constructor");
-        }
-
         public ConversionFromFootRunnable(Editable editableFoot, String callingClassName) {
             mEditableFoot = editableFoot;
             mCallingClassName = callingClassName;
@@ -565,10 +557,6 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableYard;
         private String mCallingClassName;
 
-        public ConversionFromYardRunnable() {
-            throw new UnsupportedOperationException("Cannot use this constructor");
-        }
-
         public ConversionFromYardRunnable(Editable editableYard, String callingClassName) {
             mEditableYard = editableYard;
             mCallingClassName = callingClassName;
@@ -677,10 +665,6 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableMile;
         private String mCallingClassName;
 
-        public ConversionFromMileRunnable() {
-            throw new UnsupportedOperationException("Cannot use this constructor");
-        }
-
         public ConversionFromMileRunnable(Editable editableMile, String callingClassName) {
             mEditableMile = editableMile;
             mCallingClassName = callingClassName;
@@ -786,10 +770,6 @@ public class LengthFragment extends BaseFragment {
 
         private Editable mEditableMillimeter;
         private String mCallingClassName;
-
-        public ConversionFromMillimeterRunnable() {
-            throw new UnsupportedOperationException("Cannot use this constructor");
-        }
 
         public ConversionFromMillimeterRunnable(Editable editableMillimeter, String callingClassName) {
             mEditableMillimeter = editableMillimeter;
@@ -899,10 +879,6 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableCentimeter;
         private String mCallingClassName;
 
-        public ConversionFromCentimeterRunnable() {
-            throw new UnsupportedOperationException("Cannot use this constructor");
-        }
-
         public ConversionFromCentimeterRunnable(Editable editableCentimeter, String callingClassName) {
             mEditableCentimeter = editableCentimeter;
             mCallingClassName = callingClassName;
@@ -1009,10 +985,6 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableMeter;
         private String mCallingClassName;
 
-        public ConversionFromMeterRunnable() {
-            throw new UnsupportedOperationException("Cannot use this constructor");
-        }
-
         public ConversionFromMeterRunnable(Editable editableMeter, String callingClassName) {
             mEditableMeter = editableMeter;
             mCallingClassName = callingClassName;
@@ -1116,10 +1088,6 @@ public class LengthFragment extends BaseFragment {
 
         private Editable mEditableKilometer;
         private String mCallingClassName;
-
-        public ConversionFromKilometerRunnable() {
-            throw new UnsupportedOperationException("Cannot use this constructor");
-        }
 
         public ConversionFromKilometerRunnable(Editable editableKilometer, String callingClassName) {
             mEditableKilometer = editableKilometer;

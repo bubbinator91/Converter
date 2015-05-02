@@ -250,10 +250,6 @@ public class SpeedFragment extends BaseFragment {
 		private Editable mEditableFps;
 		private String mCallingClassName;
 
-		public ConversionFromFpsRunnable() {
-			throw new UnsupportedOperationException("Cannot use this constructor");
-		}
-
 		public ConversionFromFpsRunnable(Editable editableFps, String callingClassName) {
 			mEditableFps = editableFps;
 			mCallingClassName = callingClassName;
@@ -339,10 +335,6 @@ public class SpeedFragment extends BaseFragment {
 		private Editable mEditableKnot;
 		private String mCallingClassName;
 
-		public ConversionFromKnotRunnable() {
-			throw new UnsupportedOperationException("Cannot use this constructor");
-		}
-
 		public ConversionFromKnotRunnable(Editable editableKnot, String callingClassName) {
 			mEditableKnot = editableKnot;
 			mCallingClassName = callingClassName;
@@ -426,10 +418,6 @@ public class SpeedFragment extends BaseFragment {
 
 		private Editable mEditableKph;
 		private String mCallingClassName;
-
-		public ConversionFromKphRunnable() {
-			throw new UnsupportedOperationException("Cannot use this constructor");
-		}
 
 		public ConversionFromKphRunnable(Editable editableKph, String callingClassName) {
 			mEditableKph = editableKph;
@@ -521,10 +509,6 @@ public class SpeedFragment extends BaseFragment {
 		private Editable mEditableMps;
 		private String mCallingClassName;
 
-		public ConversionFromMpsRunnable() {
-			throw new UnsupportedOperationException("Cannot use this constructor");
-		}
-
 		public ConversionFromMpsRunnable(Editable editableMps, String callingClassName) {
 			mEditableMps = editableMps;
 			mCallingClassName = callingClassName;
@@ -612,10 +596,6 @@ public class SpeedFragment extends BaseFragment {
 
 		private Editable mEditableMph;
 		private String mCallingClassName;
-
-		public ConversionFromMphRunnable() {
-			throw new UnsupportedOperationException("Cannot use this constructor");
-		}
 
 		public ConversionFromMphRunnable(Editable editableMph, String callingClassName) {
 			mEditableMph = editableMph;

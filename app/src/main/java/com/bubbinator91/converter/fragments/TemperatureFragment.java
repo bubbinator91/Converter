@@ -201,10 +201,6 @@ public class TemperatureFragment extends BaseFragment {
 		private Editable mEditableCelsius;
 		private String mCallingClassName;
 
-		public ConversionFromCelsiusRunnable() {
-			throw new UnsupportedOperationException("Cannot use this constructor");
-		}
-
 		public ConversionFromCelsiusRunnable(Editable editableCelsius, String callingClassName) {
 			mEditableCelsius = editableCelsius;
 			mCallingClassName = callingClassName;
@@ -278,10 +274,6 @@ public class TemperatureFragment extends BaseFragment {
 		private Editable mEditableFahrenheit;
 		private String mCallingClassName;
 
-		public ConversionFromFahrenheitRunnable() {
-			throw new UnsupportedOperationException("Cannot use this constructor");
-		}
-
 		public ConversionFromFahrenheitRunnable(Editable editableFahrenheit, String callingClassName) {
 			mEditableFahrenheit = editableFahrenheit;
 			mCallingClassName = callingClassName;
@@ -354,10 +346,6 @@ public class TemperatureFragment extends BaseFragment {
 
 		private Editable mEditableKelvin;
 		private String mCallingClassName;
-
-		public ConversionFromKelvinRunnable() {
-			throw new UnsupportedOperationException("Cannot use this constructor");
-		}
 
 		public ConversionFromKelvinRunnable(Editable editableKelvin, String callingClassName) {
 			mEditableKelvin = editableKelvin;
