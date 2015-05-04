@@ -157,6 +157,9 @@ public abstract class BaseFragment
 	}
 
 	protected void addWhitespaceItems(ArrayList<String> list, int numItems) {
+		if (list == null) {
+			list = new ArrayList<>();
+		}
 		list.clear();
 		for (int i = 0; i < numItems; i++) {
 			list.add("");

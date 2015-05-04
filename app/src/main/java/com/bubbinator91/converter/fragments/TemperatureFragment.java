@@ -220,18 +220,23 @@ public class TemperatureFragment extends BaseFragment {
 					if (Utils.isNumeric(mEditableCelsius.toString())) {
 						try {
 							BigDecimal celsius = new BigDecimal(mEditableCelsius.toString());
-							BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
-									.add(new BigDecimal("32"));
-							BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
+							if (celsius.compareTo(new BigDecimal("-273.15")) >= 0) {
+								BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
+										.add(new BigDecimal("32"));
+								BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
 
-							results.add(fahrenheit
-									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-									.stripTrailingZeros()
-									.toPlainString());
-							results.add(kelvin
-									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-									.stripTrailingZeros()
-									.toPlainString());
+								results.add(fahrenheit
+										.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+										.stripTrailingZeros()
+										.toPlainString());
+								results.add(kelvin
+										.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+										.stripTrailingZeros()
+										.toPlainString());
+							} else {
+								results.add("Input is below absolute zero");
+								results.add("Input is below absolute zero");
+							}
 						} catch (NumberFormatException e) {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
@@ -293,18 +298,23 @@ public class TemperatureFragment extends BaseFragment {
 					if (Utils.isNumeric(mEditableFahrenheit.toString())) {
 						try {
 							BigDecimal fahrenheit = new BigDecimal(mEditableFahrenheit.toString());
-							BigDecimal celsius = fahrenheit.subtract(new BigDecimal("32"))
-									.multiply(new BigDecimal(5.0 / 9.0));
-							BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
+							if (fahrenheit.compareTo(new BigDecimal("-459.67")) >= 0) {
+								BigDecimal celsius = fahrenheit.subtract(new BigDecimal("32"))
+										.multiply(new BigDecimal(5.0 / 9.0));
+								BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
 
-							results.add(celsius
-									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-									.stripTrailingZeros()
-									.toPlainString());
-							results.add(kelvin
-									.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-									.stripTrailingZeros()
-									.toPlainString());
+								results.add(celsius
+										.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+										.stripTrailingZeros()
+										.toPlainString());
+								results.add(kelvin
+										.setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+										.stripTrailingZeros()
+										.toPlainString());
+							} else {
+								results.add("Input is below absolute zero");
+								results.add("Input is below absolute zero");
+							}
 						} catch (NumberFormatException e) {
 							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
 								e.printStackTrace();
