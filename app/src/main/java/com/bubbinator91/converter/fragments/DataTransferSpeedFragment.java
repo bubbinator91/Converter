@@ -46,6 +46,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.BPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherBps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherBps");
                 new Thread(new ConversionFromBpsRunnable(s, "textWatcherBps")).start();
             }
         }
@@ -63,6 +66,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.BYPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherByps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherByps");
                 new Thread(new ConversionFromBypsRunnable(s, "textWatcherByps")).start();
             }
         }
@@ -80,6 +86,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.KBPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherKbps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherKbps");
                 new Thread(new ConversionFromKbpsRunnable(s, "textWatcherKbps")).start();
             }
         }
@@ -97,6 +106,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.KBYPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherKbyps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherKbyps");
                 new Thread(new ConversionFromKbypsRunnable(s, "textWatcherKbyps")).start();
             }
         }
@@ -114,6 +126,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.MBPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherMbps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherMbps");
                 new Thread(new ConversionFromMbpsRunnable(s, "textWatcherMbps")).start();
             }
         }
@@ -131,6 +146,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.MBYPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherMbyps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherMbyps");
                 new Thread(new ConversionFromMbypsRunnable(s, "textWatcherMbyps")).start();
             }
         }
@@ -148,6 +166,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.GBPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherGbps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherGbps");
                 new Thread(new ConversionFromGbpsRunnable(s, "textWatcherGbps")).start();
             }
         }
@@ -165,6 +186,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.GBYPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherGbyps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherGbyps");
                 new Thread(new ConversionFromGbypsRunnable(s, "textWatcherGbyps")).start();
             }
         }
@@ -182,6 +206,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.TBPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherTbps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherTbps");
                 new Thread(new ConversionFromTbpsRunnable(s, "textWatcherTbps")).start();
             }
         }
@@ -199,6 +226,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.TBYPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherTbyps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherTbyps");
                 new Thread(new ConversionFromTbypsRunnable(s, "textWatcherTbyps")).start();
             }
         }
@@ -268,42 +298,72 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
         if (lastEditTextFocused == LastEditTextFocused.BPS) {
             if ((getHandler() != null) && (editTextBps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextBps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromBpsRunnable(editTextBps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.BYPS) {
             if ((getHandler() != null) && (editTextByps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextByps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromBypsRunnable(editTextByps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KBPS) {
             if ((getHandler() != null) && (editTextKbps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextKbps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromKbpsRunnable(editTextKbps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KBYPS) {
             if ((getHandler() != null) && (editTextKbyps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextKbyps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromKbypsRunnable(editTextKbyps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MBPS) {
             if ((getHandler() != null) && (editTextMbps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextMbps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromMbpsRunnable(editTextMbps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MBYPS) {
             if ((getHandler() != null) && (editTextMbyps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextMbyps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromMbypsRunnable(editTextMbyps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.GBPS) {
             if ((getHandler() != null) && (editTextGbps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextGbps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromGbpsRunnable(editTextGbps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.GBYPS) {
             if ((getHandler() != null) && (editTextGbyps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextGbyps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromGbypsRunnable(editTextGbyps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.TBPS) {
             if ((getHandler() != null) && (editTextTbps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextTbps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromTbpsRunnable(editTextTbps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.TBYPS) {
             if ((getHandler() != null) && (editTextTbyps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextTbyps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromTbypsRunnable(editTextTbyps.getText(), "onResume")).start();
             }
         }
@@ -382,66 +442,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableBps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableBps.length() != 0) {
-                mEditableBps = Utils.sanitizeEditable(mEditableBps);
-                if (mEditableBps != null) {
-                    if (Utils.isNumeric(mEditableBps.toString())) {
-                        try {
-                            BigDecimal bps = new BigDecimal(mEditableBps.toString());
-                            BigDecimal byps = bps.multiply(new BigDecimal("0.125"));
-                            BigDecimal kbps = bps.multiply(new BigDecimal("0.001"));
-                            BigDecimal kbyps = bps.multiply(new BigDecimal("0.000125"));
-                            BigDecimal mbps = bps.multiply(new BigDecimal("0.000001"));
-                            BigDecimal mbyps = bps.multiply(new BigDecimal("0.000000125"));
-                            BigDecimal gbps = bps.multiply(new BigDecimal("0.000000001"));
-                            BigDecimal gbyps = bps.multiply(new BigDecimal("0.000000000125"));
-                            BigDecimal tbps = bps.multiply(new BigDecimal("0.000000000001"));
-                            BigDecimal tbyps = bps.multiply(new BigDecimal("0.000000000000125"));
+            if (mEditableBps != null) {
+                if (Utils.isNumeric(mEditableBps.toString())) {
+                    try {
+                        BigDecimal bps = new BigDecimal(mEditableBps.toString());
+                        BigDecimal byps = bps.multiply(new BigDecimal("0.125"));
+                        BigDecimal kbps = bps.multiply(new BigDecimal("0.001"));
+                        BigDecimal kbyps = bps.multiply(new BigDecimal("0.000125"));
+                        BigDecimal mbps = bps.multiply(new BigDecimal("0.000001"));
+                        BigDecimal mbyps = bps.multiply(new BigDecimal("0.000000125"));
+                        BigDecimal gbps = bps.multiply(new BigDecimal("0.000000001"));
+                        BigDecimal gbyps = bps.multiply(new BigDecimal("0.000000000125"));
+                        BigDecimal tbps = bps.multiply(new BigDecimal("0.000000000001"));
+                        BigDecimal tbyps = bps.multiply(new BigDecimal("0.000000000000125"));
 
-                            results.add(byps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 9);
-                        }
-                    } else {
+                        results.add(byps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 9);
                     }
                 } else {
@@ -449,12 +503,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 9);
-            }
-
-            if (mEditableBps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableBps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -499,66 +547,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableByps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableByps.length() != 0) {
-                mEditableByps = Utils.sanitizeEditable(mEditableByps);
-                if (mEditableByps != null) {
-                    if (Utils.isNumeric(mEditableByps.toString())) {
-                        try {
-                            BigDecimal byps = new BigDecimal(mEditableByps.toString());
-                            BigDecimal bps = byps.multiply(new BigDecimal("8"));
-                            BigDecimal kbps = byps.multiply(new BigDecimal("0.008"));
-                            BigDecimal kbyps = byps.multiply(new BigDecimal("0.001"));
-                            BigDecimal mbps = byps.multiply(new BigDecimal("0.000008"));
-                            BigDecimal mbyps = byps.multiply(new BigDecimal("0.000001"));
-                            BigDecimal gbps = byps.multiply(new BigDecimal("0.000000008"));
-                            BigDecimal gbyps = byps.multiply(new BigDecimal("0.000000001"));
-                            BigDecimal tbps = byps.multiply(new BigDecimal("0.000000000008"));
-                            BigDecimal tbyps = byps.multiply(new BigDecimal("0.000000000001"));
+            if (mEditableByps != null) {
+                if (Utils.isNumeric(mEditableByps.toString())) {
+                    try {
+                        BigDecimal byps = new BigDecimal(mEditableByps.toString());
+                        BigDecimal bps = byps.multiply(new BigDecimal("8"));
+                        BigDecimal kbps = byps.multiply(new BigDecimal("0.008"));
+                        BigDecimal kbyps = byps.multiply(new BigDecimal("0.001"));
+                        BigDecimal mbps = byps.multiply(new BigDecimal("0.000008"));
+                        BigDecimal mbyps = byps.multiply(new BigDecimal("0.000001"));
+                        BigDecimal gbps = byps.multiply(new BigDecimal("0.000000008"));
+                        BigDecimal gbyps = byps.multiply(new BigDecimal("0.000000001"));
+                        BigDecimal tbps = byps.multiply(new BigDecimal("0.000000000008"));
+                        BigDecimal tbyps = byps.multiply(new BigDecimal("0.000000000001"));
 
-                            results.add(bps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 9);
-                        }
-                    } else {
+                        results.add(bps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 9);
                     }
                 } else {
@@ -566,12 +608,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 9);
-            }
-
-            if (mEditableByps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableByps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -616,66 +652,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableKbps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableKbps.length() != 0) {
-                mEditableKbps = Utils.sanitizeEditable(mEditableKbps);
-                if (mEditableKbps != null) {
-                    if (Utils.isNumeric(mEditableKbps.toString())) {
-                        try {
-                            BigDecimal kbps = new BigDecimal(mEditableKbps.toString());
-                            BigDecimal bps = kbps.multiply(new BigDecimal("1000"));
-                            BigDecimal byps = kbps.multiply(new BigDecimal("125"));
-                            BigDecimal kbyps = kbps.multiply(new BigDecimal("0.125"));
-                            BigDecimal mbps = kbps.multiply(new BigDecimal("0.001"));
-                            BigDecimal mbyps = kbps.multiply(new BigDecimal("0.000125"));
-                            BigDecimal gbps = kbps.multiply(new BigDecimal("0.000001"));
-                            BigDecimal gbyps = kbps.multiply(new BigDecimal("0.000000125"));
-                            BigDecimal tbps = kbps.multiply(new BigDecimal("0.000000001"));
-                            BigDecimal tbyps = kbps.multiply(new BigDecimal("0.000000000125"));
+            if (mEditableKbps != null) {
+                if (Utils.isNumeric(mEditableKbps.toString())) {
+                    try {
+                        BigDecimal kbps = new BigDecimal(mEditableKbps.toString());
+                        BigDecimal bps = kbps.multiply(new BigDecimal("1000"));
+                        BigDecimal byps = kbps.multiply(new BigDecimal("125"));
+                        BigDecimal kbyps = kbps.multiply(new BigDecimal("0.125"));
+                        BigDecimal mbps = kbps.multiply(new BigDecimal("0.001"));
+                        BigDecimal mbyps = kbps.multiply(new BigDecimal("0.000125"));
+                        BigDecimal gbps = kbps.multiply(new BigDecimal("0.000001"));
+                        BigDecimal gbyps = kbps.multiply(new BigDecimal("0.000000125"));
+                        BigDecimal tbps = kbps.multiply(new BigDecimal("0.000000001"));
+                        BigDecimal tbyps = kbps.multiply(new BigDecimal("0.000000000125"));
 
-                            results.add(bps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(byps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 9);
-                        }
-                    } else {
+                        results.add(bps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(byps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 9);
                     }
                 } else {
@@ -683,12 +713,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 9);
-            }
-
-            if (mEditableKbps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableKbps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -733,66 +757,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableKbyps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableKbyps.length() != 0) {
-                mEditableKbyps = Utils.sanitizeEditable(mEditableKbyps);
-                if (mEditableKbyps != null) {
-                    if (Utils.isNumeric(mEditableKbyps.toString())) {
-                        try {
-                            BigDecimal kbyps = new BigDecimal(mEditableKbyps.toString());
-                            BigDecimal bps = kbyps.multiply(new BigDecimal("8000"));
-                            BigDecimal byps = kbyps.multiply(new BigDecimal("1000"));
-                            BigDecimal kbps = kbyps.multiply(new BigDecimal("8"));
-                            BigDecimal mbps = kbyps.multiply(new BigDecimal("0.008"));
-                            BigDecimal mbyps = kbyps.multiply(new BigDecimal("0.001"));
-                            BigDecimal gbps = kbyps.multiply(new BigDecimal("0.000008"));
-                            BigDecimal gbyps = kbyps.multiply(new BigDecimal("0.000001"));
-                            BigDecimal tbps = kbyps.multiply(new BigDecimal("0.000000008"));
-                            BigDecimal tbyps = kbyps.multiply(new BigDecimal("0.000000001"));
+            if (mEditableKbyps != null) {
+                if (Utils.isNumeric(mEditableKbyps.toString())) {
+                    try {
+                        BigDecimal kbyps = new BigDecimal(mEditableKbyps.toString());
+                        BigDecimal bps = kbyps.multiply(new BigDecimal("8000"));
+                        BigDecimal byps = kbyps.multiply(new BigDecimal("1000"));
+                        BigDecimal kbps = kbyps.multiply(new BigDecimal("8"));
+                        BigDecimal mbps = kbyps.multiply(new BigDecimal("0.008"));
+                        BigDecimal mbyps = kbyps.multiply(new BigDecimal("0.001"));
+                        BigDecimal gbps = kbyps.multiply(new BigDecimal("0.000008"));
+                        BigDecimal gbyps = kbyps.multiply(new BigDecimal("0.000001"));
+                        BigDecimal tbps = kbyps.multiply(new BigDecimal("0.000000008"));
+                        BigDecimal tbyps = kbyps.multiply(new BigDecimal("0.000000001"));
 
-                            results.add(bps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(byps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 9);
-                        }
-                    } else {
+                        results.add(bps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(byps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 9);
                     }
                 } else {
@@ -800,12 +818,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 9);
-            }
-
-            if (mEditableKbyps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableKbyps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -850,66 +862,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMbps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableMbps.length() != 0) {
-                mEditableMbps = Utils.sanitizeEditable(mEditableMbps);
-                if (mEditableMbps != null) {
-                    if (Utils.isNumeric(mEditableMbps.toString())) {
-                        try {
-                            BigDecimal mbps = new BigDecimal(mEditableMbps.toString());
-                            BigDecimal bps = mbps.multiply(new BigDecimal("1000000"));
-                            BigDecimal byps = mbps.multiply(new BigDecimal("125000"));
-                            BigDecimal kbps = mbps.multiply(new BigDecimal("1000"));
-                            BigDecimal kbyps = mbps.multiply(new BigDecimal("125"));
-                            BigDecimal mbyps = mbps.multiply(new BigDecimal("0.125"));
-                            BigDecimal gbps = mbps.multiply(new BigDecimal("0.001"));
-                            BigDecimal gbyps = mbps.multiply(new BigDecimal("0.000125"));
-                            BigDecimal tbps = mbps.multiply(new BigDecimal("0.000001"));
-                            BigDecimal tbyps = mbps.multiply(new BigDecimal("0.000000125"));
+            if (mEditableMbps != null) {
+                if (Utils.isNumeric(mEditableMbps.toString())) {
+                    try {
+                        BigDecimal mbps = new BigDecimal(mEditableMbps.toString());
+                        BigDecimal bps = mbps.multiply(new BigDecimal("1000000"));
+                        BigDecimal byps = mbps.multiply(new BigDecimal("125000"));
+                        BigDecimal kbps = mbps.multiply(new BigDecimal("1000"));
+                        BigDecimal kbyps = mbps.multiply(new BigDecimal("125"));
+                        BigDecimal mbyps = mbps.multiply(new BigDecimal("0.125"));
+                        BigDecimal gbps = mbps.multiply(new BigDecimal("0.001"));
+                        BigDecimal gbyps = mbps.multiply(new BigDecimal("0.000125"));
+                        BigDecimal tbps = mbps.multiply(new BigDecimal("0.000001"));
+                        BigDecimal tbyps = mbps.multiply(new BigDecimal("0.000000125"));
 
-                            results.add(bps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(byps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 9);
-                        }
-                    } else {
+                        results.add(bps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(byps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 9);
                     }
                 } else {
@@ -917,12 +923,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 9);
-            }
-
-            if (mEditableMbps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMbps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -967,66 +967,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMbyps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableMbyps.length() != 0) {
-                mEditableMbyps = Utils.sanitizeEditable(mEditableMbyps);
-                if (mEditableMbyps != null) {
-                    if (Utils.isNumeric(mEditableMbyps.toString())) {
-                        try {
-                            BigDecimal mbyps = new BigDecimal(mEditableMbyps.toString());
-                            BigDecimal bps = mbyps.multiply(new BigDecimal("8000000"));
-                            BigDecimal byps = mbyps.multiply(new BigDecimal("1000000"));
-                            BigDecimal kbps = mbyps.multiply(new BigDecimal("8000"));
-                            BigDecimal kbyps = mbyps.multiply(new BigDecimal("1000"));
-                            BigDecimal mbps = mbyps.multiply(new BigDecimal("8"));
-                            BigDecimal gbps = mbyps.multiply(new BigDecimal("0.008"));
-                            BigDecimal gbyps = mbyps.multiply(new BigDecimal("0.001"));
-                            BigDecimal tbps = mbyps.multiply(new BigDecimal("0.000008"));
-                            BigDecimal tbyps = mbyps.multiply(new BigDecimal("0.000001"));
+            if (mEditableMbyps != null) {
+                if (Utils.isNumeric(mEditableMbyps.toString())) {
+                    try {
+                        BigDecimal mbyps = new BigDecimal(mEditableMbyps.toString());
+                        BigDecimal bps = mbyps.multiply(new BigDecimal("8000000"));
+                        BigDecimal byps = mbyps.multiply(new BigDecimal("1000000"));
+                        BigDecimal kbps = mbyps.multiply(new BigDecimal("8000"));
+                        BigDecimal kbyps = mbyps.multiply(new BigDecimal("1000"));
+                        BigDecimal mbps = mbyps.multiply(new BigDecimal("8"));
+                        BigDecimal gbps = mbyps.multiply(new BigDecimal("0.008"));
+                        BigDecimal gbyps = mbyps.multiply(new BigDecimal("0.001"));
+                        BigDecimal tbps = mbyps.multiply(new BigDecimal("0.000008"));
+                        BigDecimal tbyps = mbyps.multiply(new BigDecimal("0.000001"));
 
-                            results.add(bps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(byps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 9);
-                        }
-                    } else {
+                        results.add(bps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(byps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 9);
                     }
                 } else {
@@ -1034,12 +1028,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 9);
-            }
-
-            if (mEditableMbyps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMbyps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -1084,66 +1072,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableGbps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableGbps.length() != 0) {
-                mEditableGbps = Utils.sanitizeEditable(mEditableGbps);
-                if (mEditableGbps != null) {
-                    if (Utils.isNumeric(mEditableGbps.toString())) {
-                        try {
-                            BigDecimal gbps = new BigDecimal(mEditableGbps.toString());
-                            BigDecimal bps = gbps.multiply(new BigDecimal("1000000000"));
-                            BigDecimal byps = gbps.multiply(new BigDecimal("125000000"));
-                            BigDecimal kbps = gbps.multiply(new BigDecimal("1000000"));
-                            BigDecimal kbyps = gbps.multiply(new BigDecimal("125000"));
-                            BigDecimal mbps = gbps.multiply(new BigDecimal("1000"));
-                            BigDecimal mbyps = gbps.multiply(new BigDecimal("125"));
-                            BigDecimal gbyps = gbps.multiply(new BigDecimal("0.125"));
-                            BigDecimal tbps = gbps.multiply(new BigDecimal("0.001"));
-                            BigDecimal tbyps = gbps.multiply(new BigDecimal("0.000125"));
+            if (mEditableGbps != null) {
+                if (Utils.isNumeric(mEditableGbps.toString())) {
+                    try {
+                        BigDecimal gbps = new BigDecimal(mEditableGbps.toString());
+                        BigDecimal bps = gbps.multiply(new BigDecimal("1000000000"));
+                        BigDecimal byps = gbps.multiply(new BigDecimal("125000000"));
+                        BigDecimal kbps = gbps.multiply(new BigDecimal("1000000"));
+                        BigDecimal kbyps = gbps.multiply(new BigDecimal("125000"));
+                        BigDecimal mbps = gbps.multiply(new BigDecimal("1000"));
+                        BigDecimal mbyps = gbps.multiply(new BigDecimal("125"));
+                        BigDecimal gbyps = gbps.multiply(new BigDecimal("0.125"));
+                        BigDecimal tbps = gbps.multiply(new BigDecimal("0.001"));
+                        BigDecimal tbyps = gbps.multiply(new BigDecimal("0.000125"));
 
-                            results.add(bps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(byps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 9);
-                        }
-                    } else {
+                        results.add(bps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(byps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 9);
                     }
                 } else {
@@ -1151,12 +1133,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 9);
-            }
-
-            if (mEditableGbps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableGbps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -1201,66 +1177,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableGbyps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableGbyps.length() != 0) {
-                mEditableGbyps = Utils.sanitizeEditable(mEditableGbyps);
-                if (mEditableGbyps != null) {
-                    if (Utils.isNumeric(mEditableGbyps.toString())) {
-                        try {
-                            BigDecimal gbyps = new BigDecimal(mEditableGbyps.toString());
-                            BigDecimal bps = gbyps.multiply(new BigDecimal("8000000000"));
-                            BigDecimal byps = gbyps.multiply(new BigDecimal("1000000000"));
-                            BigDecimal kbps = gbyps.multiply(new BigDecimal("8000000"));
-                            BigDecimal kbyps = gbyps.multiply(new BigDecimal("1000000"));
-                            BigDecimal mbps = gbyps.multiply(new BigDecimal("8000"));
-                            BigDecimal mbyps = gbyps.multiply(new BigDecimal("1000"));
-                            BigDecimal gbps = gbyps.multiply(new BigDecimal("8"));
-                            BigDecimal tbps = gbyps.multiply(new BigDecimal("0.008"));
-                            BigDecimal tbyps = gbyps.multiply(new BigDecimal("0.001"));
+            if (mEditableGbyps != null) {
+                if (Utils.isNumeric(mEditableGbyps.toString())) {
+                    try {
+                        BigDecimal gbyps = new BigDecimal(mEditableGbyps.toString());
+                        BigDecimal bps = gbyps.multiply(new BigDecimal("8000000000"));
+                        BigDecimal byps = gbyps.multiply(new BigDecimal("1000000000"));
+                        BigDecimal kbps = gbyps.multiply(new BigDecimal("8000000"));
+                        BigDecimal kbyps = gbyps.multiply(new BigDecimal("1000000"));
+                        BigDecimal mbps = gbyps.multiply(new BigDecimal("8000"));
+                        BigDecimal mbyps = gbyps.multiply(new BigDecimal("1000"));
+                        BigDecimal gbps = gbyps.multiply(new BigDecimal("8"));
+                        BigDecimal tbps = gbyps.multiply(new BigDecimal("0.008"));
+                        BigDecimal tbyps = gbyps.multiply(new BigDecimal("0.001"));
 
-                            results.add(bps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(byps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 9);
-                        }
-                    } else {
+                        results.add(bps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(byps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 9);
                     }
                 } else {
@@ -1268,12 +1238,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 9);
-            }
-
-            if (mEditableGbyps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableGbyps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -1318,66 +1282,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableTbps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableTbps.length() != 0) {
-                mEditableTbps = Utils.sanitizeEditable(mEditableTbps);
-                if (mEditableTbps != null) {
-                    if (Utils.isNumeric(mEditableTbps.toString())) {
-                        try {
-                            BigDecimal tbps = new BigDecimal(mEditableTbps.toString());
-                            BigDecimal bps = tbps.multiply(new BigDecimal("1000000000000"));
-                            BigDecimal byps = tbps.multiply(new BigDecimal("125000000000"));
-                            BigDecimal kbps = tbps.multiply(new BigDecimal("1000000000"));
-                            BigDecimal kbyps = tbps.multiply(new BigDecimal("125000000"));
-                            BigDecimal mbps = tbps.multiply(new BigDecimal("1000000"));
-                            BigDecimal mbyps = tbps.multiply(new BigDecimal("125000"));
-                            BigDecimal gbps = tbps.multiply(new BigDecimal("1000"));
-                            BigDecimal gbyps = tbps.multiply(new BigDecimal("125"));
-                            BigDecimal tbyps = tbps.multiply(new BigDecimal("0.125"));
+            if (mEditableTbps != null) {
+                if (Utils.isNumeric(mEditableTbps.toString())) {
+                    try {
+                        BigDecimal tbps = new BigDecimal(mEditableTbps.toString());
+                        BigDecimal bps = tbps.multiply(new BigDecimal("1000000000000"));
+                        BigDecimal byps = tbps.multiply(new BigDecimal("125000000000"));
+                        BigDecimal kbps = tbps.multiply(new BigDecimal("1000000000"));
+                        BigDecimal kbyps = tbps.multiply(new BigDecimal("125000000"));
+                        BigDecimal mbps = tbps.multiply(new BigDecimal("1000000"));
+                        BigDecimal mbyps = tbps.multiply(new BigDecimal("125000"));
+                        BigDecimal gbps = tbps.multiply(new BigDecimal("1000"));
+                        BigDecimal gbyps = tbps.multiply(new BigDecimal("125"));
+                        BigDecimal tbyps = tbps.multiply(new BigDecimal("0.125"));
 
-                            results.add(bps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(byps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 9);
-                        }
-                    } else {
+                        results.add(bps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(byps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 9);
                     }
                 } else {
@@ -1385,12 +1343,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 9);
-            }
-
-            if (mEditableTbps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableTbps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -1435,66 +1387,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableTbyps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableTbyps.length() != 0) {
-                mEditableTbyps = Utils.sanitizeEditable(mEditableTbyps);
-                if (mEditableTbyps != null) {
-                    if (Utils.isNumeric(mEditableTbyps.toString())) {
-                        try {
-                            BigDecimal tbyps = new BigDecimal(mEditableTbyps.toString());
-                            BigDecimal bps = tbyps.multiply(new BigDecimal("8000000000000"));
-                            BigDecimal byps = tbyps.multiply(new BigDecimal("1000000000000"));
-                            BigDecimal kbps = tbyps.multiply(new BigDecimal("8000000000"));
-                            BigDecimal kbyps = tbyps.multiply(new BigDecimal("1000000000"));
-                            BigDecimal mbps = tbyps.multiply(new BigDecimal("8000000"));
-                            BigDecimal mbyps = tbyps.multiply(new BigDecimal("1000000"));
-                            BigDecimal gbps = tbyps.multiply(new BigDecimal("8000"));
-                            BigDecimal gbyps = tbyps.multiply(new BigDecimal("1000"));
-                            BigDecimal tbps = tbyps.multiply(new BigDecimal("8"));
+            if (mEditableTbyps != null) {
+                if (Utils.isNumeric(mEditableTbyps.toString())) {
+                    try {
+                        BigDecimal tbyps = new BigDecimal(mEditableTbyps.toString());
+                        BigDecimal bps = tbyps.multiply(new BigDecimal("8000000000000"));
+                        BigDecimal byps = tbyps.multiply(new BigDecimal("1000000000000"));
+                        BigDecimal kbps = tbyps.multiply(new BigDecimal("8000000000"));
+                        BigDecimal kbyps = tbyps.multiply(new BigDecimal("1000000000"));
+                        BigDecimal mbps = tbyps.multiply(new BigDecimal("8000000"));
+                        BigDecimal mbyps = tbyps.multiply(new BigDecimal("1000000"));
+                        BigDecimal gbps = tbyps.multiply(new BigDecimal("8000"));
+                        BigDecimal gbyps = tbyps.multiply(new BigDecimal("1000"));
+                        BigDecimal tbps = tbyps.multiply(new BigDecimal("8"));
 
-                            results.add(bps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(byps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(gbyps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(tbps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 9);
-                        }
-                    } else {
+                        results.add(bps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(byps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(gbyps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(tbps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 9);
                     }
                 } else {
@@ -1502,12 +1448,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 9);
-            }
-
-            if (mEditableTbyps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableTbyps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {

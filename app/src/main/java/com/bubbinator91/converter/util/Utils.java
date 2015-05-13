@@ -2,6 +2,8 @@ package com.bubbinator91.converter.util;
 
 import android.text.Editable;
 
+import timber.log.Timber;
+
 /**
  * Conversions to implement
  * Acceleration
@@ -163,6 +165,7 @@ import android.text.Editable;
  */
 
 public class Utils {
+    private static final String TAG = "Utils";
 
     /**
      * Method that sanitizes the incoming Editable to filter
@@ -174,12 +177,21 @@ public class Utils {
      * point ("00009" or "-00009").
      *
      * @param editable		Editable to sanitize
-	 *
-     * @return An object of type Editable that has been sanitized
      */
-    public static Editable sanitizeEditable(Editable editable) {
-        if (editable == null) {
-            return null;
+    public static void sanitizeEditable(Editable editable) {
+        if ((editable == null) || (editable.length() == 0)) {
+            return;
+        }
+
+        Timber.tag(TAG + ".sanitizeEditable").i("before = " + editable.toString());
+
+        // check for A-Z, a-z, or spaces and remove them
+        // TODO Possibly modify to support alphabetic letters from non-latin alphabets
+        for (int i = 0; i < editable.length(); i++) {
+            if (Character.isLetter(editable.charAt(i)) || Character.isSpaceChar(editable.charAt(i))) {
+                editable.delete(i, i + 1);
+                i--;
+            }
         }
 
         if (editable.length() >= 2) {
@@ -234,7 +246,7 @@ public class Utils {
             }
         }
 
-        return editable;
+        Timber.tag(TAG + ".sanitizeEditable").i("after = " + editable.toString());
     }
 
     /**

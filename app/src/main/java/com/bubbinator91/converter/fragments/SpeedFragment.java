@@ -46,6 +46,9 @@ public class SpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.FPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherFps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherFps");
                 new Thread(new ConversionFromFpsRunnable(s, "textWatcherFps")).start();
             }
         }
@@ -62,6 +65,9 @@ public class SpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.KNOT;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherKnot");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherKnot");
                 new Thread(new ConversionFromKnotRunnable(s, "textWatcherKnot")).start();
             }
         }
@@ -78,6 +84,9 @@ public class SpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.KPH;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherKph");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherKph");
                 new Thread(new ConversionFromKphRunnable(s, "textWatcherKph")).start();
             }
         }
@@ -94,6 +103,9 @@ public class SpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.MPS;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherMps");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherMps");
                 new Thread(new ConversionFromMpsRunnable(s, "textWatcherMps")).start();
             }
         }
@@ -110,6 +122,9 @@ public class SpeedFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.MPH;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherMph");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherMph");
                 new Thread(new ConversionFromMphRunnable(s, "textWatcherMph")).start();
             }
         }
@@ -165,22 +180,37 @@ public class SpeedFragment extends BaseFragment {
 
         if (lastEditTextFocused == LastEditTextFocused.FPS) {
             if ((getHandler() != null) && (editTextFps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextFps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromFpsRunnable(editTextFps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KNOT) {
             if ((getHandler() != null) && (editTextKnot.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextKnot.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromKnotRunnable(editTextKnot.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KPH) {
             if ((getHandler() != null) && (editTextKph.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextKph.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromKphRunnable(editTextKph.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MPS) {
             if ((getHandler() != null) && (editTextMps.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextMps.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromMpsRunnable(editTextMps.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MPH) {
             if ((getHandler() != null) && (editTextMph.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextMph.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromMphRunnable(editTextMph.getText(), "onResume")).start();
             }
         }
@@ -249,44 +279,38 @@ public class SpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableFps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableFps.length() != 0) {
-                mEditableFps = Utils.sanitizeEditable(mEditableFps);
-                if (mEditableFps != null) {
-                    if (Utils.isNumeric(mEditableFps.toString())) {
-                        try {
-                            BigDecimal fps = new BigDecimal(mEditableFps.toString());
-                            BigDecimal mph = fps.multiply(new BigDecimal(60*60))
-                                    .divide(new BigDecimal("5280")
-                                            , getFieldLength()
-                                            , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal mps = fps.multiply(new BigDecimal("0.3048"));
-                            BigDecimal kph = fps.multiply(new BigDecimal("1.09728"));
-                            BigDecimal knot = fps.multiply(new BigDecimal(".592484"));
+            if (mEditableFps != null) {
+                if (Utils.isNumeric(mEditableFps.toString())) {
+                    try {
+                        BigDecimal fps = new BigDecimal(mEditableFps.toString());
+                        BigDecimal mph = fps.multiply(new BigDecimal(60*60))
+                                .divide(new BigDecimal("5280")
+                                        , getFieldLength()
+                                        , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal mps = fps.multiply(new BigDecimal("0.3048"));
+                        BigDecimal kph = fps.multiply(new BigDecimal("1.09728"));
+                        BigDecimal knot = fps.multiply(new BigDecimal(".592484"));
 
-                            results.add(knot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kph
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mph
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 4);
-                        }
-                    } else {
+                        results.add(knot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kph
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mph
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 4);
                     }
                 } else {
@@ -294,12 +318,6 @@ public class SpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 4);
-            }
-
-            if (mEditableFps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableFps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -330,43 +348,37 @@ public class SpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableKnot.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableKnot.length() != 0) {
-                mEditableKnot = Utils.sanitizeEditable(mEditableKnot);
-                if (mEditableKnot != null) {
-                    if (Utils.isNumeric(mEditableKnot.toString())) {
-                        try {
-                            BigDecimal knot = new BigDecimal(mEditableKnot.toString());
-                            BigDecimal fps = knot.divide(new BigDecimal(".592484")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal mph = knot.multiply(new BigDecimal("1.150779"));
-                            BigDecimal mps = knot.multiply(new BigDecimal(".514444"));
-                            BigDecimal kph = knot.multiply(new BigDecimal("1.852"));
+            if (mEditableKnot != null) {
+                if (Utils.isNumeric(mEditableKnot.toString())) {
+                    try {
+                        BigDecimal knot = new BigDecimal(mEditableKnot.toString());
+                        BigDecimal fps = knot.divide(new BigDecimal(".592484")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal mph = knot.multiply(new BigDecimal("1.150779"));
+                        BigDecimal mps = knot.multiply(new BigDecimal(".514444"));
+                        BigDecimal kph = knot.multiply(new BigDecimal("1.852"));
 
-                            results.add(fps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kph
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mph
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 4);
-                        }
-                    } else {
+                        results.add(fps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kph
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mph
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 4);
                     }
                 } else {
@@ -374,12 +386,6 @@ public class SpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 4);
-            }
-
-            if (mEditableKnot != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableKnot.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -410,49 +416,43 @@ public class SpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableKph.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableKph.length() != 0) {
-                mEditableKph = Utils.sanitizeEditable(mEditableKph);
-                if (mEditableKph != null) {
-                    if (Utils.isNumeric(mEditableKph.toString())) {
-                        try {
-                            BigDecimal kph = new BigDecimal(mEditableKph.toString());
-                            BigDecimal fps = kph.divide(new BigDecimal("1.09728")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal mph = kph.divide(new BigDecimal("1.609344")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal mps = kph.divide(new BigDecimal("3.6")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal knot = kph.divide(new BigDecimal("1.852")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
+            if (mEditableKph != null) {
+                if (Utils.isNumeric(mEditableKph.toString())) {
+                    try {
+                        BigDecimal kph = new BigDecimal(mEditableKph.toString());
+                        BigDecimal fps = kph.divide(new BigDecimal("1.09728")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal mph = kph.divide(new BigDecimal("1.609344")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal mps = kph.divide(new BigDecimal("3.6")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal knot = kph.divide(new BigDecimal("1.852")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
 
-                            results.add(fps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(knot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mph
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 4);
-                        }
-                    } else {
+                        results.add(fps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(knot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mph
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 4);
                     }
                 } else {
@@ -460,12 +460,6 @@ public class SpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 4);
-            }
-
-            if (mEditableKph != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableKph.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -496,47 +490,41 @@ public class SpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMps.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableMps.length() != 0) {
-                mEditableMps = Utils.sanitizeEditable(mEditableMps);
-                if (mEditableMps != null) {
-                    if (Utils.isNumeric(mEditableMps.toString())) {
-                        try {
-                            BigDecimal mps = new BigDecimal(mEditableMps.toString());
-                            BigDecimal fps = mps.divide(new BigDecimal("0.3048")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal mph = mps.divide(new BigDecimal("0.44704")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal kph = mps.multiply(new BigDecimal("3.6"));
-                            BigDecimal knot = mps.divide(new BigDecimal("0.514444")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
+            if (mEditableMps != null) {
+                if (Utils.isNumeric(mEditableMps.toString())) {
+                    try {
+                        BigDecimal mps = new BigDecimal(mEditableMps.toString());
+                        BigDecimal fps = mps.divide(new BigDecimal("0.3048")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal mph = mps.divide(new BigDecimal("0.44704")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal kph = mps.multiply(new BigDecimal("3.6"));
+                        BigDecimal knot = mps.divide(new BigDecimal("0.514444")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
 
-                            results.add(fps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(knot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kph
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mph
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 4);
-                        }
-                    } else {
+                        results.add(fps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(knot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kph
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mph
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 4);
                     }
                 } else {
@@ -544,12 +532,6 @@ public class SpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 4);
-            }
-
-            if (mEditableMps != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMps.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -580,49 +562,43 @@ public class SpeedFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMph.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableMph.length() != 0) {
-                mEditableMph = Utils.sanitizeEditable(mEditableMph);
-                if (mEditableMph != null) {
-                    if (Utils.isNumeric(mEditableMph.toString())) {
-                        try {
-                            BigDecimal mph = new BigDecimal(mEditableMph.toString());
-                            BigDecimal fps = mph.multiply(new BigDecimal("5280"))
-                                    .divide(new BigDecimal("60")
-                                            , getFieldLength()
-                                            , BigDecimal.ROUND_HALF_UP)
-                                    .divide(new BigDecimal("60")
-                                            , getFieldLength()
-                                            , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal mps = mph.multiply(new BigDecimal("0.44704"));
-                            BigDecimal kph = mph.multiply(new BigDecimal("1.609344"));
-                            BigDecimal knot = mph.divide(new BigDecimal("1.150779")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
+            if (mEditableMph != null) {
+                if (Utils.isNumeric(mEditableMph.toString())) {
+                    try {
+                        BigDecimal mph = new BigDecimal(mEditableMph.toString());
+                        BigDecimal fps = mph.multiply(new BigDecimal("5280"))
+                                .divide(new BigDecimal("60")
+                                        , getFieldLength()
+                                        , BigDecimal.ROUND_HALF_UP)
+                                .divide(new BigDecimal("60")
+                                        , getFieldLength()
+                                        , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal mps = mph.multiply(new BigDecimal("0.44704"));
+                        BigDecimal kph = mph.multiply(new BigDecimal("1.609344"));
+                        BigDecimal knot = mph.divide(new BigDecimal("1.150779")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
 
-                            results.add(fps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(knot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kph
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mps
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 4);
-                        }
-                    } else {
+                        results.add(fps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(knot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kph
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mps
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 4);
                     }
                 } else {
@@ -630,12 +606,6 @@ public class SpeedFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 4);
-            }
-
-            if (mEditableMph != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMph.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {

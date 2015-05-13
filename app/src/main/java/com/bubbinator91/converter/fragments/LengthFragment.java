@@ -50,6 +50,9 @@ public class LengthFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.INCH;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherInch");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherInch");
                 new Thread(new ConversionFromInchRunnable(s, "textWatcherInch")).start();
             }
         }
@@ -67,6 +70,9 @@ public class LengthFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.FOOT;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherFoot");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherFoot");
                 new Thread(new ConversionFromFootRunnable(s, "textWatcherFoot")).start();
             }
         }
@@ -84,6 +90,9 @@ public class LengthFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.YARD;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherYard");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherYard");
                 new Thread(new ConversionFromYardRunnable(s, "textWatcherYard")).start();
             }
         }
@@ -101,6 +110,9 @@ public class LengthFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.MILE;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherMile");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherMile");
                 new Thread(new ConversionFromMileRunnable(s, "textWatcherMile")).start();
             }
         }
@@ -118,6 +130,9 @@ public class LengthFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.MILLIMETER;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherMillimeter");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherMillimeter");
                 new Thread(new ConversionFromMillimeterRunnable(s, "textWatcherMillimeter")).start();
             }
         }
@@ -135,6 +150,9 @@ public class LengthFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.CENTIMETER;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherCentimeter");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherCentimeter");
                 new Thread(new ConversionFromCentimeterRunnable(s, "textWatcherCentimeter")).start();
             }
         }
@@ -152,6 +170,9 @@ public class LengthFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.METER;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherMeter");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherMeter");
                 new Thread(new ConversionFromMeterRunnable(s, "textWatcherMeter")).start();
             }
         }
@@ -169,6 +190,9 @@ public class LengthFragment extends BaseFragment {
             lastEditTextFocused = LastEditTextFocused.KILOMETER;
 
             if ((getHandler() != null) && (s != null)) {
+                removeTextChangedListeners("textWatcherKilometer");
+                Utils.sanitizeEditable(s);
+                addTextChangedListeners("textWatcherKilometer");
                 new Thread(new ConversionFromKilometerRunnable(s, "textWatcherKilometer")).start();
             }
         }
@@ -232,34 +256,58 @@ public class LengthFragment extends BaseFragment {
 
         if (lastEditTextFocused == LastEditTextFocused.INCH) {
             if ((getHandler() != null) && (editTextInch.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextInch.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromInchRunnable(editTextInch.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.FOOT) {
             if ((getHandler() != null) && (editTextFoot.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextFoot.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromFootRunnable(editTextFoot.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.YARD) {
             if ((getHandler() != null) && (editTextYard.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextYard.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromYardRunnable(editTextYard.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MILE) {
             if ((getHandler() != null) && (editTextMile.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextMile.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromMileRunnable(editTextMile.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MILLIMETER) {
             if ((getHandler() != null) && (editTextMillimeter.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextMillimeter.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromMillimeterRunnable(editTextMillimeter.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.CENTIMETER) {
             if ((getHandler() != null) && (editTextCentimeter.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextCentimeter.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromCentimeterRunnable(editTextCentimeter.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.METER) {
             if ((getHandler() != null) && (editTextMeter.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextMeter.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromMeterRunnable(editTextMeter.getText(), "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KILOMETER) {
             if ((getHandler() != null) && (editTextKilometer.getText() != null)) {
+                removeTextChangedListeners("onResume");
+                Utils.sanitizeEditable(editTextKilometer.getText());
+                addTextChangedListeners("onResume");
                 new Thread(new ConversionFromKilometerRunnable(editTextKilometer.getText(), "onResume")).start();
             }
         }
@@ -334,68 +382,62 @@ public class LengthFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableInch.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableInch.length() != 0) {
-                mEditableInch = Utils.sanitizeEditable(mEditableInch);
-                if (mEditableInch != null) {
-                    if (Utils.isNumeric(mEditableInch.toString())) {
-                        try {
-                            BigDecimal inch = new BigDecimal(mEditableInch.toString());
-                            BigDecimal foot = inch.divide(new BigDecimal("12")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal yard = foot.divide(new BigDecimal("3")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
-                            BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
+            if (mEditableInch != null) {
+                if (Utils.isNumeric(mEditableInch.toString())) {
+                    try {
+                        BigDecimal inch = new BigDecimal(mEditableInch.toString());
+                        BigDecimal foot = inch.divide(new BigDecimal("12")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal yard = foot.divide(new BigDecimal("3")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal mile = foot.divide(new BigDecimal("5280")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
+                        BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
 
-                            results.add(foot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(yard
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mile
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(millimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(centimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(meter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kilometer
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 7);
-                        }
-                    } else {
+                        results.add(foot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(yard
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mile
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(millimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(centimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(meter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kilometer
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 7);
                     }
                 } else {
@@ -403,12 +445,6 @@ public class LengthFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 7);
-            }
-
-            if (mEditableInch != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableInch.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -442,66 +478,60 @@ public class LengthFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableFoot.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableFoot.length() != 0) {
-                mEditableFoot = Utils.sanitizeEditable(mEditableFoot);
-                if (mEditableFoot != null) {
-                    if (Utils.isNumeric(mEditableFoot.toString())) {
-                        try {
-                            BigDecimal foot = new BigDecimal(mEditableFoot.toString());
-                            BigDecimal inch = foot.multiply(new BigDecimal("12"));
-                            BigDecimal yard = foot.divide(new BigDecimal("3")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
-                            BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
+            if (mEditableFoot != null) {
+                if (Utils.isNumeric(mEditableFoot.toString())) {
+                    try {
+                        BigDecimal foot = new BigDecimal(mEditableFoot.toString());
+                        BigDecimal inch = foot.multiply(new BigDecimal("12"));
+                        BigDecimal yard = foot.divide(new BigDecimal("3")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal mile = foot.divide(new BigDecimal("5280")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
+                        BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
 
-                            results.add(inch
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(yard
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mile
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(millimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(centimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(meter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kilometer
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 7);
-                        }
-                    } else {
+                        results.add(inch
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(yard
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mile
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(millimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(centimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(meter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kilometer
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 7);
                     }
                 } else {
@@ -509,12 +539,6 @@ public class LengthFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 7);
-            }
-
-            if (mEditableFoot != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableFoot.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -548,64 +572,58 @@ public class LengthFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableYard.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableYard.length() != 0) {
-                mEditableYard = Utils.sanitizeEditable(mEditableYard);
-                if (mEditableYard != null) {
-                    if (Utils.isNumeric(mEditableYard.toString())) {
-                        try {
-                            BigDecimal yard = new BigDecimal(mEditableYard.toString());
-                            BigDecimal inch = yard.multiply(new BigDecimal("36"));
-                            BigDecimal foot = yard.multiply(new BigDecimal("3"));
-                            BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
-                            BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
+            if (mEditableYard != null) {
+                if (Utils.isNumeric(mEditableYard.toString())) {
+                    try {
+                        BigDecimal yard = new BigDecimal(mEditableYard.toString());
+                        BigDecimal inch = yard.multiply(new BigDecimal("36"));
+                        BigDecimal foot = yard.multiply(new BigDecimal("3"));
+                        BigDecimal mile = foot.divide(new BigDecimal("5280")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
+                        BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
 
-                            results.add(inch
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(foot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mile
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(millimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(centimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(meter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kilometer
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 7);
-                        }
-                    } else {
+                        results.add(inch
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(foot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mile
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(millimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(centimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(meter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kilometer
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 7);
                     }
                 } else {
@@ -613,12 +631,6 @@ public class LengthFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 7);
-            }
-
-            if (mEditableYard != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableYard.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -652,62 +664,56 @@ public class LengthFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMile.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableMile.length() != 0) {
-                mEditableMile = Utils.sanitizeEditable(mEditableMile);
-                if (mEditableMile != null) {
-                    if (Utils.isNumeric(mEditableMile.toString())) {
-                        try {
-                            BigDecimal mile = new BigDecimal(mEditableMile.toString());
-                            BigDecimal inch = mile.multiply(new BigDecimal("63360"));
-                            BigDecimal foot = mile.multiply(new BigDecimal("5280"));
-                            BigDecimal yard = mile.multiply(new BigDecimal("1760"));
-                            BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
-                            BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
+            if (mEditableMile != null) {
+                if (Utils.isNumeric(mEditableMile.toString())) {
+                    try {
+                        BigDecimal mile = new BigDecimal(mEditableMile.toString());
+                        BigDecimal inch = mile.multiply(new BigDecimal("63360"));
+                        BigDecimal foot = mile.multiply(new BigDecimal("5280"));
+                        BigDecimal yard = mile.multiply(new BigDecimal("1760"));
+                        BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
+                        BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
 
-                            results.add(inch
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(foot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(yard
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(millimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(centimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(meter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kilometer
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 7);
-                        }
-                    } else {
+                        results.add(inch
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(foot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(yard
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(millimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(centimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(meter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kilometer
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 7);
                     }
                 } else {
@@ -715,12 +721,6 @@ public class LengthFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 7);
-            }
-
-            if (mEditableMile != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMile.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -754,64 +754,58 @@ public class LengthFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMillimeter.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableMillimeter.length() != 0) {
-                mEditableMillimeter = Utils.sanitizeEditable(mEditableMillimeter);
-                if (mEditableMillimeter != null) {
-                    if (Utils.isNumeric(mEditableMillimeter.toString())) {
-                        try {
-                            BigDecimal millimeter = new BigDecimal(mEditableMillimeter.toString());
-                            BigDecimal inch = millimeter.multiply(new BigDecimal("0.03937007874015748031496062992126"));
-                            BigDecimal foot = millimeter.multiply(new BigDecimal("0.00328083989501312335958005249344"));
-                            BigDecimal yard = millimeter.multiply(new BigDecimal("0.00109361329833770778652668416448"));
-                            BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
+            if (mEditableMillimeter != null) {
+                if (Utils.isNumeric(mEditableMillimeter.toString())) {
+                    try {
+                        BigDecimal millimeter = new BigDecimal(mEditableMillimeter.toString());
+                        BigDecimal inch = millimeter.multiply(new BigDecimal("0.03937007874015748031496062992126"));
+                        BigDecimal foot = millimeter.multiply(new BigDecimal("0.00328083989501312335958005249344"));
+                        BigDecimal yard = millimeter.multiply(new BigDecimal("0.00109361329833770778652668416448"));
+                        BigDecimal mile = foot.divide(new BigDecimal("5280")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal meter = millimeter.divide(new BigDecimal("1000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
 
-                            results.add(inch
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(foot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(yard
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mile
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(centimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(meter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kilometer
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 7);
-                        }
-                    } else {
+                        results.add(inch
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(foot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(yard
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mile
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(centimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(meter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kilometer
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 7);
                     }
                 } else {
@@ -819,12 +813,6 @@ public class LengthFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 7);
-            }
-
-            if (mEditableMillimeter != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMillimeter.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -858,62 +846,56 @@ public class LengthFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableCentimeter.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableCentimeter.length() != 0) {
-                mEditableCentimeter = Utils.sanitizeEditable(mEditableCentimeter);
-                if (mEditableCentimeter != null) {
-                    if (Utils.isNumeric(mEditableCentimeter.toString())) {
-                        try {
-                            BigDecimal centimeter = new BigDecimal(mEditableCentimeter.toString());
-                            BigDecimal inch = centimeter.multiply(new BigDecimal("0.3937007874015748031496062992126"));
-                            BigDecimal foot = centimeter.multiply(new BigDecimal("0.0328083989501312335958005249344"));
-                            BigDecimal yard = centimeter.multiply(new BigDecimal("0.0109361329833770778652668416448"));
-                            BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal millimeter = centimeter.multiply(new BigDecimal("10"));
-                            BigDecimal meter = centimeter.divide(new BigDecimal("100")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal kilometer = centimeter.divide(new BigDecimal("100000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
+            if (mEditableCentimeter != null) {
+                if (Utils.isNumeric(mEditableCentimeter.toString())) {
+                    try {
+                        BigDecimal centimeter = new BigDecimal(mEditableCentimeter.toString());
+                        BigDecimal inch = centimeter.multiply(new BigDecimal("0.3937007874015748031496062992126"));
+                        BigDecimal foot = centimeter.multiply(new BigDecimal("0.0328083989501312335958005249344"));
+                        BigDecimal yard = centimeter.multiply(new BigDecimal("0.0109361329833770778652668416448"));
+                        BigDecimal mile = foot.divide(new BigDecimal("5280")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal millimeter = centimeter.multiply(new BigDecimal("10"));
+                        BigDecimal meter = centimeter.divide(new BigDecimal("100")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal kilometer = centimeter.divide(new BigDecimal("100000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
 
-                            results.add(inch
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(foot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(yard
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mile
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(millimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(meter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kilometer
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 7);
-                        }
-                    } else {
+                        results.add(inch
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(foot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(yard
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mile
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(millimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(meter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kilometer
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 7);
                     }
                 } else {
@@ -921,12 +903,6 @@ public class LengthFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 7);
-            }
-
-            if (mEditableCentimeter != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableCentimeter.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -960,60 +936,54 @@ public class LengthFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMeter.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableMeter.length() != 0) {
-                mEditableMeter = Utils.sanitizeEditable(mEditableMeter);
-                if (mEditableMeter != null) {
-                    if (Utils.isNumeric(mEditableMeter.toString())) {
-                        try {
-                            BigDecimal meter = new BigDecimal(mEditableMeter.toString());
-                            BigDecimal inch = meter.multiply(new BigDecimal("39.37007874015748031496062992126"));
-                            BigDecimal foot = meter.multiply(new BigDecimal("3.28083989501312335958005249344"));
-                            BigDecimal yard = meter.multiply(new BigDecimal("1.09361329833770778652668416448"));
-                            BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal millimeter = meter.multiply(new BigDecimal("1000"));
-                            BigDecimal centimeter = meter.multiply(new BigDecimal("100"));
-                            BigDecimal kilometer = meter.divide(new BigDecimal("1000")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
+            if (mEditableMeter != null) {
+                if (Utils.isNumeric(mEditableMeter.toString())) {
+                    try {
+                        BigDecimal meter = new BigDecimal(mEditableMeter.toString());
+                        BigDecimal inch = meter.multiply(new BigDecimal("39.37007874015748031496062992126"));
+                        BigDecimal foot = meter.multiply(new BigDecimal("3.28083989501312335958005249344"));
+                        BigDecimal yard = meter.multiply(new BigDecimal("1.09361329833770778652668416448"));
+                        BigDecimal mile = foot.divide(new BigDecimal("5280")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal millimeter = meter.multiply(new BigDecimal("1000"));
+                        BigDecimal centimeter = meter.multiply(new BigDecimal("100"));
+                        BigDecimal kilometer = meter.divide(new BigDecimal("1000")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
 
-                            results.add(inch
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(foot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(yard
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mile
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(millimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(centimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kilometer
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 7);
-                        }
-                    } else {
+                        results.add(inch
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(foot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(yard
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mile
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(millimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(centimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(kilometer
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 7);
                     }
                 } else {
@@ -1021,12 +991,6 @@ public class LengthFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 7);
-            }
-
-            if (mEditableMeter != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMeter.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -1060,58 +1024,52 @@ public class LengthFragment extends BaseFragment {
         @Override
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableKilometer.toString());
 
             final ArrayList<String> results = new ArrayList<>();
-            if (mEditableKilometer.length() != 0) {
-                mEditableKilometer = Utils.sanitizeEditable(mEditableKilometer);
-                if (mEditableKilometer != null) {
-                    if (Utils.isNumeric(mEditableKilometer.toString())) {
-                        try {
-                            BigDecimal kilometer = new BigDecimal(mEditableKilometer.toString());
-                            BigDecimal inch = kilometer.multiply(new BigDecimal("39370.07874015748031496062992126"));
-                            BigDecimal foot = kilometer.multiply(new BigDecimal("3280.83989501312335958005249344"));
-                            BigDecimal yard = kilometer.multiply(new BigDecimal("1093.61329833770778652668416448"));
-                            BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                    , getFieldLength()
-                                    , BigDecimal.ROUND_HALF_UP);
-                            BigDecimal millimeter = kilometer.multiply(new BigDecimal("1000000"));
-                            BigDecimal centimeter = kilometer.multiply(new BigDecimal("100000"));
-                            BigDecimal meter = kilometer.multiply(new BigDecimal("1000"));
+            if (mEditableKilometer != null) {
+                if (Utils.isNumeric(mEditableKilometer.toString())) {
+                    try {
+                        BigDecimal kilometer = new BigDecimal(mEditableKilometer.toString());
+                        BigDecimal inch = kilometer.multiply(new BigDecimal("39370.07874015748031496062992126"));
+                        BigDecimal foot = kilometer.multiply(new BigDecimal("3280.83989501312335958005249344"));
+                        BigDecimal yard = kilometer.multiply(new BigDecimal("1093.61329833770778652668416448"));
+                        BigDecimal mile = foot.divide(new BigDecimal("5280")
+                                , getFieldLength()
+                                , BigDecimal.ROUND_HALF_UP);
+                        BigDecimal millimeter = kilometer.multiply(new BigDecimal("1000000"));
+                        BigDecimal centimeter = kilometer.multiply(new BigDecimal("100000"));
+                        BigDecimal meter = kilometer.multiply(new BigDecimal("1000"));
 
-                            results.add(inch
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(foot
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(yard
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(mile
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(millimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(centimeter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(meter
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } catch (NumberFormatException e) {
-                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                            addWhitespaceItems(results, 7);
-                        }
-                    } else {
+                        results.add(inch
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(foot
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(yard
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(mile
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(millimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(centimeter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                        results.add(meter
+                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros()
+                                .toPlainString());
+                    } catch (NumberFormatException e) {
+                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                         addWhitespaceItems(results, 7);
                     }
                 } else {
@@ -1119,12 +1077,6 @@ public class LengthFragment extends BaseFragment {
                 }
             } else {
                 addWhitespaceItems(results, 7);
-            }
-
-            if (mEditableKilometer != null) {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableKilometer.toString());
-            } else {
-                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
