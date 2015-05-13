@@ -2,10 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bubbinator91.converter">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name">
+        android:label="@string/app_name"
+        android:name=".Converter">
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="5cc8d65f29538862c069f152d6adf647171cf550" />
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"

@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Globals;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+
+import timber.log.Timber;
 
 /**
  * The base activity that all activities should inherit from.
@@ -27,14 +29,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Timber.tag(TAG + "." + getChildTag() + ".onCreate").i("Entered");
+
+		PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
 		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if (mPrefs != null) {
-			Globals.isDebugEnabled = mPrefs.getBoolean(Globals.PREFERENCE_DEBUG, false);
-			Globals.decimalPlaceLength = Integer.parseInt(mPrefs.getString(
-																Globals.PREFERENCE_DECIMAL_PLACES,
-																"-1")
-														 );
+			Globals.isLogcatEnabled = mPrefs.getBoolean(Globals.PREFERENCE_LOGCAT, false);
+			Globals.decimalPlaceLength = Integer.parseInt(
+					mPrefs.getString(
+							Globals.PREFERENCE_DECIMAL_PLACES,
+							"-1")
+			);
 			if (Globals.decimalPlaceLength == -1) {
 				SharedPreferences.Editor editor = mPrefs.edit();
 				editor.putString(Globals.PREFERENCE_DECIMAL_PLACES, "8");
@@ -42,18 +48,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 				Globals.decimalPlaceLength = 8;
 			}
 		} else {
-			Log.e(TAG + "." + getChildTag() + ".onCreate", "Could not get shared prefs.");
-			Toast.makeText(
-							this,
-							"Could not retrieve preferences. Running with defaults.",
-							Toast.LENGTH_LONG)
-				 .show();
-			Globals.isDebugEnabled = false;
+			Timber.tag(TAG + "." + getChildTag() + ".onCreate").e("Could not get shared prefs");
+			SnackbarManager.show(
+					Snackbar.with(this)
+					.text("Could not get preferences. Running with defaults.")
+					.duration(5000),
+					this
+			);
+			Globals.isLogcatEnabled = false;
 			Globals.decimalPlaceLength  = 8;
-		}
-
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + "." + getChildTag() + ".onCreate", "Entered");
 		}
 
 		setContentView(getLayoutResourceId());
@@ -71,9 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	// region Helper methods
 
 	protected Toolbar getToolbar() {
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + "." + getChildTag() + ".getToolbar", "Entered");
-		}
+		Timber.tag(TAG + "." + getChildTag() + ".getToolbar").i("Entered");
 		return mToolbar;
 	}
 
@@ -90,9 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	 *                          should be shown
 	 */
 	protected void setToolbarIcon(int iconResId, boolean enableHomeIcon) {
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + "." + getChildTag() + ".setToolbarIcon", "Entered");
-		}
+		Timber.tag(TAG + "." + getChildTag() + ".setToolbarIcon").i("Entered");
 		if ((mToolbar != null) && (getSupportActionBar() != null)) {
 			if (enableHomeIcon) {
 				getSupportActionBar().setDisplayShowHomeEnabled(true);

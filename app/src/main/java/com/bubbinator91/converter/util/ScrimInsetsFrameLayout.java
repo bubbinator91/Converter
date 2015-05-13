@@ -41,7 +41,7 @@ import com.bubbinator91.converter.R;
 public class ScrimInsetsFrameLayout extends FrameLayout {
 	private Drawable mInsetForeground;
 
-    private WindowInsets mInsets;
+	private WindowInsets mInsets;
 	private Rect mTempRect = new Rect();
 	private OnInsetsCallback mOnInsetsCallback;
 
@@ -55,15 +55,14 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
 		init(context, attrs, 0);
 	}
 
-	public ScrimInsetsFrameLayout(
-										 Context context, AttributeSet attrs, int defStyle) {
+	public ScrimInsetsFrameLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init(context, attrs, defStyle);
 	}
 
 	private void init(Context context, AttributeSet attrs, int defStyle) {
 		final TypedArray a = context.obtainStyledAttributes(attrs,
-									R.styleable.ScrimInsetsView, defStyle, 0);
+				R.styleable.ScrimInsetsView, defStyle, 0);
 		if (a == null) {
 			return;
 		}
@@ -73,16 +72,16 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
 		setWillNotDraw(true);
 	}
 
-    @Override
-    public WindowInsets onApplyWindowInsets(WindowInsets insets) {
-        mInsets = new WindowInsets(insets);
-        setWillNotDraw(mInsetForeground == null);
-        ViewCompat.postInvalidateOnAnimation(this);
-        if (mOnInsetsCallback != null) {
-            mOnInsetsCallback.onInsetsChanged(insets);
-        }
-        return mInsets;
-    }
+	@Override
+	public WindowInsets onApplyWindowInsets(WindowInsets insets) {
+		mInsets = new WindowInsets(insets);
+		setWillNotDraw(mInsetForeground == null);
+		ViewCompat.postInvalidateOnAnimation(this);
+		if (mOnInsetsCallback != null) {
+			mOnInsetsCallback.onInsetsChanged(insets);
+		}
+		return mInsets;
+	}
 
 
 	@Override
@@ -97,41 +96,41 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
 
 			// Top
 			mTempRect.set(
-                    0,
-                    0,
-                    width,
-                    mInsets.getSystemWindowInsetTop()
-            );
+					0,
+					0,
+					width,
+					mInsets.getSystemWindowInsetTop()
+			);
 			mInsetForeground.setBounds(mTempRect);
 			mInsetForeground.draw(canvas);
 
 			// Bottom
 			mTempRect.set(
-                    0,
-                    (height - mInsets.getSystemWindowInsetBottom()),
-                    width,
-                    height
-            );
+					0,
+					(height - mInsets.getSystemWindowInsetBottom()),
+					width,
+					height
+			);
 			mInsetForeground.setBounds(mTempRect);
 			mInsetForeground.draw(canvas);
 
 			// Left
 			mTempRect.set(
-                    0,
-                    mInsets.getSystemWindowInsetTop(),
-                    mInsets.getSystemWindowInsetLeft(),
-                    (height - mInsets.getSystemWindowInsetBottom())
-            );
+					0,
+					mInsets.getSystemWindowInsetTop(),
+					mInsets.getSystemWindowInsetLeft(),
+					(height - mInsets.getSystemWindowInsetBottom())
+			);
 			mInsetForeground.setBounds(mTempRect);
 			mInsetForeground.draw(canvas);
 
 			// Right
 			mTempRect.set(
-                    (width - mInsets.getSystemWindowInsetRight()),
-                    mInsets.getSystemWindowInsetTop(),
-                    width,
-                    (height - mInsets.getSystemWindowInsetBottom())
-            );
+					(width - mInsets.getSystemWindowInsetRight()),
+					mInsets.getSystemWindowInsetTop(),
+					width,
+					(height - mInsets.getSystemWindowInsetBottom())
+			);
 			mInsetForeground.setBounds(mTempRect);
 			mInsetForeground.draw(canvas);
 

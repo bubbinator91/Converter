@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,10 @@ import android.widget.ScrollView;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Globals;
-import com.bubbinator91.converter.util.Utils;
 
 import java.util.ArrayList;
+
+import timber.log.Timber;
 
 /**
  * The base fragment that all fragments should inherit from.
@@ -27,8 +27,7 @@ import java.util.ArrayList;
  * duplicated code.
  */
 
-// TODO Update to use global variables
-// TODO Improve performance by using a second thread
+// TODO Look into thread synchronization
 public abstract class BaseFragment
 		extends Fragment
 		implements ViewTreeObserver.OnScrollChangedListener {
@@ -51,17 +50,13 @@ public abstract class BaseFragment
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		if (Utils.isDebugEnabled(activity.getApplicationContext())) {
-			Log.d(TAG + "." + getChildTag() + ".onAttach", "Entered");
-		}
+		Timber.tag(TAG + "." + getChildTag() + ".onAttach").i("Entered");
 		mActivity = activity;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		if (Utils.isDebugEnabled(mActivity.getApplicationContext())) {
-			Log.d(TAG + "." + getChildTag() + ".onCreateView", "Entered");
-		}
+		Timber.tag(TAG + "." + getChildTag() + ".onCreateView").i("Entered");
 		rootView = inflater.inflate(getLayoutResource(), container, false);
 
 		mHandler = mActivity.getWindow().getDecorView().getHandler();
@@ -69,9 +64,9 @@ public abstract class BaseFragment
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
 
 		TypedArray actionBarAttrs = getActivity()
-									.obtainStyledAttributes(new int[] {
-																android.R.attr.actionBarSize
-									});
+				.obtainStyledAttributes(new int[] {
+						android.R.attr.actionBarSize
+				});
 		mToolbarHeight = ((int) actionBarAttrs.getDimension(0, 0) + 10);
 		actionBarAttrs.recycle();
 
@@ -84,9 +79,7 @@ public abstract class BaseFragment
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (Utils.isDebugEnabled(mActivity.getApplicationContext())) {
-			Log.d(TAG + "." + getChildTag() + ".onResume", "Entered");
-		}
+		Timber.tag(TAG + "." + getChildTag() + ".onResume").i("Entered");
 
 		if (mPrefs == null) {
 			mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
@@ -102,9 +95,7 @@ public abstract class BaseFragment
 	@Override
 	public void onPause() {
 		super.onPause();
-		if (Utils.isDebugEnabled(mActivity.getApplicationContext())) {
-			Log.d(TAG + "." + getChildTag() + ".onPause", "Entered");
-		}
+		Timber.tag(TAG + "." + getChildTag() + ".onPause").i("Entered");
 
 		Toolbar toolbar = ((Toolbar) mActivity.findViewById(R.id.toolbar));
 		if (toolbar != null) {
@@ -147,9 +138,8 @@ public abstract class BaseFragment
 					}
 				}
 			} catch (NullPointerException e) {
-				if (Utils.isDebugEnabled(getActivity().getApplicationContext())) {
-					Log.d(TAG + "." + getChildTag() +".onScrollChanged", "Toolbar is null\n" + e.toString());
-				}
+				Timber.tag(TAG + "." + getChildTag() + ".onScrollChanged")
+						.e("Toolbar is null\n" + e.toString());
 			}
 
 			lastY = mScrollView.getScrollY();

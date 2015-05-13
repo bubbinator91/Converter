@@ -7,12 +7,12 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Globals;
-import com.bubbinator91.converter.util.Utils;
+
+import timber.log.Timber;
 
 /**
  * The activity that handles the settings for the application.
@@ -29,9 +29,7 @@ public class SettingsActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".onCreate", "Entered");
-		}
+		Timber.tag(TAG + ".onCreate").i("Entered");
 
 		getFragmentManager().beginTransaction()
 				.replace(R.id.prefs_container, new SettingsFragment())
@@ -55,17 +53,16 @@ public class SettingsActivity extends BaseActivity {
 	@Override
 	public void finish() {
 		super.finish();
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".finish", "Entered");
-		}
+		Timber.tag(TAG + ".finish").i("Entered");
 
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		if (preferences != null) {
-			Globals.decimalPlaceLength = Integer.parseInt(preferences
-														  .getString(
-																Globals.PREFERENCE_DECIMAL_PLACES,
-																"8")
-														 );
+			Globals.decimalPlaceLength = Integer.parseInt(
+					preferences.getString(
+							Globals.PREFERENCE_DECIMAL_PLACES,
+							"8"
+					)
+			);
 		}
 		Globals.isTransitioningBackToMainActivity = true;
 
@@ -74,9 +71,7 @@ public class SettingsActivity extends BaseActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".onOptionsItemSelected", "Entered");
-		}
+		Timber.tag(TAG + ".onOptionsItemSelected").i("Entered");
 
 		switch(item.getItemId()) {
 			case android.R.id.home:
@@ -92,41 +87,33 @@ public class SettingsActivity extends BaseActivity {
 	public static class SettingsFragment extends PreferenceFragment {
 		private final String TAG = "SettingsFragment";
 
-		private Activity mActivity = null;
-
 		// region Lifecycle methods
 
 		@Override
 		public void onAttach(Activity activity) {
-			if (Utils.isDebugEnabled(activity.getApplicationContext())) {
-				Log.d(TAG + ".onAttach", "Entered");
-			}
+			Timber.tag(TAG + ".onAttach").i("Entered");
 			super.onAttach(activity);
-			mActivity = activity;
 		}
 
 		@Override
 		public void onCreate(final Bundle savedInstanceState) {
-			if (Utils.isDebugEnabled(mActivity)) {
-				Log.d(TAG + ".onCreate", "Entered");
-			}
+			Timber.tag(TAG + ".onCreate").i("Entered");
 
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.settings);
 
-			SwitchPreference debugSwitch =
+			SwitchPreference logcatSwitch =
 					((SwitchPreference) findPreference(
-											getResources().getString(R.string.util_key_debug)
-										)
-					);
-			debugSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+							getResources().getString(R.string.util_key_debug)
+					));
+			logcatSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 				@Override
 				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					if (((boolean) newValue) != Globals.isDebugEnabled) {
-						Globals.isDebugEnabled = ((boolean) newValue);
+					if (((boolean) newValue) != Globals.isLogcatEnabled) {
+						Globals.isLogcatEnabled = ((boolean) newValue);
 						return true;
-					} else if (((boolean) newValue) == Globals.isDebugEnabled) {
-						Globals.isDebugEnabled = !Globals.isDebugEnabled;
+					} else if (((boolean) newValue) == Globals.isLogcatEnabled) {
+						Globals.isLogcatEnabled = !Globals.isLogcatEnabled;
 						return false;
 					} else {
 						return false;

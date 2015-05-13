@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +26,8 @@ import com.bubbinator91.converter.util.NavigationDrawerItem;
 import com.bubbinator91.converter.util.NavigationDrawerListAdapter;
 
 import java.util.ArrayList;
+
+import timber.log.Timber;
 
 /**
  * The main activity of the application. Inherits from the
@@ -57,9 +58,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".onCreate", "Entered");
-		}
+		Timber.tag(TAG + ".onCreate").i("Entered");
 		wasActivityRestarted = false;
 		setToolbarIcon(-1, true);
 
@@ -95,9 +94,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".onRestart", "Entered");
-		}
+		Timber.tag(TAG + ".onRestart").i("Entered");
 
 		wasActivityRestarted = true;
 	}
@@ -105,20 +102,14 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".onStart", "Entered");
-		}
+		Timber.tag(TAG + ".onStart").i("Entered");
 
 		if (!wasActivityRestarted) {
-			if (Globals.isDebugEnabled) {
-				Log.d(TAG + ".onStart", "Activity was not restarted");
-			}
+			Timber.tag(TAG + ".onStart").i("Activity was not restarted");
 			lastSelectedPosition = PreferenceManager
 										   .getDefaultSharedPreferences(this)
 										   .getInt(STATE_SELECTED_POSITION, 0);
-			if (Globals.isDebugEnabled) {
-				Log.d(TAG + ".onStart", "lastSelectedPosition = " + lastSelectedPosition);
-			}
+			Timber.tag(TAG + ".onStart").i("lastSelectedPosition = " + lastSelectedPosition);
 			if (!Globals.isTransitioningBackToMainActivity) {
 				if (lastSelectedPosition >= 0) {
 					preChangeToFragment(lastSelectedPosition);
@@ -138,11 +129,9 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".onResume", "Entered");
-			Log.d(TAG + ".onResume", "isDebugEnabled = " + Globals.isDebugEnabled);
-			Log.d(TAG + ".onResume", "decimalPlaceLength = " + Globals.decimalPlaceLength);
-		}
+		Timber.tag(TAG + ".onResume").i("Entered");
+		Timber.tag(TAG + ".onResume").i("isLogcatEnabled = " + Globals.isLogcatEnabled);
+		Timber.tag(TAG + ".onResume").i("decimalPlaceLength = " + Globals.decimalPlaceLength);
 
 		if (lastSelectedPosition >= 0) {
 			preChangeToFragment(lastSelectedPosition);
@@ -152,9 +141,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".onPause", "Entered");
-		}
+		Timber.tag(TAG + ".onPause").i("Entered");
 
 		InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
 		imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -163,9 +150,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".onStop", "Entered");
-		}
+		Timber.tag(TAG + ".onStop").i("Entered");
 	}
 
 	// endregion
@@ -184,9 +169,7 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".onCreateOptionsMenu", "Entered");
-		}
+		Timber.tag(TAG + ".onCreateOptionsMenu").i("Entered");
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -194,17 +177,8 @@ public class MainActivity extends BaseActivity {
 	}
 
 	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
-		imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-		return true;
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".onOptionsItemSelected", "Entered");
-		}
+		Timber.tag(TAG + ".onOptionsItemSelected").i("Entered");
 
 		switch (item.getItemId()) {
 			case android.R.id.home:
@@ -240,9 +214,7 @@ public class MainActivity extends BaseActivity {
 	 *                      switch to
 	 */
 	private void selectFragment(int position) {
-		if (Globals.isDebugEnabled) {
-			Log.d(TAG + ".selectFragment", "Entered");
-		}
+		Timber.tag(TAG + ".selectFragment").i("Entered");
 
 		switch (position) {
 			case 0:
@@ -263,10 +235,8 @@ public class MainActivity extends BaseActivity {
 	}
 
     private void preChangeToFragment(int position) {
-        if (Globals.isDebugEnabled) {
-            Log.d(TAG + ".preChangeToFragment", "Entered");
-            Log.d(TAG + ".preChangeToFragment", "position = " + position);
-        }
+		Timber.tag(TAG + ".preChangeToFragment").i("Entered");
+		Timber.tag(TAG + ".preChangeToFragment").i("position = " + position);
 
         lastSelectedPosition = position;
         mDrawerList.setItemChecked(position, true);
@@ -283,9 +253,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void changeToFragment(final Fragment fragment) {
-        if (Globals.isDebugEnabled) {
-            Log.d(TAG + ".changeToFragment", "Entered");
-        }
+		Timber.tag(TAG + ".changeToFragment").i("Entered");
 
 		mHandler.postDelayed(new Runnable() {
 			@Override
@@ -312,13 +280,9 @@ public class MainActivity extends BaseActivity {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
-			if (Globals.isDebugEnabled) {
-				Log.d(TAG + ".DrawerItemClickListener.onItemClick", "Entered");
-			}
+			Timber.tag(TAG + ".DrawerItemClickListener.onItemClick").i("Entered");
 			if ((position != lastSelectedPosition) && (position >= 0)) {
-				if (Globals.isDebugEnabled) {
-					Log.d(TAG + ".DrawerItemClickListener.onItemClick", "position = " + position);
-				}
+				Timber.tag(TAG + ".DrawerItemClickListener.onItemClick").i("position = " + position);
 				preChangeToFragment(position);
 				selectFragment(position);
 			}

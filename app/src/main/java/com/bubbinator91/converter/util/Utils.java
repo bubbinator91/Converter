@@ -166,21 +166,6 @@ import android.text.Editable;
  */
 
 public class Utils {
-	public static SharedPreferences PREFS = null;
-
-    public Utils() {}
-
-	public static boolean isDebugEnabled(Context context) {
-		if (context != null) {
-			PREFS = PreferenceManager.getDefaultSharedPreferences(context);
-			boolean ret = PREFS.getBoolean(Globals.PREFERENCE_DEBUG, false);
-			PREFS = null;
-			return ret;
-		} else {
-			PREFS = null;
-			return false;
-		}
-	}
 
     /**
      * Method that sanitizes the incoming Editable to filter

@@ -4,7 +4,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,13 @@ import com.bubbinator91.converter.util.Utils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 /**
  * Inch, Foot, Yard, Mile, Millimeter, Centimeter, Meter, Kilometer
  * Conversions comply with the conversions through Google.com
  */
 
-// TODO Update to use global variables
-// TODO Improve performance by using a second thread
 public class LengthFragment extends BaseFragment {
     private enum LastEditTextFocused {
         INCH,
@@ -188,9 +187,7 @@ public class LengthFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-            Log.d(TAG + ".onCreateView", "Entered");
-        }
+        Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
             Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
@@ -231,9 +228,7 @@ public class LengthFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-            Log.d(TAG + ".onResume", "Entered");
-        }
+        Timber.tag(TAG + ".onResume").i("Entered");
 
         if (lastEditTextFocused == LastEditTextFocused.INCH) {
             if ((getHandler() != null) && (editTextInch.getText() != null)) {
@@ -275,12 +270,10 @@ public class LengthFragment extends BaseFragment {
     // region Helper methods
 
     private void addTextChangedListeners(String callingClassName) {
-        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-            if (callingClassName != null) {
-                Log.d(TAG + "." + callingClassName + ".addTextChangedListeners", "Entered");
-            } else {
-                Log.d(TAG + ".addTextChangedListeners", "Entered");
-            }
+        if (callingClassName != null) {
+            Timber.tag(TAG + "." + callingClassName + ".addTextChangedListeners").i("Entered");
+        } else {
+            Timber.tag(TAG + ".addTextChangedListeners").i("Entered");
         }
 
         editTextInch.addTextChangedListener(textWatcherInch);
@@ -294,12 +287,10 @@ public class LengthFragment extends BaseFragment {
     }
 
     private void removeTextChangedListeners(String callingClassName) {
-        if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-            if (callingClassName != null) {
-                Log.d(TAG + "." + callingClassName + ".removeTextChangedListeners", "Entered");
-            } else {
-                Log.d(TAG + ".removeTextChangedListeners", "Entered");
-            }
+        if (callingClassName != null) {
+            Timber.tag(TAG + "." + callingClassName + ".removeTextChangedListeners").i("Entered");
+        } else {
+            Timber.tag(TAG + ".removeTextChangedListeners").i("Entered");
         }
 
         editTextInch.removeTextChangedListener(textWatcherInch);
@@ -342,10 +333,8 @@ public class LengthFragment extends BaseFragment {
 
         @Override
         public void run() {
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-                Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableInch.toString());
-            }
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableInch.toString());
 
             final ArrayList<String> results = new ArrayList<>();
             if (mEditableInch.length() != 0) {
@@ -403,9 +392,7 @@ public class LengthFragment extends BaseFragment {
                                     .stripTrailingZeros()
                                     .toPlainString());
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                                e.printStackTrace();
-                            }
+                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                             addWhitespaceItems(results, 7);
                         }
                     } else {
@@ -418,10 +405,10 @@ public class LengthFragment extends BaseFragment {
                 addWhitespaceItems(results, 7);
             }
 
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableInch != null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableInch.toString());
-            } else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableInch == null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+            if (mEditableInch != null) {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableInch.toString());
+            } else {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -454,10 +441,8 @@ public class LengthFragment extends BaseFragment {
 
         @Override
         public void run() {
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-                Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableFoot.toString());
-            }
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableFoot.toString());
 
             final ArrayList<String> results = new ArrayList<>();
             if (mEditableFoot.length() != 0) {
@@ -513,9 +498,7 @@ public class LengthFragment extends BaseFragment {
                                     .stripTrailingZeros()
                                     .toPlainString());
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                                e.printStackTrace();
-                            }
+                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                             addWhitespaceItems(results, 7);
                         }
                     } else {
@@ -528,10 +511,10 @@ public class LengthFragment extends BaseFragment {
                 addWhitespaceItems(results, 7);
             }
 
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableFoot != null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableFoot.toString());
-            } else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableFoot == null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+            if (mEditableFoot != null) {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableFoot.toString());
+            } else {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -564,10 +547,8 @@ public class LengthFragment extends BaseFragment {
 
         @Override
         public void run() {
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-                Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableYard.toString());
-            }
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableYard.toString());
 
             final ArrayList<String> results = new ArrayList<>();
             if (mEditableYard.length() != 0) {
@@ -621,9 +602,7 @@ public class LengthFragment extends BaseFragment {
                                     .stripTrailingZeros()
                                     .toPlainString());
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                                e.printStackTrace();
-                            }
+                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                             addWhitespaceItems(results, 7);
                         }
                     } else {
@@ -636,10 +615,10 @@ public class LengthFragment extends BaseFragment {
                 addWhitespaceItems(results, 7);
             }
 
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableYard != null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableYard.toString());
-            } else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableYard == null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+            if (mEditableYard != null) {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableYard.toString());
+            } else {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -672,10 +651,8 @@ public class LengthFragment extends BaseFragment {
 
         @Override
         public void run() {
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-                Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableMile.toString());
-            }
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMile.toString());
 
             final ArrayList<String> results = new ArrayList<>();
             if (mEditableMile.length() != 0) {
@@ -727,9 +704,7 @@ public class LengthFragment extends BaseFragment {
                                     .stripTrailingZeros()
                                     .toPlainString());
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                                e.printStackTrace();
-                            }
+                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                             addWhitespaceItems(results, 7);
                         }
                     } else {
@@ -742,10 +717,10 @@ public class LengthFragment extends BaseFragment {
                 addWhitespaceItems(results, 7);
             }
 
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMile != null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableMile.toString());
-            } else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMile == null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+            if (mEditableMile != null) {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMile.toString());
+            } else {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -778,10 +753,8 @@ public class LengthFragment extends BaseFragment {
 
         @Override
         public void run() {
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-                Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableMillimeter.toString());
-            }
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMillimeter.toString());
 
             final ArrayList<String> results = new ArrayList<>();
             if (mEditableMillimeter.length() != 0) {
@@ -835,9 +808,7 @@ public class LengthFragment extends BaseFragment {
                                     .stripTrailingZeros()
                                     .toPlainString());
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                                e.printStackTrace();
-                            }
+                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                             addWhitespaceItems(results, 7);
                         }
                     } else {
@@ -850,10 +821,10 @@ public class LengthFragment extends BaseFragment {
                 addWhitespaceItems(results, 7);
             }
 
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMillimeter != null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableMillimeter.toString());
-            } else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMillimeter == null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+            if (mEditableMillimeter != null) {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMillimeter.toString());
+            } else {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -886,10 +857,8 @@ public class LengthFragment extends BaseFragment {
 
         @Override
         public void run() {
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-                Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableCentimeter.toString());
-            }
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableCentimeter.toString());
 
             final ArrayList<String> results = new ArrayList<>();
             if (mEditableCentimeter.length() != 0) {
@@ -941,9 +910,7 @@ public class LengthFragment extends BaseFragment {
                                     .stripTrailingZeros()
                                     .toPlainString());
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                                e.printStackTrace();
-                            }
+                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                             addWhitespaceItems(results, 7);
                         }
                     } else {
@@ -956,10 +923,10 @@ public class LengthFragment extends BaseFragment {
                 addWhitespaceItems(results, 7);
             }
 
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableCentimeter != null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableCentimeter.toString());
-            } else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableCentimeter == null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+            if (mEditableCentimeter != null) {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableCentimeter.toString());
+            } else {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -992,10 +959,8 @@ public class LengthFragment extends BaseFragment {
 
         @Override
         public void run() {
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-                Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableMeter.toString());
-            }
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMeter.toString());
 
             final ArrayList<String> results = new ArrayList<>();
             if (mEditableMeter.length() != 0) {
@@ -1045,9 +1010,7 @@ public class LengthFragment extends BaseFragment {
                                     .stripTrailingZeros()
                                     .toPlainString());
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                                e.printStackTrace();
-                            }
+                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                             addWhitespaceItems(results, 7);
                         }
                     } else {
@@ -1060,10 +1023,10 @@ public class LengthFragment extends BaseFragment {
                 addWhitespaceItems(results, 7);
             }
 
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMeter != null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableMeter.toString());
-            } else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMeter == null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+            if (mEditableMeter != null) {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMeter.toString());
+            } else {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {
@@ -1096,10 +1059,8 @@ public class LengthFragment extends BaseFragment {
 
         @Override
         public void run() {
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-                Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableKilometer.toString());
-            }
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableKilometer.toString());
 
             final ArrayList<String> results = new ArrayList<>();
             if (mEditableKilometer.length() != 0) {
@@ -1147,9 +1108,7 @@ public class LengthFragment extends BaseFragment {
                                     .stripTrailingZeros()
                                     .toPlainString());
                         } catch (NumberFormatException e) {
-                            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-                                e.printStackTrace();
-                            }
+                            Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
                             addWhitespaceItems(results, 7);
                         }
                     } else {
@@ -1162,10 +1121,10 @@ public class LengthFragment extends BaseFragment {
                 addWhitespaceItems(results, 7);
             }
 
-            if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKilometer != null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableKilometer.toString());
-            } else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKilometer == null)) {
-                Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+            if (mEditableKilometer != null) {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableKilometer.toString());
+            } else {
+                Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
             }
 
             getHandler().post(new Runnable() {

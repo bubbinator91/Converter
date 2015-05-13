@@ -4,7 +4,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,13 @@ import com.bubbinator91.converter.util.Utils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 /**
  * Celsius, Fahrenheit, Kelvin
  * Conversions comply with the conversions through Google.com
  */
 
-// TODO Update to use global variables
-// TODO Make sure that Kelvin can't go below zero
 public class TemperatureFragment extends BaseFragment {
 	private enum LastEditTextFocused {
 		CELSIUS,
@@ -97,9 +96,7 @@ public class TemperatureFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".onCreateView", "Entered");
-		}
+		Timber.tag(TAG + ".onCreateView").i("Entered");
 
 		setShouldHideToolbarOnScroll(false);
 
@@ -127,9 +124,7 @@ public class TemperatureFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".onResume", "Entered");
-		}
+		Timber.tag(TAG + ".onResume").i("Entered");
 
 		if (lastEditTextFocused == LastEditTextFocused.CELSIUS) {
 			if ((getHandler() != null) && (editTextCelsius.getText() != null)) {
@@ -151,12 +146,10 @@ public class TemperatureFragment extends BaseFragment {
 	// region Helper methods
 
 	private void addTextChangedListeners(String callingClassName) {
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			if (callingClassName != null) {
-				Log.d(TAG + "." + callingClassName + ".addTextChangedListeners", "Entered");
-			} else {
-				Log.d(TAG + ".addTextChangedListeners", "Entered");
-			}
+		if (callingClassName != null) {
+			Timber.tag(TAG + "." + callingClassName + ".addTextChangedListeners").i("Entered");
+		} else {
+			Timber.tag(TAG + ".addTextChangedListeners").i("Entered");
 		}
 
 		editTextCelsius.addTextChangedListener(textWatcherCelsius);
@@ -165,12 +158,10 @@ public class TemperatureFragment extends BaseFragment {
 	}
 
 	private void removeTextChangedListeners(String callingClassName) {
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			if (callingClassName != null) {
-				Log.d(TAG + "." + callingClassName + ".removeTextChangedListeners", "Entered");
-			} else {
-				Log.d(TAG + ".removeTextChangedListeners", "Entered");
-			}
+		if (callingClassName != null) {
+			Timber.tag(TAG + "." + callingClassName + ".removeTextChangedListeners").i("Entered");
+		} else {
+			Timber.tag(TAG + ".removeTextChangedListeners").i("Entered");
 		}
 
 		editTextCelsius.removeTextChangedListener(textWatcherCelsius);
@@ -208,10 +199,8 @@ public class TemperatureFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableCelsius.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableCelsius.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableCelsius.length() != 0) {
@@ -238,9 +227,7 @@ public class TemperatureFragment extends BaseFragment {
 								results.add("Input is below absolute zero");
 							}
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 2);
 						}
 					} else {
@@ -253,15 +240,16 @@ public class TemperatureFragment extends BaseFragment {
 				addWhitespaceItems(results, 2);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableCelsius != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableCelsius.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableCelsius == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableCelsius != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableCelsius.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
 				@Override
 				public void run() {
+
 					removeTextChangedListeners(TAG + "." + mCallingClassName);
 					editTextFahrenheit.setText(results.get(0)
 							, TextView.BufferType.EDITABLE);
@@ -286,10 +274,8 @@ public class TemperatureFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableFahrenheit.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableFahrenheit.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableFahrenheit.length() != 0) {
@@ -316,9 +302,7 @@ public class TemperatureFragment extends BaseFragment {
 								results.add("Input is below absolute zero");
 							}
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 2);
 						}
 					} else {
@@ -331,10 +315,10 @@ public class TemperatureFragment extends BaseFragment {
 				addWhitespaceItems(results, 2);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableFahrenheit != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableFahrenheit.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableFahrenheit == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableFahrenheit != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableFahrenheit.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -364,10 +348,8 @@ public class TemperatureFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableKelvin.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableKelvin.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableKelvin.length() != 0) {
@@ -389,9 +371,7 @@ public class TemperatureFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 2);
 						}
 					} else {
@@ -404,10 +384,10 @@ public class TemperatureFragment extends BaseFragment {
 				addWhitespaceItems(results, 2);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKelvin != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableKelvin.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKelvin == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableKelvin != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableKelvin.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {

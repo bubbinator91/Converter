@@ -3,27 +3,26 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<PreferenceCategory
-		android:title="Debug Settings"
-		android:layout="@layout/util_preference_category_no_divider">
+		android:title="Data Settings"
+		android:layout="@layout/util_preference_category_divider_above">
 
-		<SwitchPreference
-			android:title="@string/activity_settings_debug"
-			android:summary="@string/activity_settings_debug_summary"
-			android:key="@string/util_key_debug"/>
+		<com.bubbinator91.converter.util.NumberPickerPreference
+			android:title="@string/activity_settings_decimal"
+			android:summary="@string/activity_settings_decimal_summary"
+			android:key="@string/util_key_decimal"
+			android:defaultValue="8"/>
 
 	</PreferenceCategory>
 
 	<PreferenceCategory
-		android:title="Data Settings"
-		android:layout="@layout/util_preference_category_divider_above">
+		android:title="Debug Settings"
+		android:layout="@layout/util_preference_category_no_divider">
 
-		<EditTextPreference
-			android:title="@string/activity_settings_decimal"
-			android:summary="@string/activity_settings_decimal_summary"
-			android:key="@string/util_key_decimal"
-			android:inputType="number"
-			android:digits="0123456789"
-			android:selectAllOnFocus="true"/>
+		<SwitchPreference
+			android:title="@string/activity_settings_logcat"
+			android:summary="@string/activity_settings_logcat_summary"
+			android:key="@string/util_key_debug"
+			android:defaultValue="false"/>
 
 	</PreferenceCategory>
 

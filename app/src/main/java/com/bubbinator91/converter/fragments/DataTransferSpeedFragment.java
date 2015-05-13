@@ -4,7 +4,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,8 @@ import com.bubbinator91.converter.util.Utils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-// TODO Update to use global variables
-// TODO Improve performance by using a second thread
+import timber.log.Timber;
+
 public class DataTransferSpeedFragment extends BaseFragment {
 	private enum LastEditTextFocused {
 		BPS,
@@ -218,9 +217,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".onCreateView", "Entered");
-		}
+		Timber.tag(TAG + ".onCreateView").i("Entered");
 
 		if (getRootView() != null) {
 			Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
@@ -267,9 +264,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			Log.d(TAG + ".onResume", "Entered");
-		}
+		Timber.tag(TAG + ".onResume").i("Entered");
 
 		if (lastEditTextFocused == LastEditTextFocused.BPS) {
 			if ((getHandler() != null) && (editTextBps.getText() != null)) {
@@ -319,12 +314,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	// region Helper methods
 
 	private void addTextChangedListeners(String callingClassName) {
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			if (callingClassName != null) {
-				Log.d(TAG + "." + callingClassName + ".addTextChangedListeners", "Entered");
-			} else {
-				Log.d(TAG + ".addTextChangedListeners", "Entered");
-			}
+		if (callingClassName != null) {
+			Timber.tag(TAG + "." + callingClassName + ".addTextChangedListeners").i("Entered");
+		} else {
+			Timber.tag(TAG + ".addTextChangedListeners").i("Entered");
 		}
 
 		editTextBps.addTextChangedListener(textWatcherBps);
@@ -340,12 +333,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 	}
 
 	private void removeTextChangedListeners(String callingClassName) {
-		if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-			if (callingClassName != null) {
-				Log.d(TAG + "." + callingClassName + ".removeTextChangedListeners", "Entered");
-			} else {
-				Log.d(TAG + ".removeTextChangedListeners", "Entered");
-			}
+		if (callingClassName != null) {
+			Timber.tag(TAG + "." + callingClassName + ".removeTextChangedListeners").i("Entered");
+		} else {
+			Timber.tag(TAG + ".removeTextChangedListeners").i("Entered");
 		}
 
 		editTextBps.removeTextChangedListener(textWatcherBps);
@@ -390,10 +381,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableBps.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableBps.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableBps.length() != 0) {
@@ -449,9 +438,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 9);
 						}
 					} else {
@@ -464,10 +451,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				addWhitespaceItems(results, 9);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableBps != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableBps.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableBps == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableBps != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableBps.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -511,10 +498,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableByps.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableByps.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableByps.length() != 0) {
@@ -570,9 +555,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 9);
 						}
 					} else {
@@ -585,10 +568,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				addWhitespaceItems(results, 9);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableByps != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableByps.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableByps == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableByps != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableByps.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -632,10 +615,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableKbps.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableKbps.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableKbps.length() != 0) {
@@ -691,9 +672,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 9);
 						}
 					} else {
@@ -706,10 +685,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				addWhitespaceItems(results, 9);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKbps != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableKbps.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKbps == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableKbps != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableKbps.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -746,10 +725,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
 		private Editable mEditableKbyps;
 		private String mCallingClassName;
 
-		public ConversionFromKbypsRunnable() {
-			throw new UnsupportedOperationException("Cannot use this constructor");
-		}
-
 		public ConversionFromKbypsRunnable(Editable editableKbyps, String callingClassName) {
 			mEditableKbyps = editableKbyps;
 			mCallingClassName = callingClassName;
@@ -757,10 +732,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableKbyps.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableKbyps.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableKbyps.length() != 0) {
@@ -816,9 +789,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 9);
 						}
 					} else {
@@ -831,10 +802,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				addWhitespaceItems(results, 9);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKbyps != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableKbyps.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableKbyps == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableKbyps != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableKbyps.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -878,10 +849,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableMbps.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMbps.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableMbps.length() != 0) {
@@ -937,9 +906,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 9);
 						}
 					} else {
@@ -952,10 +919,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				addWhitespaceItems(results, 9);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMbps != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableMbps.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMbps == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableMbps != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMbps.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -999,10 +966,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableMbyps.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableMbyps.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableMbyps.length() != 0) {
@@ -1058,9 +1023,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 9);
 						}
 					} else {
@@ -1073,10 +1036,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				addWhitespaceItems(results, 9);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMbyps != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableMbyps.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableMbyps == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableMbyps != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableMbyps.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -1120,10 +1083,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableGbps.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableGbps.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableGbps.length() != 0) {
@@ -1179,9 +1140,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 9);
 						}
 					} else {
@@ -1194,10 +1153,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				addWhitespaceItems(results, 9);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableGbps != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableGbps.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableGbps == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableGbps != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableGbps.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -1241,10 +1200,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableGbyps.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableGbyps.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableGbyps.length() != 0) {
@@ -1300,9 +1257,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 9);
 						}
 					} else {
@@ -1315,10 +1270,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				addWhitespaceItems(results, 9);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableGbyps != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableGbyps.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableGbyps == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableGbyps != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableGbyps.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -1362,10 +1317,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableTbps.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableTbps.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableTbps.length() != 0) {
@@ -1421,9 +1374,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 9);
 						}
 					} else {
@@ -1436,10 +1387,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				addWhitespaceItems(results, 9);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableTbps != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableTbps.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableTbps == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableTbps != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableTbps.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {
@@ -1483,10 +1434,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
 		@Override
 		public void run() {
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run", "Entered");
-				Log.d(mCallingClassName + "." + this.TAG + ".run.before", mEditableTbyps.toString());
-			}
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
+			Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("before = " + mEditableTbyps.toString());
 
 			final ArrayList<String> results = new ArrayList<>();
 			if (mEditableTbyps.length() != 0) {
@@ -1542,9 +1491,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 									.stripTrailingZeros()
 									.toPlainString());
 						} catch (NumberFormatException e) {
-							if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext())) {
-								e.printStackTrace();
-							}
+							Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
 							addWhitespaceItems(results, 9);
 						}
 					} else {
@@ -1557,10 +1504,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
 				addWhitespaceItems(results, 9);
 			}
 
-			if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableTbyps != null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", mEditableTbyps.toString());
-			} else if (Utils.isDebugEnabled(getCurrentActivity().getApplicationContext()) && (mEditableTbyps == null)) {
-				Log.d(mCallingClassName + "." + this.TAG + ".run.after", "null");
+			if (mEditableTbyps != null) {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = " + mEditableTbyps.toString());
+			} else {
+				Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("after = null");
 			}
 
 			getHandler().post(new Runnable() {

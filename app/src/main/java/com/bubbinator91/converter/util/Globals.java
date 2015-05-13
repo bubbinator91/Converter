@@ -8,10 +8,10 @@ package com.bubbinator91.converter.util;
  * be insecure and unsafe.
  */
 public class Globals {
-	public static String PREFERENCE_DEBUG = "is_debug_enabled";
 	public static String PREFERENCE_DECIMAL_PLACES = "decimal_places";
+	public static String PREFERENCE_LOGCAT = "is_logcat_enabled";
 
 	public static boolean isTransitioningBackToMainActivity = false;
-	public static boolean isDebugEnabled = false;
+	public static boolean isLogcatEnabled = true;
 	public static int decimalPlaceLength = 8;
 }
