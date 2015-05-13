@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content"
-	android:layout_height="@dimen/navigation_drawer_list_item_height"
-	android:background="@drawable/util_drawer_list_selector"
-	android:orientation="horizontal">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/navigation_drawer_list_item_height"
+    android:background="@drawable/util_drawer_list_selector"
+    android:orientation="horizontal">
 
-	<ImageView
-		android:id="@+id/drawer_list_row_icon"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:contentDescription="@string/activity_main_drawer_icon_description"
-		android:paddingStart="@dimen/navigation_drawer_list_item_icon_padding_start"
-		android:paddingEnd="@dimen/navigation_drawer_list_item_icon_padding_end"
-		android:src="@drawable/ic_warning_grey600_48dp"
-		android:scaleX=".54"
-		android:scaleY=".54"/>
+    <ImageView
+        android:id="@+id/drawer_list_row_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/activity_main_drawer_icon_description"
+        android:paddingStart="@dimen/navigation_drawer_list_item_icon_padding_start"
+        android:paddingEnd="@dimen/navigation_drawer_list_item_icon_padding_end"
+        android:src="@drawable/ic_warning_grey600_48dp"
+        android:scaleX=".54"
+        android:scaleY=".54"/>
 
-	<TextView
-		android:id="@+id/drawer_list_row_text"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:paddingTop="@dimen/navigation_drawer_list_item_text_padding_vertical"
-		android:textSize="@dimen/navigation_drawer_text_size"
-		android:textColor="@color/colorTextPrimary"/>
+    <TextView
+        android:id="@+id/drawer_list_row_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/navigation_drawer_list_item_text_padding_vertical"
+        android:textSize="@dimen/navigation_drawer_text_size"
+        android:textColor="@color/colorTextPrimary"/>
 
 </LinearLayout>

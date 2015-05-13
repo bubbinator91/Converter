@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/.gitattributes" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/.gitignore" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/README.md" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/.gitignore" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/build.gradle" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/proguard-rules.pro" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/androidTest/java/com/bubbinator91/converter/ApplicationTest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/Converter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/activities/BaseActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/activities/MainActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/activities/SettingsActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/fragments/BaseFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/fragments/DataTransferSpeedFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/fragments/LengthFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/fragments/SpeedFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/fragments/TemperatureFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/Globals.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/NavigationDrawerItem.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/NavigationDrawerListAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/NumberPickerPreference.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/ScrimInsetsFrameLayout.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/Utils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build.gradle" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/settings.gradle" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tests/test_dts.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tests/test_length.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tests/test_speed.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tests/test_temperature.txt" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

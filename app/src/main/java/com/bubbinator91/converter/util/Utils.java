@@ -1,8 +1,5 @@
 package com.bubbinator91.converter.util;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 
 /**
@@ -181,11 +178,12 @@ public class Utils {
      * @return An object of type Editable that has been sanitized
      */
     public static Editable sanitizeEditable(Editable editable) {
-        if (editable == null)
+        if (editable == null) {
             return null;
+        }
 
         if (editable.length() >= 2) {
-            //check for (a) leading zero(s) without a decimal point after it/them
+            // check for (a) leading zero(s) without a decimal point after it/them
             if ((editable.charAt(0) == '0')) {
                 int j = 0;
                 boolean containsAllZeroes = false;
@@ -195,11 +193,13 @@ public class Utils {
                     } else {
                         break;
                     }
-                    if (i == (editable.length() - 1))
+                    if (i == (editable.length() - 1)) {
                         containsAllZeroes = true;
+                    }
                 }
-                if (!containsAllZeroes)
-					editable.delete(0, j);
+                if (!containsAllZeroes) {
+                    editable.delete(0, j);
+                }
             } else if ((editable.charAt(0) == '-') && (editable.charAt(1) == '0')) {
                 int j = 0;
                 boolean containsAllZeroes = false;
@@ -209,13 +209,16 @@ public class Utils {
                     } else {
                         break;
                     }
-                    if (i == (editable.length() - 1))
+                    if (i == (editable.length() - 1)) {
                         containsAllZeroes = true;
+                    }
                 }
-                if (!containsAllZeroes)
-					editable.delete(1, j+1);
+                if (!containsAllZeroes) {
+                    editable.delete(1, j + 1);
+                }
             }
         }
+
         // check for weird decimals and weird negative signs
         boolean containsDecimal = false;
         for (int i = 0; i < editable.length(); i++) {

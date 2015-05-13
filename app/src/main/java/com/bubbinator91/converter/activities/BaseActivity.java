@@ -35,6 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if (mPrefs != null) {
+			Globals.isFirstRun = mPrefs.getBoolean(Globals.PREFERENCE_FIRSTRUN, false);
 			Globals.isLogcatEnabled = mPrefs.getBoolean(Globals.PREFERENCE_LOGCAT, false);
 			Globals.decimalPlaceLength = Integer.parseInt(
 					mPrefs.getString(

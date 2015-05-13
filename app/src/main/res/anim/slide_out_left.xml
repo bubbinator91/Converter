@@ -14,5 +14,5 @@
      limitations under the License.
 -->
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
-        android:fromXDelta="0" android:toXDelta="-50%p"
-        android:duration="500" />
+    android:fromXDelta="0" android:toXDelta="-50%p"
+    android:duration="500" />

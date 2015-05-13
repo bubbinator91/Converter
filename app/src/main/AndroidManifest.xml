@@ -23,17 +23,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-		<activity
-			android:name=".activities.SettingsActivity"
-			android:label="@string/title_activity_settings"
-			android:parentActivityName=".activities.MainActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme"
-			android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.bubbinator91.converter.activities.MainActivity"/>
-		</activity>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bubbinator91.converter.activities.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>
