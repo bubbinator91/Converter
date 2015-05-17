@@ -110,19 +110,25 @@ public class TemperatureFragment extends BaseFragment {
         setShouldHideToolbarOnScroll(false);
 
         if (getRootView() != null) {
-            Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+            TextView textViewCelsius =
+                    ((TextView) getRootView().findViewById(R.id.textView_temperature_celsius));
+            TextView textViewFahrenheit =
+                    ((TextView) getRootView().findViewById(R.id.textView_temperature_fahrenheit));
+            TextView textViewKelvin =
+                    ((TextView) getRootView().findViewById(R.id.textView_temperature_kelvin));
 
-            TextView textViewCelsius = ((TextView) getRootView().findViewById(R.id.textView_temperature_celsius));
-            TextView textViewFahrenheit = ((TextView) getRootView().findViewById(R.id.textView_temperature_fahrenheit));
-            TextView textViewKelvin = ((TextView) getRootView().findViewById(R.id.textView_temperature_kelvin));
+            if (getTypeFace() != null) {
+                textViewCelsius.setTypeface(getTypeFace());
+                textViewFahrenheit.setTypeface(getTypeFace());
+                textViewKelvin.setTypeface(getTypeFace());
+            }
 
-            textViewCelsius.setTypeface(tf);
-            textViewFahrenheit.setTypeface(tf);
-            textViewKelvin.setTypeface(tf);
-
-            editTextCelsius = ((EditText) getRootView().findViewById(R.id.editText_temperature_celsius));
-            editTextFahrenheit = ((EditText) getRootView().findViewById(R.id.editText_temperature_fahrenheit));
-            editTextKelvin = ((EditText) getRootView().findViewById(R.id.editText_temperature_kelvin));
+            editTextCelsius =
+                    ((EditText) getRootView().findViewById(R.id.editText_temperature_celsius));
+            editTextFahrenheit =
+                    ((EditText) getRootView().findViewById(R.id.editText_temperature_fahrenheit));
+            editTextKelvin =
+                    ((EditText) getRootView().findViewById(R.id.editText_temperature_kelvin));
 
             addTextChangedListeners(null);
         }
@@ -140,21 +146,24 @@ public class TemperatureFragment extends BaseFragment {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextCelsius.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromCelsiusRunnable(editTextCelsius.getText(), "onResume")).start();
+                new Thread(new ConversionFromCelsiusRunnable(editTextCelsius.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.FAHRENHEIT) {
             if ((getHandler() != null) && (editTextFahrenheit.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextFahrenheit.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromFahrenheitRunnable(editTextFahrenheit.getText(), "onResume")).start();
+                new Thread(new ConversionFromFahrenheitRunnable(editTextFahrenheit.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KELVIN) {
             if ((getHandler() != null) && (editTextKelvin.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextKelvin.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromKelvinRunnable(editTextKelvin.getText(), "onResume")).start();
+                new Thread(new ConversionFromKelvinRunnable(editTextKelvin.getText(),
+                        "onResume")).start();
             }
         }
     }

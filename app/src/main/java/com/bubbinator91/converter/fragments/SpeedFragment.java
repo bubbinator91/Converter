@@ -147,25 +147,35 @@ public class SpeedFragment extends BaseFragment {
         setShouldHideToolbarOnScroll(false);
 
         if (getRootView() != null) {
-            Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+            TextView textViewFps =
+                    ((TextView) getRootView().findViewById(R.id.textView_speed_fps));
+            TextView textViewKnot =
+                    ((TextView) getRootView().findViewById(R.id.textView_speed_knot));
+            TextView textViewKph =
+                    ((TextView) getRootView().findViewById(R.id.textView_speed_kph));
+            TextView textViewMps =
+                    ((TextView) getRootView().findViewById(R.id.textView_speed_mps));
+            TextView textViewMph =
+                    ((TextView) getRootView().findViewById(R.id.textView_speed_mph));
 
-            TextView textViewFps = ((TextView) getRootView().findViewById(R.id.textView_speed_fps));
-            TextView textViewKnot = ((TextView) getRootView().findViewById(R.id.textView_speed_knot));
-            TextView textViewKph = ((TextView) getRootView().findViewById(R.id.textView_speed_kph));
-            TextView textViewMps = ((TextView) getRootView().findViewById(R.id.textView_speed_mps));
-            TextView textViewMph = ((TextView) getRootView().findViewById(R.id.textView_speed_mph));
+            if (getTypeFace() != null) {
+                textViewFps.setTypeface(getTypeFace());
+                textViewKnot.setTypeface(getTypeFace());
+                textViewKph.setTypeface(getTypeFace());
+                textViewMps.setTypeface(getTypeFace());
+                textViewMph.setTypeface(getTypeFace());
+            }
 
-            textViewFps.setTypeface(tf);
-            textViewKnot.setTypeface(tf);
-            textViewKph.setTypeface(tf);
-            textViewMps.setTypeface(tf);
-            textViewMph.setTypeface(tf);
-
-            editTextFps = ((EditText) getRootView().findViewById(R.id.editText_speed_fps));
-            editTextKnot = ((EditText) getRootView().findViewById(R.id.editText_speed_knot));
-            editTextKph = ((EditText) getRootView().findViewById(R.id.editText_speed_kph));
-            editTextMps = ((EditText) getRootView().findViewById(R.id.editText_speed_mps));
-            editTextMph = ((EditText) getRootView().findViewById(R.id.editText_speed_mph));
+            editTextFps =
+                    ((EditText) getRootView().findViewById(R.id.editText_speed_fps));
+            editTextKnot =
+                    ((EditText) getRootView().findViewById(R.id.editText_speed_knot));
+            editTextKph =
+                    ((EditText) getRootView().findViewById(R.id.editText_speed_kph));
+            editTextMps =
+                    ((EditText) getRootView().findViewById(R.id.editText_speed_mps));
+            editTextMph =
+                    ((EditText) getRootView().findViewById(R.id.editText_speed_mph));
 
             addTextChangedListeners(null);
         }
@@ -183,35 +193,40 @@ public class SpeedFragment extends BaseFragment {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextFps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromFpsRunnable(editTextFps.getText(), "onResume")).start();
+                new Thread(new ConversionFromFpsRunnable(editTextFps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KNOT) {
             if ((getHandler() != null) && (editTextKnot.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextKnot.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromKnotRunnable(editTextKnot.getText(), "onResume")).start();
+                new Thread(new ConversionFromKnotRunnable(editTextKnot.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KPH) {
             if ((getHandler() != null) && (editTextKph.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextKph.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromKphRunnable(editTextKph.getText(), "onResume")).start();
+                new Thread(new ConversionFromKphRunnable(editTextKph.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MPS) {
             if ((getHandler() != null) && (editTextMps.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextMps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMpsRunnable(editTextMps.getText(), "onResume")).start();
+                new Thread(new ConversionFromMpsRunnable(editTextMps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MPH) {
             if ((getHandler() != null) && (editTextMph.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextMph.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMphRunnable(editTextMph.getText(), "onResume")).start();
+                new Thread(new ConversionFromMphRunnable(editTextMph.getText(),
+                        "onResume")).start();
             }
         }
     }

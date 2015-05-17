@@ -69,17 +69,24 @@ public class MainActivity extends BaseActivity {
 
         mDrawerItems = new ArrayList<>();
         for (int i = 0; i < mDrawerTitles.length; i++) {
-            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[i], mDrawerIcons.getResourceId((i + 1), 0)));
+            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[i],
+                            mDrawerIcons.getResourceId((i + 1),
+                            0)));
         }
         mDrawerIcons.recycle();
 
         mDrawerLayout = ((DrawerLayout) findViewById(R.id.activity_main_layout));
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, getToolbar(), R.string.app_name, R.string.app_name) {
+        mDrawerToggle = new ActionBarDrawerToggle(this,
+                mDrawerLayout,
+                getToolbar(),
+                R.string.app_name,
+                R.string.app_name) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, 0);
                 InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
-                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -144,7 +151,8 @@ public class MainActivity extends BaseActivity {
         Timber.tag(TAG + ".onPause").i("Entered");
 
         InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
-        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     @Override
@@ -186,7 +194,8 @@ public class MainActivity extends BaseActivity {
                 return true;
             case R.id.action_settings:
                 InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
-                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
                 Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(
                         settingsIntent,
@@ -260,7 +269,8 @@ public class MainActivity extends BaseActivity {
             public void run() {
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.fragment_slide_in_right, R.anim.fragment_slide_out_left)
+                        .setCustomAnimations(R.anim.fragment_slide_in_right,
+                                R.anim.fragment_slide_out_left)
                         .replace(R.id.container, fragment)
                         .addToBackStack(null)
                         .commit();
@@ -269,6 +279,8 @@ public class MainActivity extends BaseActivity {
     }
 
     // endregion
+
+    // region Private classes
 
     /**
      * A listener class that handles the event of the user selecting an item
@@ -288,4 +300,6 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
+
+    // endregion
 }

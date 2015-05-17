@@ -251,28 +251,30 @@ public class Utils {
     /**
      * Method to check if a string is purely numeric.
      *
-     * @param str		The string to check
+     * @param string		The string to check
 	 *
-     * @return A boolean value indicating whether or not the string is numeric
+     * @return  A boolean value indicating whether or not the string is numeric
      */
-    public static boolean isNumeric(final String str) {
-        if (str.isEmpty()) {
+    @SuppressWarnings("all")
+    public static boolean isNumeric(String string) {
+        if (string.isEmpty()) {
             return false;
         }
-        final char[] chars = str.toCharArray();
-        int sz = chars.length;
-        boolean hasExp = false;
-        boolean hasDecPoint = false;
+        final char[] chars = string.toCharArray();
+        int size = chars.length;
+        boolean hasExponent = false;
+        boolean hasDecimalPoint = false;
         boolean allowSigns = false;
         boolean foundDigit = false;
 
         // deal with any possible sign up front
         final int start = (chars[0] == '-') ? 1 : 0;
-        if (sz > start + 1 && chars[start] == '0') { // leading 0
+        if (size > start + 1 && chars[start] == '0') { // leading 0
             if ((chars[start + 1] == 'x') || (chars[start + 1] == 'X')) { // leading 0x/0X
                 int i = start + 2;
-                if (i == sz)
+                if (i == size) {
                     return false; // str == "0x"
+                }
 
                 // checking hex (it can't be anything else)
                 for (; i < chars.length; i++) {
@@ -294,30 +296,30 @@ public class Utils {
                 return true;
             }
         }
-        sz--; // don't want to loop to the last char, check it afterwords for type qualifiers
+        size--; // don't want to loop to the last char, check it afterwords for type qualifiers
         int i = start;
         // loop to the next to last char or to the last char if we need another digit to
         // make a valid number (e.g. chars[0..5] = "1234E")
-        while (i < sz || (i < sz + 1 && allowSigns && !foundDigit)) {
+        while (i < size || (i < size + 1 && allowSigns && !foundDigit)) {
             if (chars[i] >= '0' && chars[i] <= '9') {
                 foundDigit = true;
                 allowSigns = false;
             } else if (chars[i] == '.') {
-                if (hasDecPoint || hasExp) {
+                if (hasDecimalPoint || hasExponent) {
                     // two decimal points or dec in exponent
                     return false;
                 }
-                hasDecPoint = true;
+                hasDecimalPoint = true;
             } else if (chars[i] == 'e' || chars[i] == 'E') {
                 // we've already taken care of hex.
-                if (hasExp) {
+                if (hasExponent) {
                     // two E's
                     return false;
                 }
                 if (!foundDigit) {
                     return false;
                 }
-                hasExp = true;
+                hasExponent = true;
                 allowSigns = true;
             } else if (chars[i] == '+' || chars[i] == '-') {
                 if (!allowSigns) {
@@ -340,7 +342,7 @@ public class Utils {
                 return false;
             }
             if (chars[i] == '.') {
-                if (hasDecPoint || hasExp) {
+                if (hasDecimalPoint || hasExponent) {
                     // two decimal points or dec in exponent
                     return false;
                 }
@@ -352,7 +354,7 @@ public class Utils {
             }
             if ((chars[i] == 'l') || (chars[i] == 'L')) {
                 // not allowing L with an exponent or decimal point
-                return foundDigit && !hasExp && !hasDecPoint;
+                return foundDigit && !hasExponent && !hasDecimalPoint;
             }
             // last character is illegal
             return false;

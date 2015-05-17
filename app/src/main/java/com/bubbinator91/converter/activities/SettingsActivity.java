@@ -84,6 +84,8 @@ public class SettingsActivity extends BaseActivity {
 
     // endregion
 
+    // region Private classes
+
     public static class SettingsFragment extends PreferenceFragment {
         private final String TAG = "SettingsFragment";
 
@@ -124,4 +126,6 @@ public class SettingsActivity extends BaseActivity {
 
         // endregion
     }
+
+    // endregion
 }

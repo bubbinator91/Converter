@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -28,7 +29,6 @@ import timber.log.Timber;
  * The purpose of this fragment to help reduce the amount of
  * duplicated code.
  */
-
 public abstract class BaseFragment
         extends Fragment
         implements ViewTreeObserver.OnScrollChangedListener {
@@ -38,6 +38,7 @@ public abstract class BaseFragment
     private Handler mHandler = null;
     private SharedPreferences mPrefs = null;
     private int fieldLength = -1, lastY = 0;
+    private Typeface mTypeFace = null;
 
     private View rootView = null;
     private ScrollView mScrollView = null;
@@ -61,6 +62,9 @@ public abstract class BaseFragment
         rootView = inflater.inflate(getLayoutResource(), container, false);
 
         mHandler = mActivity.getWindow().getDecorView().getHandler();
+
+        mTypeFace = Typeface.createFromAsset(getCurrentActivity().getAssets(),
+                "fonts/Roboto-Regular.ttf");
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
 
@@ -165,9 +169,7 @@ public abstract class BaseFragment
 
     protected View getRootView() { return rootView; }
 
-    protected View getScrollView() { return mScrollView; }
-
-    protected void setHandler(Handler handler) { mHandler = handler; }
+    protected Typeface getTypeFace() { return mTypeFace; }
 
     protected void setShouldHideToolbarOnScroll(boolean value) { shouldHideToolbarOnScroll = value; }
 

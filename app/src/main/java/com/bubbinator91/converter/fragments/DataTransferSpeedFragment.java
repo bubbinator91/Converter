@@ -250,40 +250,60 @@ public class DataTransferSpeedFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+            TextView textViewBps =
+                    ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_bps));
+            TextView textViewByps =
+                    ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_byps));
+            TextView textViewKbps =
+                    ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_kbps));
+            TextView textViewKbyps =
+                    ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_kbyps));
+            TextView textViewMbps =
+                    ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_mbps));
+            TextView textViewMbyps =
+                    ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_mbyps));
+            TextView textViewGbps =
+                    ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_gbps));
+            TextView textViewGbyps =
+                    ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_gbyps));
+            TextView textViewTbps =
+                    ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_tbps));
+            TextView textViewTbyps =
+                    ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_tbyps));
 
-            TextView textViewBps = ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_bps));
-            TextView textViewByps = ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_byps));
-            TextView textViewKbps = ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_kbps));
-            TextView textViewKbyps = ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_kbyps));
-            TextView textViewMbps = ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_mbps));
-            TextView textViewMbyps = ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_mbyps));
-            TextView textViewGbps = ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_gbps));
-            TextView textViewGbyps = ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_gbyps));
-            TextView textViewTbps = ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_tbps));
-            TextView textViewTbyps = ((TextView) getRootView().findViewById(R.id.textView_data_transfer_speed_tbyps));
+            if (getTypeFace() != null) {
+                textViewBps.setTypeface(getTypeFace());
+                textViewByps.setTypeface(getTypeFace());
+                textViewKbps.setTypeface(getTypeFace());
+                textViewKbyps.setTypeface(getTypeFace());
+                textViewMbps.setTypeface(getTypeFace());
+                textViewMbyps.setTypeface(getTypeFace());
+                textViewGbps.setTypeface(getTypeFace());
+                textViewGbyps.setTypeface(getTypeFace());
+                textViewTbps.setTypeface(getTypeFace());
+                textViewTbyps.setTypeface(getTypeFace());
+            }
 
-            textViewBps.setTypeface(tf);
-            textViewByps.setTypeface(tf);
-            textViewKbps.setTypeface(tf);
-            textViewKbyps.setTypeface(tf);
-            textViewMbps.setTypeface(tf);
-            textViewMbyps.setTypeface(tf);
-            textViewGbps.setTypeface(tf);
-            textViewGbyps.setTypeface(tf);
-            textViewTbps.setTypeface(tf);
-            textViewTbyps.setTypeface(tf);
-
-            editTextBps = ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_bps));
-            editTextByps = ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_byps));
-            editTextKbps = ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_kbps));
-            editTextKbyps = ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_kbyps));
-            editTextMbps = ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_mbps));
-            editTextMbyps = ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_mbyps));
-            editTextGbps = ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_gbps));
-            editTextGbyps = ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_gbyps));
-            editTextTbps = ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_tbps));
-            editTextTbyps = ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_tbyps));
+            editTextBps =
+                    ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_bps));
+            editTextByps =
+                    ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_byps));
+            editTextKbps =
+                    ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_kbps));
+            editTextKbyps =
+                    ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_kbyps));
+            editTextMbps =
+                    ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_mbps));
+            editTextMbyps =
+                    ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_mbyps));
+            editTextGbps =
+                    ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_gbps));
+            editTextGbyps =
+                    ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_gbyps));
+            editTextTbps =
+                    ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_tbps));
+            editTextTbyps =
+                    ((EditText) getRootView().findViewById(R.id.editText_data_transfer_speed_tbyps));
 
             addTextChangedListeners(null);
         }
@@ -301,70 +321,80 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextBps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromBpsRunnable(editTextBps.getText(), "onResume")).start();
+                new Thread(new ConversionFromBpsRunnable(editTextBps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.BYPS) {
             if ((getHandler() != null) && (editTextByps.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextByps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromBypsRunnable(editTextByps.getText(), "onResume")).start();
+                new Thread(new ConversionFromBypsRunnable(editTextByps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KBPS) {
             if ((getHandler() != null) && (editTextKbps.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextKbps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromKbpsRunnable(editTextKbps.getText(), "onResume")).start();
+                new Thread(new ConversionFromKbpsRunnable(editTextKbps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KBYPS) {
             if ((getHandler() != null) && (editTextKbyps.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextKbyps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromKbypsRunnable(editTextKbyps.getText(), "onResume")).start();
+                new Thread(new ConversionFromKbypsRunnable(editTextKbyps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MBPS) {
             if ((getHandler() != null) && (editTextMbps.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextMbps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMbpsRunnable(editTextMbps.getText(), "onResume")).start();
+                new Thread(new ConversionFromMbpsRunnable(editTextMbps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MBYPS) {
             if ((getHandler() != null) && (editTextMbyps.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextMbyps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMbypsRunnable(editTextMbyps.getText(), "onResume")).start();
+                new Thread(new ConversionFromMbypsRunnable(editTextMbyps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.GBPS) {
             if ((getHandler() != null) && (editTextGbps.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextGbps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromGbpsRunnable(editTextGbps.getText(), "onResume")).start();
+                new Thread(new ConversionFromGbpsRunnable(editTextGbps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.GBYPS) {
             if ((getHandler() != null) && (editTextGbyps.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextGbyps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromGbypsRunnable(editTextGbyps.getText(), "onResume")).start();
+                new Thread(new ConversionFromGbypsRunnable(editTextGbyps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.TBPS) {
             if ((getHandler() != null) && (editTextTbps.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextTbps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromTbpsRunnable(editTextTbps.getText(), "onResume")).start();
+                new Thread(new ConversionFromTbpsRunnable(editTextTbps.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.TBYPS) {
             if ((getHandler() != null) && (editTextTbyps.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextTbyps.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromTbypsRunnable(editTextTbyps.getText(), "onResume")).start();
+                new Thread(new ConversionFromTbypsRunnable(editTextTbyps.getText(),
+                        "onResume")).start();
             }
         }
     }

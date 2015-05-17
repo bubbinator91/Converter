@@ -214,34 +214,50 @@ public class LengthFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            Typeface tf = Typeface.createFromAsset(getCurrentActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+            TextView textViewInch =
+                    ((TextView) getRootView().findViewById(R.id.textView_length_inch));
+            TextView textViewFoot =
+                    ((TextView) getRootView().findViewById(R.id.textView_length_foot));
+            TextView textViewYard =
+                    ((TextView) getRootView().findViewById(R.id.textView_length_yard));
+            TextView textViewMile =
+                    ((TextView) getRootView().findViewById(R.id.textView_length_mile));
+            TextView textViewMillimeter =
+                    ((TextView) getRootView().findViewById(R.id.textView_length_millimeter));
+            TextView textViewCentimeter =
+                    ((TextView) getRootView().findViewById(R.id.textView_length_centimeter));
+            TextView textViewMeter =
+                    ((TextView) getRootView().findViewById(R.id.textView_length_meter));
+            TextView textViewKilometer =
+                    ((TextView) getRootView().findViewById(R.id.textView_length_kilometer));
 
-            TextView textViewInch = ((TextView) getRootView().findViewById(R.id.textView_length_inch));
-            TextView textViewFoot = ((TextView) getRootView().findViewById(R.id.textView_length_foot));
-            TextView textViewYard = ((TextView) getRootView().findViewById(R.id.textView_length_yard));
-            TextView textViewMile = ((TextView) getRootView().findViewById(R.id.textView_length_mile));
-            TextView textViewMillimeter = ((TextView) getRootView().findViewById(R.id.textView_length_millimeter));
-            TextView textViewCentimeter = ((TextView) getRootView().findViewById(R.id.textView_length_centimeter));
-            TextView textViewMeter = ((TextView) getRootView().findViewById(R.id.textView_length_meter));
-            TextView textViewKilometer = ((TextView) getRootView().findViewById(R.id.textView_length_kilometer));
+            if (getTypeFace() != null) {
+                textViewInch.setTypeface(getTypeFace());
+                textViewFoot.setTypeface(getTypeFace());
+                textViewYard.setTypeface(getTypeFace());
+                textViewMile.setTypeface(getTypeFace());
+                textViewMillimeter.setTypeface(getTypeFace());
+                textViewCentimeter.setTypeface(getTypeFace());
+                textViewMeter.setTypeface(getTypeFace());
+                textViewKilometer.setTypeface(getTypeFace());
+            }
 
-            textViewInch.setTypeface(tf);
-            textViewFoot.setTypeface(tf);
-            textViewYard.setTypeface(tf);
-            textViewMile.setTypeface(tf);
-            textViewMillimeter.setTypeface(tf);
-            textViewCentimeter.setTypeface(tf);
-            textViewMeter.setTypeface(tf);
-            textViewKilometer.setTypeface(tf);
-
-            editTextInch = ((EditText) getRootView().findViewById(R.id.editText_length_inch));
-            editTextFoot = ((EditText) getRootView().findViewById(R.id.editText_length_foot));
-            editTextYard = ((EditText) getRootView().findViewById(R.id.editText_length_yard));
-            editTextMile = ((EditText) getRootView().findViewById(R.id.editText_length_mile));
-            editTextMillimeter = ((EditText) getRootView().findViewById(R.id.editText_length_millimeter));
-            editTextCentimeter = ((EditText) getRootView().findViewById(R.id.editText_length_centimeter));
-            editTextMeter = ((EditText) getRootView().findViewById(R.id.editText_length_meter));
-            editTextKilometer = ((EditText) getRootView().findViewById(R.id.editText_length_kilometer));
+            editTextInch =
+                    ((EditText) getRootView().findViewById(R.id.editText_length_inch));
+            editTextFoot =
+                    ((EditText) getRootView().findViewById(R.id.editText_length_foot));
+            editTextYard =
+                    ((EditText) getRootView().findViewById(R.id.editText_length_yard));
+            editTextMile =
+                    ((EditText) getRootView().findViewById(R.id.editText_length_mile));
+            editTextMillimeter =
+                    ((EditText) getRootView().findViewById(R.id.editText_length_millimeter));
+            editTextCentimeter =
+                    ((EditText) getRootView().findViewById(R.id.editText_length_centimeter));
+            editTextMeter =
+                    ((EditText) getRootView().findViewById(R.id.editText_length_meter));
+            editTextKilometer =
+                    ((EditText) getRootView().findViewById(R.id.editText_length_kilometer));
 
             addTextChangedListeners(null);
         }
@@ -259,56 +275,64 @@ public class LengthFragment extends BaseFragment {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextInch.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromInchRunnable(editTextInch.getText(), "onResume")).start();
+                new Thread(new ConversionFromInchRunnable(editTextInch.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.FOOT) {
             if ((getHandler() != null) && (editTextFoot.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextFoot.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromFootRunnable(editTextFoot.getText(), "onResume")).start();
+                new Thread(new ConversionFromFootRunnable(editTextFoot.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.YARD) {
             if ((getHandler() != null) && (editTextYard.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextYard.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromYardRunnable(editTextYard.getText(), "onResume")).start();
+                new Thread(new ConversionFromYardRunnable(editTextYard.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MILE) {
             if ((getHandler() != null) && (editTextMile.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextMile.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMileRunnable(editTextMile.getText(), "onResume")).start();
+                new Thread(new ConversionFromMileRunnable(editTextMile.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.MILLIMETER) {
             if ((getHandler() != null) && (editTextMillimeter.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextMillimeter.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMillimeterRunnable(editTextMillimeter.getText(), "onResume")).start();
+                new Thread(new ConversionFromMillimeterRunnable(editTextMillimeter.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.CENTIMETER) {
             if ((getHandler() != null) && (editTextCentimeter.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextCentimeter.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromCentimeterRunnable(editTextCentimeter.getText(), "onResume")).start();
+                new Thread(new ConversionFromCentimeterRunnable(editTextCentimeter.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.METER) {
             if ((getHandler() != null) && (editTextMeter.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextMeter.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMeterRunnable(editTextMeter.getText(), "onResume")).start();
+                new Thread(new ConversionFromMeterRunnable(editTextMeter.getText(),
+                        "onResume")).start();
             }
         } else if (lastEditTextFocused == LastEditTextFocused.KILOMETER) {
             if ((getHandler() != null) && (editTextKilometer.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(editTextKilometer.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromKilometerRunnable(editTextKilometer.getText(), "onResume")).start();
+                new Thread(new ConversionFromKilometerRunnable(editTextKilometer.getText(),
+                        "onResume")).start();
             }
         }
     }
@@ -760,9 +784,12 @@ public class LengthFragment extends BaseFragment {
                 if (Utils.isNumeric(mEditableMillimeter.toString())) {
                     try {
                         BigDecimal millimeter = new BigDecimal(mEditableMillimeter.toString());
-                        BigDecimal inch = millimeter.multiply(new BigDecimal("0.03937007874015748031496062992126"));
-                        BigDecimal foot = millimeter.multiply(new BigDecimal("0.00328083989501312335958005249344"));
-                        BigDecimal yard = millimeter.multiply(new BigDecimal("0.00109361329833770778652668416448"));
+                        BigDecimal inch = millimeter
+                                .multiply(new BigDecimal("0.03937007874015748031496062992126"));
+                        BigDecimal foot = millimeter
+                                .multiply(new BigDecimal("0.00328083989501312335958005249344"));
+                        BigDecimal yard = millimeter
+                                .multiply(new BigDecimal("0.00109361329833770778652668416448"));
                         BigDecimal mile = foot.divide(new BigDecimal("5280")
                                 , getFieldLength()
                                 , BigDecimal.ROUND_HALF_UP);
@@ -852,9 +879,12 @@ public class LengthFragment extends BaseFragment {
                 if (Utils.isNumeric(mEditableCentimeter.toString())) {
                     try {
                         BigDecimal centimeter = new BigDecimal(mEditableCentimeter.toString());
-                        BigDecimal inch = centimeter.multiply(new BigDecimal("0.3937007874015748031496062992126"));
-                        BigDecimal foot = centimeter.multiply(new BigDecimal("0.0328083989501312335958005249344"));
-                        BigDecimal yard = centimeter.multiply(new BigDecimal("0.0109361329833770778652668416448"));
+                        BigDecimal inch = centimeter
+                                .multiply(new BigDecimal("0.3937007874015748031496062992126"));
+                        BigDecimal foot = centimeter
+                                .multiply(new BigDecimal("0.0328083989501312335958005249344"));
+                        BigDecimal yard = centimeter
+                                .multiply(new BigDecimal("0.0109361329833770778652668416448"));
                         BigDecimal mile = foot.divide(new BigDecimal("5280")
                                 , getFieldLength()
                                 , BigDecimal.ROUND_HALF_UP);
@@ -942,9 +972,12 @@ public class LengthFragment extends BaseFragment {
                 if (Utils.isNumeric(mEditableMeter.toString())) {
                     try {
                         BigDecimal meter = new BigDecimal(mEditableMeter.toString());
-                        BigDecimal inch = meter.multiply(new BigDecimal("39.37007874015748031496062992126"));
-                        BigDecimal foot = meter.multiply(new BigDecimal("3.28083989501312335958005249344"));
-                        BigDecimal yard = meter.multiply(new BigDecimal("1.09361329833770778652668416448"));
+                        BigDecimal inch = meter
+                                .multiply(new BigDecimal("39.37007874015748031496062992126"));
+                        BigDecimal foot = meter
+                                .multiply(new BigDecimal("3.28083989501312335958005249344"));
+                        BigDecimal yard = meter
+                                .multiply(new BigDecimal("1.09361329833770778652668416448"));
                         BigDecimal mile = foot.divide(new BigDecimal("5280")
                                 , getFieldLength()
                                 , BigDecimal.ROUND_HALF_UP);
@@ -1030,9 +1063,12 @@ public class LengthFragment extends BaseFragment {
                 if (Utils.isNumeric(mEditableKilometer.toString())) {
                     try {
                         BigDecimal kilometer = new BigDecimal(mEditableKilometer.toString());
-                        BigDecimal inch = kilometer.multiply(new BigDecimal("39370.07874015748031496062992126"));
-                        BigDecimal foot = kilometer.multiply(new BigDecimal("3280.83989501312335958005249344"));
-                        BigDecimal yard = kilometer.multiply(new BigDecimal("1093.61329833770778652668416448"));
+                        BigDecimal inch = kilometer
+                                .multiply(new BigDecimal("39370.07874015748031496062992126"));
+                        BigDecimal foot = kilometer
+                                .multiply(new BigDecimal("3280.83989501312335958005249344"));
+                        BigDecimal yard = kilometer
+                                .multiply(new BigDecimal("1093.61329833770778652668416448"));
                         BigDecimal mile = foot.divide(new BigDecimal("5280")
                                 , getFieldLength()
                                 , BigDecimal.ROUND_HALF_UP);
