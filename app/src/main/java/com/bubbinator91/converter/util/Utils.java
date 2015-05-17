@@ -2,6 +2,8 @@ package com.bubbinator91.converter.util;
 
 import android.text.Editable;
 
+import java.util.ArrayList;
+
 import timber.log.Timber;
 
 /**
@@ -362,6 +364,17 @@ public class Utils {
         // allowSigns is true iff the val ends in 'E'
         // found digit is to make sure weird stuff like '.' and '1E-' doesn't pass
         return !allowSigns && foundDigit;
+    }
+
+    public static void addWhitespaceItems(ArrayList<String> list, int numItems) {
+        Timber.tag(TAG + ".addWhitespaceItems").i("Entered");
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        list.clear();
+        for (int i = 0; i < numItems; i++) {
+            list.add("");
+        }
     }
 }
 

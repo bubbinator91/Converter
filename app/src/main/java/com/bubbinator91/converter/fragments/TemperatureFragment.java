@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.fragments;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,9 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.conversion.temperature.Celsius;
+import com.bubbinator91.converter.conversion.temperature.Fahrenheit;
+import com.bubbinator91.converter.conversion.temperature.Kelvin;
 import com.bubbinator91.converter.util.Utils;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import timber.log.Timber;
@@ -219,7 +221,8 @@ public class TemperatureFragment extends BaseFragment {
         private Editable mEditableCelsius;
         private String mCallingClassName;
 
-        public ConversionFromCelsiusRunnable(Editable editableCelsius, String callingClassName) {
+        public ConversionFromCelsiusRunnable(@NonNull Editable editableCelsius,
+                                             @NonNull String callingClassName) {
             mEditableCelsius = editableCelsius;
             mCallingClassName = callingClassName;
         }
@@ -228,50 +231,22 @@ public class TemperatureFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableCelsius != null) {
-                if (Utils.isNumeric(mEditableCelsius.toString())) {
-                    try {
-                        BigDecimal celsius = new BigDecimal(mEditableCelsius.toString());
-                        if (celsius.compareTo(new BigDecimal("-273.15")) >= 0) {
-                            BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
-                                    .add(new BigDecimal("32"));
-                            BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
+                final ArrayList<String> results =
+                        Celsius.convert(mEditableCelsius.toString(), getFieldLength());
 
-                            results.add(fahrenheit
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kelvin
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } else {
-                            results.add("Input is below absolute zero");
-                            results.add("Input is below absolute zero");
-                        }
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 2);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextFahrenheit.setText(results.get(0)
+                                , TextView.BufferType.EDITABLE);
+                        editTextKelvin.setText(results.get(1)
+                                , TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 2);
-                }
-            } else {
-                addWhitespaceItems(results, 2);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextFahrenheit.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKelvin.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -281,7 +256,8 @@ public class TemperatureFragment extends BaseFragment {
         private Editable mEditableFahrenheit;
         private String mCallingClassName;
 
-        public ConversionFromFahrenheitRunnable(Editable editableFahrenheit, String callingClassName) {
+        public ConversionFromFahrenheitRunnable(@NonNull Editable editableFahrenheit,
+                                                @NonNull String callingClassName) {
             mEditableFahrenheit = editableFahrenheit;
             mCallingClassName = callingClassName;
         }
@@ -290,50 +266,22 @@ public class TemperatureFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableFahrenheit != null) {
-                if (Utils.isNumeric(mEditableFahrenheit.toString())) {
-                    try {
-                        BigDecimal fahrenheit = new BigDecimal(mEditableFahrenheit.toString());
-                        if (fahrenheit.compareTo(new BigDecimal("-459.67")) >= 0) {
-                            BigDecimal celsius = fahrenheit.subtract(new BigDecimal("32"))
-                                    .multiply(new BigDecimal(5.0 / 9.0));
-                            BigDecimal kelvin = celsius.add(new BigDecimal("273.15"));
+                final ArrayList<String> results =
+                        Fahrenheit.convert(mEditableFahrenheit.toString(), getFieldLength());
 
-                            results.add(celsius
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                            results.add(kelvin
-                                    .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                    .stripTrailingZeros()
-                                    .toPlainString());
-                        } else {
-                            results.add("Input is below absolute zero");
-                            results.add("Input is below absolute zero");
-                        }
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 2);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextCelsius.setText(results.get(0)
+                                , TextView.BufferType.EDITABLE);
+                        editTextKelvin.setText(results.get(1)
+                                , TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 2);
-                }
-            } else {
-                addWhitespaceItems(results, 2);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextCelsius.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKelvin.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -352,45 +300,22 @@ public class TemperatureFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableKelvin != null) {
-                if (Utils.isNumeric(mEditableKelvin.toString())) {
-                    try {
-                        BigDecimal kelvin = new BigDecimal(mEditableKelvin.toString());
-                        BigDecimal celsius = kelvin.subtract(new BigDecimal("273.15"));
-                        BigDecimal fahrenheit = celsius.multiply(new BigDecimal("1.8"))
-                                .add(new BigDecimal("32"));
+                final ArrayList<String> results =
+                        Kelvin.convert(mEditableKelvin.toString(), getFieldLength());
 
-                        results.add(celsius
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(fahrenheit
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 2);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextCelsius.setText(results.get(0)
+                                , TextView.BufferType.EDITABLE);
+                        editTextFahrenheit.setText(results.get(1)
+                                , TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 2);
-                }
-            } else {
-                addWhitespaceItems(results, 2);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextCelsius.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextFahrenheit.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
