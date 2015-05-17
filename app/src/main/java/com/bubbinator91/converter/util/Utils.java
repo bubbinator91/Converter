@@ -186,7 +186,6 @@ public class Utils {
         Timber.tag(TAG + ".sanitizeEditable").i("before = " + editable.toString());
 
         // check for A-Z, a-z, or spaces and remove them
-        // TODO Possibly modify to support alphabetic letters from non-latin alphabets
         for (int i = 0; i < editable.length(); i++) {
             if (Character.isLetter(editable.charAt(i)) || Character.isSpaceChar(editable.charAt(i))) {
                 editable.delete(i, i + 1);
