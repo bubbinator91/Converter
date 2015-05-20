@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.fragments;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,9 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.conversion.speed.Fps;
+import com.bubbinator91.converter.conversion.speed.Knot;
+import com.bubbinator91.converter.conversion.speed.Kph;
+import com.bubbinator91.converter.conversion.speed.Mph;
+import com.bubbinator91.converter.conversion.speed.Mps;
 import com.bubbinator91.converter.util.Utils;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import timber.log.Timber;
@@ -286,7 +290,8 @@ public class SpeedFragment extends BaseFragment {
         private Editable mEditableFps;
         private String mCallingClassName;
 
-        public ConversionFromFpsRunnable(Editable editableFps, String callingClassName) {
+        public ConversionFromFpsRunnable(@NonNull Editable editableFps,
+                                         @NonNull String callingClassName) {
             mEditableFps = editableFps;
             mCallingClassName = callingClassName;
         }
@@ -295,57 +300,22 @@ public class SpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableFps != null) {
-                if (Utils.isNumeric(mEditableFps.toString())) {
-                    try {
-                        BigDecimal fps = new BigDecimal(mEditableFps.toString());
-                        BigDecimal mph = fps.multiply(new BigDecimal(60*60))
-                                            .divide(new BigDecimal("5280"),
-                                                    getFieldLength(),
-                                                    BigDecimal.ROUND_HALF_UP);
-                        BigDecimal mps = fps.multiply(new BigDecimal("0.3048"));
-                        BigDecimal kph = fps.multiply(new BigDecimal("1.09728"));
-                        BigDecimal knot = fps.multiply(new BigDecimal("0.5924838012958964"));
+                final ArrayList<String> results =
+                        Fps.toAll(mEditableFps.toString(), getFieldLength());
 
-                        results.add(knot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kph
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mph
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 4);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextKnot.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextKph.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 4);
-                }
-            } else {
-                addWhitespaceItems(results, 4);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextKnot.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextKph.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -355,7 +325,8 @@ public class SpeedFragment extends BaseFragment {
         private Editable mEditableKnot;
         private String mCallingClassName;
 
-        public ConversionFromKnotRunnable(Editable editableKnot, String callingClassName) {
+        public ConversionFromKnotRunnable(@NonNull Editable editableKnot,
+                                          @NonNull String callingClassName) {
             mEditableKnot = editableKnot;
             mCallingClassName = callingClassName;
         }
@@ -364,54 +335,22 @@ public class SpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableKnot != null) {
-                if (Utils.isNumeric(mEditableKnot.toString())) {
-                    try {
-                        BigDecimal knot = new BigDecimal(mEditableKnot.toString());
-                        BigDecimal fps = knot.multiply(new BigDecimal("1.6878098571011957"));
-                        BigDecimal mph = knot.multiply(new BigDecimal("1.1507794480235425"));
-                        BigDecimal mps = knot.multiply(new BigDecimal("0.5144444444444445"));
-                        BigDecimal kph = knot.multiply(new BigDecimal("1.852"));
+                final ArrayList<String> results =
+                        Knot.toAll(mEditableKnot.toString(), getFieldLength());
 
-                        results.add(fps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kph
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mph
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 4);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextKph.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 4);
-                }
-            } else {
-                addWhitespaceItems(results, 4);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextKph.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -421,7 +360,8 @@ public class SpeedFragment extends BaseFragment {
         private Editable mEditableKph;
         private String mCallingClassName;
 
-        public ConversionFromKphRunnable(Editable editableKph, String callingClassName) {
+        public ConversionFromKphRunnable(@NonNull Editable editableKph,
+                                         @NonNull String callingClassName) {
             mEditableKph = editableKph;
             mCallingClassName = callingClassName;
         }
@@ -430,56 +370,22 @@ public class SpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableKph != null) {
-                if (Utils.isNumeric(mEditableKph.toString())) {
-                    try {
-                        BigDecimal kph = new BigDecimal(mEditableKph.toString());
-                        BigDecimal fps = kph.multiply(new BigDecimal("0.9113444152814232"));
-                        BigDecimal mph = kph.multiply(new BigDecimal("0.621371192237334"));
-                        BigDecimal mps = kph.divide(new BigDecimal("3.6"),
-                                                    getFieldLength(),
-                                                    BigDecimal.ROUND_HALF_UP);
-                        BigDecimal knot = kph.multiply(new BigDecimal("0.5399568034557235"));
+                final ArrayList<String> results =
+                        Kph.toAll(mEditableKph.toString(), getFieldLength());
 
-                        results.add(fps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(knot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mph
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 4);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 4);
-                }
-            } else {
-                addWhitespaceItems(results, 4);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -489,7 +395,8 @@ public class SpeedFragment extends BaseFragment {
         private Editable mEditableMps;
         private String mCallingClassName;
 
-        public ConversionFromMpsRunnable(Editable editableMps, String callingClassName) {
+        public ConversionFromMpsRunnable(@NonNull Editable editableMps,
+                                         @NonNull String callingClassName) {
             mEditableMps = editableMps;
             mCallingClassName = callingClassName;
         }
@@ -498,54 +405,22 @@ public class SpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableMps != null) {
-                if (Utils.isNumeric(mEditableMps.toString())) {
-                    try {
-                        BigDecimal mps = new BigDecimal(mEditableMps.toString());
-                        BigDecimal fps = mps.multiply(new BigDecimal("3.2808398950131235"));
-                        BigDecimal mph = mps.multiply(new BigDecimal("2.2369362920544025"));
-                        BigDecimal kph = mps.multiply(new BigDecimal("3.6"));
-                        BigDecimal knot = mps.multiply(new BigDecimal("1.9438444924406046"));
+                final ArrayList<String> results =
+                        Mps.toAll(mEditableMps.toString(), getFieldLength());
 
-                        results.add(fps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(knot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kph
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mph
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 4);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKph.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 4);
-                }
-            } else {
-                addWhitespaceItems(results, 4);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextKph.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -555,7 +430,8 @@ public class SpeedFragment extends BaseFragment {
         private Editable mEditableMph;
         private String mCallingClassName;
 
-        public ConversionFromMphRunnable(Editable editableMph, String callingClassName) {
+        public ConversionFromMphRunnable(@NonNull Editable editableMph,
+                                         @NonNull String callingClassName) {
             mEditableMph = editableMph;
             mCallingClassName = callingClassName;
         }
@@ -564,60 +440,22 @@ public class SpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableMph != null) {
-                if (Utils.isNumeric(mEditableMph.toString())) {
-                    try {
-                        BigDecimal mph = new BigDecimal(mEditableMph.toString());
-                        BigDecimal fps = mph.multiply(new BigDecimal("5280"))
-                                            .divide(new BigDecimal("60"),
-                                                    getFieldLength(),
-                                                    BigDecimal.ROUND_HALF_UP)
-                                            .divide(new BigDecimal("60"),
-                                                    getFieldLength(),
-                                                    BigDecimal.ROUND_HALF_UP);
-                        BigDecimal mps = mph.multiply(new BigDecimal("0.44704"));
-                        BigDecimal kph = mph.multiply(new BigDecimal("1.609344"));
-                        BigDecimal knot = mph.multiply(new BigDecimal("0.8689762419006479"));
+                final ArrayList<String> results =
+                        Mph.toAll(mEditableMph.toString(), getFieldLength());
 
-                        results.add(fps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(knot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kph
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 4);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKph.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 4);
-                }
-            } else {
-                addWhitespaceItems(results, 4);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextKph.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMps.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 

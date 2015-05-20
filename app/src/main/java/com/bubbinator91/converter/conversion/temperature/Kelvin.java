@@ -26,9 +26,9 @@ public class Kelvin {
      * @return  The equivalent celsius and fahrenheit values stored in an {@link ArrayList}, in
      *          that order.
      */
-    public static ArrayList<String> convert(@NonNull String kelvin, int roundingLength) {
-        Timber.tag(TAG + ".convert").i("Entered");
-        Timber.tag(TAG + ".convert").i("kelvin = " + kelvin);
+    public static ArrayList<String> toAll(@NonNull String kelvin, int roundingLength) {
+        Timber.tag(TAG + ".toAll").i("Entered");
+        Timber.tag(TAG + ".toAll").i("kelvin = " + kelvin);
         int decimalPlaces = (roundingLength < 0) ? 0 : roundingLength;
         ArrayList<String> results = new ArrayList<>();
         if (Utils.isNumeric(kelvin)) {
@@ -36,11 +36,12 @@ public class Kelvin {
                 results.add(toCelsius(kelvin, decimalPlaces));
                 results.add(toFahrenheit(kelvin, decimalPlaces));
             } catch (NumberFormatException e) {
-                Timber.tag(TAG + ".convert").e(e.getMessage());
+                Timber.tag(TAG + ".toAll").e(e.getMessage());
                 Utils.addWhitespaceItems(results, 2);
             }
         } else {
-            Timber.tag(TAG + ".convert").i("Input was not numeric");
+            Timber.tag(TAG + ".toAll").i("Input was not numeric");
+            results.clear();
             Utils.addWhitespaceItems(results, 2);
         }
         return results;

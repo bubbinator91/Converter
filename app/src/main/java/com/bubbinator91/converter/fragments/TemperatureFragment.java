@@ -233,7 +233,7 @@ public class TemperatureFragment extends BaseFragment {
 
             if (mEditableCelsius != null) {
                 final ArrayList<String> results =
-                        Celsius.convert(mEditableCelsius.toString(), getFieldLength());
+                        Celsius.toAll(mEditableCelsius.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -268,7 +268,7 @@ public class TemperatureFragment extends BaseFragment {
 
             if (mEditableFahrenheit != null) {
                 final ArrayList<String> results =
-                        Fahrenheit.convert(mEditableFahrenheit.toString(), getFieldLength());
+                        Fahrenheit.toAll(mEditableFahrenheit.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -302,7 +302,7 @@ public class TemperatureFragment extends BaseFragment {
 
             if (mEditableKelvin != null) {
                 final ArrayList<String> results =
-                        Kelvin.convert(mEditableKelvin.toString(), getFieldLength());
+                        Kelvin.toAll(mEditableKelvin.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
                     @Override
