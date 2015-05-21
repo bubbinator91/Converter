@@ -67,7 +67,8 @@ public class Fahrenheit {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
             BigDecimal celsius = temperature.subtract(new BigDecimal("32"))
-                    .multiply(new BigDecimal(5.0 / 9.0))
+                    .multiply((new BigDecimal("5"))
+                            .divide(new BigDecimal("9"), 100, BigDecimal.ROUND_HALF_UP))
                     .setScale(decimalPlaces, BigDecimal.ROUND_HALF_UP);
             if (celsius.compareTo(BigDecimal.ZERO) == 0) {
                 celsius = BigDecimal.ZERO;

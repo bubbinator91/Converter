@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.fragments;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,9 +11,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.conversion.length.Centimeter;
+import com.bubbinator91.converter.conversion.length.Foot;
+import com.bubbinator91.converter.conversion.length.Inch;
+import com.bubbinator91.converter.conversion.length.Kilometer;
+import com.bubbinator91.converter.conversion.length.Meter;
+import com.bubbinator91.converter.conversion.length.Mile;
+import com.bubbinator91.converter.conversion.length.Millimeter;
+import com.bubbinator91.converter.conversion.length.Yard;
 import com.bubbinator91.converter.util.Utils;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import timber.log.Timber;
@@ -398,7 +405,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableInch;
         private String mCallingClassName;
 
-        public ConversionFromInchRunnable(Editable editableInch, String callingClassName) {
+        public ConversionFromInchRunnable(@NonNull Editable editableInch,
+                                          @NonNull String callingClassName) {
             mEditableInch = editableInch;
             mCallingClassName = callingClassName;
         }
@@ -407,84 +415,25 @@ public class LengthFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableInch != null) {
-                if (Utils.isNumeric(mEditableInch.toString())) {
-                    try {
-                        BigDecimal inch = new BigDecimal(mEditableInch.toString());
-                        BigDecimal foot = inch.divide(new BigDecimal("12")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal yard = foot.divide(new BigDecimal("3")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
-                        BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
+                final ArrayList<String> results =
+                        Inch.toAll(mEditableInch.toString(), getFieldLength());
 
-                        results.add(foot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(yard
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mile
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(millimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(centimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(meter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kilometer
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 7);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextFoot.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 7);
-                }
-            } else {
-                addWhitespaceItems(results, 7);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextFoot.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextYard.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextMile.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                    editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                    editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -494,7 +443,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableFoot;
         private String mCallingClassName;
 
-        public ConversionFromFootRunnable(Editable editableFoot, String callingClassName) {
+        public ConversionFromFootRunnable(@NonNull Editable editableFoot,
+                                          @NonNull String callingClassName) {
             mEditableFoot = editableFoot;
             mCallingClassName = callingClassName;
         }
@@ -503,82 +453,25 @@ public class LengthFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableFoot != null) {
-                if (Utils.isNumeric(mEditableFoot.toString())) {
-                    try {
-                        BigDecimal foot = new BigDecimal(mEditableFoot.toString());
-                        BigDecimal inch = foot.multiply(new BigDecimal("12"));
-                        BigDecimal yard = foot.divide(new BigDecimal("3")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
-                        BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
+                final ArrayList<String> results =
+                        Foot.toAll(mEditableFoot.toString(), getFieldLength());
 
-                        results.add(inch
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(yard
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mile
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(millimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(centimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(meter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kilometer
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 7);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 7);
-                }
-            } else {
-                addWhitespaceItems(results, 7);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextYard.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextMile.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                    editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                    editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -588,7 +481,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableYard;
         private String mCallingClassName;
 
-        public ConversionFromYardRunnable(Editable editableYard, String callingClassName) {
+        public ConversionFromYardRunnable(@NonNull Editable editableYard,
+                                          @NonNull String callingClassName) {
             mEditableYard = editableYard;
             mCallingClassName = callingClassName;
         }
@@ -597,80 +491,25 @@ public class LengthFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableYard != null) {
-                if (Utils.isNumeric(mEditableYard.toString())) {
-                    try {
-                        BigDecimal yard = new BigDecimal(mEditableYard.toString());
-                        BigDecimal inch = yard.multiply(new BigDecimal("36"));
-                        BigDecimal foot = yard.multiply(new BigDecimal("3"));
-                        BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
-                        BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
+                final ArrayList<String> results =
+                        Yard.toAll(mEditableYard.toString(), getFieldLength());
 
-                        results.add(inch
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(foot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mile
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(millimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(centimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(meter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kilometer
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 7);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 7);
-                }
-            } else {
-                addWhitespaceItems(results, 7);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextMile.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                    editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                    editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -680,7 +519,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableMile;
         private String mCallingClassName;
 
-        public ConversionFromMileRunnable(Editable editableMile, String callingClassName) {
+        public ConversionFromMileRunnable(@NonNull Editable editableMile,
+                                          @NonNull String callingClassName) {
             mEditableMile = editableMile;
             mCallingClassName = callingClassName;
         }
@@ -689,78 +529,25 @@ public class LengthFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableMile != null) {
-                if (Utils.isNumeric(mEditableMile.toString())) {
-                    try {
-                        BigDecimal mile = new BigDecimal(mEditableMile.toString());
-                        BigDecimal inch = mile.multiply(new BigDecimal("63360"));
-                        BigDecimal foot = mile.multiply(new BigDecimal("5280"));
-                        BigDecimal yard = mile.multiply(new BigDecimal("1760"));
-                        BigDecimal millimeter = inch.multiply(new BigDecimal("25.4"));
-                        BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
+                final ArrayList<String> results =
+                        Mile.toAll(mEditableMile.toString(), getFieldLength());
 
-                        results.add(inch
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(foot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(yard
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(millimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(centimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(meter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kilometer
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 7);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 7);
-                }
-            } else {
-                addWhitespaceItems(results, 7);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                    editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                    editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -770,7 +557,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableMillimeter;
         private String mCallingClassName;
 
-        public ConversionFromMillimeterRunnable(Editable editableMillimeter, String callingClassName) {
+        public ConversionFromMillimeterRunnable(@NonNull Editable editableMillimeter,
+                                                @NonNull String callingClassName) {
             mEditableMillimeter = editableMillimeter;
             mCallingClassName = callingClassName;
         }
@@ -779,83 +567,25 @@ public class LengthFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableMillimeter != null) {
-                if (Utils.isNumeric(mEditableMillimeter.toString())) {
-                    try {
-                        BigDecimal millimeter = new BigDecimal(mEditableMillimeter.toString());
-                        BigDecimal inch = millimeter
-                                .multiply(new BigDecimal("0.03937007874015748031496062992126"));
-                        BigDecimal foot = millimeter
-                                .multiply(new BigDecimal("0.00328083989501312335958005249344"));
-                        BigDecimal yard = millimeter
-                                .multiply(new BigDecimal("0.00109361329833770778652668416448"));
-                        BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal centimeter = millimeter.divide(new BigDecimal("10")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal meter = millimeter.divide(new BigDecimal("1000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal kilometer = millimeter.divide(new BigDecimal("1000000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
+                final ArrayList<String> results =
+                        Millimeter.toAll(mEditableMillimeter.toString(), getFieldLength());
 
-                        results.add(inch
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(foot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(yard
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mile
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(centimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(meter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kilometer
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 7);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 7);
-                }
-            } else {
-                addWhitespaceItems(results, 7);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                    editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                    editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -865,7 +595,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableCentimeter;
         private String mCallingClassName;
 
-        public ConversionFromCentimeterRunnable(Editable editableCentimeter, String callingClassName) {
+        public ConversionFromCentimeterRunnable(@NonNull Editable editableCentimeter,
+                                                @NonNull String callingClassName) {
             mEditableCentimeter = editableCentimeter;
             mCallingClassName = callingClassName;
         }
@@ -874,81 +605,25 @@ public class LengthFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableCentimeter != null) {
-                if (Utils.isNumeric(mEditableCentimeter.toString())) {
-                    try {
-                        BigDecimal centimeter = new BigDecimal(mEditableCentimeter.toString());
-                        BigDecimal inch = centimeter
-                                .multiply(new BigDecimal("0.3937007874015748031496062992126"));
-                        BigDecimal foot = centimeter
-                                .multiply(new BigDecimal("0.0328083989501312335958005249344"));
-                        BigDecimal yard = centimeter
-                                .multiply(new BigDecimal("0.0109361329833770778652668416448"));
-                        BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal millimeter = centimeter.multiply(new BigDecimal("10"));
-                        BigDecimal meter = centimeter.divide(new BigDecimal("100")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal kilometer = centimeter.divide(new BigDecimal("100000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
+                final ArrayList<String> results =
+                        Centimeter.toAll(mEditableCentimeter.toString(), getFieldLength());
 
-                        results.add(inch
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(foot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(yard
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mile
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(millimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(meter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kilometer
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 7);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 7);
-                }
-            } else {
-                addWhitespaceItems(results, 7);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    editTextMillimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                    editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                    editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -958,7 +633,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableMeter;
         private String mCallingClassName;
 
-        public ConversionFromMeterRunnable(Editable editableMeter, String callingClassName) {
+        public ConversionFromMeterRunnable(@NonNull Editable editableMeter,
+                                           @NonNull String callingClassName) {
             mEditableMeter = editableMeter;
             mCallingClassName = callingClassName;
         }
@@ -967,79 +643,25 @@ public class LengthFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableMeter != null) {
-                if (Utils.isNumeric(mEditableMeter.toString())) {
-                    try {
-                        BigDecimal meter = new BigDecimal(mEditableMeter.toString());
-                        BigDecimal inch = meter
-                                .multiply(new BigDecimal("39.37007874015748031496062992126"));
-                        BigDecimal foot = meter
-                                .multiply(new BigDecimal("3.28083989501312335958005249344"));
-                        BigDecimal yard = meter
-                                .multiply(new BigDecimal("1.09361329833770778652668416448"));
-                        BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal millimeter = meter.multiply(new BigDecimal("1000"));
-                        BigDecimal centimeter = meter.multiply(new BigDecimal("100"));
-                        BigDecimal kilometer = meter.divide(new BigDecimal("1000")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
+                final ArrayList<String> results =
+                        Meter.toAll(mEditableMeter.toString(), getFieldLength());
 
-                        results.add(inch
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(foot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(yard
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mile
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(millimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(centimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kilometer
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 7);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 7);
-                }
-            } else {
-                addWhitespaceItems(results, 7);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    editTextMillimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                    editTextCentimeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                    editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -1049,7 +671,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableKilometer;
         private String mCallingClassName;
 
-        public ConversionFromKilometerRunnable(Editable editableKilometer, String callingClassName) {
+        public ConversionFromKilometerRunnable(@NonNull Editable editableKilometer,
+                                               @NonNull String callingClassName) {
             mEditableKilometer = editableKilometer;
             mCallingClassName = callingClassName;
         }
@@ -1058,77 +681,25 @@ public class LengthFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableKilometer != null) {
-                if (Utils.isNumeric(mEditableKilometer.toString())) {
-                    try {
-                        BigDecimal kilometer = new BigDecimal(mEditableKilometer.toString());
-                        BigDecimal inch = kilometer
-                                .multiply(new BigDecimal("39370.07874015748031496062992126"));
-                        BigDecimal foot = kilometer
-                                .multiply(new BigDecimal("3280.83989501312335958005249344"));
-                        BigDecimal yard = kilometer
-                                .multiply(new BigDecimal("1093.61329833770778652668416448"));
-                        BigDecimal mile = foot.divide(new BigDecimal("5280")
-                                , getFieldLength()
-                                , BigDecimal.ROUND_HALF_UP);
-                        BigDecimal millimeter = kilometer.multiply(new BigDecimal("1000000"));
-                        BigDecimal centimeter = kilometer.multiply(new BigDecimal("100000"));
-                        BigDecimal meter = kilometer.multiply(new BigDecimal("1000"));
+                final ArrayList<String> results =
+                        Kilometer.toAll(mEditableKilometer.toString(), getFieldLength());
 
-                        results.add(inch
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(foot
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(yard
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mile
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(millimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(centimeter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(meter
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 7);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 7);
-                }
-            } else {
-                addWhitespaceItems(results, 7);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                    editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                    editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
-                    editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
-                    editTextMillimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                    editTextCentimeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                    editTextMeter.setText(results.get(6), TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 

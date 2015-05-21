@@ -159,8 +159,7 @@ public class Fps {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
             speed = speed.multiply(new BigDecimal("3600"))
-                    .divide(new BigDecimal("5280"), decimalPlaces, BigDecimal.ROUND_HALF_UP)
-                    .setScale(decimalPlaces, BigDecimal.ROUND_HALF_UP);
+                    .divide(new BigDecimal("5280"), decimalPlaces, BigDecimal.ROUND_HALF_UP);
             if (speed.compareTo(BigDecimal.ZERO) == 0) {
                 speed = BigDecimal.ZERO;
             }
