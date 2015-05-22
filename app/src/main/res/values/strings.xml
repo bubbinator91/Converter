@@ -68,12 +68,4 @@
     <string name="util_key_decimal">decimal_places</string>
     <string name="util_key_trans_from_settings">transitioned_from_settings</string>
 
-    <string name="com.crashlytics.CrashSubmissionPromptTitle">Send Crash Report?</string>
-    <string name="com.crashlytics.CrashSubmissionPromptMessage">
-          Looks like we crashed! Please help us fix the problem
-          by sending a crash report.
-	</string>
-    <string name="com.crashlytics.CrashSubmissionSendTitle">Send</string>
-    <string name="com.crashlytics.CrashSubmissionAlwaysSendTitle">Always Send</string>
-    <string name="com.crashlytics.CrashSubmissionCancelTitle">Don\'t Send</string>
 </resources>
