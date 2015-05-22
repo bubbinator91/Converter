@@ -16,7 +16,7 @@ import com.bubbinator91.converter.conversion.temperature.Fahrenheit;
 import com.bubbinator91.converter.conversion.temperature.Kelvin;
 import com.bubbinator91.converter.util.Utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -232,17 +232,15 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableCelsius != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Celsius.toAll(mEditableCelsius.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFahrenheit.setText(results.get(0)
-                                , TextView.BufferType.EDITABLE);
-                        editTextKelvin.setText(results.get(1)
-                                , TextView.BufferType.EDITABLE);
+                        editTextFahrenheit.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextKelvin.setText(results.get(1), TextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -267,17 +265,15 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableFahrenheit != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Fahrenheit.toAll(mEditableFahrenheit.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextCelsius.setText(results.get(0)
-                                , TextView.BufferType.EDITABLE);
-                        editTextKelvin.setText(results.get(1)
-                                , TextView.BufferType.EDITABLE);
+                        editTextCelsius.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextKelvin.setText(results.get(1), TextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -301,17 +297,15 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKelvin != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Kelvin.toAll(mEditableKelvin.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextCelsius.setText(results.get(0)
-                                , TextView.BufferType.EDITABLE);
-                        editTextFahrenheit.setText(results.get(1)
-                                , TextView.BufferType.EDITABLE);
+                        editTextCelsius.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextFahrenheit.setText(results.get(1), TextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });

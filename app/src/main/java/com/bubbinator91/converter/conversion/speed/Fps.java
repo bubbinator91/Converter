@@ -10,21 +10,21 @@ import java.util.ArrayList;
 import timber.log.Timber;
 
 /**
- * Handles the conversion from fps (feet per second) to other units of speed
+ * Handles the conversion from feet per second to other units of speed
  */
 public class Fps {
     private static final String TAG = "Fps";
 
     /**
-     * Static method that takes in the fps value as a {@link String} and converts it to knots, kph,
-     * mps, and mph.
+     * Static method that takes in the feet per second value as a {@link String} and converts it to
+     * knots, kilometers per hour, meters per second, and miles per hour.
      *
-     * @param fps               The fps value as a {@link String}. Cannot be null.
+     * @param fps               The feet per second value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent knot, kph, mps, and mph values stored in an {@link ArrayList}, in
-     *          that order.
+     * @return  The equivalent knot, kilometers per hour, meters per second, and miles per hour
+     *          values stored in an {@link ArrayList}, in that order.
      */
     public static ArrayList<String> toAll(@NonNull String fps, int roundingLength) {
         Timber.tag(TAG + ".toAll").i("Entered");
@@ -50,13 +50,14 @@ public class Fps {
     }
 
     /**
-     * Static method that takes in the fps value as a {@link String} and converts it to knots.
+     * Static method that takes in the feet per second value as a {@link String} and converts it to
+     * knots.
      *
-     * @param fps               The fps value as a {@link String}. Cannot be null;
+     * @param fps               The feet per second value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent knot value as a {@link String}.
+     * @return  The equivalent knots value as a {@link String}.
      *
      * @throws  NumberFormatException
      */
@@ -80,13 +81,14 @@ public class Fps {
     }
 
     /**
-     * Static method that takes in the fps value as a {@link String} and converts it to kph.
+     * Static method that takes in the feet per second value as a {@link String} and converts it to
+     * kilometers per hour.
      *
-     * @param fps               The fps value as a {@link String}. Cannot be null;
+     * @param fps               The feet per second value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent kph value as a {@link String}.
+     * @return  The equivalent kilometers per hour value as a {@link String}.
      *
      * @throws  NumberFormatException
      */
@@ -110,13 +112,14 @@ public class Fps {
     }
 
     /**
-     * Static method that takes in the fps value as a {@link String} and converts it to mps.
+     * Static method that takes in the feet per second value as a {@link String} and converts it to
+     * meters per second.
      *
-     * @param fps               The fps value as a {@link String}. Cannot be null;
+     * @param fps               The feet per second value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent mps value as a {@link String}.
+     * @return  The equivalent meters per second value as a {@link String}.
      *
      * @throws  NumberFormatException
      */
@@ -140,13 +143,14 @@ public class Fps {
     }
 
     /**
-     * Static method that takes in the fps value as a {@link String} and converts it to mph.
+     * Static method that takes in the feet per second value as a {@link String} and converts it to
+     * miles per hour.
      *
-     * @param fps               The fps value as a {@link String}. Cannot be null;
+     * @param fps               The feet per second value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent mph value as a {@link String}.
+     * @return  The equivalent miles per hour value as a {@link String}.
      *
      * @throws  NumberFormatException
      */

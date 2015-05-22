@@ -10,21 +10,21 @@ import java.util.ArrayList;
 import timber.log.Timber;
 
 /**
- * Handles the conversion from kph to other units of speed
+ * Handles the conversion from kilometers per hour to other units of speed
  */
 public class Kph {
     private static final String TAG = "Kph";
 
     /**
-     * Static method that takes in the kph value as a {@link String} and converts it to fps, knots,
-     * mps, and mph.
+     * Static method that takes in the kilometers per hour value as a {@link String} and converts it
+     * to feet per second, knots, meters per second, and miles per hour.
      *
      * @param kph               The kph value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent fps, knot, mps, and mph values stored in an {@link ArrayList}, in
-     *          that order.
+     * @return  The equivalent feet per second, knots, meters per second, and miles per hour values
+     *          stored in an {@link ArrayList}, in that order.
      */
     public static ArrayList<String> toAll(@NonNull String kph, int roundingLength) {
         Timber.tag(TAG + ".toAll").i("Entered");
@@ -50,13 +50,14 @@ public class Kph {
     }
 
     /**
-     * Static method that takes in the kph value as a {@link String} and converts it to fps.
+     * Static method that takes in the kilometers per hour value as a {@link String} and converts it
+     * to feet per second.
      *
-     * @param kph               The kph value as a {@link String}. Cannot be null;
+     * @param kph               The kilometers per hour value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent fps value as a {@link String}.
+     * @return  The equivalent feet per second value as a {@link String}.
      *
      * @throws  NumberFormatException
      */
@@ -80,13 +81,14 @@ public class Kph {
     }
 
     /**
-     * Static method that takes in the kph value as a {@link String} and converts it to knots.
+     * Static method that takes in the kilometers per hour value as a {@link String} and converts it
+     * to knots.
      *
-     * @param kph               The kph value as a {@link String}. Cannot be null;
+     * @param kph               The kilometers per hour value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent knot value as a {@link String}.
+     * @return  The equivalent knots value as a {@link String}.
      *
      * @throws  NumberFormatException
      */
@@ -110,13 +112,14 @@ public class Kph {
     }
 
     /**
-     * Static method that takes in the kph value as a {@link String} and converts it to mps.
+     * Static method that takes in the kilometers per hour value as a {@link String} and converts it
+     * to meters per second.
      *
-     * @param kph               The kph value as a {@link String}. Cannot be null;
+     * @param kph               The kilometers per hour value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent mps value as a {@link String}.
+     * @return  The equivalent meters per second value as a {@link String}.
      *
      * @throws  NumberFormatException
      */
@@ -139,13 +142,14 @@ public class Kph {
     }
 
     /**
-     * Static method that takes in the kph value as a {@link String} and converts it to mph.
+     * Static method that takes in the kilometers per hour value as a {@link String} and converts it
+     * to miles per hour.
      *
-     * @param kph               The kph value as a {@link String}. Cannot be null;
+     * @param kph               The kilometers per hour value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent mph value as a {@link String}.
+     * @return  The equivalent miles per hour value as a {@link String}.
      *
      * @throws  NumberFormatException
      */

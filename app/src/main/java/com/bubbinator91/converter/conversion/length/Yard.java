@@ -55,7 +55,7 @@ public class Yard {
     /**
      * Static method that takes in the yard value as a {@link String} and converts it to inches.
      *
-     * @param yard              The yard value as a {@link String}. Cannot be null;
+     * @param yard              The yard value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -85,7 +85,7 @@ public class Yard {
     /**
      * Static method that takes in the yard value as a {@link String} and converts it to feet.
      *
-     * @param yard              The yard value as a {@link String}. Cannot be null;
+     * @param yard              The yard value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -115,7 +115,7 @@ public class Yard {
     /**
      * Static method that takes in the yard value as a {@link String} and converts it to miles.
      *
-     * @param yard              The yard value as a {@link String}. Cannot be null;
+     * @param yard              The yard value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -145,7 +145,7 @@ public class Yard {
      * Static method that takes in the yard value as a {@link String} and converts it to
      * millimeters.
      *
-     * @param yard              The yard value as a {@link String}. Cannot be null;
+     * @param yard              The yard value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -176,7 +176,7 @@ public class Yard {
      * Static method that takes in the yard value as a {@link String} and converts it to
      * centimeters.
      *
-     * @param yard              The yard value as a {@link String}. Cannot be null;
+     * @param yard              The yard value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -206,7 +206,7 @@ public class Yard {
     /**
      * Static method that takes in the yard value as a {@link String} and converts it to meters.
      *
-     * @param yard              The yard value as a {@link String}. Cannot be null;
+     * @param yard              The yard value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -236,7 +236,7 @@ public class Yard {
     /**
      * Static method that takes in the yard value as a {@link String} and converts it to kilometers.
      *
-     * @param yard              The yard value as a {@link String}. Cannot be null;
+     * @param yard              The yard value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *

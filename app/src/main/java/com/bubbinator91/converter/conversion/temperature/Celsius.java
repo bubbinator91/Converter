@@ -19,7 +19,7 @@ public class Celsius {
      * Static method that takes in the celsius value as a {@link String} and converts it to both
      * fahrenheit and kelvin.
      *
-     * @param celsius           The celsius value as a {@link String}. Cannot be null;
+     * @param celsius           The celsius value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -51,7 +51,7 @@ public class Celsius {
      * Static method that takes in the celsius value as a {@link String} and converts it to
      * fahrenheit.
      *
-     * @param celsius           The celsius value as a {@link String}. Cannot be null;
+     * @param celsius           The celsius value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -85,7 +85,7 @@ public class Celsius {
      * Static method that takes in the celsius value as a {@link String} and converts it to
      * kelvin.
      *
-     * @param celsius           The celsius value as a {@link String}. Cannot be null;
+     * @param celsius           The celsius value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *

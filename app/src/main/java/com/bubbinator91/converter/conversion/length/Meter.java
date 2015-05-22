@@ -55,7 +55,7 @@ public class Meter {
     /**
      * Static method that takes in the meter value as a {@link String} and converts it to inches.
      *
-     * @param meter             The meter value as a {@link String}. Cannot be null;
+     * @param meter             The meter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -85,7 +85,7 @@ public class Meter {
     /**
      * Static method that takes in the meter value as a {@link String} and converts it to feet.
      *
-     * @param meter             The meter value as a {@link String}. Cannot be null;
+     * @param meter             The meter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -115,7 +115,7 @@ public class Meter {
     /**
      * Static method that takes in the meter value as a {@link String} and converts it to yards.
      *
-     * @param meter             The meter value as a {@link String}. Cannot be null;
+     * @param meter             The meter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -145,7 +145,7 @@ public class Meter {
     /**
      * Static method that takes in the meter value as a {@link String} and converts it to miles.
      *
-     * @param meter             The meter value as a {@link String}. Cannot be null;
+     * @param meter             The meter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -176,7 +176,7 @@ public class Meter {
      * Static method that takes in the meter value as a {@link String} and converts it to
      * millimeters.
      *
-     * @param meter             The meter value as a {@link String}. Cannot be null;
+     * @param meter             The meter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -207,7 +207,7 @@ public class Meter {
      * Static method that takes in the meter value as a {@link String} and converts it to
      * centimeters.
      *
-     * @param meter             The meter value as a {@link String}. Cannot be null;
+     * @param meter             The meter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -238,7 +238,7 @@ public class Meter {
      * Static method that takes in the meter value as a {@link String} and converts it to
      * kilometers.
      *
-     * @param meter             The meter value as a {@link String}. Cannot be null;
+     * @param meter             The meter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *

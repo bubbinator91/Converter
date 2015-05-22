@@ -19,7 +19,7 @@ public class Fahrenheit {
      * Static method that takes in the fahrenheit value as a {@link String} and converts it to both
      * celsius and kelvin.
      *
-     * @param fahrenheit           The fahrenheit value as a {@link String}. Cannot be null;
+     * @param fahrenheit           The fahrenheit value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -51,7 +51,7 @@ public class Fahrenheit {
      * Static method that takes in the fahrenheit value as a {@link String} and converts it to
      * fahrenheit.
      *
-     * @param fahrenheit        The fahrenheit value as a {@link String}. Cannot be null;
+     * @param fahrenheit        The fahrenheit value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -85,7 +85,7 @@ public class Fahrenheit {
      * Static method that takes in the fahrenheit value as a {@link String} and converts it to
      * kelvin.
      *
-     * @param fahrenheit        The fahrenheit value as a {@link String}. Cannot be null;
+     * @param fahrenheit        The fahrenheit value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *

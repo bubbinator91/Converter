@@ -56,7 +56,7 @@ public class Kilometer {
      * Static method that takes in the kilometer value as a {@link String} and converts it to
      * inches.
      *
-     * @param kilometer         The kilometer value as a {@link String}. Cannot be null;
+     * @param kilometer         The kilometer value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -86,7 +86,7 @@ public class Kilometer {
     /**
      * Static method that takes in the kilometer value as a {@link String} and converts it to feet.
      *
-     * @param kilometer         The kilometer value as a {@link String}. Cannot be null;
+     * @param kilometer         The kilometer value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -116,7 +116,7 @@ public class Kilometer {
     /**
      * Static method that takes in the kilometer value as a {@link String} and converts it to yards.
      *
-     * @param kilometer         The kilometer value as a {@link String}. Cannot be null;
+     * @param kilometer         The kilometer value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -146,7 +146,7 @@ public class Kilometer {
     /**
      * Static method that takes in the kilometer value as a {@link String} and converts it to miles.
      *
-     * @param kilometer         The kilometer value as a {@link String}. Cannot be null;
+     * @param kilometer         The kilometer value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -177,7 +177,7 @@ public class Kilometer {
      * Static method that takes in the kilometer value as a {@link String} and converts it to
      * millimeters.
      *
-     * @param kilometer         The kilometer value as a {@link String}. Cannot be null;
+     * @param kilometer         The kilometer value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -208,7 +208,7 @@ public class Kilometer {
      * Static method that takes in the kilometer value as a {@link String} and converts it to
      * centimeters.
      *
-     * @param kilometer         The kilometer value as a {@link String}. Cannot be null;
+     * @param kilometer         The kilometer value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -239,7 +239,7 @@ public class Kilometer {
      * Static method that takes in the kilometer value as a {@link String} and converts it to
      * meters.
      *
-     * @param kilometer         The kilometer value as a {@link String}. Cannot be null;
+     * @param kilometer         The kilometer value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *

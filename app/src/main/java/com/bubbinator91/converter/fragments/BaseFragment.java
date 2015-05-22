@@ -19,8 +19,6 @@ import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Globals;
 
 import java.util.ArrayList;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import timber.log.Timber;
 

@@ -56,7 +56,7 @@ public class Millimeter {
      * Static method that takes in the millimeter value as a {@link String} and converts it to
      * inches.
      *
-     * @param millimeter        The millimeter value as a {@link String}. Cannot be null;
+     * @param millimeter        The millimeter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -86,7 +86,7 @@ public class Millimeter {
     /**
      * Static method that takes in the millimeter value as a {@link String} and converts it to feet.
      *
-     * @param millimeter        The millimeter value as a {@link String}. Cannot be null;
+     * @param millimeter        The millimeter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -117,7 +117,7 @@ public class Millimeter {
      * Static method that takes in the millimeter value as a {@link String} and converts it to
      * yards.
      *
-     * @param millimeter        The millimeter value as a {@link String}. Cannot be null;
+     * @param millimeter        The millimeter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -148,7 +148,7 @@ public class Millimeter {
      * Static method that takes in the millimeter value as a {@link String} and converts it to
      * miles.
      *
-     * @param millimeter        The millimeter value as a {@link String}. Cannot be null;
+     * @param millimeter        The millimeter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -179,7 +179,7 @@ public class Millimeter {
      * Static method that takes in the millimeter value as a {@link String} and converts it to
      * centimeters.
      *
-     * @param millimeter        The millimeter value as a {@link String}. Cannot be null;
+     * @param millimeter        The millimeter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -209,7 +209,7 @@ public class Millimeter {
      * Static method that takes in the millimeter value as a {@link String} and converts it to
      * meters.
      *
-     * @param millimeter        The millimeter value as a {@link String}. Cannot be null;
+     * @param millimeter        The millimeter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -239,7 +239,7 @@ public class Millimeter {
      * Static method that takes in the millimeter value as a {@link String} and converts it to
      * kilometers.
      *
-     * @param millimeter        The millimeter value as a {@link String}. Cannot be null;
+     * @param millimeter        The millimeter value as a {@link String}. Cannot be null.
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *

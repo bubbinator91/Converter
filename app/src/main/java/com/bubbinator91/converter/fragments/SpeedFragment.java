@@ -18,7 +18,7 @@ import com.bubbinator91.converter.conversion.speed.Mph;
 import com.bubbinator91.converter.conversion.speed.Mps;
 import com.bubbinator91.converter.util.Utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -301,7 +301,7 @@ public class SpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableFps != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Fps.toAll(mEditableFps.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -336,7 +336,7 @@ public class SpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKnot != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Knot.toAll(mEditableKnot.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -371,7 +371,7 @@ public class SpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKph != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Kph.toAll(mEditableKph.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -406,7 +406,7 @@ public class SpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMps != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Mps.toAll(mEditableMps.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -441,7 +441,7 @@ public class SpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMph != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Mph.toAll(mEditableMph.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {

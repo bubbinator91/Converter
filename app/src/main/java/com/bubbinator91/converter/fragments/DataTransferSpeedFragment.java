@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.fragments;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,10 +11,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.conversion.datatransferspeed.Bps;
+import com.bubbinator91.converter.conversion.datatransferspeed.Byps;
+import com.bubbinator91.converter.conversion.datatransferspeed.GByps;
+import com.bubbinator91.converter.conversion.datatransferspeed.Gbps;
+import com.bubbinator91.converter.conversion.datatransferspeed.KByps;
+import com.bubbinator91.converter.conversion.datatransferspeed.Kbps;
+import com.bubbinator91.converter.conversion.datatransferspeed.MByps;
+import com.bubbinator91.converter.conversion.datatransferspeed.Mbps;
+import com.bubbinator91.converter.conversion.datatransferspeed.TByps;
+import com.bubbinator91.converter.conversion.datatransferspeed.Tbps;
 import com.bubbinator91.converter.util.Utils;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -464,7 +473,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
         private Editable mEditableBps;
         private String mCallingClassName;
 
-        public ConversionFromBpsRunnable(Editable editableBps, String callingClassName) {
+        public ConversionFromBpsRunnable(@NonNull Editable editableBps,
+                                         @NonNull String callingClassName) {
             mEditableBps = editableBps;
             mCallingClassName = callingClassName;
         }
@@ -473,93 +483,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableBps != null) {
-                if (Utils.isNumeric(mEditableBps.toString())) {
-                    try {
-                        BigDecimal bps = new BigDecimal(mEditableBps.toString());
-                        BigDecimal byps = bps.multiply(new BigDecimal("0.125"));
-                        BigDecimal kbps = bps.multiply(new BigDecimal("0.001"));
-                        BigDecimal kbyps = bps.multiply(new BigDecimal("0.000125"));
-                        BigDecimal mbps = bps.multiply(new BigDecimal("0.000001"));
-                        BigDecimal mbyps = bps.multiply(new BigDecimal("0.000000125"));
-                        BigDecimal gbps = bps.multiply(new BigDecimal("0.000000001"));
-                        BigDecimal gbyps = bps.multiply(new BigDecimal("0.000000000125"));
-                        BigDecimal tbps = bps.multiply(new BigDecimal("0.000000000001"));
-                        BigDecimal tbyps = bps.multiply(new BigDecimal("0.000000000000125"));
+                final List<String> results =
+                        Bps.toAll(mEditableBps.toString(), getFieldLength());
 
-                        results.add(byps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 9);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextByps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextKbps.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKbyps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMbps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMbyps.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextGbps.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextGbyps.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextTbps.setText(results.get(7), TextView.BufferType.EDITABLE);
+                        editTextTbyps.setText(results.get(8), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 9);
-                }
-            } else {
-                addWhitespaceItems(results, 9);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextByps.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbps.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbyps.setText(results.get(2)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbps.setText(results.get(3)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbyps.setText(results.get(4)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbps.setText(results.get(5)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbyps.setText(results.get(6)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbps.setText(results.get(7)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbyps.setText(results.get(8)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -569,7 +513,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
         private Editable mEditableByps;
         private String mCallingClassName;
 
-        public ConversionFromBypsRunnable(Editable editableByps, String callingClassName) {
+        public ConversionFromBypsRunnable(@NonNull Editable editableByps,
+                                          @NonNull String callingClassName) {
             mEditableByps = editableByps;
             mCallingClassName = callingClassName;
         }
@@ -578,93 +523,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableByps != null) {
-                if (Utils.isNumeric(mEditableByps.toString())) {
-                    try {
-                        BigDecimal byps = new BigDecimal(mEditableByps.toString());
-                        BigDecimal bps = byps.multiply(new BigDecimal("8"));
-                        BigDecimal kbps = byps.multiply(new BigDecimal("0.008"));
-                        BigDecimal kbyps = byps.multiply(new BigDecimal("0.001"));
-                        BigDecimal mbps = byps.multiply(new BigDecimal("0.000008"));
-                        BigDecimal mbyps = byps.multiply(new BigDecimal("0.000001"));
-                        BigDecimal gbps = byps.multiply(new BigDecimal("0.000000008"));
-                        BigDecimal gbyps = byps.multiply(new BigDecimal("0.000000001"));
-                        BigDecimal tbps = byps.multiply(new BigDecimal("0.000000000008"));
-                        BigDecimal tbyps = byps.multiply(new BigDecimal("0.000000000001"));
+                final List<String> results =
+                        Byps.toAll(mEditableByps.toString(), getFieldLength());
 
-                        results.add(bps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 9);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextBps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextKbps.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKbyps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMbps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMbyps.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextGbps.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextGbyps.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextTbps.setText(results.get(7), TextView.BufferType.EDITABLE);
+                        editTextTbyps.setText(results.get(8), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 9);
-                }
-            } else {
-                addWhitespaceItems(results, 9);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextBps.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbps.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbyps.setText(results.get(2)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbps.setText(results.get(3)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbyps.setText(results.get(4)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbps.setText(results.get(5)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbyps.setText(results.get(6)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbps.setText(results.get(7)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbyps.setText(results.get(8)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -674,7 +553,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
         private Editable mEditableKbps;
         private String mCallingClassName;
 
-        public ConversionFromKbpsRunnable(Editable editableKbps, String callingClassName) {
+        public ConversionFromKbpsRunnable(@NonNull Editable editableKbps,
+                                          @NonNull String callingClassName) {
             mEditableKbps = editableKbps;
             mCallingClassName = callingClassName;
         }
@@ -683,93 +563,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableKbps != null) {
-                if (Utils.isNumeric(mEditableKbps.toString())) {
-                    try {
-                        BigDecimal kbps = new BigDecimal(mEditableKbps.toString());
-                        BigDecimal bps = kbps.multiply(new BigDecimal("1000"));
-                        BigDecimal byps = kbps.multiply(new BigDecimal("125"));
-                        BigDecimal kbyps = kbps.multiply(new BigDecimal("0.125"));
-                        BigDecimal mbps = kbps.multiply(new BigDecimal("0.001"));
-                        BigDecimal mbyps = kbps.multiply(new BigDecimal("0.000125"));
-                        BigDecimal gbps = kbps.multiply(new BigDecimal("0.000001"));
-                        BigDecimal gbyps = kbps.multiply(new BigDecimal("0.000000125"));
-                        BigDecimal tbps = kbps.multiply(new BigDecimal("0.000000001"));
-                        BigDecimal tbyps = kbps.multiply(new BigDecimal("0.000000000125"));
+                final List<String> results =
+                        Kbps.toAll(mEditableKbps.toString(), getFieldLength());
 
-                        results.add(bps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(byps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 9);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextBps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextByps.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKbyps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMbps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMbyps.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextGbps.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextGbyps.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextTbps.setText(results.get(7), TextView.BufferType.EDITABLE);
+                        editTextTbyps.setText(results.get(8), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 9);
-                }
-            } else {
-                addWhitespaceItems(results, 9);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextBps.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextByps.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbyps.setText(results.get(2)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbps.setText(results.get(3)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbyps.setText(results.get(4)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbps.setText(results.get(5)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbyps.setText(results.get(6)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbps.setText(results.get(7)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbyps.setText(results.get(8)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -779,7 +593,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
         private Editable mEditableKbyps;
         private String mCallingClassName;
 
-        public ConversionFromKbypsRunnable(Editable editableKbyps, String callingClassName) {
+        public ConversionFromKbypsRunnable(@NonNull Editable editableKbyps,
+                                           @NonNull String callingClassName) {
             mEditableKbyps = editableKbyps;
             mCallingClassName = callingClassName;
         }
@@ -788,93 +603,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableKbyps != null) {
-                if (Utils.isNumeric(mEditableKbyps.toString())) {
-                    try {
-                        BigDecimal kbyps = new BigDecimal(mEditableKbyps.toString());
-                        BigDecimal bps = kbyps.multiply(new BigDecimal("8000"));
-                        BigDecimal byps = kbyps.multiply(new BigDecimal("1000"));
-                        BigDecimal kbps = kbyps.multiply(new BigDecimal("8"));
-                        BigDecimal mbps = kbyps.multiply(new BigDecimal("0.008"));
-                        BigDecimal mbyps = kbyps.multiply(new BigDecimal("0.001"));
-                        BigDecimal gbps = kbyps.multiply(new BigDecimal("0.000008"));
-                        BigDecimal gbyps = kbyps.multiply(new BigDecimal("0.000001"));
-                        BigDecimal tbps = kbyps.multiply(new BigDecimal("0.000000008"));
-                        BigDecimal tbyps = kbyps.multiply(new BigDecimal("0.000000001"));
+                final List<String> results =
+                        KByps.toAll(mEditableKbyps.toString(), getFieldLength());
 
-                        results.add(bps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(byps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 9);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextBps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextByps.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKbps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextMbps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMbyps.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextGbps.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextGbyps.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextTbps.setText(results.get(7), TextView.BufferType.EDITABLE);
+                        editTextTbyps.setText(results.get(8), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 9);
-                }
-            } else {
-                addWhitespaceItems(results, 9);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextBps.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextByps.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbps.setText(results.get(2)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbps.setText(results.get(3)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbyps.setText(results.get(4)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbps.setText(results.get(5)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbyps.setText(results.get(6)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbps.setText(results.get(7)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbyps.setText(results.get(8)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -884,7 +633,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
         private Editable mEditableMbps;
         private String mCallingClassName;
 
-        public ConversionFromMbpsRunnable(Editable editableMbps, String callingClassName) {
+        public ConversionFromMbpsRunnable(@NonNull Editable editableMbps,
+                                          @NonNull String callingClassName) {
             mEditableMbps = editableMbps;
             mCallingClassName = callingClassName;
         }
@@ -893,93 +643,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableMbps != null) {
-                if (Utils.isNumeric(mEditableMbps.toString())) {
-                    try {
-                        BigDecimal mbps = new BigDecimal(mEditableMbps.toString());
-                        BigDecimal bps = mbps.multiply(new BigDecimal("1000000"));
-                        BigDecimal byps = mbps.multiply(new BigDecimal("125000"));
-                        BigDecimal kbps = mbps.multiply(new BigDecimal("1000"));
-                        BigDecimal kbyps = mbps.multiply(new BigDecimal("125"));
-                        BigDecimal mbyps = mbps.multiply(new BigDecimal("0.125"));
-                        BigDecimal gbps = mbps.multiply(new BigDecimal("0.001"));
-                        BigDecimal gbyps = mbps.multiply(new BigDecimal("0.000125"));
-                        BigDecimal tbps = mbps.multiply(new BigDecimal("0.000001"));
-                        BigDecimal tbyps = mbps.multiply(new BigDecimal("0.000000125"));
+                final List<String> results =
+                        Mbps.toAll(mEditableMbps.toString(), getFieldLength());
 
-                        results.add(bps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(byps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 9);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextBps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextByps.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKbps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextKbyps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMbyps.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextGbps.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextGbyps.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextTbps.setText(results.get(7), TextView.BufferType.EDITABLE);
+                        editTextTbyps.setText(results.get(8), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 9);
-                }
-            } else {
-                addWhitespaceItems(results, 9);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextBps.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextByps.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbps.setText(results.get(2)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbyps.setText(results.get(3)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbyps.setText(results.get(4)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbps.setText(results.get(5)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbyps.setText(results.get(6)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbps.setText(results.get(7)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbyps.setText(results.get(8)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -989,7 +673,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
         private Editable mEditableMbyps;
         private String mCallingClassName;
 
-        public ConversionFromMbypsRunnable(Editable editableMbyps, String callingClassName) {
+        public ConversionFromMbypsRunnable(@NonNull Editable editableMbyps,
+                                           @NonNull String callingClassName) {
             mEditableMbyps = editableMbyps;
             mCallingClassName = callingClassName;
         }
@@ -998,93 +683,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableMbyps != null) {
-                if (Utils.isNumeric(mEditableMbyps.toString())) {
-                    try {
-                        BigDecimal mbyps = new BigDecimal(mEditableMbyps.toString());
-                        BigDecimal bps = mbyps.multiply(new BigDecimal("8000000"));
-                        BigDecimal byps = mbyps.multiply(new BigDecimal("1000000"));
-                        BigDecimal kbps = mbyps.multiply(new BigDecimal("8000"));
-                        BigDecimal kbyps = mbyps.multiply(new BigDecimal("1000"));
-                        BigDecimal mbps = mbyps.multiply(new BigDecimal("8"));
-                        BigDecimal gbps = mbyps.multiply(new BigDecimal("0.008"));
-                        BigDecimal gbyps = mbyps.multiply(new BigDecimal("0.001"));
-                        BigDecimal tbps = mbyps.multiply(new BigDecimal("0.000008"));
-                        BigDecimal tbyps = mbyps.multiply(new BigDecimal("0.000001"));
+                final List<String> results =
+                        MByps.toAll(mEditableMbyps.toString(), getFieldLength());
 
-                        results.add(bps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(byps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 9);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextBps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextByps.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKbps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextKbyps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMbps.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextGbps.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextGbyps.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextTbps.setText(results.get(7), TextView.BufferType.EDITABLE);
+                        editTextTbyps.setText(results.get(8), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 9);
-                }
-            } else {
-                addWhitespaceItems(results, 9);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextBps.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextByps.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbps.setText(results.get(2)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbyps.setText(results.get(3)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbps.setText(results.get(4)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbps.setText(results.get(5)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbyps.setText(results.get(6)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbps.setText(results.get(7)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbyps.setText(results.get(8)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -1094,7 +713,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
         private Editable mEditableGbps;
         private String mCallingClassName;
 
-        public ConversionFromGbpsRunnable(Editable editableGbps, String callingClassName) {
+        public ConversionFromGbpsRunnable(@NonNull Editable editableGbps,
+                                          @NonNull String callingClassName) {
             mEditableGbps = editableGbps;
             mCallingClassName = callingClassName;
         }
@@ -1103,93 +723,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableGbps != null) {
-                if (Utils.isNumeric(mEditableGbps.toString())) {
-                    try {
-                        BigDecimal gbps = new BigDecimal(mEditableGbps.toString());
-                        BigDecimal bps = gbps.multiply(new BigDecimal("1000000000"));
-                        BigDecimal byps = gbps.multiply(new BigDecimal("125000000"));
-                        BigDecimal kbps = gbps.multiply(new BigDecimal("1000000"));
-                        BigDecimal kbyps = gbps.multiply(new BigDecimal("125000"));
-                        BigDecimal mbps = gbps.multiply(new BigDecimal("1000"));
-                        BigDecimal mbyps = gbps.multiply(new BigDecimal("125"));
-                        BigDecimal gbyps = gbps.multiply(new BigDecimal("0.125"));
-                        BigDecimal tbps = gbps.multiply(new BigDecimal("0.001"));
-                        BigDecimal tbyps = gbps.multiply(new BigDecimal("0.000125"));
+                final List<String> results =
+                        Gbps.toAll(mEditableGbps.toString(), getFieldLength());
 
-                        results.add(bps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(byps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 9);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextBps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextByps.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKbps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextKbyps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMbps.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextMbyps.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextGbyps.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextTbps.setText(results.get(7), TextView.BufferType.EDITABLE);
+                        editTextTbyps.setText(results.get(8), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 9);
-                }
-            } else {
-                addWhitespaceItems(results, 9);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextBps.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextByps.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbps.setText(results.get(2)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbyps.setText(results.get(3)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbps.setText(results.get(4)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbyps.setText(results.get(5)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbyps.setText(results.get(6)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbps.setText(results.get(7)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbyps.setText(results.get(8)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -1199,7 +753,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
         private Editable mEditableGbyps;
         private String mCallingClassName;
 
-        public ConversionFromGbypsRunnable(Editable editableGbyps, String callingClassName) {
+        public ConversionFromGbypsRunnable(@NonNull Editable editableGbyps,
+                                           @NonNull String callingClassName) {
             mEditableGbyps = editableGbyps;
             mCallingClassName = callingClassName;
         }
@@ -1208,93 +763,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableGbyps != null) {
-                if (Utils.isNumeric(mEditableGbyps.toString())) {
-                    try {
-                        BigDecimal gbyps = new BigDecimal(mEditableGbyps.toString());
-                        BigDecimal bps = gbyps.multiply(new BigDecimal("8000000000"));
-                        BigDecimal byps = gbyps.multiply(new BigDecimal("1000000000"));
-                        BigDecimal kbps = gbyps.multiply(new BigDecimal("8000000"));
-                        BigDecimal kbyps = gbyps.multiply(new BigDecimal("1000000"));
-                        BigDecimal mbps = gbyps.multiply(new BigDecimal("8000"));
-                        BigDecimal mbyps = gbyps.multiply(new BigDecimal("1000"));
-                        BigDecimal gbps = gbyps.multiply(new BigDecimal("8"));
-                        BigDecimal tbps = gbyps.multiply(new BigDecimal("0.008"));
-                        BigDecimal tbyps = gbyps.multiply(new BigDecimal("0.001"));
+                final List<String> results =
+                        GByps.toAll(mEditableGbyps.toString(), getFieldLength());
 
-                        results.add(bps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(byps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 9);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextBps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextByps.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKbps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextKbyps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMbps.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextMbyps.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextGbps.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextTbps.setText(results.get(7), TextView.BufferType.EDITABLE);
+                        editTextTbyps.setText(results.get(8), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 9);
-                }
-            } else {
-                addWhitespaceItems(results, 9);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextBps.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextByps.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbps.setText(results.get(2)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbyps.setText(results.get(3)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbps.setText(results.get(4)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbyps.setText(results.get(5)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbps.setText(results.get(6)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbps.setText(results.get(7)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbyps.setText(results.get(8)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -1304,7 +793,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
         private Editable mEditableTbps;
         private String mCallingClassName;
 
-        public ConversionFromTbpsRunnable(Editable editableTbps, String callingClassName) {
+        public ConversionFromTbpsRunnable(@NonNull Editable editableTbps,
+                                          @NonNull String callingClassName) {
             mEditableTbps = editableTbps;
             mCallingClassName = callingClassName;
         }
@@ -1313,93 +803,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableTbps != null) {
-                if (Utils.isNumeric(mEditableTbps.toString())) {
-                    try {
-                        BigDecimal tbps = new BigDecimal(mEditableTbps.toString());
-                        BigDecimal bps = tbps.multiply(new BigDecimal("1000000000000"));
-                        BigDecimal byps = tbps.multiply(new BigDecimal("125000000000"));
-                        BigDecimal kbps = tbps.multiply(new BigDecimal("1000000000"));
-                        BigDecimal kbyps = tbps.multiply(new BigDecimal("125000000"));
-                        BigDecimal mbps = tbps.multiply(new BigDecimal("1000000"));
-                        BigDecimal mbyps = tbps.multiply(new BigDecimal("125000"));
-                        BigDecimal gbps = tbps.multiply(new BigDecimal("1000"));
-                        BigDecimal gbyps = tbps.multiply(new BigDecimal("125"));
-                        BigDecimal tbyps = tbps.multiply(new BigDecimal("0.125"));
+                final List<String> results =
+                        Tbps.toAll(mEditableTbps.toString(), getFieldLength());
 
-                        results.add(bps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(byps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 9);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextBps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextByps.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKbps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextKbyps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMbps.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextMbyps.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextGbps.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextGbyps.setText(results.get(7), TextView.BufferType.EDITABLE);
+                        editTextTbyps.setText(results.get(8), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 9);
-                }
-            } else {
-                addWhitespaceItems(results, 9);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextBps.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextByps.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbps.setText(results.get(2)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbyps.setText(results.get(3)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbps.setText(results.get(4)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbyps.setText(results.get(5)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbps.setText(results.get(6)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbyps.setText(results.get(7)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbyps.setText(results.get(8)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 
@@ -1409,7 +833,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
         private Editable mEditableTbyps;
         private String mCallingClassName;
 
-        public ConversionFromTbypsRunnable(Editable editableTbyps, String callingClassName) {
+        public ConversionFromTbypsRunnable(@NonNull Editable editableTbyps,
+                                           @NonNull String callingClassName) {
             mEditableTbyps = editableTbyps;
             mCallingClassName = callingClassName;
         }
@@ -1418,93 +843,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void run() {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
-            final ArrayList<String> results = new ArrayList<>();
             if (mEditableTbyps != null) {
-                if (Utils.isNumeric(mEditableTbyps.toString())) {
-                    try {
-                        BigDecimal tbyps = new BigDecimal(mEditableTbyps.toString());
-                        BigDecimal bps = tbyps.multiply(new BigDecimal("8000000000000"));
-                        BigDecimal byps = tbyps.multiply(new BigDecimal("1000000000000"));
-                        BigDecimal kbps = tbyps.multiply(new BigDecimal("8000000000"));
-                        BigDecimal kbyps = tbyps.multiply(new BigDecimal("1000000000"));
-                        BigDecimal mbps = tbyps.multiply(new BigDecimal("8000000"));
-                        BigDecimal mbyps = tbyps.multiply(new BigDecimal("1000000"));
-                        BigDecimal gbps = tbyps.multiply(new BigDecimal("8000"));
-                        BigDecimal gbyps = tbyps.multiply(new BigDecimal("1000"));
-                        BigDecimal tbps = tbyps.multiply(new BigDecimal("8"));
+                final List<String> results =
+                        TByps.toAll(mEditableTbyps.toString(), getFieldLength());
 
-                        results.add(bps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(byps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(kbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(mbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(gbyps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                        results.add(tbps
-                                .setScale(getFieldLength(), BigDecimal.ROUND_HALF_UP)
-                                .stripTrailingZeros()
-                                .toPlainString());
-                    } catch (NumberFormatException e) {
-                        Timber.tag(mCallingClassName + "." + this.TAG + ".run").e(e.getMessage());
-                        addWhitespaceItems(results, 9);
+                getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                        editTextBps.setText(results.get(0), TextView.BufferType.EDITABLE);
+                        editTextByps.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextKbps.setText(results.get(2), TextView.BufferType.EDITABLE);
+                        editTextKbyps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextMbps.setText(results.get(4), TextView.BufferType.EDITABLE);
+                        editTextMbyps.setText(results.get(5), TextView.BufferType.EDITABLE);
+                        editTextGbps.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextGbyps.setText(results.get(7), TextView.BufferType.EDITABLE);
+                        editTextTbps.setText(results.get(8), TextView.BufferType.EDITABLE);
+                        addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
-                } else {
-                    addWhitespaceItems(results, 9);
-                }
-            } else {
-                addWhitespaceItems(results, 9);
+                });
             }
-
-            getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    removeTextChangedListeners(TAG + "." + mCallingClassName);
-                    editTextBps.setText(results.get(0)
-                            , TextView.BufferType.EDITABLE);
-                    editTextByps.setText(results.get(1)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbps.setText(results.get(2)
-                            , TextView.BufferType.EDITABLE);
-                    editTextKbyps.setText(results.get(3)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbps.setText(results.get(4)
-                            , TextView.BufferType.EDITABLE);
-                    editTextMbyps.setText(results.get(5)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbps.setText(results.get(6)
-                            , TextView.BufferType.EDITABLE);
-                    editTextGbyps.setText(results.get(7)
-                            , TextView.BufferType.EDITABLE);
-                    editTextTbps.setText(results.get(8)
-                            , TextView.BufferType.EDITABLE);
-                    addTextChangedListeners(TAG + "." + mCallingClassName);
-                }
-            });
         }
     }
 

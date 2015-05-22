@@ -21,7 +21,7 @@ import com.bubbinator91.converter.conversion.length.Millimeter;
 import com.bubbinator91.converter.conversion.length.Yard;
 import com.bubbinator91.converter.util.Utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -416,7 +416,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableInch != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Inch.toAll(mEditableInch.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -454,7 +454,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableFoot != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Foot.toAll(mEditableFoot.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -492,7 +492,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableYard != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Yard.toAll(mEditableYard.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -530,7 +530,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMile != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Mile.toAll(mEditableMile.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -568,7 +568,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMillimeter != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Millimeter.toAll(mEditableMillimeter.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -606,7 +606,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableCentimeter != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Centimeter.toAll(mEditableCentimeter.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -644,7 +644,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMeter != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Meter.toAll(mEditableMeter.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
@@ -682,7 +682,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKilometer != null) {
-                final ArrayList<String> results =
+                final List<String> results =
                         Kilometer.toAll(mEditableKilometer.toString(), getFieldLength());
 
                 getHandler().post(new Runnable() {
