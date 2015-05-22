@@ -267,13 +267,17 @@ public class MainActivity extends BaseActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.fragment_slide_in_right,
-                                R.anim.fragment_slide_out_left)
-                        .replace(R.id.container, fragment)
-                        .addToBackStack(null)
-                        .commit();
+                try {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.fragment_slide_in_right,
+                                    R.anim.fragment_slide_out_left)
+                            .replace(R.id.container, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                } catch (IllegalStateException e) {
+                    Timber.tag(TAG + ".changeToFragment").e(e.getMessage());
+                }
             }
         }, 225);
     }
