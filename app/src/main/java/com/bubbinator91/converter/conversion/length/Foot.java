@@ -43,11 +43,11 @@ public class Foot {
             } catch (NumberFormatException e) {
                 Timber.tag(TAG + ".toAll").e(e.getMessage());
                 results.clear();
-                Utils.addWhitespaceItems(results, 4);
+                Utils.addWhitespaceItems(results, 7);
             }
         } else {
             Timber.tag(TAG + ".toAll").i("Input was not numeric");
-            Utils.addWhitespaceItems(results, 4);
+            Utils.addWhitespaceItems(results, 7);
         }
         return results;
     }
