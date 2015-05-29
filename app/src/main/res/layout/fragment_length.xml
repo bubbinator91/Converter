@@ -8,7 +8,6 @@
     android:paddingTop="?android:attr/actionBarSize"
     android:clipToPadding="false"
     android:overScrollMode="never"
-    android:background="@color/colorFragmentBackground"
     tools:context=".MainActivity">
 
     <RelativeLayout

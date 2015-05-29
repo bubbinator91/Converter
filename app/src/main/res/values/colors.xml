@@ -9,6 +9,4 @@
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#B6B6B6</color>
     <color name="colorHighlight">#ffe6e6e6</color>
-
-    <color name="colorFragmentBackground">#fff0f0f0</color>
 </resources>
