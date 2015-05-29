@@ -5,19 +5,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_dts"
-            android:icon="@drawable/ic_computer_black_48dp"
+            android:icon="@drawable/ic_computer_black_48px"
             android:title="@string/title_data_transfer_speed"/>
         <item
             android:id="@+id/nav_length"
-            android:icon="@drawable/ic_ruler_black_48dp"
+            android:icon="@drawable/ic_ruler_black_48px"
             android:title="@string/title_length"/>
         <item
             android:id="@+id/nav_speed"
-            android:icon="@drawable/ic_car_black_48dp"
+            android:icon="@drawable/ic_car_black_48px"
             android:title="@string/title_speed"/>
         <item
             android:id="@+id/nav_temperature"
-            android:icon="@drawable/ic_flame_black_48dp"
+            android:icon="@drawable/ic_flame_black_48px"
             android:title="@string/title_temperature"/>
     </group>
 
