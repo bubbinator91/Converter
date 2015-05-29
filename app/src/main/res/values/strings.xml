@@ -9,7 +9,6 @@
     <string name="title_temperature">Temperature</string>
 
     <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_test_fragments">Fragments Test</string>
 
     <string name="data_transfer_speed_bps">Bits per second (bps):</string>
     <string name="data_transfer_speed_byps">Bytes per second (Bps):</string>
@@ -40,21 +39,6 @@
     <string name="temperature_celsius">Celsius:</string>
     <string name="temperature_kelvin">Kelvin:</string>
     <string name="temperature_fahrenheit">Fahrenheit:</string>
-
-    <string-array name="drawer_list_labels">
-        <item>Data Transfer Speed</item>
-        <item>Length</item>
-        <item>Speed</item>
-        <item>Temperature</item>
-    </string-array>
-
-    <array name="drawer_list_icons">
-        <item>@drawable/ic_warning_grey600_48dp</item>
-        <item>@drawable/ic_computer_grey600_48dp</item>
-        <item>@drawable/ic_ruler_grey600_48dp</item>
-        <item>@drawable/ic_bike_grey600_48dp</item>
-        <item>@drawable/ic_heat_grey600_48dp</item>
-    </array>
 
     <string name="activity_main_drawer_header_description">The header of the navigation drawer.</string>
     <string name="activity_main_drawer_icon_description">The icon of the current item.</string>
