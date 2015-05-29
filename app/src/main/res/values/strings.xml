@@ -58,6 +58,7 @@
 
     <string name="activity_main_drawer_header_description">The header of the navigation drawer.</string>
     <string name="activity_main_drawer_icon_description">The icon of the current item.</string>
+    <string name="activity_main_error_default_prefs">Could not get preferences. Using defaults.</string>
 
     <string name="activity_settings_logcat">Logcat Messages</string>
     <string name="activity_settings_logcat_summary">Turn on logcat messages</string>

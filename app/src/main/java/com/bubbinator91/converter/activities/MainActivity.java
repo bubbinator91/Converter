@@ -5,27 +5,21 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.fragments.*;
 import com.bubbinator91.converter.util.Globals;
-import com.bubbinator91.converter.util.NavigationDrawerItem;
-import com.bubbinator91.converter.util.NavigationDrawerListAdapter;
-
-import java.util.ArrayList;
 
 import timber.log.Timber;
 
@@ -41,14 +35,10 @@ public class MainActivity extends BaseActivity {
     private final String TAG = "MainActivity";
 
     private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private ListView mDrawerList;
-    private ArrayList<NavigationDrawerItem> mDrawerItems;
-    private NavigationDrawerListAdapter mDrawerListAdapter;
-    private String[] mDrawerTitles;
-    private TypedArray mDrawerIcons;
-    private int lastSelectedPosition;
-    private final String STATE_SELECTED_POSITION = "selected_fragment";
+    private NavigationView mNavigationView;
+    private ActionBarDrawerToggle mActionBarDrawerToggle;
+    private String lastSelectedFragment = null;
+    private final String STATE_SELECTED_FRAGMENT = "selected_fragment";
 
     private Handler mHandler;
     private boolean wasActivityRestarted = false;
@@ -64,19 +54,24 @@ public class MainActivity extends BaseActivity {
 
         mHandler = new Handler();
 
-        mDrawerTitles = getResources().getStringArray(R.array.drawer_list_labels);
-        mDrawerIcons = getResources().obtainTypedArray(R.array.drawer_list_icons);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.activity_main_layout);
+        mNavigationView = (NavigationView) findViewById(R.id.drawer_view);
 
-        mDrawerItems = new ArrayList<>();
-        for (int i = 0; i < mDrawerTitles.length; i++) {
-            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[i],
-                            mDrawerIcons.getResourceId((i + 1),
-                            0)));
-        }
-        mDrawerIcons.recycle();
+        mNavigationView.setNavigationItemSelectedListener(
+            new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem item) {
+                    if (!lastSelectedFragment.equals(item.getTitle().toString())) {
+                        if (preChangeToFragment(item.getTitle().toString())) {
+                            selectFragment(item.getTitle().toString());
+                        }
+                    }
+                    return true;
+                }
+            }
+        );
 
-        mDrawerLayout = ((DrawerLayout) findViewById(R.id.activity_main_layout));
-        mDrawerToggle = new ActionBarDrawerToggle(this,
+        mActionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 mDrawerLayout,
                 getToolbar(),
                 R.string.app_name,
@@ -89,13 +84,9 @@ public class MainActivity extends BaseActivity {
                         InputMethodManager.HIDE_NOT_ALWAYS);
             }
         };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
 
-        mDrawerList = ((ListView) findViewById(R.id.drawer_list));
-        mDrawerListAdapter = new NavigationDrawerListAdapter(getApplicationContext(), mDrawerItems);
-        mDrawerList.setAdapter(mDrawerListAdapter);
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
+        mActionBarDrawerToggle.syncState();
     }
 
     @Override
@@ -113,19 +104,20 @@ public class MainActivity extends BaseActivity {
 
         if (!wasActivityRestarted) {
             Timber.tag(TAG + ".onStart").i("Activity was not restarted");
-            lastSelectedPosition = PreferenceManager
+            lastSelectedFragment = PreferenceManager
                     .getDefaultSharedPreferences(this)
-                    .getInt(STATE_SELECTED_POSITION, 0);
-            Timber.tag(TAG + ".onStart").i("lastSelectedPosition = " + lastSelectedPosition);
+                    .getString(STATE_SELECTED_FRAGMENT, "null");
+            Timber.tag(TAG + ".onStart").i("lastSelectedFragment = " + lastSelectedFragment);
             if (!Globals.isTransitioningBackToMainActivity) {
-                if (lastSelectedPosition >= 0) {
-                    preChangeToFragment(lastSelectedPosition);
-                    selectFragment(lastSelectedPosition);
+                if (!lastSelectedFragment.equals("null")) {
+                    if (preChangeToFragment(lastSelectedFragment)) {
+                        selectFragment(lastSelectedFragment);
+                    }
                 }
             } else {
                 Globals.isTransitioningBackToMainActivity = false;
-                if (lastSelectedPosition >= 0) {
-                    preChangeToFragment(lastSelectedPosition);
+                if (!lastSelectedFragment.equals("null")) {
+                    preChangeToFragment(lastSelectedFragment);
                 }
             }
         }
@@ -140,8 +132,8 @@ public class MainActivity extends BaseActivity {
         Timber.tag(TAG + ".onResume").i("isLogcatEnabled = " + Globals.isLogcatEnabled);
         Timber.tag(TAG + ".onResume").i("decimalPlaceLength = " + Globals.decimalPlaceLength);
 
-        if (lastSelectedPosition >= 0) {
-            preChangeToFragment(lastSelectedPosition);
+        if (!lastSelectedFragment.equals("null")) {
+            preChangeToFragment(lastSelectedFragment);
         }
     }
 
@@ -190,7 +182,7 @@ public class MainActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(Gravity.START);
+                mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.action_settings:
                 InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
@@ -218,47 +210,51 @@ public class MainActivity extends BaseActivity {
      * Switches to the fragment that is selected by the user in
      * the navigation drawer.
      *
-     * @param position		the integer position of the selected fragment,
-     *                      which is used to determine which fragment to
-     *                      switch to
+     * @param fragmentName	the name of the selected fragment as a {@link String}, which is used to
+     *                      determine which fragment to switch to
      */
-    private void selectFragment(int position) {
+    private void selectFragment(String fragmentName) {
         Timber.tag(TAG + ".selectFragment").i("Entered");
 
-        switch (position) {
-            case 0:
-                changeToFragment(new DataTransferSpeedFragment());
-                break;
-            case 1:
-                changeToFragment(new LengthFragment());
-                break;
-            case 2:
-                changeToFragment(new SpeedFragment());
-                break;
-            case 3:
-                changeToFragment(new TemperatureFragment());
-                break;
-            default:
-                break;
+        if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
+            changeToFragment(new DataTransferSpeedFragment());
+        } else if (fragmentName.equals(getString(R.string.title_length))) {
+            changeToFragment(new LengthFragment());
+        } else if (fragmentName.equals(getString(R.string.title_speed))) {
+            changeToFragment(new SpeedFragment());
+        } else if (fragmentName.equals(getString(R.string.title_temperature))) {
+            changeToFragment(new TemperatureFragment());
         }
     }
 
-    private void preChangeToFragment(int position) {
+    private boolean preChangeToFragment(String fragmentName) {
         Timber.tag(TAG + ".preChangeToFragment").i("Entered");
-        Timber.tag(TAG + ".preChangeToFragment").i("position = " + position);
+        Timber.tag(TAG + ".preChangeToFragment").i("fragmentName = " + fragmentName);
 
-        lastSelectedPosition = position;
-        mDrawerList.setItemChecked(position, true);
-        mDrawerList.setSelection(position);
-        getToolbar().setTitle(mDrawerTitles[position]);
-        mDrawerLayout.closeDrawer(Gravity.START);
+        if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
+            mNavigationView.getMenu().findItem(R.id.nav_dts).setChecked(true);
+        } else if (fragmentName.equals(getString(R.string.title_length))) {
+            mNavigationView.getMenu().findItem(R.id.nav_length).setChecked(true);
+        } else if (fragmentName.equals(getString(R.string.title_speed))) {
+            mNavigationView.getMenu().findItem(R.id.nav_speed).setChecked(true);
+        } else if (fragmentName.equals(getString(R.string.title_temperature))) {
+            mNavigationView.getMenu().findItem(R.id.nav_temperature).setChecked(true);
+        } else {
+            return false;
+        }
+
+        lastSelectedFragment = fragmentName;
+        getToolbar().setTitle(fragmentName);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (preferences != null) {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(STATE_SELECTED_POSITION, lastSelectedPosition);
+            editor.putString(STATE_SELECTED_FRAGMENT, lastSelectedFragment);
             editor.apply();
         }
+
+        return true;
     }
 
     private void changeToFragment(final Fragment fragment) {
@@ -280,29 +276,6 @@ public class MainActivity extends BaseActivity {
                 }
             }
         }, 225);
-    }
-
-    // endregion
-
-    // region Private classes
-
-    /**
-     * A listener class that handles the event of the user selecting an item
-     * in the navigation drawer. If the selected position is a new position,
-     * the overridden {@link #onItemClick(AdapterView, View, int, long)} method
-     * passes that position into {@link #selectFragment(int)}, which switches
-     * to the selected fragment.
-     */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
-            Timber.tag(TAG + ".DrawerItemClickListener.onItemClick").i("Entered");
-            if ((position != lastSelectedPosition) && (position >= 0)) {
-                Timber.tag(TAG + ".DrawerItemClickListener.onItemClick").i("position = " + position);
-                preChangeToFragment(position);
-                selectFragment(position);
-            }
-        }
     }
 
     // endregion

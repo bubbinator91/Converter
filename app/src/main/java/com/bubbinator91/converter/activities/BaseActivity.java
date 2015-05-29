@@ -3,13 +3,13 @@ package com.bubbinator91.converter.activities;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Globals;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
 
 import timber.log.Timber;
 
@@ -30,6 +30,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Timber.tag(TAG + "." + getChildTag() + ".onCreate").i("Entered");
+        View rootView = View.inflate(this, getLayoutResourceId(), null);
+        setContentView(rootView);
 
 		PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
@@ -50,17 +52,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 			}
 		} else {
 			Timber.tag(TAG + "." + getChildTag() + ".onCreate").e("Could not get shared prefs");
-			SnackbarManager.show(
-					Snackbar.with(this)
-					.text("Could not get preferences. Running with defaults.")
-					.duration(5000),
-					this
-			);
 			Globals.isLogcatEnabled = false;
 			Globals.decimalPlaceLength  = 8;
+            Snackbar.make(rootView,
+                    getString(R.string.activity_main_error_default_prefs),
+                    Snackbar.LENGTH_LONG).show();
 		}
-
-		setContentView(getLayoutResourceId());
 
 		mToolbar = ((Toolbar) findViewById(R.id.toolbar));
 		setSupportActionBar(mToolbar);

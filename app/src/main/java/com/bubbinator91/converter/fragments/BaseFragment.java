@@ -116,7 +116,7 @@ public abstract class BaseFragment
 
     @Override
     public void onScrollChanged() {
-        if (isAdded() && shouldHideToolbarOnScroll) {
+        if (isAdded() && shouldHideToolbarOnScroll && (mScrollView.getScrollY() > mToolbarHeight)) {
             int dy = (mScrollView.getScrollY() - lastY);
 
             if (mToolbarOffset > mToolbarHeight) {

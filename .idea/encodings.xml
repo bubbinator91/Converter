@@ -18,10 +18,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/fragments/SpeedFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/fragments/TemperatureFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/Globals.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/NavigationDrawerItem.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/NavigationDrawerListAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/NumberPickerPreference.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/ScrimInsetsFrameLayout.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/bubbinator91/converter/util/Utils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build.gradle" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/settings.gradle" charset="UTF-8" />
