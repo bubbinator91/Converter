@@ -2,13 +2,13 @@ package com.bubbinator91.converter.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.conversion.temperature.Celsius;
@@ -34,7 +34,7 @@ public class TemperatureFragment extends BaseFragment {
 
     private final String TAG = "FragmentTemperature";
 
-    private EditText editTextCelsius, editTextFahrenheit, editTextKelvin;
+    private AppCompatEditText editTextCelsius, editTextFahrenheit, editTextKelvin;
 
     private LastEditTextFocused lastEditTextFocused;
 
@@ -112,12 +112,15 @@ public class TemperatureFragment extends BaseFragment {
         setShouldHideToolbarOnScroll(false);
 
         if (getRootView() != null) {
-            TextView textViewCelsius =
-                    ((TextView) getRootView().findViewById(R.id.textView_temperature_celsius));
-            TextView textViewFahrenheit =
-                    ((TextView) getRootView().findViewById(R.id.textView_temperature_fahrenheit));
-            TextView textViewKelvin =
-                    ((TextView) getRootView().findViewById(R.id.textView_temperature_kelvin));
+            AppCompatTextView textViewCelsius =
+                    ((AppCompatTextView) getRootView()
+                            .findViewById(R.id.textView_temperature_celsius));
+            AppCompatTextView textViewFahrenheit =
+                    ((AppCompatTextView) getRootView()
+                            .findViewById(R.id.textView_temperature_fahrenheit));
+            AppCompatTextView textViewKelvin =
+                    ((AppCompatTextView) getRootView()
+                            .findViewById(R.id.textView_temperature_kelvin));
 
             if (getTypeFace() != null) {
                 textViewCelsius.setTypeface(getTypeFace());
@@ -126,11 +129,14 @@ public class TemperatureFragment extends BaseFragment {
             }
 
             editTextCelsius =
-                    ((EditText) getRootView().findViewById(R.id.editText_temperature_celsius));
+                    ((AppCompatEditText) getRootView()
+                            .findViewById(R.id.editText_temperature_celsius));
             editTextFahrenheit =
-                    ((EditText) getRootView().findViewById(R.id.editText_temperature_fahrenheit));
+                    ((AppCompatEditText) getRootView()
+                            .findViewById(R.id.editText_temperature_fahrenheit));
             editTextKelvin =
-                    ((EditText) getRootView().findViewById(R.id.editText_temperature_kelvin));
+                    ((AppCompatEditText) getRootView()
+                            .findViewById(R.id.editText_temperature_kelvin));
 
             addTextChangedListeners(null);
         }
@@ -239,8 +245,10 @@ public class TemperatureFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFahrenheit.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextKelvin.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextFahrenheit.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextKelvin.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -272,8 +280,10 @@ public class TemperatureFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextCelsius.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextKelvin.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextCelsius.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextKelvin.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -304,8 +314,10 @@ public class TemperatureFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextCelsius.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextFahrenheit.setText(results.get(1), TextView.BufferType.EDITABLE);
+                        editTextCelsius.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextFahrenheit.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
