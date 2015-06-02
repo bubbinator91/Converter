@@ -27,35 +27,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_temperature_celsius"
-                    android:labelFor="@+id/editText_temperature_celsius"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/temperature_celsius"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_temperature_celsius"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789.-"
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/temperature_celsius"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -71,35 +61,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_temperature_fahrenheit"
-                    android:labelFor="@+id/editText_temperature_fahrenheit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/temperature_fahrenheit"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_temperature_fahrenheit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789.-"
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/temperature_fahrenheit"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -115,35 +95,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_temperature_kelvin"
-                    android:labelFor="@+id/editText_temperature_kelvin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/temperature_kelvin"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_temperature_kelvin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/temperature_kelvin"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 

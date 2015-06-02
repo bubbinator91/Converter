@@ -27,35 +27,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_data_transfer_speed_bps"
-                    android:labelFor="@+id/editText_data_transfer_speed_bps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/data_transfer_speed_bps"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_data_transfer_speed_bps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/data_transfer_speed_bps"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -71,35 +61,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_data_transfer_speed_byps"
-                    android:labelFor="@+id/editText_data_transfer_speed_byps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/data_transfer_speed_byps"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_data_transfer_speed_byps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/data_transfer_speed_byps"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -115,35 +95,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_data_transfer_speed_kbps"
-                    android:labelFor="@+id/editText_data_transfer_speed_kbps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/data_transfer_speed_kbps"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_data_transfer_speed_kbps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/data_transfer_speed_kbps"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -159,35 +129,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_data_transfer_speed_kbyps"
-                    android:labelFor="@+id/editText_data_transfer_speed_kbyps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/data_transfer_speed_kbyps"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_data_transfer_speed_kbyps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/data_transfer_speed_kbyps"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -203,35 +163,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_data_transfer_speed_mbps"
-                    android:labelFor="@+id/editText_data_transfer_speed_mbps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/data_transfer_speed_mbps"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_data_transfer_speed_mbps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/data_transfer_speed_mbps"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -247,35 +197,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_data_transfer_speed_mbyps"
-                    android:labelFor="@+id/editText_data_transfer_speed_mbyps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/data_transfer_speed_mbyps"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_data_transfer_speed_mbyps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/data_transfer_speed_mbyps"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -291,35 +231,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_data_transfer_speed_gbps"
-                    android:labelFor="@+id/editText_data_transfer_speed_gbps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/data_transfer_speed_gbps"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_data_transfer_speed_gbps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/data_transfer_speed_gbps"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -335,35 +265,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_data_transfer_speed_gbyps"
-                    android:labelFor="@+id/editText_data_transfer_speed_gbyps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/data_transfer_speed_gbyps"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_data_transfer_speed_gbyps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/data_transfer_speed_gbyps"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -379,35 +299,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_data_transfer_speed_tbps"
-                    android:labelFor="@+id/editText_data_transfer_speed_tbps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/data_transfer_speed_tbps"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_data_transfer_speed_tbps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/data_transfer_speed_tbps"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -424,35 +334,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_data_transfer_speed_tbyps"
-                    android:labelFor="@+id/editText_data_transfer_speed_tbyps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/data_transfer_speed_tbyps"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_data_transfer_speed_tbyps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/data_transfer_speed_tbyps"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 

@@ -259,50 +259,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            AppCompatTextView textViewBps =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_data_transfer_speed_bps));
-            AppCompatTextView textViewByps =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_data_transfer_speed_byps));
-            AppCompatTextView textViewKbps =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_data_transfer_speed_kbps));
-            AppCompatTextView textViewKbyps =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_data_transfer_speed_kbyps));
-            AppCompatTextView textViewMbps =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_data_transfer_speed_mbps));
-            AppCompatTextView textViewMbyps =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_data_transfer_speed_mbyps));
-            AppCompatTextView textViewGbps =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_data_transfer_speed_gbps));
-            AppCompatTextView textViewGbyps =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_data_transfer_speed_gbyps));
-            AppCompatTextView textViewTbps =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_data_transfer_speed_tbps));
-            AppCompatTextView textViewTbyps =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_data_transfer_speed_tbyps));
-
-            if (getTypeFace() != null) {
-                textViewBps.setTypeface(getTypeFace());
-                textViewByps.setTypeface(getTypeFace());
-                textViewKbps.setTypeface(getTypeFace());
-                textViewKbyps.setTypeface(getTypeFace());
-                textViewMbps.setTypeface(getTypeFace());
-                textViewMbyps.setTypeface(getTypeFace());
-                textViewGbps.setTypeface(getTypeFace());
-                textViewGbyps.setTypeface(getTypeFace());
-                textViewTbps.setTypeface(getTypeFace());
-                textViewTbyps.setTypeface(getTypeFace());
-            }
-
             editTextBps =
                     ((AppCompatEditText) getRootView()
                             .findViewById(R.id.editText_data_transfer_speed_bps));

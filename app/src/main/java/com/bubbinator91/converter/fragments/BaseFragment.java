@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -36,7 +35,6 @@ public abstract class BaseFragment
     private Handler mHandler = null;
     private SharedPreferences mPrefs = null;
     private int numOfDecimalPlaces = -1, lastY = 0;
-    private Typeface mTypeFace = null;
 
     private View rootView = null;
     private ScrollView mScrollView = null;
@@ -69,10 +67,7 @@ public abstract class BaseFragment
         Timber.tag(TAG + "." + getChildTag() + ".onCreateView").i("Entered");
         rootView = inflater.inflate(getLayoutResource(), container, false);
 
-        mHandler = mActivity.getWindow().getDecorView().getHandler();
-
-        mTypeFace = Typeface.createFromAsset(getCurrentActivity().getAssets(),
-                "fonts/Roboto-Regular.ttf");
+        mHandler = getCurrentActivity().getWindow().getDecorView().getHandler();
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
 
@@ -226,13 +221,6 @@ public abstract class BaseFragment
      * @return  The root view that was inflated in {@link #onCreate(Bundle)}.
      */
     protected View getRootView() { return rootView; }
-
-    /**
-     * Gets a {@link Typeface} that is loaded with the Roboto-Regular font.
-     *
-     * @return  A {@link Typeface} containing the Roboto-Regular font.
-     */
-    protected Typeface getTypeFace() { return mTypeFace; }
 
     // endregion
 

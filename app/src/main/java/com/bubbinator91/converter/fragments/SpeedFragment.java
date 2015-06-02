@@ -149,25 +149,6 @@ public class SpeedFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            AppCompatTextView textViewFps =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_speed_fps));
-            AppCompatTextView textViewKnot =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_speed_knot));
-            AppCompatTextView textViewKph =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_speed_kph));
-            AppCompatTextView textViewMps =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_speed_mps));
-            AppCompatTextView textViewMph =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_speed_mph));
-
-            if (getTypeFace() != null) {
-                textViewFps.setTypeface(getTypeFace());
-                textViewKnot.setTypeface(getTypeFace());
-                textViewKph.setTypeface(getTypeFace());
-                textViewMps.setTypeface(getTypeFace());
-                textViewMph.setTypeface(getTypeFace());
-            }
-
             editTextFps =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_fps));
             editTextKnot =

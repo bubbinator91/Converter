@@ -27,35 +27,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_length_inch"
-                    android:labelFor="@+id/editText_length_inch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_inch"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_length_inch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/length_inch"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -71,35 +61,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_length_foot"
-                    android:labelFor="@+id/editText_length_foot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_foot"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_length_foot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/length_foot"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -115,35 +95,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_length_yard"
-                    android:labelFor="@+id/editText_length_yard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_yard"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_length_yard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/length_yard"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -159,35 +129,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_length_mile"
-                    android:labelFor="@+id/editText_length_mile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_mile"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_length_mile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/length_mile"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -203,35 +163,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_length_millimeter"
-                    android:labelFor="@+id/editText_length_millimeter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_millimeter"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_length_millimeter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/length_millimeter"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -247,35 +197,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_length_centimeter"
-                    android:labelFor="@+id/editText_length_centimeter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_centimeter"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_length_centimeter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/length_centimeter"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -291,35 +231,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_length_meter"
-                    android:labelFor="@+id/editText_length_meter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_meter"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_length_meter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/length_meter"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 
@@ -335,35 +265,25 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <GridLayout
+            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView_length_kilometer"
-                    android:labelFor="@+id/editText_length_kilometer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_kilometer"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/editText_length_kilometer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:hint="@string/length_kilometer"/>
 
-            </GridLayout>
+            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
 
         </android.support.v7.widget.CardView>
 

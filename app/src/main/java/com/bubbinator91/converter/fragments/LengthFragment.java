@@ -221,34 +221,6 @@ public class LengthFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            AppCompatTextView textViewInch =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_inch));
-            AppCompatTextView textViewFoot =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_foot));
-            AppCompatTextView textViewYard =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_yard));
-            AppCompatTextView textViewMile =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_mile));
-            AppCompatTextView textViewMillimeter =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_millimeter));
-            AppCompatTextView textViewCentimeter =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_centimeter));
-            AppCompatTextView textViewMeter =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_meter));
-            AppCompatTextView textViewKilometer =
-                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_kilometer));
-
-            if (getTypeFace() != null) {
-                textViewInch.setTypeface(getTypeFace());
-                textViewFoot.setTypeface(getTypeFace());
-                textViewYard.setTypeface(getTypeFace());
-                textViewMile.setTypeface(getTypeFace());
-                textViewMillimeter.setTypeface(getTypeFace());
-                textViewCentimeter.setTypeface(getTypeFace());
-                textViewMeter.setTypeface(getTypeFace());
-                textViewKilometer.setTypeface(getTypeFace());
-            }
-
             editTextInch =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_inch));
             editTextFoot =

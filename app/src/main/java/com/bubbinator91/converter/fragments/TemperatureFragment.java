@@ -110,22 +110,6 @@ public class TemperatureFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            AppCompatTextView textViewCelsius =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_temperature_celsius));
-            AppCompatTextView textViewFahrenheit =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_temperature_fahrenheit));
-            AppCompatTextView textViewKelvin =
-                    ((AppCompatTextView) getRootView()
-                            .findViewById(R.id.textView_temperature_kelvin));
-
-            if (getTypeFace() != null) {
-                textViewCelsius.setTypeface(getTypeFace());
-                textViewFahrenheit.setTypeface(getTypeFace());
-                textViewKelvin.setTypeface(getTypeFace());
-            }
-
             editTextCelsius =
                     ((AppCompatEditText) getRootView()
                             .findViewById(R.id.editText_temperature_celsius));
