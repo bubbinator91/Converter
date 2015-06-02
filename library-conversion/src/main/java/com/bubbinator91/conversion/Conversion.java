@@ -1,4 +1,4 @@
-package com.bubbinator91.converter.conversion;
+package com.bubbinator91.conversion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public enum Conversion {
     ERROR_INPUT_NOT_NUMERIC,
     ERROR_UNKNOWN;
 
-    public static void addWhitespaceItems(List<String> list, int numItems) {
+    protected static void addEmptyItems(List<String> list, int numItems) {
         if (list == null) {
             list = new ArrayList<>();
         }
@@ -30,7 +30,7 @@ public enum Conversion {
      * @return  A boolean value indicating whether or not the string is numeric
      */
     @SuppressWarnings("all")
-    public static boolean isNumeric(String string) {
+    protected static boolean isNumeric(String string) {
         if (string.isEmpty()) {
             return false;
         }
@@ -138,3 +138,4 @@ public enum Conversion {
         return !allowSigns && foundDigit;
     }
 }
+

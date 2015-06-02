@@ -1,7 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -10,12 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bubbinator91.conversion.Conversion;
+import com.bubbinator91.conversion.Temperature;
+import com.bubbinator91.conversion.Tuple;
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.conversion.Conversion;
-import com.bubbinator91.converter.conversion.temperature.Celsius;
-import com.bubbinator91.converter.conversion.temperature.Fahrenheit;
-import com.bubbinator91.converter.conversion.temperature.Kelvin;
-import com.bubbinator91.converter.conversion.util.Tuple;
 import com.bubbinator91.converter.util.TextInputLayoutLAndAbove;
 import com.bubbinator91.converter.util.Utils;
 
@@ -225,8 +222,7 @@ public class TemperatureFragment extends BaseFragment {
         private Editable mEditableCelsius;
         private String mCallingClassName;
 
-        public ConversionFromCelsiusRunnable(@NonNull Editable editableCelsius,
-                                             @NonNull String callingClassName) {
+        public ConversionFromCelsiusRunnable(Editable editableCelsius, String callingClassName) {
             mEditableCelsius = editableCelsius;
             mCallingClassName = callingClassName;
         }
@@ -237,46 +233,49 @@ public class TemperatureFragment extends BaseFragment {
 
             if (mEditableCelsius != null) {
                 Tuple<List<String>, Conversion> results =
-                        Celsius.toAll(mEditableCelsius.toString(), getNumOfDecimalPlaces());
-                final List<String> conversionList = results.getValue0();
-                final Conversion error = results.getValue1();
+                        Temperature.Celsius.toAll(mEditableCelsius.toString(),
+                                getNumOfDecimalPlaces());
+                if (results != null) {
+                    final List<String> conversionList = results.getValue0();
+                    final Conversion error = results.getValue1();
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                        switch (error) {
-                            case ERROR_BELOW_ABSOLUTE_ZERO:
-                                textInputLayoutCelsius.setError(getString(
-                                        R.string.fragment_temperature_error_below_absolute_zero
-                                ));
-                                break;
-                            case ERROR_INPUT_NOT_NUMERIC:
-                                textInputLayoutCelsius.setError(getString(
-                                        R.string.fragment_temperature_error_input_not_numeric
-                                ));
-                                break;
-                            case ERROR_UNKNOWN:
-                                textInputLayoutCelsius.setError(getString(
-                                        R.string.fragment_temperature_error_conversion_error
-                                ));
-                                break;
-                            default:
-                                textInputLayoutCelsius.setErrorEnabled(false);
-                                textInputLayoutFahrenheit.setErrorEnabled(false);
-                                textInputLayoutKelvin.setErrorEnabled(false);
-                                break;
+                            switch (error) {
+                                case ERROR_BELOW_ABSOLUTE_ZERO:
+                                    textInputLayoutCelsius.setError(getString(
+                                            R.string.fragment_temperature_error_below_absolute_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutCelsius.setError(getString(
+                                            R.string.fragment_temperature_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutCelsius.setError(getString(
+                                            R.string.fragment_temperature_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutCelsius.setErrorEnabled(false);
+                                    textInputLayoutFahrenheit.setErrorEnabled(false);
+                                    textInputLayoutKelvin.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextFahrenheit.setText(conversionList.get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKelvin.setText(conversionList.get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
                         }
-
-                        editTextFahrenheit.setText(conversionList.get(0),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextKelvin.setText(conversionList.get(1),
-                                AppCompatTextView.BufferType.EDITABLE);
-
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                    });
+                }
             }
         }
     }
@@ -287,8 +286,7 @@ public class TemperatureFragment extends BaseFragment {
         private Editable mEditableFahrenheit;
         private String mCallingClassName;
 
-        public ConversionFromFahrenheitRunnable(@NonNull Editable editableFahrenheit,
-                                                @NonNull String callingClassName) {
+        public ConversionFromFahrenheitRunnable(Editable editableFahrenheit, String callingClassName) {
             mEditableFahrenheit = editableFahrenheit;
             mCallingClassName = callingClassName;
         }
@@ -299,46 +297,49 @@ public class TemperatureFragment extends BaseFragment {
 
             if (mEditableFahrenheit != null) {
                 Tuple<List<String>, Conversion> results =
-                        Fahrenheit.toAll(mEditableFahrenheit.toString(), getNumOfDecimalPlaces());
-                final List<String> conversionList = results.getValue0();
-                final Conversion error = results.getValue1();
+                        Temperature.Fahrenheit.toAll(mEditableFahrenheit.toString(),
+                                getNumOfDecimalPlaces());
+                if (results != null) {
+                    final List<String> conversionList = results.getValue0();
+                    final Conversion error = results.getValue1();
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                        switch (error) {
-                            case ERROR_BELOW_ABSOLUTE_ZERO:
-                                textInputLayoutFahrenheit.setError(getString(
-                                        R.string.fragment_temperature_error_below_absolute_zero
-                                ));
-                                break;
-                            case ERROR_INPUT_NOT_NUMERIC:
-                                textInputLayoutFahrenheit.setError(getString(
-                                        R.string.fragment_temperature_error_input_not_numeric
-                                ));
-                                break;
-                            case ERROR_UNKNOWN:
-                                textInputLayoutFahrenheit.setError(getString(
-                                        R.string.fragment_temperature_error_conversion_error
-                                ));
-                                break;
-                            default:
-                                textInputLayoutCelsius.setErrorEnabled(false);
-                                textInputLayoutFahrenheit.setErrorEnabled(false);
-                                textInputLayoutKelvin.setErrorEnabled(false);
-                                break;
+                            switch (error) {
+                                case ERROR_BELOW_ABSOLUTE_ZERO:
+                                    textInputLayoutFahrenheit.setError(getString(
+                                            R.string.fragment_temperature_error_below_absolute_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutFahrenheit.setError(getString(
+                                            R.string.fragment_temperature_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutFahrenheit.setError(getString(
+                                            R.string.fragment_temperature_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutCelsius.setErrorEnabled(false);
+                                    textInputLayoutFahrenheit.setErrorEnabled(false);
+                                    textInputLayoutKelvin.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextCelsius.setText(conversionList.get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKelvin.setText(conversionList.get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
                         }
-
-                        editTextCelsius.setText(conversionList.get(0),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextKelvin.setText(conversionList.get(1),
-                                AppCompatTextView.BufferType.EDITABLE);
-
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                    });
+                }
             }
         }
     }
@@ -360,46 +361,49 @@ public class TemperatureFragment extends BaseFragment {
 
             if (mEditableKelvin != null) {
                 Tuple<List<String>, Conversion> results =
-                        Kelvin.toAll(mEditableKelvin.toString(), getNumOfDecimalPlaces());
-                final List<String> conversionList = results.getValue0();
-                final Conversion error = results.getValue1();
+                        Temperature.Kelvin.toAll(mEditableKelvin.toString(),
+                                getNumOfDecimalPlaces());
+                if (results != null) {
+                    final List<String> conversionList = results.getValue0();
+                    final Conversion error = results.getValue1();
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                        switch (error) {
-                            case ERROR_BELOW_ABSOLUTE_ZERO:
-                                textInputLayoutKelvin.setError(getString(
-                                        R.string.fragment_temperature_error_below_absolute_zero
-                                ));
-                                break;
-                            case ERROR_INPUT_NOT_NUMERIC:
-                                textInputLayoutKelvin.setError(getString(
-                                        R.string.fragment_temperature_error_input_not_numeric
-                                ));
-                                break;
-                            case ERROR_UNKNOWN:
-                                textInputLayoutKelvin.setError(getString(
-                                        R.string.fragment_temperature_error_conversion_error
-                                ));
-                                break;
-                            default:
-                                textInputLayoutCelsius.setErrorEnabled(false);
-                                textInputLayoutFahrenheit.setErrorEnabled(false);
-                                textInputLayoutKelvin.setErrorEnabled(false);
-                                break;
+                            switch (error) {
+                                case ERROR_BELOW_ABSOLUTE_ZERO:
+                                    textInputLayoutKelvin.setError(getString(
+                                            R.string.fragment_temperature_error_below_absolute_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutKelvin.setError(getString(
+                                            R.string.fragment_temperature_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutKelvin.setError(getString(
+                                            R.string.fragment_temperature_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutCelsius.setErrorEnabled(false);
+                                    textInputLayoutFahrenheit.setErrorEnabled(false);
+                                    textInputLayoutKelvin.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextCelsius.setText(conversionList.get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextFahrenheit.setText(conversionList.get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
                         }
-
-                        editTextCelsius.setText(conversionList.get(0),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextFahrenheit.setText(conversionList.get(1),
-                                AppCompatTextView.BufferType.EDITABLE);
-
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                    });
+                }
             }
         }
     }
