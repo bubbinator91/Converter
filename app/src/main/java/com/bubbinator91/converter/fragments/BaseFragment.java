@@ -40,8 +40,6 @@ public abstract class BaseFragment
 
     private View rootView = null;
     private ScrollView mScrollView = null;
-
-    private boolean shouldHideToolbarOnScroll = true;
     private int mToolbarHeight = 0;
     private int mToolbarOffset = 0;
 
@@ -132,9 +130,8 @@ public abstract class BaseFragment
      */
     @Override
     public void onScrollChanged() {
-        // Checks to make sure that the toolbar is added and if the fragment is suitable
-        // for scrolling
-        if (isAdded() && shouldHideToolbarOnScroll) {
+        // Checks to make sure that the fragment is added to an activity
+        if (isAdded()) {
             // Get the difference in scroll positions between the current call to onScrollChanged()
             // and the last call to onScrollChanged()
             int dy = (mScrollView.getScrollY() - lastY);
@@ -150,10 +147,13 @@ public abstract class BaseFragment
             try {
                 // If the user is dragging the ScrollView up (they are heading towards the bottom of
                 // the ScrollView) and if the current scrolling position of the ScrollView is
-                // greater than the height of the toolbar, animate the toolbar off the screen. This
+                // greater than the height of the toolbar minus 20, animate the toolbar off the screen. This
                 // prevents the toolbar from being animated off the screen until the top of the
-                // ScrollView is almost touching the status bar.
-                if ((dy > 0) && (mScrollView.getScrollY() > mToolbarHeight)) {
+                // ScrollView is almost touching the status bar. The minus 20 makes sure that, for
+                // fragments that have 3 conversion options or more, when the third conversion
+                // textbox is selected and the keyboard appears, the toolbar will hide so that the
+                // first 2 conversions remain on screen.
+                if ((dy > 0) && (mScrollView.getScrollY() > (mToolbarHeight - 20))) {
                     if (toolbar != null) {
                         while (mToolbarOffset < mToolbarHeight) {
                             toolbar.animate().y(-mToolbarOffset);
@@ -233,13 +233,6 @@ public abstract class BaseFragment
      * @return  A {@link Typeface} containing the Roboto-Regular font.
      */
     protected Typeface getTypeFace() { return mTypeFace; }
-
-    /**
-     * Enabled or disables hiding the toolbar when scrolling.
-     *
-     * @param value     true if the toolbar should be hidden; false otherwise.
-     */
-    protected void setShouldHideToolbarOnScroll(boolean value) { shouldHideToolbarOnScroll = value; }
 
     // endregion
 

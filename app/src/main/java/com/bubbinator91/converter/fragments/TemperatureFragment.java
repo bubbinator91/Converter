@@ -109,8 +109,6 @@ public class TemperatureFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
-        setShouldHideToolbarOnScroll(false);
-
         if (getRootView() != null) {
             AppCompatTextView textViewCelsius =
                     ((AppCompatTextView) getRootView()
