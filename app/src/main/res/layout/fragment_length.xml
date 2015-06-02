@@ -10,7 +10,7 @@
     android:overScrollMode="never"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -27,38 +27,35 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <RelativeLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/textView_length_inch"
+                    android:labelFor="@+id/editText_length_inch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_inch"
-                    android:id="@+id/textView_length_inch"
-                    android:labelFor="@+id/editText_length_inch"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"/>
+                    android:text="@string/length_inch"/>
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/editText_length_inch"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"
-                    android:id="@+id/editText_length_inch"
-                    android:layout_below="@+id/textView_length_inch"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:scrollHorizontally="true"/>
 
-            </RelativeLayout>
+            </GridLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -67,43 +64,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_below="@+id/card_length_inch"
             android:layout_marginTop="@dimen/card_margin_top"
+            android:layout_row="1"
+            android:layout_column="0"
             cards:cardCornerRadius="@dimen/card_corner_radius"
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <RelativeLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/textView_length_foot"
+                    android:labelFor="@+id/editText_length_foot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_foot"
-                    android:id="@+id/textView_length_foot"
-                    android:labelFor="@+id/editText_length_foot"
-                    android:layout_alignParentStart="true"/>
+                    android:text="@string/length_foot"/>
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/editText_length_foot"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"
-                    android:id="@+id/editText_length_foot"
-                    android:layout_below="@+id/textView_length_foot"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:scrollHorizontally="true"/>
 
-            </RelativeLayout>
+            </GridLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -112,43 +108,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_below="@+id/card_length_foot"
             android:layout_marginTop="@dimen/card_margin_top"
+            android:layout_row="2"
+            android:layout_column="0"
             cards:cardCornerRadius="@dimen/card_corner_radius"
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <RelativeLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/textView_length_yard"
+                    android:labelFor="@+id/editText_length_yard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_yard"
-                    android:id="@+id/textView_length_yard"
-                    android:labelFor="@+id/editText_length_yard"
-                    android:layout_alignParentStart="true"/>
+                    android:text="@string/length_yard"/>
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/editText_length_yard"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"
-                    android:id="@+id/editText_length_yard"
-                    android:layout_below="@+id/textView_length_yard"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:scrollHorizontally="true"/>
 
-            </RelativeLayout>
+            </GridLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -157,43 +152,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_below="@+id/card_length_yard"
             android:layout_marginTop="@dimen/card_margin_top"
+            android:layout_row="3"
+            android:layout_column="0"
             cards:cardCornerRadius="@dimen/card_corner_radius"
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <RelativeLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/textView_length_mile"
+                    android:labelFor="@+id/editText_length_mile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_mile"
-                    android:id="@+id/textView_length_mile"
-                    android:labelFor="@+id/editText_length_mile"
-                    android:layout_alignParentStart="true"/>
+                    android:text="@string/length_mile"/>
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/editText_length_mile"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"
-                    android:id="@+id/editText_length_mile"
-                    android:layout_below="@+id/textView_length_mile"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:scrollHorizontally="true"/>
 
-            </RelativeLayout>
+            </GridLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -202,43 +196,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_below="@+id/card_length_mile"
             android:layout_marginTop="@dimen/card_margin_top"
+            android:layout_row="4"
+            android:layout_column="0"
             cards:cardCornerRadius="@dimen/card_corner_radius"
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <RelativeLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/textView_length_millimeter"
+                    android:labelFor="@+id/editText_length_millimeter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_millimeter"
-                    android:id="@+id/textView_length_millimeter"
-                    android:labelFor="@+id/editText_length_millimeter"
-                    android:layout_alignParentStart="true"/>
+                    android:text="@string/length_millimeter"/>
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/editText_length_millimeter"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"
-                    android:id="@+id/editText_length_millimeter"
-                    android:layout_below="@+id/textView_length_millimeter"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:scrollHorizontally="true"/>
 
-            </RelativeLayout>
+            </GridLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -247,43 +240,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_below="@+id/card_length_millimeter"
             android:layout_marginTop="@dimen/card_margin_top"
+            android:layout_row="5"
+            android:layout_column="0"
             cards:cardCornerRadius="@dimen/card_corner_radius"
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <RelativeLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/textView_length_centimeter"
+                    android:labelFor="@+id/editText_length_centimeter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_centimeter"
-                    android:id="@+id/textView_length_centimeter"
-                    android:labelFor="@+id/editText_length_centimeter"
-                    android:layout_alignParentStart="true"/>
+                    android:text="@string/length_centimeter"/>
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/editText_length_centimeter"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"
-                    android:id="@+id/editText_length_centimeter"
-                    android:layout_below="@+id/textView_length_centimeter"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:scrollHorizontally="true"/>
 
-            </RelativeLayout>
+            </GridLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -292,43 +284,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_below="@+id/card_length_centimeter"
             android:layout_marginTop="@dimen/card_margin_top"
+            android:layout_row="6"
+            android:layout_column="0"
             cards:cardCornerRadius="@dimen/card_corner_radius"
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <RelativeLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/textView_length_meter"
+                    android:labelFor="@+id/editText_length_meter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_meter"
-                    android:id="@+id/textView_length_meter"
-                    android:labelFor="@+id/editText_length_meter"
-                    android:layout_alignParentStart="true"/>
+                    android:text="@string/length_meter"/>
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/editText_length_meter"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"
-                    android:id="@+id/editText_length_meter"
-                    android:layout_below="@+id/textView_length_meter"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:scrollHorizontally="true"/>
 
-            </RelativeLayout>
+            </GridLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -337,46 +328,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_below="@+id/card_length_meter"
             android:layout_marginTop="@dimen/card_margin_top"
+            android:layout_row="7"
+            android:layout_column="0"
             cards:cardCornerRadius="@dimen/card_corner_radius"
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <RelativeLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/textView_length_kilometer"
+                    android:labelFor="@+id/editText_length_kilometer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/card_title_text_size"
-                    android:text="@string/length_kilometer"
-                    android:id="@+id/textView_length_kilometer"
-                    android:labelFor="@+id/editText_length_kilometer"
-                    android:layout_alignParentStart="true"/>
+                    android:text="@string/length_kilometer"/>
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/editText_length_kilometer"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:selectAllOnFocus="true"
                     android:ems="10"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:scrollHorizontally="true"
-                    android:id="@+id/editText_length_kilometer"
-                    android:layout_below="@+id/textView_length_kilometer"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:scrollHorizontally="true"/>
 
-            </RelativeLayout>
+            </GridLayout>
 
         </android.support.v7.widget.CardView>
 
-    </RelativeLayout>
+    </GridLayout>
 
 </ScrollView>

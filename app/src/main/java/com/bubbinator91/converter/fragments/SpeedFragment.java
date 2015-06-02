@@ -300,7 +300,7 @@ public class SpeedFragment extends BaseFragment {
 
             if (mEditableFps != null) {
                 final List<String> results =
-                        Fps.toAll(mEditableFps.toString(), getFieldLength());
+                        Fps.toAll(mEditableFps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -335,7 +335,7 @@ public class SpeedFragment extends BaseFragment {
 
             if (mEditableKnot != null) {
                 final List<String> results =
-                        Knot.toAll(mEditableKnot.toString(), getFieldLength());
+                        Knot.toAll(mEditableKnot.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -370,7 +370,7 @@ public class SpeedFragment extends BaseFragment {
 
             if (mEditableKph != null) {
                 final List<String> results =
-                        Kph.toAll(mEditableKph.toString(), getFieldLength());
+                        Kph.toAll(mEditableKph.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -405,7 +405,7 @@ public class SpeedFragment extends BaseFragment {
 
             if (mEditableMps != null) {
                 final List<String> results =
-                        Mps.toAll(mEditableMps.toString(), getFieldLength());
+                        Mps.toAll(mEditableMps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -440,7 +440,7 @@ public class SpeedFragment extends BaseFragment {
 
             if (mEditableMph != null) {
                 final List<String> results =
-                        Mph.toAll(mEditableMph.toString(), getFieldLength());
+                        Mph.toAll(mEditableMph.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override

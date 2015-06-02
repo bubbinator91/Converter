@@ -505,7 +505,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
             if (mEditableBps != null) {
                 final List<String> results =
-                        Bps.toAll(mEditableBps.toString(), getFieldLength());
+                        Bps.toAll(mEditableBps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -545,7 +545,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
             if (mEditableByps != null) {
                 final List<String> results =
-                        Byps.toAll(mEditableByps.toString(), getFieldLength());
+                        Byps.toAll(mEditableByps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -585,7 +585,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
             if (mEditableKbps != null) {
                 final List<String> results =
-                        Kbps.toAll(mEditableKbps.toString(), getFieldLength());
+                        Kbps.toAll(mEditableKbps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -625,7 +625,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
             if (mEditableKbyps != null) {
                 final List<String> results =
-                        KByps.toAll(mEditableKbyps.toString(), getFieldLength());
+                        KByps.toAll(mEditableKbyps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -665,7 +665,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
             if (mEditableMbps != null) {
                 final List<String> results =
-                        Mbps.toAll(mEditableMbps.toString(), getFieldLength());
+                        Mbps.toAll(mEditableMbps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -705,7 +705,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
             if (mEditableMbyps != null) {
                 final List<String> results =
-                        MByps.toAll(mEditableMbyps.toString(), getFieldLength());
+                        MByps.toAll(mEditableMbyps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -745,7 +745,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
             if (mEditableGbps != null) {
                 final List<String> results =
-                        Gbps.toAll(mEditableGbps.toString(), getFieldLength());
+                        Gbps.toAll(mEditableGbps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -785,7 +785,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
             if (mEditableGbyps != null) {
                 final List<String> results =
-                        GByps.toAll(mEditableGbyps.toString(), getFieldLength());
+                        GByps.toAll(mEditableGbyps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -825,7 +825,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
             if (mEditableTbps != null) {
                 final List<String> results =
-                        Tbps.toAll(mEditableTbps.toString(), getFieldLength());
+                        Tbps.toAll(mEditableTbps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -865,7 +865,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
             if (mEditableTbyps != null) {
                 final List<String> results =
-                        TByps.toAll(mEditableTbyps.toString(), getFieldLength());
+                        TByps.toAll(mEditableTbyps.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override

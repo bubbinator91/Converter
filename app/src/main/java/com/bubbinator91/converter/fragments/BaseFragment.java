@@ -20,8 +20,6 @@ import com.bubbinator91.converter.BuildConfig;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Globals;
 
-import java.util.ArrayList;
-
 import timber.log.Timber;
 
 /**
@@ -37,7 +35,7 @@ public abstract class BaseFragment
     private Activity mActivity = null;
     private Handler mHandler = null;
     private SharedPreferences mPrefs = null;
-    private int fieldLength = -1, lastY = 0;
+    private int numOfDecimalPlaces = -1, lastY = 0;
     private Typeface mTypeFace = null;
 
     private View rootView = null;
@@ -102,10 +100,11 @@ public abstract class BaseFragment
             mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         }
         if (mPrefs != null) {
-            fieldLength = Integer.parseInt(mPrefs.getString(Globals.PREFERENCE_DECIMAL_PLACES, "-1"));
+            numOfDecimalPlaces =
+                    Integer.parseInt(mPrefs.getString(Globals.PREFERENCE_DECIMAL_PLACES, "-1"));
         }
-        if (fieldLength == -1) {
-            fieldLength = 8;
+        if (numOfDecimalPlaces == -1) {
+            numOfDecimalPlaces = 8;
         }
     }
 
@@ -128,26 +127,62 @@ public abstract class BaseFragment
 
     // region Helper methods
 
+    /**
+     * Allows the observing of the ScrollView so that the toolbar can be hidden or shown.
+     */
     @Override
     public void onScrollChanged() {
-        if (isAdded() && shouldHideToolbarOnScroll && (mScrollView.getScrollY() > mToolbarHeight)) {
+        // Checks to make sure that the toolbar is added and if the fragment is suitable
+        // for scrolling
+        if (isAdded() && shouldHideToolbarOnScroll) {
+            // Get the difference in scroll positions between the current call to onScrollChanged()
+            // and the last call to onScrollChanged()
             int dy = (mScrollView.getScrollY() - lastY);
 
+            // Make sure that the toolbar isn't in some weird position
             if (mToolbarOffset > mToolbarHeight) {
                 mToolbarOffset = mToolbarHeight;
             } else if (mToolbarOffset < 0) {
                 mToolbarOffset = 0;
             }
 
+            Toolbar toolbar = ((Toolbar) mActivity.findViewById(R.id.toolbar));
             try {
-                Toolbar toolbar = ((Toolbar) mActivity.findViewById(R.id.toolbar));
-                if (toolbar != null) {
-                    if (dy > 0) {
+                // If the user is dragging the ScrollView up (they are heading towards the bottom of
+                // the ScrollView) and if the current scrolling position of the ScrollView is
+                // greater than the height of the toolbar, animate the toolbar off the screen. This
+                // prevents the toolbar from being animated off the screen until the top of the
+                // ScrollView is almost touching the status bar.
+                if ((dy > 0) && (mScrollView.getScrollY() > mToolbarHeight)) {
+                    if (toolbar != null) {
                         while (mToolbarOffset < mToolbarHeight) {
                             toolbar.animate().y(-mToolbarOffset);
                             ++mToolbarOffset;
                         }
-                    } else if (dy < 0) {
+                    }
+                }
+                // If the user is dragging the ScrollView down (they are heading towards the top of
+                // the ScrollView) and if the current scrolling position of the ScrollView is
+                // greater than the height of the toolbar, check the speed of the user's scrolling.
+                // This allows the user to scroll slow enough to keep the toolbar off the screen if
+                // they want to.
+                else if ((dy < 0) && (mScrollView.getScrollY() > mToolbarHeight)) {
+                    // If the user has scrolled more than 5 units, animate the toolbar on to the
+                    // screen
+                    if ((dy < -5) && (toolbar != null)) {
+                        while (mToolbarOffset > 0) {
+                            toolbar.animate().y(-mToolbarOffset);
+                            --mToolbarOffset;
+                        }
+                    }
+                }
+                // If the user is dragging the ScrollView down (they are heading towards the top of
+                // the ScrollView) and if the current scrolling position of the ScrollView is
+                // less than the height of the toolbar, animate the toolbar on to the screen. This
+                // forcibly animates the toolbar back onto the screen when the top of the ScrollView
+                // is just below the bottom of the status bar.
+                else if ((dy < 0) && (mScrollView.getScrollY() < mToolbarHeight)) {
+                    if (toolbar != null) {
                         while (mToolbarOffset > 0) {
                             toolbar.animate().y(-mToolbarOffset);
                             --mToolbarOffset;
@@ -159,38 +194,85 @@ public abstract class BaseFragment
                         .e("Toolbar is null\n" + e.toString());
             }
 
+            // Store the last position of the ScrollView for later use.
             lastY = mScrollView.getScrollY();
         }
     }
 
-    protected void addWhitespaceItems(ArrayList<String> list, int numItems) {
-        if (list == null) {
-            list = new ArrayList<>();
-        }
-        list.clear();
-        for (int i = 0; i < numItems; i++) {
-            list.add("");
-        }
-    }
-
+    /**
+     * Gets the instance of the parent {@link Activity}.
+     *
+     * @return  The instance of the parent {@link Activity}.
+     */
     protected Activity getCurrentActivity() { return mActivity; }
 
-    protected int getFieldLength() { return fieldLength; }
+    /**
+     * Gets the number of decimal places to round to.
+     *
+     * @return  The number of decimal places to round to.
+     */
+    protected int getNumOfDecimalPlaces() { return numOfDecimalPlaces; }
 
+    /**
+     * Gets the {@link Handler} obtained from the parent Activity.
+     *
+     * @return  A {@link Handler} object obtained from the parent Activity.
+     */
     protected Handler getHandler() { return mHandler; }
 
+    /**
+     * Gets the root view that was inflated in {@link #onCreate(Bundle)}.
+     *
+     * @return  The root view that was inflated in {@link #onCreate(Bundle)}.
+     */
     protected View getRootView() { return rootView; }
 
+    /**
+     * Gets a {@link Typeface} that is loaded with the Roboto-Regular font.
+     *
+     * @return  A {@link Typeface} containing the Roboto-Regular font.
+     */
     protected Typeface getTypeFace() { return mTypeFace; }
 
+    /**
+     * Enabled or disables hiding the toolbar when scrolling.
+     *
+     * @param value     true if the toolbar should be hidden; false otherwise.
+     */
     protected void setShouldHideToolbarOnScroll(boolean value) { shouldHideToolbarOnScroll = value; }
 
     // endregion
 
     // region Abstract methods
 
+    /**
+     * An abstract method that needs to be overridden for proper logging. This method is used in any
+     * logging that comes from {@link BaseFragment} itself.
+     *
+     * @return  The overridden method should return the logging tag of the class that extends from
+     *          {@link BaseFragment}.
+     */
     protected abstract String getChildTag();
+
+    /**
+     * An abstract method that needs to be overridden for proper layout inflation. This method is
+     * used in {@link #onCreate(Bundle)} of {@link BaseFragment} to inflate the layout of the
+     * {@link Fragment} that extends from {@link BaseFragment}.
+     *
+     * @return  The overridden method should return the resource id of the layout to be inflated.
+     */
     protected abstract int getLayoutResource();
+
+    /**
+     * An abstract method that needs to be overridden for proper manipulation of the toolbar. This
+     * method is used in {@link #onCreate(Bundle)} of {@link BaseFragment} to retrieve the
+     * {@link ScrollView}. This {@link ScrollView} is then used in {@link #onScrollChanged()} to
+     * figure out if the toolbar needs to be hidden or not.
+     *
+     * @return  The overridden method should return the resource id of the {@link ScrollView} object
+     *          that should be the root of the layout for the {@link Fragment} that extends from
+     *          {@link BaseFragment}.
+     */
     protected abstract int getScrollViewResource();
 
     // endregion

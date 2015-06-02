@@ -49,7 +49,7 @@
     <string name="activity_settings_decimal_summary">Number of decimal places you want to see</string>
 
     <!-- DO NOT TRANSLATE ANYTHING BELOW THIS LINE. ONLY USED INTERNALLY. -->
-    
+
     <string name="util_key_debug">is_logcat_enabled</string>
     <string name="util_key_decimal">decimal_places</string>
     <string name="util_key_trans_from_settings">transitioned_from_settings</string>

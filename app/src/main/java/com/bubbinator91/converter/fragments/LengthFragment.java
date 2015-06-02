@@ -417,7 +417,7 @@ public class LengthFragment extends BaseFragment {
 
             if (mEditableInch != null) {
                 final List<String> results =
-                        Inch.toAll(mEditableInch.toString(), getFieldLength());
+                        Inch.toAll(mEditableInch.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -462,7 +462,7 @@ public class LengthFragment extends BaseFragment {
 
             if (mEditableFoot != null) {
                 final List<String> results =
-                        Foot.toAll(mEditableFoot.toString(), getFieldLength());
+                        Foot.toAll(mEditableFoot.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -507,7 +507,7 @@ public class LengthFragment extends BaseFragment {
 
             if (mEditableYard != null) {
                 final List<String> results =
-                        Yard.toAll(mEditableYard.toString(), getFieldLength());
+                        Yard.toAll(mEditableYard.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -552,7 +552,7 @@ public class LengthFragment extends BaseFragment {
 
             if (mEditableMile != null) {
                 final List<String> results =
-                        Mile.toAll(mEditableMile.toString(), getFieldLength());
+                        Mile.toAll(mEditableMile.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -597,7 +597,7 @@ public class LengthFragment extends BaseFragment {
 
             if (mEditableMillimeter != null) {
                 final List<String> results =
-                        Millimeter.toAll(mEditableMillimeter.toString(), getFieldLength());
+                        Millimeter.toAll(mEditableMillimeter.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -642,7 +642,7 @@ public class LengthFragment extends BaseFragment {
 
             if (mEditableCentimeter != null) {
                 final List<String> results =
-                        Centimeter.toAll(mEditableCentimeter.toString(), getFieldLength());
+                        Centimeter.toAll(mEditableCentimeter.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -687,7 +687,7 @@ public class LengthFragment extends BaseFragment {
 
             if (mEditableMeter != null) {
                 final List<String> results =
-                        Meter.toAll(mEditableMeter.toString(), getFieldLength());
+                        Meter.toAll(mEditableMeter.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
@@ -732,7 +732,7 @@ public class LengthFragment extends BaseFragment {
 
             if (mEditableKilometer != null) {
                 final List<String> results =
-                        Kilometer.toAll(mEditableKilometer.toString(), getFieldLength());
+                        Kilometer.toAll(mEditableKilometer.toString(), getNumOfDecimalPlaces());
 
                 getHandler().post(new Runnable() {
                     @Override
