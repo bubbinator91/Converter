@@ -2,13 +2,13 @@ package com.bubbinator91.converter.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.conversion.speed.Fps;
@@ -38,7 +38,7 @@ public class SpeedFragment extends BaseFragment {
 
     private final String TAG = "FragmentSpeed";
 
-    private EditText editTextFps, editTextKnot, editTextKph, editTextMps, editTextMph;
+    private AppCompatEditText editTextFps, editTextKnot, editTextKph, editTextMps, editTextMph;
 
     private LastEditTextFocused lastEditTextFocused;
 
@@ -148,19 +148,17 @@ public class SpeedFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
-        setShouldHideToolbarOnScroll(false);
-
         if (getRootView() != null) {
-            TextView textViewFps =
-                    ((TextView) getRootView().findViewById(R.id.textView_speed_fps));
-            TextView textViewKnot =
-                    ((TextView) getRootView().findViewById(R.id.textView_speed_knot));
-            TextView textViewKph =
-                    ((TextView) getRootView().findViewById(R.id.textView_speed_kph));
-            TextView textViewMps =
-                    ((TextView) getRootView().findViewById(R.id.textView_speed_mps));
-            TextView textViewMph =
-                    ((TextView) getRootView().findViewById(R.id.textView_speed_mph));
+            AppCompatTextView textViewFps =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_speed_fps));
+            AppCompatTextView textViewKnot =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_speed_knot));
+            AppCompatTextView textViewKph =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_speed_kph));
+            AppCompatTextView textViewMps =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_speed_mps));
+            AppCompatTextView textViewMph =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_speed_mph));
 
             if (getTypeFace() != null) {
                 textViewFps.setTypeface(getTypeFace());
@@ -171,15 +169,15 @@ public class SpeedFragment extends BaseFragment {
             }
 
             editTextFps =
-                    ((EditText) getRootView().findViewById(R.id.editText_speed_fps));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_fps));
             editTextKnot =
-                    ((EditText) getRootView().findViewById(R.id.editText_speed_knot));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_knot));
             editTextKph =
-                    ((EditText) getRootView().findViewById(R.id.editText_speed_kph));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_kph));
             editTextMps =
-                    ((EditText) getRootView().findViewById(R.id.editText_speed_mps));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_mps));
             editTextMph =
-                    ((EditText) getRootView().findViewById(R.id.editText_speed_mph));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_mph));
 
             addTextChangedListeners(null);
         }
@@ -308,10 +306,10 @@ public class SpeedFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextKnot.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextKph.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextKnot.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+                        editTextKph.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+                        editTextMps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+                        editTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -343,10 +341,10 @@ public class SpeedFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextKph.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+                        editTextKph.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+                        editTextMps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+                        editTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -378,10 +376,10 @@ public class SpeedFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextMps.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+                        editTextKnot.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+                        editTextMps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+                        editTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -413,10 +411,10 @@ public class SpeedFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextKph.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMph.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+                        editTextKnot.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+                        editTextKph.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+                        editTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -448,10 +446,10 @@ public class SpeedFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFps.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextKnot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextKph.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMps.setText(results.get(3), TextView.BufferType.EDITABLE);
+                        editTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+                        editTextKnot.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+                        editTextKph.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+                        editTextMps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });

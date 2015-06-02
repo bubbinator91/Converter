@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
+import com.bubbinator91.converter.BuildConfig;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Globals;
 
@@ -52,6 +54,18 @@ public abstract class BaseFragment
         super.onAttach(activity);
         Timber.tag(TAG + "." + getChildTag() + ".onAttach").i("Entered");
         mActivity = activity;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());
+        }
     }
 
     @Override

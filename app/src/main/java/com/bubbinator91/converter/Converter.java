@@ -1,9 +1,11 @@
 package com.bubbinator91.converter;
 
 import android.app.Application;
+import android.os.StrictMode;
 import android.util.Log;
 
-import com.bubbinator91.converter.util.Globals;
+import com.bubbinator91.converter.util.GlobalsManager;
+
 import timber.log.Timber;
 
 public class Converter extends Application {
@@ -15,6 +17,11 @@ public class Converter extends Application {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
             Timber.d("Debug logging enabled");
+
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());
         } else {
             Timber.plant(new ReleaseTree());
         }
@@ -23,7 +30,7 @@ public class Converter extends Application {
     private static class ReleaseTree extends Timber.Tree {
         @Override
         protected void log(int priority, String tag, String message, Throwable t) {
-            if (Globals.isLogcatEnabled) {
+            if (GlobalsManager.INSTANCE.isLogcatEnabled()) {
                 if (priority == Log.ERROR) {
                     Log.e(tag, message, t);
                 } else if (priority == Log.INFO) {

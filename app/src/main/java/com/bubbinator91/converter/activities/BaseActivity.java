@@ -2,14 +2,17 @@ package com.bubbinator91.converter.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.bubbinator91.converter.BuildConfig;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Globals;
+import com.bubbinator91.converter.util.GlobalsManager;
 
 import timber.log.Timber;
 
@@ -33,27 +36,34 @@ public abstract class BaseActivity extends AppCompatActivity {
         View rootView = View.inflate(this, getLayoutResourceId(), null);
         setContentView(rootView);
 
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());
+        }
+
 		PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
 		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if (mPrefs != null) {
-			Globals.isFirstRun = mPrefs.getBoolean(Globals.PREFERENCE_FIRSTRUN, false);
-			Globals.isLogcatEnabled = mPrefs.getBoolean(Globals.PREFERENCE_LOGCAT, false);
-			Globals.decimalPlaceLength = Integer.parseInt(
-					mPrefs.getString(
-							Globals.PREFERENCE_DECIMAL_PLACES,
-							"-1")
-			);
-			if (Globals.decimalPlaceLength == -1) {
+			GlobalsManager.INSTANCE.setIsFirstRun(mPrefs.getBoolean(Globals.PREFERENCE_FIRSTRUN, false));
+			GlobalsManager.INSTANCE.setIsLogcatEnabled(mPrefs.getBoolean(Globals.PREFERENCE_LOGCAT, false));
+			GlobalsManager.INSTANCE.setDecimalPlaceLength(Integer.parseInt(
+                    mPrefs.getString(
+                            Globals.PREFERENCE_DECIMAL_PLACES,
+                            "-1"))
+            );
+			if (GlobalsManager.INSTANCE.decimalPlaceLength() == -1) {
 				SharedPreferences.Editor editor = mPrefs.edit();
 				editor.putString(Globals.PREFERENCE_DECIMAL_PLACES, "8");
 				editor.apply();
-				Globals.decimalPlaceLength = 8;
+				GlobalsManager.INSTANCE.setDecimalPlaceLength(8);
 			}
 		} else {
 			Timber.tag(TAG + "." + getChildTag() + ".onCreate").e("Could not get shared prefs");
-			Globals.isLogcatEnabled = false;
-			Globals.decimalPlaceLength  = 8;
+			GlobalsManager.INSTANCE.setIsLogcatEnabled(false);
+			GlobalsManager.INSTANCE.setDecimalPlaceLength(8);
             Snackbar.make(rootView,
                     getString(R.string.activity_main_error_default_prefs),
                     Snackbar.LENGTH_LONG).show();

@@ -19,7 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.fragments.*;
-import com.bubbinator91.converter.util.Globals;
+import com.bubbinator91.converter.util.GlobalsManager;
 
 import timber.log.Timber;
 
@@ -108,14 +108,14 @@ public class MainActivity extends BaseActivity {
                     .getDefaultSharedPreferences(this)
                     .getString(STATE_SELECTED_FRAGMENT, "null");
             Timber.tag(TAG + ".onStart").i("lastSelectedFragment = " + lastSelectedFragment);
-            if (!Globals.isTransitioningBackToMainActivity) {
+            if (!GlobalsManager.INSTANCE.isTransitioningToMainActivity()) {
                 if (!lastSelectedFragment.equals("null")) {
                     if (preChangeToFragment(lastSelectedFragment)) {
                         selectFragment(lastSelectedFragment);
                     }
                 }
             } else {
-                Globals.isTransitioningBackToMainActivity = false;
+                GlobalsManager.INSTANCE.setIsTransitioningToMainActivity(false);
                 if (!lastSelectedFragment.equals("null")) {
                     preChangeToFragment(lastSelectedFragment);
                 }
@@ -129,8 +129,10 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         Timber.tag(TAG + ".onResume").i("Entered");
-        Timber.tag(TAG + ".onResume").i("isLogcatEnabled = " + Globals.isLogcatEnabled);
-        Timber.tag(TAG + ".onResume").i("decimalPlaceLength = " + Globals.decimalPlaceLength);
+        Timber.tag(TAG + ".onResume").i("isLogcatEnabled = "
+                + GlobalsManager.INSTANCE.isLogcatEnabled());
+        Timber.tag(TAG + ".onResume").i("decimalPlaceLength = "
+                + GlobalsManager.INSTANCE.decimalPlaceLength());
 
         if (!lastSelectedFragment.equals("null")) {
             preChangeToFragment(lastSelectedFragment);

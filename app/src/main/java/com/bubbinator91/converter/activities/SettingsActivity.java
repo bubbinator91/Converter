@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Globals;
+import com.bubbinator91.converter.util.GlobalsManager;
 
 import timber.log.Timber;
 
@@ -57,14 +58,14 @@ public class SettingsActivity extends BaseActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (preferences != null) {
-            Globals.decimalPlaceLength = Integer.parseInt(
+            GlobalsManager.INSTANCE.setDecimalPlaceLength(Integer.parseInt(
                     preferences.getString(
                             Globals.PREFERENCE_DECIMAL_PLACES,
                             "8"
-                    )
+                    ))
             );
         }
-        Globals.isTransitioningBackToMainActivity = true;
+        GlobalsManager.INSTANCE.setIsTransitioningToMainActivity(true);
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
@@ -111,11 +112,12 @@ public class SettingsActivity extends BaseActivity {
             logcatSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (((boolean) newValue) != Globals.isLogcatEnabled) {
-                        Globals.isLogcatEnabled = ((boolean) newValue);
+                    if (((boolean) newValue) != GlobalsManager.INSTANCE.isLogcatEnabled()) {
+                        GlobalsManager.INSTANCE.setIsLogcatEnabled((boolean) newValue);
                         return true;
-                    } else if (((boolean) newValue) == Globals.isLogcatEnabled) {
-                        Globals.isLogcatEnabled = !Globals.isLogcatEnabled;
+                    } else if (((boolean) newValue) == GlobalsManager.INSTANCE.isLogcatEnabled()) {
+                        GlobalsManager.INSTANCE
+                                .setIsLogcatEnabled(!GlobalsManager.INSTANCE.isLogcatEnabled());
                         return false;
                     } else {
                         return false;

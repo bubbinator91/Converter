@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
@@ -43,7 +43,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true"/>
 
-                <EditText
+                <android.support.v7.widget.AppCompatEditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
@@ -88,7 +88,7 @@
                     android:labelFor="@+id/editText_speed_knot"
                     android:layout_alignParentStart="true"/>
 
-                <EditText
+                <android.support.v7.widget.AppCompatEditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
@@ -133,7 +133,7 @@
                     android:labelFor="@+id/editText_speed_kph"
                     android:layout_alignParentStart="true"/>
 
-                <EditText
+                <android.support.v7.widget.AppCompatEditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
@@ -178,7 +178,7 @@
                     android:labelFor="@+id/editText_speed_mps"
                     android:layout_alignParentStart="true"/>
 
-                <EditText
+                <android.support.v7.widget.AppCompatEditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
@@ -223,7 +223,7 @@
                     android:labelFor="@+id/editText_speed_mph"
                     android:layout_alignParentStart="true"/>
 
-                <EditText
+                <android.support.v7.widget.AppCompatEditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"

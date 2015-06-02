@@ -2,13 +2,13 @@ package com.bubbinator91.converter.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.conversion.length.Centimeter;
@@ -44,8 +44,8 @@ public class LengthFragment extends BaseFragment {
 
     private final String TAG = "FragmentLength";
 
-    private EditText editTextInch, editTextFoot, editTextYard, editTextMile, editTextMillimeter,
-            editTextCentimeter, editTextMeter, editTextKilometer;
+    private AppCompatEditText editTextInch, editTextFoot, editTextYard, editTextMile,
+            editTextMillimeter, editTextCentimeter, editTextMeter, editTextKilometer;
 
     private LastEditTextFocused lastEditTextFocused;
 
@@ -221,22 +221,22 @@ public class LengthFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            TextView textViewInch =
-                    ((TextView) getRootView().findViewById(R.id.textView_length_inch));
-            TextView textViewFoot =
-                    ((TextView) getRootView().findViewById(R.id.textView_length_foot));
-            TextView textViewYard =
-                    ((TextView) getRootView().findViewById(R.id.textView_length_yard));
-            TextView textViewMile =
-                    ((TextView) getRootView().findViewById(R.id.textView_length_mile));
-            TextView textViewMillimeter =
-                    ((TextView) getRootView().findViewById(R.id.textView_length_millimeter));
-            TextView textViewCentimeter =
-                    ((TextView) getRootView().findViewById(R.id.textView_length_centimeter));
-            TextView textViewMeter =
-                    ((TextView) getRootView().findViewById(R.id.textView_length_meter));
-            TextView textViewKilometer =
-                    ((TextView) getRootView().findViewById(R.id.textView_length_kilometer));
+            AppCompatTextView textViewInch =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_inch));
+            AppCompatTextView textViewFoot =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_foot));
+            AppCompatTextView textViewYard =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_yard));
+            AppCompatTextView textViewMile =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_mile));
+            AppCompatTextView textViewMillimeter =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_millimeter));
+            AppCompatTextView textViewCentimeter =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_centimeter));
+            AppCompatTextView textViewMeter =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_meter));
+            AppCompatTextView textViewKilometer =
+                    ((AppCompatTextView) getRootView().findViewById(R.id.textView_length_kilometer));
 
             if (getTypeFace() != null) {
                 textViewInch.setTypeface(getTypeFace());
@@ -250,21 +250,21 @@ public class LengthFragment extends BaseFragment {
             }
 
             editTextInch =
-                    ((EditText) getRootView().findViewById(R.id.editText_length_inch));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_inch));
             editTextFoot =
-                    ((EditText) getRootView().findViewById(R.id.editText_length_foot));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_foot));
             editTextYard =
-                    ((EditText) getRootView().findViewById(R.id.editText_length_yard));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_yard));
             editTextMile =
-                    ((EditText) getRootView().findViewById(R.id.editText_length_mile));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_mile));
             editTextMillimeter =
-                    ((EditText) getRootView().findViewById(R.id.editText_length_millimeter));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_millimeter));
             editTextCentimeter =
-                    ((EditText) getRootView().findViewById(R.id.editText_length_centimeter));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_centimeter));
             editTextMeter =
-                    ((EditText) getRootView().findViewById(R.id.editText_length_meter));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_meter));
             editTextKilometer =
-                    ((EditText) getRootView().findViewById(R.id.editText_length_kilometer));
+                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_kilometer));
 
             addTextChangedListeners(null);
         }
@@ -423,13 +423,20 @@ public class LengthFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFoot.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(2),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(3),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(4),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -461,13 +468,20 @@ public class LengthFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextInch.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(2),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(3),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(4),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -499,13 +513,20 @@ public class LengthFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextInch.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(2),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(3),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(4),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -537,13 +558,20 @@ public class LengthFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(3), TextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextInch.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(2),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(3),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(4),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -575,13 +603,20 @@ public class LengthFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextInch.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(2),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(3),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(4),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -613,13 +648,20 @@ public class LengthFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextInch.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(2),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(3),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(4),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(5),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -651,13 +693,20 @@ public class LengthFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextInch.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(2),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(3),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(4),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(5),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextKilometer.setText(results.get(6),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -689,13 +738,20 @@ public class LengthFragment extends BaseFragment {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0), TextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1), TextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(2), TextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(3), TextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(4), TextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(5), TextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(6), TextView.BufferType.EDITABLE);
+                        editTextInch.setText(results.get(0),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextFoot.setText(results.get(1),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextYard.setText(results.get(2),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMile.setText(results.get(3),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMillimeter.setText(results.get(4),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextCentimeter.setText(results.get(5),
+                                AppCompatTextView.BufferType.EDITABLE);
+                        editTextMeter.setText(results.get(6),
+                                AppCompatTextView.BufferType.EDITABLE);
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
