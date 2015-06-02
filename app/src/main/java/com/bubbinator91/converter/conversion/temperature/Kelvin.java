@@ -2,10 +2,13 @@ package com.bubbinator91.converter.conversion.temperature;
 
 import android.support.annotation.NonNull;
 
-import com.bubbinator91.converter.util.Utils;
+import com.bubbinator91.converter.conversion.Conversion;
+import com.bubbinator91.converter.conversion.util.Tuple;
+import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -23,28 +26,41 @@ public class Kelvin {
      * @param roundingLength    The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent celsius and fahrenheit values stored in an {@link ArrayList}, in
-     *          that order.
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
+     *          celsius and fahrenheit values (in that order), and the second item is one of the
+     *          error codes found in {@link Conversion}.
      */
-    public static ArrayList<String> toAll(@NonNull String kelvin, int roundingLength) {
+    public static Tuple<List<String>, Conversion> toAll(@NonNull String kelvin, int roundingLength) {
         Timber.tag(TAG + ".toAll").i("Entered");
         Timber.tag(TAG + ".toAll").i("kelvin = " + kelvin);
         int decimalPlaces = (roundingLength < 0) ? 0 : roundingLength;
-        ArrayList<String> results = new ArrayList<>();
-        if (Utils.isNumeric(kelvin)) {
+        List<String> results = new LinkedList<>();
+        Conversion error = Conversion.ERROR_NONE;
+        if (Conversion.isNumeric(kelvin)) {
             try {
                 results.add(toCelsius(kelvin, decimalPlaces));
                 results.add(toFahrenheit(kelvin, decimalPlaces));
             } catch (NumberFormatException e) {
                 Timber.tag(TAG + ".toAll").e(e.getMessage());
-                Utils.addWhitespaceItems(results, 2);
+                results.clear();
+                Conversion.addWhitespaceItems(results, 2);
+                error = Conversion.ERROR_INPUT_NOT_NUMERIC;
+            } catch (ValueBelowZeroException e) {
+                Timber.tag(TAG + ".toAll").e(e.getMessage());
+                results.clear();
+                Conversion.addWhitespaceItems(results, 2);
+                error = Conversion.ERROR_BELOW_ABSOLUTE_ZERO;
             }
+        } else if (kelvin.equals("-") || kelvin.equals(".") || kelvin.equals("")) {
+            Timber.tag(TAG + ".toAll").i("Input was a - or . or whitespace");
+            Conversion.addWhitespaceItems(results, 2);
         } else {
             Timber.tag(TAG + ".toAll").i("Input was not numeric");
             results.clear();
-            Utils.addWhitespaceItems(results, 2);
+            Conversion.addWhitespaceItems(results, 2);
+            error = Conversion.ERROR_INPUT_NOT_NUMERIC;
         }
-        return results;
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -57,10 +73,13 @@ public class Kelvin {
      *
      * @return  The equivalent celsius value as a {@link String}.
      *
-     * @throws  NumberFormatException
+     * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
+     *                                      number.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
+     *                                      zero.
      */
     public static String toCelsius(@NonNull String kelvin, int roundingLength)
-            throws NumberFormatException {
+            throws NumberFormatException, ValueBelowZeroException {
         Timber.tag(TAG + ".toCelsius").i("Entered");
         int decimalPlaces = (roundingLength < 0) ? 0 : roundingLength;
         BigDecimal temperature = new BigDecimal(kelvin);
@@ -76,7 +95,7 @@ public class Kelvin {
         } else if (temperature.compareTo(BigDecimal.ZERO) == 0) {
             return "-273.15";
         } else {
-            return "That value is below absolute zero";
+            throw new ValueBelowZeroException("Number is below absolute zero");
         }
     }
 
@@ -90,10 +109,13 @@ public class Kelvin {
      *
      * @return  The equivalent fahrenheit value as a {@link String}.
      *
-     * @throws  NumberFormatException
+     * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
+     *                                      number.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
+     *                                      zero.
      */
     public static String toFahrenheit(@NonNull String kelvin, int roundingLength)
-            throws NumberFormatException {
+            throws NumberFormatException, ValueBelowZeroException {
         Timber.tag(TAG + ".toFahrenheit").i("Entered");
         int decimalPlaces = (roundingLength < 0) ? 0 : roundingLength;
         BigDecimal temperature = new BigDecimal(kelvin);
@@ -111,7 +133,7 @@ public class Kelvin {
         } else if (temperature.compareTo(BigDecimal.ZERO) == 0) {
             return "-459.67";
         } else {
-            return "That value is below absolute zero";
+            throw new ValueBelowZeroException("Number is below absolute zero");
         }
     }
 }

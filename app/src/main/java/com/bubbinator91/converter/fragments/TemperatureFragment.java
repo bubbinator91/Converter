@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.conversion.Conversion;
 import com.bubbinator91.converter.conversion.temperature.Celsius;
 import com.bubbinator91.converter.conversion.temperature.Fahrenheit;
 import com.bubbinator91.converter.conversion.temperature.Kelvin;
+import com.bubbinator91.converter.conversion.util.Tuple;
+import com.bubbinator91.converter.util.TextInputLayoutLAndAbove;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -35,6 +38,9 @@ public class TemperatureFragment extends BaseFragment {
     private final String TAG = "FragmentTemperature";
 
     private AppCompatEditText editTextCelsius, editTextFahrenheit, editTextKelvin;
+
+    private TextInputLayoutLAndAbove textInputLayoutCelsius, textInputLayoutFahrenheit,
+            textInputLayoutKelvin;
 
     private LastEditTextFocused lastEditTextFocused;
 
@@ -110,6 +116,16 @@ public class TemperatureFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
+            textInputLayoutCelsius =
+                    ((TextInputLayoutLAndAbove) getRootView()
+                            .findViewById(R.id.textInputLayout_temperature_celsius));
+            textInputLayoutFahrenheit =
+                    ((TextInputLayoutLAndAbove) getRootView()
+                            .findViewById(R.id.textInputLayout_temperature_fahrenheit));
+            textInputLayoutKelvin =
+                    ((TextInputLayoutLAndAbove) getRootView()
+                            .findViewById(R.id.textInputLayout_temperature_kelvin));
+
             editTextCelsius =
                     ((AppCompatEditText) getRootView()
                             .findViewById(R.id.editText_temperature_celsius));
@@ -220,17 +236,44 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableCelsius != null) {
-                final List<String> results =
+                Tuple<List<String>, Conversion> results =
                         Celsius.toAll(mEditableCelsius.toString(), getNumOfDecimalPlaces());
+                final List<String> conversionList = results.getValue0();
+                final Conversion error = results.getValue1();
 
                 getHandler().post(new Runnable() {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFahrenheit.setText(results.get(0),
+
+                        switch (error) {
+                            case ERROR_BELOW_ABSOLUTE_ZERO:
+                                textInputLayoutCelsius.setError(getString(
+                                        R.string.fragment_temperature_error_below_absolute_zero
+                                ));
+                                break;
+                            case ERROR_INPUT_NOT_NUMERIC:
+                                textInputLayoutCelsius.setError(getString(
+                                        R.string.fragment_temperature_error_input_not_numeric
+                                ));
+                                break;
+                            case ERROR_UNKNOWN:
+                                textInputLayoutCelsius.setError(getString(
+                                        R.string.fragment_temperature_error_conversion_error
+                                ));
+                                break;
+                            default:
+                                textInputLayoutCelsius.setErrorEnabled(false);
+                                textInputLayoutFahrenheit.setErrorEnabled(false);
+                                textInputLayoutKelvin.setErrorEnabled(false);
+                                break;
+                        }
+
+                        editTextFahrenheit.setText(conversionList.get(0),
                                 AppCompatTextView.BufferType.EDITABLE);
-                        editTextKelvin.setText(results.get(1),
+                        editTextKelvin.setText(conversionList.get(1),
                                 AppCompatTextView.BufferType.EDITABLE);
+
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -255,17 +298,44 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableFahrenheit != null) {
-                final List<String> results =
+                Tuple<List<String>, Conversion> results =
                         Fahrenheit.toAll(mEditableFahrenheit.toString(), getNumOfDecimalPlaces());
+                final List<String> conversionList = results.getValue0();
+                final Conversion error = results.getValue1();
 
                 getHandler().post(new Runnable() {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextCelsius.setText(results.get(0),
+
+                        switch (error) {
+                            case ERROR_BELOW_ABSOLUTE_ZERO:
+                                textInputLayoutFahrenheit.setError(getString(
+                                        R.string.fragment_temperature_error_below_absolute_zero
+                                ));
+                                break;
+                            case ERROR_INPUT_NOT_NUMERIC:
+                                textInputLayoutFahrenheit.setError(getString(
+                                        R.string.fragment_temperature_error_input_not_numeric
+                                ));
+                                break;
+                            case ERROR_UNKNOWN:
+                                textInputLayoutFahrenheit.setError(getString(
+                                        R.string.fragment_temperature_error_conversion_error
+                                ));
+                                break;
+                            default:
+                                textInputLayoutCelsius.setErrorEnabled(false);
+                                textInputLayoutFahrenheit.setErrorEnabled(false);
+                                textInputLayoutKelvin.setErrorEnabled(false);
+                                break;
+                        }
+
+                        editTextCelsius.setText(conversionList.get(0),
                                 AppCompatTextView.BufferType.EDITABLE);
-                        editTextKelvin.setText(results.get(1),
+                        editTextKelvin.setText(conversionList.get(1),
                                 AppCompatTextView.BufferType.EDITABLE);
+
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
@@ -289,17 +359,44 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKelvin != null) {
-                final List<String> results =
+                Tuple<List<String>, Conversion> results =
                         Kelvin.toAll(mEditableKelvin.toString(), getNumOfDecimalPlaces());
+                final List<String> conversionList = results.getValue0();
+                final Conversion error = results.getValue1();
 
                 getHandler().post(new Runnable() {
                     @Override
                     public void run() {
                         removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextCelsius.setText(results.get(0),
+
+                        switch (error) {
+                            case ERROR_BELOW_ABSOLUTE_ZERO:
+                                textInputLayoutKelvin.setError(getString(
+                                        R.string.fragment_temperature_error_below_absolute_zero
+                                ));
+                                break;
+                            case ERROR_INPUT_NOT_NUMERIC:
+                                textInputLayoutKelvin.setError(getString(
+                                        R.string.fragment_temperature_error_input_not_numeric
+                                ));
+                                break;
+                            case ERROR_UNKNOWN:
+                                textInputLayoutKelvin.setError(getString(
+                                        R.string.fragment_temperature_error_conversion_error
+                                ));
+                                break;
+                            default:
+                                textInputLayoutCelsius.setErrorEnabled(false);
+                                textInputLayoutFahrenheit.setErrorEnabled(false);
+                                textInputLayoutKelvin.setErrorEnabled(false);
+                                break;
+                        }
+
+                        editTextCelsius.setText(conversionList.get(0),
                                 AppCompatTextView.BufferType.EDITABLE);
-                        editTextFahrenheit.setText(results.get(1),
+                        editTextFahrenheit.setText(conversionList.get(1),
                                 AppCompatTextView.BufferType.EDITABLE);
+
                         addTextChangedListeners(TAG + "." + mCallingClassName);
                     }
                 });
