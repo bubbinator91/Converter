@@ -1,4 +1,4 @@
-package com.bubbinator91.conversion;
+package com.bubbinator91.conversion.util;
 
 /**
  * Helper class that allows the storage of two completely different objects. Useful if you have a

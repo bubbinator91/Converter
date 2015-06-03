@@ -1,4 +1,4 @@
-package com.bubbinator91.conversion;
+package com.bubbinator91.conversion.util;
 
 /**
  * Custom exception that is thrown if a value is below absolute zero.

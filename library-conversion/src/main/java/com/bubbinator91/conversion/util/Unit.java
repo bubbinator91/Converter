@@ -1,17 +1,20 @@
-package com.bubbinator91.conversion;
+package com.bubbinator91.conversion.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Helper enum that provides some error codes, along with some static helper methods.
+ * The base class that all unit types should extend from. It provides each class with useful methods
+ * that would be repeated in each class if this class didn't exist.
  */
-public enum Conversion {
-    ERROR_NONE,
-    ERROR_BELOW_ABSOLUTE_ZERO,
-    ERROR_INPUT_NOT_NUMERIC,
-    ERROR_UNKNOWN;
+public abstract class Unit {
 
+    /**
+     * Adds empty items (the {@link String} object with the value "") to the given list.
+     *
+     * @param list      The {@link List} to add the empty items to.
+     * @param numItems  The number of empty items to add.
+     */
     protected static void addEmptyItems(List<String> list, int numItems) {
         if (list == null) {
             list = new ArrayList<>();
@@ -25,9 +28,9 @@ public enum Conversion {
     /**
      * Method to check if a string is purely numeric.
      *
-     * @param string		The string to check
+     * @param string    The string to check.
      *
-     * @return  A boolean value indicating whether or not the string is numeric
+     * @return  A boolean value indicating whether or not the string is numeric.
      */
     @SuppressWarnings("all")
     protected static boolean isNumeric(String string) {
@@ -138,4 +141,3 @@ public enum Conversion {
         return !allowSigns && foundDigit;
     }
 }
-

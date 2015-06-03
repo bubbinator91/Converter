@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bubbinator91.conversion.Conversion;
-import com.bubbinator91.conversion.Temperature;
-import com.bubbinator91.conversion.Tuple;
+import com.bubbinator91.conversion.temperature.Celsius;
+import com.bubbinator91.conversion.temperature.Fahrenheit;
+import com.bubbinator91.conversion.temperature.Kelvin;
+import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.TextInputLayoutLAndAbove;
 import com.bubbinator91.converter.util.Utils;
@@ -232,12 +234,11 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableCelsius != null) {
-                Tuple<List<String>, Conversion> results =
-                        Temperature.Celsius.toAll(mEditableCelsius.toString(),
-                                getNumOfDecimalPlaces());
+                Tuple<List<String>, ConversionErrorCodes> results =
+                        Celsius.toAll(mEditableCelsius.toString(), getNumOfDecimalPlaces());
                 if (results != null) {
                     final List<String> conversionList = results.getValue0();
-                    final Conversion error = results.getValue1();
+                    final ConversionErrorCodes error = results.getValue1();
 
                     getHandler().post(new Runnable() {
                         @Override
@@ -296,12 +297,11 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableFahrenheit != null) {
-                Tuple<List<String>, Conversion> results =
-                        Temperature.Fahrenheit.toAll(mEditableFahrenheit.toString(),
-                                getNumOfDecimalPlaces());
+                Tuple<List<String>, ConversionErrorCodes> results =
+                        Fahrenheit.toAll(mEditableFahrenheit.toString(), getNumOfDecimalPlaces());
                 if (results != null) {
                     final List<String> conversionList = results.getValue0();
-                    final Conversion error = results.getValue1();
+                    final ConversionErrorCodes error = results.getValue1();
 
                     getHandler().post(new Runnable() {
                         @Override
@@ -360,12 +360,11 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKelvin != null) {
-                Tuple<List<String>, Conversion> results =
-                        Temperature.Kelvin.toAll(mEditableKelvin.toString(),
-                                getNumOfDecimalPlaces());
+                Tuple<List<String>, ConversionErrorCodes> results =
+                        Kelvin.toAll(mEditableKelvin.toString(), getNumOfDecimalPlaces());
                 if (results != null) {
                     final List<String> conversionList = results.getValue0();
-                    final Conversion error = results.getValue1();
+                    final ConversionErrorCodes error = results.getValue1();
 
                     getHandler().post(new Runnable() {
                         @Override
