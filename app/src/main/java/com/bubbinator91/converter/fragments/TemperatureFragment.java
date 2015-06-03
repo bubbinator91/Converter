@@ -236,6 +236,7 @@ public class TemperatureFragment extends BaseFragment {
             if (mEditableCelsius != null) {
                 Tuple<List<String>, ConversionErrorCodes> results =
                         Celsius.toAll(mEditableCelsius.toString(), getNumOfDecimalPlaces());
+
                 if (results != null) {
                     final List<String> conversionList = results.getValue0();
                     final ConversionErrorCodes error = results.getValue1();
@@ -299,6 +300,7 @@ public class TemperatureFragment extends BaseFragment {
             if (mEditableFahrenheit != null) {
                 Tuple<List<String>, ConversionErrorCodes> results =
                         Fahrenheit.toAll(mEditableFahrenheit.toString(), getNumOfDecimalPlaces());
+
                 if (results != null) {
                     final List<String> conversionList = results.getValue0();
                     final ConversionErrorCodes error = results.getValue1();
@@ -362,6 +364,7 @@ public class TemperatureFragment extends BaseFragment {
             if (mEditableKelvin != null) {
                 Tuple<List<String>, ConversionErrorCodes> results =
                         Kelvin.toAll(mEditableKelvin.toString(), getNumOfDecimalPlaces());
+
                 if (results != null) {
                     final List<String> conversionList = results.getValue0();
                     final ConversionErrorCodes error = results.getValue1();

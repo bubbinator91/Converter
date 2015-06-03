@@ -10,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bubbinator91.conversion.speed.FeetPerSecond;
+import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.conversion.speed.Fps;
 import com.bubbinator91.converter.conversion.speed.Knot;
 import com.bubbinator91.converter.conversion.speed.Kph;
 import com.bubbinator91.converter.conversion.speed.Mph;
 import com.bubbinator91.converter.conversion.speed.Mps;
+import com.bubbinator91.converter.util.TextInputLayoutLAndAbove;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -39,6 +42,9 @@ public class SpeedFragment extends BaseFragment {
     private final String TAG = "FragmentSpeed";
 
     private AppCompatEditText editTextFps, editTextKnot, editTextKph, editTextMps, editTextMph;
+
+    private TextInputLayoutLAndAbove textInputLayoutFps, textInputLayoutKnot, textInputLayoutKph,
+            textInputLayoutMps, textInputLayoutMph;
 
     private LastEditTextFocused lastEditTextFocused;
 
@@ -149,6 +155,22 @@ public class SpeedFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
+            textInputLayoutFps =
+                    ((TextInputLayoutLAndAbove) getRootView()
+                            .findViewById(R.id.textInputLayout_speed_fps));
+            textInputLayoutKnot =
+                    ((TextInputLayoutLAndAbove) getRootView()
+                            .findViewById(R.id.textInputLayout_speed_knot));
+            textInputLayoutKph =
+                    ((TextInputLayoutLAndAbove) getRootView()
+                            .findViewById(R.id.textInputLayout_speed_kph));
+            textInputLayoutMps =
+                    ((TextInputLayoutLAndAbove) getRootView()
+                            .findViewById(R.id.textInputLayout_speed_mps));
+            textInputLayoutMph =
+                    ((TextInputLayoutLAndAbove) getRootView()
+                            .findViewById(R.id.textInputLayout_speed_mph));
+
             editTextFps =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_fps));
             editTextKnot =
@@ -269,8 +291,7 @@ public class SpeedFragment extends BaseFragment {
         private Editable mEditableFps;
         private String mCallingClassName;
 
-        public ConversionFromFpsRunnable(@NonNull Editable editableFps,
-                                         @NonNull String callingClassName) {
+        public ConversionFromFpsRunnable(Editable editableFps, String callingClassName) {
             mEditableFps = editableFps;
             mCallingClassName = callingClassName;
         }
@@ -280,20 +301,56 @@ public class SpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableFps != null) {
-                final List<String> results =
-                        Fps.toAll(mEditableFps.toString(), getNumOfDecimalPlaces());
+                Tuple<List<String>, ConversionErrorCodes> results =
+                        FeetPerSecond.toAll(mEditableFps.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextKnot.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-                        editTextKph.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-                        editTextMps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
-                        editTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    final List<String> conversionList = results.getValue0();
+                    final ConversionErrorCodes error = results.getValue1();
+
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (error) {
+                                case ERROR_BELOW_ABSOLUTE_ZERO:
+                                    textInputLayoutFps.setError(getString(
+                                            R.string.fragment_temperature_error_below_absolute_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutFps.setError(getString(
+                                            R.string.fragment_temperature_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutFps.setError(getString(
+                                            R.string.fragment_temperature_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutFps.setErrorEnabled(false);
+                                    textInputLayoutKnot.setErrorEnabled(false);
+                                    textInputLayoutKph.setErrorEnabled(false);
+                                    textInputLayoutMps.setErrorEnabled(false);
+                                    textInputLayoutMph.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextKnot.setText(conversionList.get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKph.setText(conversionList.get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMps.setText(conversionList.get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMph.setText(conversionList.get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }

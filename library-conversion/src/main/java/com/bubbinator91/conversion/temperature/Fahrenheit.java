@@ -21,7 +21,7 @@ public class Fahrenheit extends Unit {
     // extended from a base class. Implemented with the singleton "Initialization-on-demand" pattern
     // so as to not take up unnecessary memory.
 
-    // region Singleton methods
+    // region Singleton things
 
     private Fahrenheit() {}
 
@@ -180,7 +180,7 @@ public class Fahrenheit extends Unit {
         } else if (temperature.compareTo(new BigDecimal("-459.67")) == 0) {
             return "-273.15";
         } else {
-            throw new ValueBelowZeroException("Number is below absolute zero");
+            throw new ValueBelowZeroException("Temperature cannot be below absolute zero");
         }
     }
 
@@ -221,7 +221,7 @@ public class Fahrenheit extends Unit {
         } else if (temperature.compareTo(new BigDecimal("-459.67")) == 0) {
             return "0";
         } else {
-            throw new ValueBelowZeroException("Number is below absolute zero");
+            throw new ValueBelowZeroException("Temperature cannot be below absolute zero");
         }
     }
 

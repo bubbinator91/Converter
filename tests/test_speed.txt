@@ -3,7 +3,7 @@ Test of speed fragment.
 X -> Y, where X is initial decimal place #, and y is final decimal place #.
 
 Observations:
-	Slightly off conversions:
+	Slightly off conversions: (Fixed May 16th, 2015)
 		FPS -> KNOT
 		KNOT -> FPS
 		KNOT -> MPS

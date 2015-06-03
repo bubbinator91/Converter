@@ -21,7 +21,8 @@ public class Kelvin extends Unit {
     // extended from a base class. Implemented with the singleton "Initialization-on-demand" pattern
     // so as to not take up unnecessary memory.
 
-    // region Singleton methods
+    // region Singleton things
+
     private Kelvin() {}
 
     private static class KelvinHolder {
@@ -176,7 +177,7 @@ public class Kelvin extends Unit {
         } else if (temperature.compareTo(BigDecimal.ZERO) == 0) {
             return "-273.15";
         } else {
-            throw new ValueBelowZeroException("Number is below absolute zero");
+            throw new ValueBelowZeroException("Temperature cannot be below absolute zero");
         }
     }
 
@@ -217,7 +218,7 @@ public class Kelvin extends Unit {
         } else if (temperature.compareTo(BigDecimal.ZERO) == 0) {
             return "-459.67";
         } else {
-            throw new ValueBelowZeroException("Number is below absolute zero");
+            throw new ValueBelowZeroException("Temperature cannot be below absolute zero");
         }
     }
 

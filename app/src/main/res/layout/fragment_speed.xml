@@ -28,6 +28,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_speed_fps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -62,6 +63,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_speed_knot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -96,6 +98,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_speed_kph"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -130,6 +133,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_speed_mps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -164,6 +168,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_speed_mph"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
