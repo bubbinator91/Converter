@@ -234,19 +234,16 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableCelsius != null) {
-                Tuple<List<String>, ConversionErrorCodes> results =
+                final Tuple<List<String>, ConversionErrorCodes> results =
                         Celsius.toAll(mEditableCelsius.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
-                    final List<String> conversionList = results.getValue0();
-                    final ConversionErrorCodes error = results.getValue1();
-
                     getHandler().post(new Runnable() {
                         @Override
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (error) {
+                            switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
                                     textInputLayoutCelsius.setError(getString(
                                             R.string.conversion_temperature_error_below_absolute_zero
@@ -269,9 +266,9 @@ public class TemperatureFragment extends BaseFragment {
                                     break;
                             }
 
-                            editTextFahrenheit.setText(conversionList.get(0),
+                            editTextFahrenheit.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKelvin.setText(conversionList.get(1),
+                            editTextKelvin.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -298,19 +295,16 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableFahrenheit != null) {
-                Tuple<List<String>, ConversionErrorCodes> results =
+                final Tuple<List<String>, ConversionErrorCodes> results =
                         Fahrenheit.toAll(mEditableFahrenheit.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
-                    final List<String> conversionList = results.getValue0();
-                    final ConversionErrorCodes error = results.getValue1();
-
                     getHandler().post(new Runnable() {
                         @Override
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (error) {
+                            switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
                                     textInputLayoutFahrenheit.setError(getString(
                                             R.string.conversion_temperature_error_below_absolute_zero
@@ -333,9 +327,9 @@ public class TemperatureFragment extends BaseFragment {
                                     break;
                             }
 
-                            editTextCelsius.setText(conversionList.get(0),
+                            editTextCelsius.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKelvin.setText(conversionList.get(1),
+                            editTextKelvin.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -362,19 +356,16 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKelvin != null) {
-                Tuple<List<String>, ConversionErrorCodes> results =
+                final Tuple<List<String>, ConversionErrorCodes> results =
                         Kelvin.toAll(mEditableKelvin.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
-                    final List<String> conversionList = results.getValue0();
-                    final ConversionErrorCodes error = results.getValue1();
-
                     getHandler().post(new Runnable() {
                         @Override
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (error) {
+                            switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
                                     textInputLayoutKelvin.setError(getString(
                                             R.string.conversion_temperature_error_below_absolute_zero
@@ -397,9 +388,9 @@ public class TemperatureFragment extends BaseFragment {
                                     break;
                             }
 
-                            editTextCelsius.setText(conversionList.get(0),
+                            editTextCelsius.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextFahrenheit.setText(conversionList.get(1),
+                            editTextFahrenheit.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);

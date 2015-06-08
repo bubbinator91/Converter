@@ -82,8 +82,7 @@ public class MilesPerHour extends Unit {
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
     public static String toFeetPerSecond(String mph, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
@@ -119,8 +118,7 @@ public class MilesPerHour extends Unit {
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
     public static String toKnots(String mph, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
@@ -157,8 +155,7 @@ public class MilesPerHour extends Unit {
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
     public static String toKilometersPerHour(String mph, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
@@ -194,8 +191,7 @@ public class MilesPerHour extends Unit {
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
     public static String toMetersPerSecond(String mph, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
