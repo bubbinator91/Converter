@@ -247,19 +247,19 @@ public class TemperatureFragment extends BaseFragment {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
                             switch (error) {
-                                case ERROR_BELOW_ABSOLUTE_ZERO:
+                                case ERROR_BELOW_ZERO:
                                     textInputLayoutCelsius.setError(getString(
-                                            R.string.fragment_temperature_error_below_absolute_zero
+                                            R.string.conversion_temperature_error_below_absolute_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
                                     textInputLayoutCelsius.setError(getString(
-                                            R.string.fragment_temperature_error_input_not_numeric
+                                            R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
                                     textInputLayoutCelsius.setError(getString(
-                                            R.string.fragment_temperature_error_conversion_error
+                                            R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
@@ -311,19 +311,19 @@ public class TemperatureFragment extends BaseFragment {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
                             switch (error) {
-                                case ERROR_BELOW_ABSOLUTE_ZERO:
+                                case ERROR_BELOW_ZERO:
                                     textInputLayoutFahrenheit.setError(getString(
-                                            R.string.fragment_temperature_error_below_absolute_zero
+                                            R.string.conversion_temperature_error_below_absolute_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
                                     textInputLayoutFahrenheit.setError(getString(
-                                            R.string.fragment_temperature_error_input_not_numeric
+                                            R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
                                     textInputLayoutFahrenheit.setError(getString(
-                                            R.string.fragment_temperature_error_conversion_error
+                                            R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
@@ -375,19 +375,19 @@ public class TemperatureFragment extends BaseFragment {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
                             switch (error) {
-                                case ERROR_BELOW_ABSOLUTE_ZERO:
+                                case ERROR_BELOW_ZERO:
                                     textInputLayoutKelvin.setError(getString(
-                                            R.string.fragment_temperature_error_below_absolute_zero
+                                            R.string.conversion_temperature_error_below_absolute_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
                                     textInputLayoutKelvin.setError(getString(
-                                            R.string.fragment_temperature_error_input_not_numeric
+                                            R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
                                     textInputLayoutKelvin.setError(getString(
-                                            R.string.fragment_temperature_error_conversion_error
+                                            R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:

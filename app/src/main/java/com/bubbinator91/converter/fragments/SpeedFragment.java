@@ -1,7 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -11,13 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bubbinator91.conversion.speed.FeetPerSecond;
+import com.bubbinator91.conversion.speed.KilometersPerHour;
+import com.bubbinator91.conversion.speed.Knots;
+import com.bubbinator91.conversion.speed.MetersPerSecond;
+import com.bubbinator91.conversion.speed.MilesPerHour;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.conversion.speed.Knot;
-import com.bubbinator91.converter.conversion.speed.Kph;
-import com.bubbinator91.converter.conversion.speed.Mph;
-import com.bubbinator91.converter.conversion.speed.Mps;
 import com.bubbinator91.converter.util.TextInputLayoutLAndAbove;
 import com.bubbinator91.converter.util.Utils;
 
@@ -314,19 +313,19 @@ public class SpeedFragment extends BaseFragment {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
                             switch (error) {
-                                case ERROR_BELOW_ABSOLUTE_ZERO:
+                                case ERROR_BELOW_ZERO:
                                     textInputLayoutFps.setError(getString(
-                                            R.string.fragment_temperature_error_below_absolute_zero
+                                            R.string.conversion_error_below_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
                                     textInputLayoutFps.setError(getString(
-                                            R.string.fragment_temperature_error_input_not_numeric
+                                            R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
                                     textInputLayoutFps.setError(getString(
-                                            R.string.fragment_temperature_error_conversion_error
+                                            R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
@@ -361,8 +360,7 @@ public class SpeedFragment extends BaseFragment {
         private Editable mEditableKnot;
         private String mCallingClassName;
 
-        public ConversionFromKnotRunnable(@NonNull Editable editableKnot,
-                                          @NonNull String callingClassName) {
+        public ConversionFromKnotRunnable(Editable editableKnot, String callingClassName) {
             mEditableKnot = editableKnot;
             mCallingClassName = callingClassName;
         }
@@ -372,20 +370,56 @@ public class SpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKnot != null) {
-                final List<String> results =
-                        Knot.toAll(mEditableKnot.toString(), getNumOfDecimalPlaces());
+                Tuple<List<String>, ConversionErrorCodes> results =
+                        Knots.toAll(mEditableKnot.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-                        editTextKph.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-                        editTextMps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
-                        editTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    final List<String> conversionList = results.getValue0();
+                    final ConversionErrorCodes error = results.getValue1();
+
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (error) {
+                                case ERROR_BELOW_ZERO:
+                                    textInputLayoutKnot.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutKnot.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutKnot.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutFps.setErrorEnabled(false);
+                                    textInputLayoutKnot.setErrorEnabled(false);
+                                    textInputLayoutKph.setErrorEnabled(false);
+                                    textInputLayoutMps.setErrorEnabled(false);
+                                    textInputLayoutMph.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextFps.setText(conversionList.get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKph.setText(conversionList.get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMps.setText(conversionList.get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMph.setText(conversionList.get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }
@@ -396,8 +430,7 @@ public class SpeedFragment extends BaseFragment {
         private Editable mEditableKph;
         private String mCallingClassName;
 
-        public ConversionFromKphRunnable(@NonNull Editable editableKph,
-                                         @NonNull String callingClassName) {
+        public ConversionFromKphRunnable(Editable editableKph, String callingClassName) {
             mEditableKph = editableKph;
             mCallingClassName = callingClassName;
         }
@@ -407,20 +440,56 @@ public class SpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKph != null) {
-                final List<String> results =
-                        Kph.toAll(mEditableKph.toString(), getNumOfDecimalPlaces());
+                Tuple<List<String>, ConversionErrorCodes> results =
+                        KilometersPerHour.toAll(mEditableKph.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-                        editTextKnot.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-                        editTextMps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
-                        editTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    final List<String> conversionList = results.getValue0();
+                    final ConversionErrorCodes error = results.getValue1();
+
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (error) {
+                                case ERROR_BELOW_ZERO:
+                                    textInputLayoutKph.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutKph.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutKph.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutFps.setErrorEnabled(false);
+                                    textInputLayoutKnot.setErrorEnabled(false);
+                                    textInputLayoutKph.setErrorEnabled(false);
+                                    textInputLayoutMps.setErrorEnabled(false);
+                                    textInputLayoutMph.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextFps.setText(conversionList.get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKnot.setText(conversionList.get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMps.setText(conversionList.get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMph.setText(conversionList.get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }
@@ -431,8 +500,7 @@ public class SpeedFragment extends BaseFragment {
         private Editable mEditableMps;
         private String mCallingClassName;
 
-        public ConversionFromMpsRunnable(@NonNull Editable editableMps,
-                                         @NonNull String callingClassName) {
+        public ConversionFromMpsRunnable(Editable editableMps, String callingClassName) {
             mEditableMps = editableMps;
             mCallingClassName = callingClassName;
         }
@@ -442,20 +510,56 @@ public class SpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMps != null) {
-                final List<String> results =
-                        Mps.toAll(mEditableMps.toString(), getNumOfDecimalPlaces());
+                Tuple<List<String>, ConversionErrorCodes> results =
+                        MetersPerSecond.toAll(mEditableMps.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-                        editTextKnot.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-                        editTextKph.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
-                        editTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    final List<String> conversionList = results.getValue0();
+                    final ConversionErrorCodes error = results.getValue1();
+
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (error) {
+                                case ERROR_BELOW_ZERO:
+                                    textInputLayoutMps.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutMps.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutMps.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutFps.setErrorEnabled(false);
+                                    textInputLayoutKnot.setErrorEnabled(false);
+                                    textInputLayoutKph.setErrorEnabled(false);
+                                    textInputLayoutMps.setErrorEnabled(false);
+                                    textInputLayoutMph.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextFps.setText(conversionList.get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKnot.setText(conversionList.get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKph.setText(conversionList.get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMph.setText(conversionList.get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }
@@ -466,8 +570,7 @@ public class SpeedFragment extends BaseFragment {
         private Editable mEditableMph;
         private String mCallingClassName;
 
-        public ConversionFromMphRunnable(@NonNull Editable editableMph,
-                                         @NonNull String callingClassName) {
+        public ConversionFromMphRunnable(Editable editableMph, String callingClassName) {
             mEditableMph = editableMph;
             mCallingClassName = callingClassName;
         }
@@ -477,20 +580,55 @@ public class SpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMph != null) {
-                final List<String> results =
-                        Mph.toAll(mEditableMph.toString(), getNumOfDecimalPlaces());
+                Tuple<List<String>, ConversionErrorCodes> results =
+                        MilesPerHour.toAll(mEditableMph.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-                        editTextKnot.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-                        editTextKph.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
-                        editTextMps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    final List<String> conversionList = results.getValue0();
+                    final ConversionErrorCodes error = results.getValue1();
+
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (error) {
+                                case ERROR_BELOW_ZERO:
+                                    textInputLayoutMph.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutMph.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutMph.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutFps.setErrorEnabled(false);
+                                    textInputLayoutKnot.setErrorEnabled(false);
+                                    textInputLayoutKph.setErrorEnabled(false);
+                                    textInputLayoutMps.setErrorEnabled(false);
+                                    textInputLayoutMph.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextFps.setText(conversionList.get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKnot.setText(conversionList.get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKph.setText(conversionList.get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMps.setText(conversionList.get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }

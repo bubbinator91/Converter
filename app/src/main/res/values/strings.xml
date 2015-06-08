@@ -41,16 +41,20 @@
     <string name="temperature_fahrenheit">Fahrenheit</string>
 
     <string name="activity_main_drawer_icon_description">The icon of the current item</string>
-    <string name="activity_main_error_default_prefs">Could not get preferences. Using defaults.</string>
 
     <string name="activity_settings_logcat">Logcat Messages</string>
     <string name="activity_settings_logcat_summary">Turn on logcat messages</string>
     <string name="activity_settings_decimal">Decimal Places</string>
     <string name="activity_settings_decimal_summary">Number of decimal places you want to see</string>
 
-    <string name="fragment_temperature_error_below_absolute_zero">Input cannot be below absolute zero</string>
-    <string name="fragment_temperature_error_input_not_numeric">Input is not numeric</string>
-    <string name="fragment_temperature_error_conversion_error">There was a problem with converting. Please try again.</string>
+    <!-- Errors -->
+
+    <string name="activity_main_error_default_prefs">Could not get preferences. Using defaults.</string>
+
+    <string name="conversion_error_input_not_numeric">Input is not numeric</string>
+    <string name="conversion_error_conversion_error">There was a problem with converting. Please try again.</string>
+    <string name="conversion_error_below_zero">Input cannot be below zero</string>
+    <string name="conversion_temperature_error_below_absolute_zero">Input cannot be below absolute zero</string>
 
     <!-- DO NOT TRANSLATE ANYTHING BELOW THIS LINE. ONLY USED INTERNALLY. -->
 

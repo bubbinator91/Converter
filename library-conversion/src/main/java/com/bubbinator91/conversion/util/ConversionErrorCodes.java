@@ -5,7 +5,7 @@ package com.bubbinator91.conversion.util;
  */
 public enum ConversionErrorCodes {
     ERROR_NONE,
-    ERROR_BELOW_ABSOLUTE_ZERO,
+    ERROR_BELOW_ZERO,
     ERROR_INPUT_NOT_NUMERIC,
     ERROR_UNKNOWN
 }

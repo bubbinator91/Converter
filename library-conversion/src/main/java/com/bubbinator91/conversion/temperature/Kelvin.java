@@ -17,22 +17,6 @@ import java.util.List;
 public class Kelvin extends Unit {
     private static final String TAG = Fahrenheit.class.getSimpleName();
 
-    // Implemented as a singleton rather than just static methods so that the class could be
-    // extended from a base class. Implemented with the singleton "Initialization-on-demand" pattern
-    // so as to not take up unnecessary memory.
-
-    // region Singleton things
-
-    private Kelvin() {}
-
-    private static class KelvinHolder {
-        private static final Kelvin INSTANCE = new Kelvin();
-    }
-
-    private static Kelvin getInstance() { return KelvinHolder.INSTANCE; }
-
-    // endregion
-
     // region Public methods
 
     /**
@@ -43,71 +27,11 @@ public class Kelvin extends Unit {
      *                          treated as if it was zero.
      *
      * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
-     *          celsius and fahrenheit values (in that order), and the second item is one of the
-     *          error codes found in {@link ConversionErrorCodes}, or null if the <code>kelvin</code>
-     *          parameter is null.
+     *          celsius and fahrenheit values (in that order; they will be empty {@link String}s if
+     *          there is an error), and the second item is one of the error codes found in
+     *          {@link ConversionErrorCodes}, or null if the <code>kelvin</code> parameter is null.
      */
     public static Tuple<List<String>, ConversionErrorCodes> toAll(String kelvin, int decimalPlaces) {
-        return getInstance().internal_toAll(kelvin, decimalPlaces);
-    }
-
-    /**
-     * Takes in the kelvin value as a {@link String} and converts it to celsius.
-     *
-     * @param kelvin            The kelvin value as a {@link String}. Cannot be null.
-     * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
-     *
-     * @return  The equivalent celsius value as a {@link String}, or null if the <code>kelvin</code>
-     *          parameter is null.
-     *
-     * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
-     */
-    public static String toCelsius(String kelvin, int decimalPlaces)
-            throws NumberFormatException, ValueBelowZeroException {
-        return getInstance().internal_toCelsius(kelvin, decimalPlaces);
-    }
-
-    /**
-     * Takes in the kelvin value as a {@link String} and converts it to fahrenheit.
-     *
-     * @param kelvin            The kelvin value as a {@link String}. Cannot be null.
-     * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
-     *
-     * @return  The equivalent fahrenheit value as a {@link String}, or null if the <code>kelvin</code>
-     *          parameter is null.
-     *
-     * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
-     */
-    public static String toFahrenheit(String kelvin, int decimalPlaces)
-            throws NumberFormatException, ValueBelowZeroException {
-        return getInstance().internal_toFahrenheit(kelvin, decimalPlaces);
-    }
-
-    // endregion
-
-    // region Private methods
-
-    /**
-     * Takes in the kelvin value as a {@link String} and converts it to both celsius and fahrenheit.
-     *
-     * @param kelvin            The kelvin value as a {@link String}. Cannot be null.
-     * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
-     *
-     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
-     *          celsius and fahrenheit values (in that order), and the second item is one of the
-     *          error codes found in {@link ConversionErrorCodes}, or null if the <code>kelvin</code>
-     *          parameter is null.
-     */
-    private Tuple<List<String>, ConversionErrorCodes> internal_toAll(String kelvin, int decimalPlaces) {
         if (kelvin == null) {
             return null;
         }
@@ -118,8 +42,8 @@ public class Kelvin extends Unit {
 
         if (isNumeric(kelvin)) {
             try {
-                results.add(internal_toCelsius(kelvin, roundingLength));
-                results.add(internal_toFahrenheit(kelvin, roundingLength));
+                results.add(toCelsius(kelvin, roundingLength));
+                results.add(toFahrenheit(kelvin, roundingLength));
             } catch (NumberFormatException e) {
                 Log.e(TAG + ".internal_toAll", e.getLocalizedMessage());
                 results.clear();
@@ -129,7 +53,7 @@ public class Kelvin extends Unit {
                 Log.e(TAG + ".internal_toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 2);
-                error = ConversionErrorCodes.ERROR_BELOW_ABSOLUTE_ZERO;
+                error = ConversionErrorCodes.ERROR_BELOW_ZERO;
             }
         } else if (kelvin.equals("-") || kelvin.equals(".") || kelvin.equals("")) {
             addEmptyItems(results, 2);
@@ -157,7 +81,7 @@ public class Kelvin extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    private String internal_toCelsius(String kelvin, int decimalPlaces)
+    public static String toCelsius(String kelvin, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kelvin == null) {
             return null;
@@ -196,7 +120,7 @@ public class Kelvin extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    private String internal_toFahrenheit(String kelvin, int decimalPlaces)
+    public static String toFahrenheit(String kelvin, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kelvin == null) {
             return null;
