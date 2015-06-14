@@ -1,7 +1,6 @@
 package com.bubbinator91.converter.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -10,17 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bubbinator91.conversion.length.Centimeters;
 import com.bubbinator91.conversion.length.Feet;
 import com.bubbinator91.conversion.length.Inches;
+import com.bubbinator91.conversion.length.Kilometers;
+import com.bubbinator91.conversion.length.Meters;
+import com.bubbinator91.conversion.length.Miles;
+import com.bubbinator91.conversion.length.Millimeters;
+import com.bubbinator91.conversion.length.Yards;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.conversion.length.Centimeter;
-import com.bubbinator91.converter.conversion.length.Kilometer;
-import com.bubbinator91.converter.conversion.length.Meter;
-import com.bubbinator91.converter.conversion.length.Mile;
-import com.bubbinator91.converter.conversion.length.Millimeter;
-import com.bubbinator91.converter.conversion.length.Yard;
 import com.bubbinator91.converter.util.TextInputLayoutLAndAbove;
 import com.bubbinator91.converter.util.Utils;
 
@@ -485,8 +484,7 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableFoot;
         private String mCallingClassName;
 
-        public ConversionFromFootRunnable(@NonNull Editable editableFoot,
-                                          @NonNull String callingClassName) {
+        public ConversionFromFootRunnable(Editable editableFoot, String callingClassName) {
             mEditableFoot = editableFoot;
             mCallingClassName = callingClassName;
         }
@@ -547,6 +545,7 @@ public class LengthFragment extends BaseFragment {
                                     AppCompatTextView.BufferType.EDITABLE);
                             editTextKilometer.setText(results.getValue0().get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
+
                             addTextChangedListeners(TAG + "." + mCallingClassName);
                         }
                     });
@@ -561,8 +560,7 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableYard;
         private String mCallingClassName;
 
-        public ConversionFromYardRunnable(@NonNull Editable editableYard,
-                                          @NonNull String callingClassName) {
+        public ConversionFromYardRunnable(Editable editableYard, String callingClassName) {
             mEditableYard = editableYard;
             mCallingClassName = callingClassName;
         }
@@ -572,30 +570,62 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableYard != null) {
-                final List<String> results =
-                        Yard.toAll(mEditableYard.toString(), getNumOfDecimalPlaces());
+                final Tuple<List<String>, ConversionErrorCodes> results =
+                        Yards.toAll(mEditableYard.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(2),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(3),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(4),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(5),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (results.getValue1()) {
+                                case ERROR_BELOW_ZERO:
+                                    textInputLayoutYard.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutYard.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutYard.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutInch.setErrorEnabled(false);
+                                    textInputLayoutFoot.setErrorEnabled(false);
+                                    textInputLayoutYard.setErrorEnabled(false);
+                                    textInputLayoutMile.setErrorEnabled(false);
+                                    textInputLayoutMillimeter.setErrorEnabled(false);
+                                    textInputLayoutCentimeter.setErrorEnabled(false);
+                                    textInputLayoutMeter.setErrorEnabled(false);
+                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextInch.setText(results.getValue0().get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextFoot.setText(results.getValue0().get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMile.setText(results.getValue0().get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMillimeter.setText(results.getValue0().get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextCentimeter.setText(results.getValue0().get(4),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMeter.setText(results.getValue0().get(5),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKilometer.setText(results.getValue0().get(6),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }
@@ -606,8 +636,7 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableMile;
         private String mCallingClassName;
 
-        public ConversionFromMileRunnable(@NonNull Editable editableMile,
-                                          @NonNull String callingClassName) {
+        public ConversionFromMileRunnable(Editable editableMile, String callingClassName) {
             mEditableMile = editableMile;
             mCallingClassName = callingClassName;
         }
@@ -617,30 +646,62 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMile != null) {
-                final List<String> results =
-                        Mile.toAll(mEditableMile.toString(), getNumOfDecimalPlaces());
+                final Tuple<List<String>, ConversionErrorCodes> results =
+                        Miles.toAll(mEditableMile.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(2),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(3),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(4),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(5),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (results.getValue1()) {
+                                case ERROR_BELOW_ZERO:
+                                    textInputLayoutMile.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutMile.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutMile.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutInch.setErrorEnabled(false);
+                                    textInputLayoutFoot.setErrorEnabled(false);
+                                    textInputLayoutYard.setErrorEnabled(false);
+                                    textInputLayoutMile.setErrorEnabled(false);
+                                    textInputLayoutMillimeter.setErrorEnabled(false);
+                                    textInputLayoutCentimeter.setErrorEnabled(false);
+                                    textInputLayoutMeter.setErrorEnabled(false);
+                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextInch.setText(results.getValue0().get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextFoot.setText(results.getValue0().get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextYard.setText(results.getValue0().get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMillimeter.setText(results.getValue0().get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextCentimeter.setText(results.getValue0().get(4),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMeter.setText(results.getValue0().get(5),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKilometer.setText(results.getValue0().get(6),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }
@@ -651,8 +712,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableMillimeter;
         private String mCallingClassName;
 
-        public ConversionFromMillimeterRunnable(@NonNull Editable editableMillimeter,
-                                                @NonNull String callingClassName) {
+        public ConversionFromMillimeterRunnable(Editable editableMillimeter,
+                                                String callingClassName) {
             mEditableMillimeter = editableMillimeter;
             mCallingClassName = callingClassName;
         }
@@ -662,30 +723,62 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMillimeter != null) {
-                final List<String> results =
-                        Millimeter.toAll(mEditableMillimeter.toString(), getNumOfDecimalPlaces());
+                final Tuple<List<String>, ConversionErrorCodes> results =
+                        Millimeters.toAll(mEditableMillimeter.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(2),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(3),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(4),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(5),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (results.getValue1()) {
+                                case ERROR_BELOW_ZERO:
+                                    textInputLayoutMillimeter.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutMillimeter.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutMillimeter.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutInch.setErrorEnabled(false);
+                                    textInputLayoutFoot.setErrorEnabled(false);
+                                    textInputLayoutYard.setErrorEnabled(false);
+                                    textInputLayoutMile.setErrorEnabled(false);
+                                    textInputLayoutMillimeter.setErrorEnabled(false);
+                                    textInputLayoutCentimeter.setErrorEnabled(false);
+                                    textInputLayoutMeter.setErrorEnabled(false);
+                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextInch.setText(results.getValue0().get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextFoot.setText(results.getValue0().get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextYard.setText(results.getValue0().get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMile.setText(results.getValue0().get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextCentimeter.setText(results.getValue0().get(4),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMeter.setText(results.getValue0().get(5),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKilometer.setText(results.getValue0().get(6),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }
@@ -696,8 +789,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableCentimeter;
         private String mCallingClassName;
 
-        public ConversionFromCentimeterRunnable(@NonNull Editable editableCentimeter,
-                                                @NonNull String callingClassName) {
+        public ConversionFromCentimeterRunnable(Editable editableCentimeter,
+                                                String callingClassName) {
             mEditableCentimeter = editableCentimeter;
             mCallingClassName = callingClassName;
         }
@@ -707,30 +800,62 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableCentimeter != null) {
-                final List<String> results =
-                        Centimeter.toAll(mEditableCentimeter.toString(), getNumOfDecimalPlaces());
+                final Tuple<List<String>, ConversionErrorCodes> results =
+                        Centimeters.toAll(mEditableCentimeter.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(2),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(3),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(4),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(5),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (results.getValue1()) {
+                                case ERROR_BELOW_ZERO:
+                                    textInputLayoutCentimeter.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutCentimeter.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutCentimeter.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutInch.setErrorEnabled(false);
+                                    textInputLayoutFoot.setErrorEnabled(false);
+                                    textInputLayoutYard.setErrorEnabled(false);
+                                    textInputLayoutMile.setErrorEnabled(false);
+                                    textInputLayoutMillimeter.setErrorEnabled(false);
+                                    textInputLayoutCentimeter.setErrorEnabled(false);
+                                    textInputLayoutMeter.setErrorEnabled(false);
+                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextInch.setText(results.getValue0().get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextFoot.setText(results.getValue0().get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextYard.setText(results.getValue0().get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMile.setText(results.getValue0().get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMillimeter.setText(results.getValue0().get(4),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMeter.setText(results.getValue0().get(5),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKilometer.setText(results.getValue0().get(6),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }
@@ -741,8 +866,7 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableMeter;
         private String mCallingClassName;
 
-        public ConversionFromMeterRunnable(@NonNull Editable editableMeter,
-                                           @NonNull String callingClassName) {
+        public ConversionFromMeterRunnable(Editable editableMeter, String callingClassName) {
             mEditableMeter = editableMeter;
             mCallingClassName = callingClassName;
         }
@@ -752,30 +876,62 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMeter != null) {
-                final List<String> results =
-                        Meter.toAll(mEditableMeter.toString(), getNumOfDecimalPlaces());
+                final Tuple<List<String>, ConversionErrorCodes> results =
+                        Meters.toAll(mEditableMeter.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(2),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(3),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(4),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(5),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextKilometer.setText(results.get(6),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (results.getValue1()) {
+                                case ERROR_BELOW_ZERO:
+                                    textInputLayoutMeter.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutMeter.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutMeter.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutInch.setErrorEnabled(false);
+                                    textInputLayoutFoot.setErrorEnabled(false);
+                                    textInputLayoutYard.setErrorEnabled(false);
+                                    textInputLayoutMile.setErrorEnabled(false);
+                                    textInputLayoutMillimeter.setErrorEnabled(false);
+                                    textInputLayoutCentimeter.setErrorEnabled(false);
+                                    textInputLayoutMeter.setErrorEnabled(false);
+                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextInch.setText(results.getValue0().get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextFoot.setText(results.getValue0().get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextYard.setText(results.getValue0().get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMile.setText(results.getValue0().get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMillimeter.setText(results.getValue0().get(4),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextCentimeter.setText(results.getValue0().get(5),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextKilometer.setText(results.getValue0().get(6),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }
@@ -786,8 +942,8 @@ public class LengthFragment extends BaseFragment {
         private Editable mEditableKilometer;
         private String mCallingClassName;
 
-        public ConversionFromKilometerRunnable(@NonNull Editable editableKilometer,
-                                               @NonNull String callingClassName) {
+        public ConversionFromKilometerRunnable(Editable editableKilometer,
+                                               String callingClassName) {
             mEditableKilometer = editableKilometer;
             mCallingClassName = callingClassName;
         }
@@ -797,30 +953,62 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKilometer != null) {
-                final List<String> results =
-                        Kilometer.toAll(mEditableKilometer.toString(), getNumOfDecimalPlaces());
+                final Tuple<List<String>, ConversionErrorCodes> results =
+                        Kilometers.toAll(mEditableKilometer.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        editTextInch.setText(results.get(0),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextFoot.setText(results.get(1),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextYard.setText(results.get(2),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMile.setText(results.get(3),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMillimeter.setText(results.get(4),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextCentimeter.setText(results.get(5),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        editTextMeter.setText(results.get(6),
-                                AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (results.getValue1()) {
+                                case ERROR_BELOW_ZERO:
+                                    textInputLayoutKilometer.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    textInputLayoutKilometer.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    textInputLayoutKilometer.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    textInputLayoutInch.setErrorEnabled(false);
+                                    textInputLayoutFoot.setErrorEnabled(false);
+                                    textInputLayoutYard.setErrorEnabled(false);
+                                    textInputLayoutMile.setErrorEnabled(false);
+                                    textInputLayoutMillimeter.setErrorEnabled(false);
+                                    textInputLayoutCentimeter.setErrorEnabled(false);
+                                    textInputLayoutMeter.setErrorEnabled(false);
+                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            editTextInch.setText(results.getValue0().get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextFoot.setText(results.getValue0().get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextYard.setText(results.getValue0().get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMile.setText(results.getValue0().get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMillimeter.setText(results.getValue0().get(4),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextCentimeter.setText(results.getValue0().get(5),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            editTextMeter.setText(results.getValue0().get(6),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }
