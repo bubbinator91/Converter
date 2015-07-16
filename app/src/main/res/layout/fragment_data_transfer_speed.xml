@@ -28,6 +28,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_data_transfer_speed_bps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -62,6 +63,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_data_transfer_speed_byps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -96,6 +98,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_data_transfer_speed_kbps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -130,6 +133,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_data_transfer_speed_kbyps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -164,6 +168,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_data_transfer_speed_mbps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -198,6 +203,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_data_transfer_speed_mbyps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -232,6 +238,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_data_transfer_speed_gbps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -266,6 +273,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_data_transfer_speed_gbyps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -300,6 +308,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_data_transfer_speed_tbps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
@@ -335,6 +344,7 @@
             cards:cardElevation="@dimen/card_elevation">
 
             <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+                android:id="@+id/textInputLayout_data_transfer_speed_tbyps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/card_content_padding">
