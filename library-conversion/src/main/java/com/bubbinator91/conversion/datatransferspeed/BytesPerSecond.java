@@ -12,30 +12,30 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Handles the conversion from bits per second to other units of data transfer speed
+ * Handles the conversion from bytes per second to other units of data transfer speed
  */
-public class BitsPerSecond extends Unit {
-    private static final String TAG = BitsPerSecond.class.getSimpleName();
+public class BytesPerSecond extends Unit {
+    private static final String TAG = BytesPerSecond.class.getSimpleName();
 
     /**
-     * Takes in the bits per second value as a {@link String} and converts it to bytes per second,
+     * Takes in the bytes per second value as a {@link String} and converts it to bits per second,
      * kilobits per second, kilobytes per second, megabits per second, megabytes per second,
      * gigabits per second, gigabytes per second, terabits per second, and terabytes per second.
      *
-     * @param bps               The bits per second value as a {@link String}. Should not be null.
+     * @param byps              The bytes per second value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
      * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
-     *          bytes per second, kilobits per second, kilobytes per second, megabits per second,
+     *          bits per second, kilobits per second, kilobytes per second, megabits per second,
      *          megabytes per second, gigabits per second, gigabytes per second, terabits per
      *          second, and terabytes per second values (in that order; they will be empty
      *          {@link String}s if there is an error), and the second item is one of the error codes
      *          found in {@link ConversionErrorCodes}, or null if the <code>bps</code> parameter is
      *          null;
      */
-    public static Tuple<List<String>, ConversionErrorCodes> toAll(String bps, int decimalPlaces) {
-        if (bps == null) {
+    public static Tuple<List<String>, ConversionErrorCodes> toAll(String byps, int decimalPlaces) {
+        if (byps == null) {
             return null;
         }
 
@@ -43,17 +43,17 @@ public class BitsPerSecond extends Unit {
         List<String> results = new LinkedList<>();
         ConversionErrorCodes error = ConversionErrorCodes.ERROR_NONE;
 
-        if (isNumeric(bps)) {
+        if (isNumeric(byps)) {
             try {
-                results.add(toBytesPerSecond(bps, roundingLength));
-                results.add(toKilobitsPerSecond(bps, roundingLength));
-                results.add(toKiloBytesPerSecond(bps, roundingLength));
-                results.add(toMegabitsPerSecond(bps, roundingLength));
-                results.add(toMegabytesPerSecond(bps, roundingLength));
-                results.add(toGigabitsPerSecond(bps, roundingLength));
-                results.add(toGigabytesPerSecond(bps, roundingLength));
-                results.add(toTerabitsPerSecond(bps, roundingLength));
-                results.add(toTerabytesPerSecond(bps, roundingLength));
+                results.add(toBitsPerSecond(byps, roundingLength));
+                results.add(toKilobitsPerSecond(byps, roundingLength));
+                results.add(toKiloBytesPerSecond(byps, roundingLength));
+                results.add(toMegabitsPerSecond(byps, roundingLength));
+                results.add(toMegabytesPerSecond(byps, roundingLength));
+                results.add(toGigabitsPerSecond(byps, roundingLength));
+                results.add(toGigabytesPerSecond(byps, roundingLength));
+                results.add(toTerabitsPerSecond(byps, roundingLength));
+                results.add(toTerabytesPerSecond(byps, roundingLength));
             } catch (NumberFormatException e) {
                 Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
@@ -65,7 +65,7 @@ public class BitsPerSecond extends Unit {
                 addEmptyItems(results, 9);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
             }
-        } else if (bps.equals(".") || bps.equals("")) {
+        } else if (byps.equals(".") || byps.equals("")) {
             results.clear();
             addEmptyItems(results, 9);
         } else {
@@ -77,46 +77,46 @@ public class BitsPerSecond extends Unit {
     }
 
     /**
-     * Takes in the bits per second value as a {@link String} and converts it to bytes per second.
+     * Takes in the bytes per second value as a {@link String} and converts it to bits per second.
      *
-     * @param bps               The bits per second value as a {@link String}. Should not be null.
+     * @param byps              The bytes per second value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent bytes per second value as a {@link String}, or null if the
+     * @return  The equivalent bits per second value as a {@link String}, or null if the
      *          <code>bps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toBytesPerSecond(String bps, int decimalPlaces) throws
+    public static String toBitsPerSecond(String byps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
-        if (bps == null) {
+        if (byps == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        BigDecimal dts = new BigDecimal(bps);
+        BigDecimal dts = new BigDecimal(byps);
         if (dts.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            dts = dts.multiply(new BigDecimal("0.125"))
+            dts = dts.multiply(new BigDecimal("8"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (dts.compareTo(BigDecimal.ZERO) == 0) {
                 dts = BigDecimal.ZERO;
             }
             return dts.stripTrailingZeros().toPlainString();
         } else {
-           throw new ValueBelowZeroException("Transfer speed cannot be below zero");
+            throw new ValueBelowZeroException("Transfer speed cannot be below zero");
         }
     }
 
     /**
-     * Takes in the bits per second value as a {@link String} and converts it to kilobits per
+     * Takes in the bytes per second value as a {@link String} and converts it to kilobits per
      * second.
      *
-     * @param bps               The bits per second value as a {@link String}. Should not be null.
+     * @param byps              The bytes per second value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -127,14 +127,51 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilobitsPerSecond(String bps, int decimalPlaces) throws
+    public static String toKilobitsPerSecond(String byps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
-        if (bps == null) {
+        if (byps == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        BigDecimal dts = new BigDecimal(bps);
+        BigDecimal dts = new BigDecimal(byps);
+        if (dts.compareTo(BigDecimal.ZERO) >= 0) {
+            // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
+            // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
+            dts = dts.multiply(new BigDecimal("0.008"))
+                    .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
+            if (dts.compareTo(BigDecimal.ZERO) == 0) {
+                dts = BigDecimal.ZERO;
+            }
+            return dts.stripTrailingZeros().toPlainString();
+        } else {
+            throw new ValueBelowZeroException("Transfer speed cannot be below zero");
+        }
+    }
+
+    /**
+     * Takes in the bytes per second value as a {@link String} and converts it to kilobytes per
+     * second.
+     *
+     * @param byps              The bytes per second value as a {@link String}. Should not be null.
+     * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
+     *                          treated as if it was zero.
+     *
+     * @return  The equivalent kilobytes per second value as a {@link String}, or null if the
+     *          <code>bps</code> parameter is null.
+     *
+     * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
+     *                                      number.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
+     */
+    public static String toKiloBytesPerSecond(String byps, int decimalPlaces) throws
+            NumberFormatException, ValueBelowZeroException {
+        if (byps == null) {
+            return null;
+        }
+
+        int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
+        BigDecimal dts = new BigDecimal(byps);
         if (dts.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
@@ -150,32 +187,32 @@ public class BitsPerSecond extends Unit {
     }
 
     /**
-     * Takes in the bits per second value as a {@link String} and converts it to kilobytes per
+     * Takes in the bytes per second value as a {@link String} and converts it to megabits per
      * second.
      *
-     * @param bps               The bits per second value as a {@link String}. Should not be null.
+     * @param byps              The bytes per second value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent kilobytes per second value as a {@link String}, or null if the
+     * @return  The equivalent megabits per second value as a {@link String}, or null if the
      *          <code>bps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKiloBytesPerSecond(String bps, int decimalPlaces) throws
+    public static String toMegabitsPerSecond(String byps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
-        if (bps == null) {
+        if (byps == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        BigDecimal dts = new BigDecimal(bps);
+        BigDecimal dts = new BigDecimal(byps);
         if (dts.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            dts = dts.multiply(new BigDecimal("0.000125"))
+            dts = dts.multiply(new BigDecimal("0.000008"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (dts.compareTo(BigDecimal.ZERO) == 0) {
                 dts = BigDecimal.ZERO;
@@ -187,28 +224,28 @@ public class BitsPerSecond extends Unit {
     }
 
     /**
-     * Takes in the bits per second value as a {@link String} and converts it to megabits per
+     * Takes in the bytes per second value as a {@link String} and converts it to megabytes per
      * second.
      *
-     * @param bps               The bits per second value as a {@link String}. Should not be null.
+     * @param byps              The bytes per second value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent megabits per second value as a {@link String}, or null if the
+     * @return  The equivalent megabytes per second value as a {@link String}, or null if the
      *          <code>bps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMegabitsPerSecond(String bps, int decimalPlaces) throws
+    public static String toMegabytesPerSecond(String byps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
-        if (bps == null) {
+        if (byps == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        BigDecimal dts = new BigDecimal(bps);
+        BigDecimal dts = new BigDecimal(byps);
         if (dts.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
@@ -224,32 +261,32 @@ public class BitsPerSecond extends Unit {
     }
 
     /**
-     * Takes in the bits per second value as a {@link String} and converts it to megabytes per
+     * Takes in the bytes per second value as a {@link String} and converts it to gigabits per
      * second.
      *
-     * @param bps               The bits per second value as a {@link String}. Should not be null.
+     * @param byps              The bytes per second value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent megabytes per second value as a {@link String}, or null if the
+     * @return  The equivalent gigabits per second value as a {@link String}, or null if the
      *          <code>bps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMegabytesPerSecond(String bps, int decimalPlaces) throws
+    public static String toGigabitsPerSecond(String byps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
-        if (bps == null) {
+        if (byps == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        BigDecimal dts = new BigDecimal(bps);
+        BigDecimal dts = new BigDecimal(byps);
         if (dts.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            dts = dts.multiply(new BigDecimal("0.000000125"))
+            dts = dts.multiply(new BigDecimal("0.000000008"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (dts.compareTo(BigDecimal.ZERO) == 0) {
                 dts = BigDecimal.ZERO;
@@ -261,28 +298,28 @@ public class BitsPerSecond extends Unit {
     }
 
     /**
-     * Takes in the bits per second value as a {@link String} and converts it to gigabits per
+     * Takes in the bytes per second value as a {@link String} and converts it to gigabytes per
      * second.
      *
-     * @param bps               The bits per second value as a {@link String}. Should not be null.
+     * @param byps              The bytes per second value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  The equivalent gigabits per second value as a {@link String}, or null if the
+     * @return  The equivalent gigabytes per second value as a {@link String}, or null if the
      *          <code>bps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toGigabitsPerSecond(String bps, int decimalPlaces) throws
+    public static String toGigabytesPerSecond(String byps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
-        if (bps == null) {
+        if (byps == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        BigDecimal dts = new BigDecimal(bps);
+        BigDecimal dts = new BigDecimal(byps);
         if (dts.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
@@ -298,47 +335,10 @@ public class BitsPerSecond extends Unit {
     }
 
     /**
-     * Takes in the bits per second value as a {@link String} and converts it to gigabytes per
+     * Takes in the bytes per second value as a {@link String} and converts it to terabits per
      * second.
      *
-     * @param bps               The bits per second value as a {@link String}. Should not be null.
-     * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
-     *
-     * @return  The equivalent gigabytes per second value as a {@link String}, or null if the
-     *          <code>bps</code> parameter is null.
-     *
-     * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
-     */
-    public static String toGigabytesPerSecond(String bps, int decimalPlaces) throws
-            NumberFormatException, ValueBelowZeroException {
-        if (bps == null) {
-            return null;
-        }
-
-        int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        BigDecimal dts = new BigDecimal(bps);
-        if (dts.compareTo(BigDecimal.ZERO) >= 0) {
-            // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
-            // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            dts = dts.multiply(new BigDecimal("0.000000000125"))
-                    .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
-            if (dts.compareTo(BigDecimal.ZERO) == 0) {
-                dts = BigDecimal.ZERO;
-            }
-            return dts.stripTrailingZeros().toPlainString();
-        } else {
-            throw new ValueBelowZeroException("Transfer speed cannot be below zero");
-        }
-    }
-
-    /**
-     * Takes in the bits per second value as a {@link String} and converts it to terabits per
-     * second.
-     *
-     * @param bps               The bits per second value as a {@link String}. Should not be null.
+     * @param byps              The bytes per second value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -349,18 +349,18 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toTerabitsPerSecond(String bps, int decimalPlaces) throws
+    public static String toTerabitsPerSecond(String byps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
-        if (bps == null) {
+        if (byps == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        BigDecimal dts = new BigDecimal(bps);
+        BigDecimal dts = new BigDecimal(byps);
         if (dts.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            dts = dts.multiply(new BigDecimal("0.000000000001"))
+            dts = dts.multiply(new BigDecimal("0.000000000008"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (dts.compareTo(BigDecimal.ZERO) == 0) {
                 dts = BigDecimal.ZERO;
@@ -372,10 +372,10 @@ public class BitsPerSecond extends Unit {
     }
 
     /**
-     * Takes in the bits per second value as a {@link String} and converts it to terabytes per
+     * Takes in the bytes per second value as a {@link String} and converts it to terabytes per
      * second.
      *
-     * @param bps               The bits per second value as a {@link String}. Should not be null.
+     * @param byps              The bytes per second value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
@@ -386,18 +386,18 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toTerabytesPerSecond(String bps, int decimalPlaces) throws
+    public static String toTerabytesPerSecond(String byps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
-        if (bps == null) {
+        if (byps == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        BigDecimal dts = new BigDecimal(bps);
+        BigDecimal dts = new BigDecimal(byps);
         if (dts.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            dts = dts.multiply(new BigDecimal("0.000000000000125"))
+            dts = dts.multiply(new BigDecimal("0.000000000001"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (dts.compareTo(BigDecimal.ZERO) == 0) {
                 dts = BigDecimal.ZERO;
