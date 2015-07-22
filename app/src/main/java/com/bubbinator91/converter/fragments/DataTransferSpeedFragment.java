@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -23,7 +23,6 @@ import com.bubbinator91.converter.conversion.datatransferspeed.MByps;
 import com.bubbinator91.converter.conversion.datatransferspeed.Mbps;
 import com.bubbinator91.converter.conversion.datatransferspeed.TByps;
 import com.bubbinator91.converter.conversion.datatransferspeed.Tbps;
-import com.bubbinator91.converter.util.TextInputLayoutLAndAbove;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -49,7 +48,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mEditTextMbps, mEditTextMbyps, mEditTextGbps, mEditTextGbyps, mEditTextTbps,
             mEditTextTbyps;
 
-    private TextInputLayoutLAndAbove mTextInputLayoutBps, mTextInputLayoutByps, mTextInputLayoutKbps,
+    private TextInputLayout mTextInputLayoutBps, mTextInputLayoutByps, mTextInputLayoutKbps,
             mTextInputLayoutKbyps, mTextInputLayoutMbps, mTextInputLayoutMbyps, mTextInputLayoutGbps,
             mTextInputLayoutGbyps, mTextInputLayoutTbps, mTextInputLayoutTbyps;
 
@@ -63,10 +62,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mLastEditTextFocused = LastEditTextFocused.BPS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherBps");
+                removeTextChangedListeners("mTextWatcherBps");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherBps");
-                new Thread(new ConversionFromBpsRunnable(s, "textWatcherBps")).start();
+                addTextChangedListeners("mTextWatcherBps");
+                new Thread(new ConversionFromBpsRunnable(s, "mTextWatcherBps")).start();
             }
         }
 
@@ -83,10 +82,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mLastEditTextFocused = LastEditTextFocused.BYPS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherByps");
+                removeTextChangedListeners("mTextWatcherByps");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherByps");
-                new Thread(new ConversionFromBypsRunnable(s, "textWatcherByps")).start();
+                addTextChangedListeners("mTextWatcherByps");
+                new Thread(new ConversionFromBypsRunnable(s, "mTextWatcherByps")).start();
             }
         }
 
@@ -103,10 +102,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mLastEditTextFocused = LastEditTextFocused.KBPS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherKbps");
+                removeTextChangedListeners("mTextWatcherKbps");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherKbps");
-                new Thread(new ConversionFromKbpsRunnable(s, "textWatcherKbps")).start();
+                addTextChangedListeners("mTextWatcherKbps");
+                new Thread(new ConversionFromKbpsRunnable(s, "mTextWatcherKbps")).start();
             }
         }
 
@@ -123,10 +122,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mLastEditTextFocused = LastEditTextFocused.KBYPS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherKbyps");
+                removeTextChangedListeners("mTextWatcherKbyps");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherKbyps");
-                new Thread(new ConversionFromKbypsRunnable(s, "textWatcherKbyps")).start();
+                addTextChangedListeners("mTextWatcherKbyps");
+                new Thread(new ConversionFromKbypsRunnable(s, "mTextWatcherKbyps")).start();
             }
         }
 
@@ -143,10 +142,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mLastEditTextFocused = LastEditTextFocused.MBPS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherMbps");
+                removeTextChangedListeners("mTextWatcherMbps");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherMbps");
-                new Thread(new ConversionFromMbpsRunnable(s, "textWatcherMbps")).start();
+                addTextChangedListeners("mTextWatcherMbps");
+                new Thread(new ConversionFromMbpsRunnable(s, "mTextWatcherMbps")).start();
             }
         }
 
@@ -163,10 +162,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mLastEditTextFocused = LastEditTextFocused.MBYPS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherMbyps");
+                removeTextChangedListeners("mTextWatcherMbyps");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherMbyps");
-                new Thread(new ConversionFromMbypsRunnable(s, "textWatcherMbyps")).start();
+                addTextChangedListeners("mTextWatcherMbyps");
+                new Thread(new ConversionFromMbypsRunnable(s, "mTextWatcherMbyps")).start();
             }
         }
 
@@ -183,10 +182,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mLastEditTextFocused = LastEditTextFocused.GBPS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherGbps");
+                removeTextChangedListeners("mTextWatcherGbps");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherGbps");
-                new Thread(new ConversionFromGbpsRunnable(s, "textWatcherGbps")).start();
+                addTextChangedListeners("mTextWatcherGbps");
+                new Thread(new ConversionFromGbpsRunnable(s, "mTextWatcherGbps")).start();
             }
         }
 
@@ -203,10 +202,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mLastEditTextFocused = LastEditTextFocused.GBYPS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherGbyps");
+                removeTextChangedListeners("mTextWatcherGbyps");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherGbyps");
-                new Thread(new ConversionFromGbypsRunnable(s, "textWatcherGbyps")).start();
+                addTextChangedListeners("mTextWatcherGbyps");
+                new Thread(new ConversionFromGbypsRunnable(s, "mTextWatcherGbyps")).start();
             }
         }
 
@@ -223,10 +222,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mLastEditTextFocused = LastEditTextFocused.TBPS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherTbps");
+                removeTextChangedListeners("mTextWatcherTbps");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherTbps");
-                new Thread(new ConversionFromTbpsRunnable(s, "textWatcherTbps")).start();
+                addTextChangedListeners("mTextWatcherTbps");
+                new Thread(new ConversionFromTbpsRunnable(s, "mTextWatcherTbps")).start();
             }
         }
 
@@ -243,10 +242,10 @@ public class DataTransferSpeedFragment extends BaseFragment {
             mLastEditTextFocused = LastEditTextFocused.TBYPS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherTbyps");
+                removeTextChangedListeners("mTextWatcherTbyps");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherTbyps");
-                new Thread(new ConversionFromTbypsRunnable(s, "textWatcherTbyps")).start();
+                addTextChangedListeners("mTextWatcherTbyps");
+                new Thread(new ConversionFromTbypsRunnable(s, "mTextWatcherTbyps")).start();
             }
         }
 
@@ -268,34 +267,34 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
         if (getRootView() != null) {
             mTextInputLayoutBps =
-                    ((TextInputLayoutLAndAbove) getRootView()
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_data_transfer_speed_bps));
             mTextInputLayoutByps =
-                    ((TextInputLayoutLAndAbove) getRootView()
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_data_transfer_speed_byps));
             mTextInputLayoutKbps =
-                    ((TextInputLayoutLAndAbove) getRootView()
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_data_transfer_speed_kbps));
             mTextInputLayoutKbyps =
-                    ((TextInputLayoutLAndAbove) getRootView()
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_data_transfer_speed_kbyps));
             mTextInputLayoutMbps =
-                    ((TextInputLayoutLAndAbove) getRootView()
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_data_transfer_speed_mbps));
             mTextInputLayoutMbyps =
-                    ((TextInputLayoutLAndAbove) getRootView()
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_data_transfer_speed_mbyps));
             mTextInputLayoutGbps =
-                    ((TextInputLayoutLAndAbove) getRootView()
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_data_transfer_speed_gbps));
             mTextInputLayoutGbyps =
-                    ((TextInputLayoutLAndAbove) getRootView()
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_data_transfer_speed_gbyps));
             mTextInputLayoutTbps =
-                    ((TextInputLayoutLAndAbove) getRootView()
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_data_transfer_speed_tbps));
             mTextInputLayoutTbyps =
-                    ((TextInputLayoutLAndAbove) getRootView()
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_data_transfer_speed_tbyps));
 
             mEditTextBps =
@@ -483,7 +482,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     // region Private classes
 
     private class ConversionFromBpsRunnable implements Runnable {
-        private final String TAG = "ConversionFromBpsRunnable";
+        private final String TAG = ConversionFromBpsRunnable.class.getSimpleName();
 
         private Editable mEditableBps;
         private String mCallingClassName;
@@ -565,7 +564,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     }
 
     private class ConversionFromBypsRunnable implements Runnable {
-        private final String TAG = "ConversionFromBypsRunnable";
+        private final String TAG = ConversionFromBypsRunnable.class.getSimpleName();
 
         private Editable mEditableByps;
         private String mCallingClassName;
@@ -647,13 +646,12 @@ public class DataTransferSpeedFragment extends BaseFragment {
     }
 
     private class ConversionFromKbpsRunnable implements Runnable {
-        private final String TAG = "ConversionFromKbpsRunnable";
+        private final String TAG = ConversionFromKbpsRunnable.class.getSimpleName();
 
         private Editable mEditableKbps;
         private String mCallingClassName;
 
-        public ConversionFromKbpsRunnable(@NonNull Editable editableKbps,
-                                          @NonNull String callingClassName) {
+        public ConversionFromKbpsRunnable(Editable editableKbps, String callingClassName) {
             mEditableKbps = editableKbps;
             mCallingClassName = callingClassName;
         }
@@ -687,13 +685,12 @@ public class DataTransferSpeedFragment extends BaseFragment {
     }
 
     private class ConversionFromKbypsRunnable implements Runnable {
-        private final String TAG = "ConversionFromKbypsRunnable";
+        private final String TAG = ConversionFromKbypsRunnable.class.getSimpleName();
 
         private Editable mEditableKbyps;
         private String mCallingClassName;
 
-        public ConversionFromKbypsRunnable(@NonNull Editable editableKbyps,
-                                           @NonNull String callingClassName) {
+        public ConversionFromKbypsRunnable(Editable editableKbyps, String callingClassName) {
             mEditableKbyps = editableKbyps;
             mCallingClassName = callingClassName;
         }
@@ -727,13 +724,12 @@ public class DataTransferSpeedFragment extends BaseFragment {
     }
 
     private class ConversionFromMbpsRunnable implements Runnable {
-        private final String TAG = "ConversionFromMbpsRunnable";
+        private final String TAG = ConversionFromMbpsRunnable.class.getSimpleName();
 
         private Editable mEditableMbps;
         private String mCallingClassName;
 
-        public ConversionFromMbpsRunnable(@NonNull Editable editableMbps,
-                                          @NonNull String callingClassName) {
+        public ConversionFromMbpsRunnable(Editable editableMbps, String callingClassName) {
             mEditableMbps = editableMbps;
             mCallingClassName = callingClassName;
         }
@@ -767,13 +763,12 @@ public class DataTransferSpeedFragment extends BaseFragment {
     }
 
     private class ConversionFromMbypsRunnable implements Runnable {
-        private final String TAG = "ConversionFromMbypsRunnable";
+        private final String TAG = ConversionFromMbypsRunnable.class.getSimpleName();
 
         private Editable mEditableMbyps;
         private String mCallingClassName;
 
-        public ConversionFromMbypsRunnable(@NonNull Editable editableMbyps,
-                                           @NonNull String callingClassName) {
+        public ConversionFromMbypsRunnable(Editable editableMbyps, String callingClassName) {
             mEditableMbyps = editableMbyps;
             mCallingClassName = callingClassName;
         }
@@ -807,13 +802,12 @@ public class DataTransferSpeedFragment extends BaseFragment {
     }
 
     private class ConversionFromGbpsRunnable implements Runnable {
-        private final String TAG = "ConversionFromGbpsRunnable";
+        private final String TAG = ConversionFromGbpsRunnable.class.getSimpleName();
 
         private Editable mEditableGbps;
         private String mCallingClassName;
 
-        public ConversionFromGbpsRunnable(@NonNull Editable editableGbps,
-                                          @NonNull String callingClassName) {
+        public ConversionFromGbpsRunnable(Editable editableGbps, String callingClassName) {
             mEditableGbps = editableGbps;
             mCallingClassName = callingClassName;
         }
@@ -847,13 +841,12 @@ public class DataTransferSpeedFragment extends BaseFragment {
     }
 
     private class ConversionFromGbypsRunnable implements Runnable {
-        private final String TAG = "ConversionFromGbypsRunnable";
+        private final String TAG = ConversionFromGbypsRunnable.class.getSimpleName();
 
         private Editable mEditableGbyps;
         private String mCallingClassName;
 
-        public ConversionFromGbypsRunnable(@NonNull Editable editableGbyps,
-                                           @NonNull String callingClassName) {
+        public ConversionFromGbypsRunnable(Editable editableGbyps, String callingClassName) {
             mEditableGbyps = editableGbyps;
             mCallingClassName = callingClassName;
         }
@@ -887,13 +880,12 @@ public class DataTransferSpeedFragment extends BaseFragment {
     }
 
     private class ConversionFromTbpsRunnable implements Runnable {
-        private final String TAG = "ConversionFromTbpsRunnable";
+        private final String TAG = ConversionFromTbpsRunnable.class.getSimpleName();
 
         private Editable mEditableTbps;
         private String mCallingClassName;
 
-        public ConversionFromTbpsRunnable(@NonNull Editable editableTbps,
-                                          @NonNull String callingClassName) {
+        public ConversionFromTbpsRunnable(Editable editableTbps, String callingClassName) {
             mEditableTbps = editableTbps;
             mCallingClassName = callingClassName;
         }
@@ -927,13 +919,12 @@ public class DataTransferSpeedFragment extends BaseFragment {
     }
 
     private class ConversionFromTbypsRunnable implements Runnable {
-        private final String TAG = "ConversionFromTbypsRunnable";
+        private final String TAG = ConversionFromTbypsRunnable.class.getSimpleName();
 
         private Editable mEditableTbyps;
         private String mCallingClassName;
 
-        public ConversionFromTbypsRunnable(@NonNull Editable editableTbyps,
-                                           @NonNull String callingClassName) {
+        public ConversionFromTbypsRunnable(Editable editableTbyps, String callingClassName) {
             mEditableTbyps = editableTbyps;
             mCallingClassName = callingClassName;
         }

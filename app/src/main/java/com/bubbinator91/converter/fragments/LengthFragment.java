@@ -1,6 +1,7 @@
 package com.bubbinator91.converter.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -20,7 +21,6 @@ import com.bubbinator91.conversion.length.Yards;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.util.TextInputLayoutLAndAbove;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -46,27 +46,27 @@ public class LengthFragment extends BaseFragment {
 
     private final String TAG = "FragmentLength";
 
-    private AppCompatEditText editTextInch, editTextFoot, editTextYard, editTextMile,
-            editTextMillimeter, editTextCentimeter, editTextMeter, editTextKilometer;
+    private AppCompatEditText mEditTextInch, mEditTextFoot, mEditTextYard, mEditTextMile,
+            mEditTextMillimeter, mEditTextCentimeter, mEditTextMeter, mEditTextKilometer;
 
-    private TextInputLayoutLAndAbove textInputLayoutInch, textInputLayoutFoot, textInputLayoutYard,
-            textInputLayoutMile, textInputLayoutMillimeter, textInputLayoutCentimeter,
-            textInputLayoutMeter, textInputLayoutKilometer;
+    private TextInputLayout mTextInputLayoutInch, mTextInputLayoutFoot, mTextInputLayoutYard,
+            mTextInputLayoutMile, mTextInputLayoutMillimeter, mTextInputLayoutCentimeter,
+            mTextInputLayoutMeter, mTextInputLayoutKilometer;
 
-    private LastEditTextFocused lastEditTextFocused;
+    private LastEditTextFocused mLastEditTextFocused;
 
     // region TextWatchers
 
-    private TextWatcher textWatcherInch = new TextWatcher() {
+    private TextWatcher mTextWatcherInch = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            lastEditTextFocused = LastEditTextFocused.INCH;
+            mLastEditTextFocused = LastEditTextFocused.INCH;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherInch");
+                removeTextChangedListeners("mTextWatcherInch");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherInch");
-                new Thread(new ConversionFromInchRunnable(s, "textWatcherInch")).start();
+                addTextChangedListeners("mTextWatcherInch");
+                new Thread(new ConversionFromInchRunnable(s, "mTextWatcherInch")).start();
             }
         }
 
@@ -77,16 +77,16 @@ public class LengthFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
-    private TextWatcher textWatcherFoot = new TextWatcher() {
+    private TextWatcher mTextWatcherFoot = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            lastEditTextFocused = LastEditTextFocused.FOOT;
+            mLastEditTextFocused = LastEditTextFocused.FOOT;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherFoot");
+                removeTextChangedListeners("mTextWatcherFoot");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherFoot");
-                new Thread(new ConversionFromFootRunnable(s, "textWatcherFoot")).start();
+                addTextChangedListeners("mTextWatcherFoot");
+                new Thread(new ConversionFromFootRunnable(s, "mTextWatcherFoot")).start();
             }
         }
 
@@ -97,16 +97,16 @@ public class LengthFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
-    private TextWatcher textWatcherYard = new TextWatcher() {
+    private TextWatcher mTextWatcherYard = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            lastEditTextFocused = LastEditTextFocused.YARD;
+            mLastEditTextFocused = LastEditTextFocused.YARD;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherYard");
+                removeTextChangedListeners("mTextWatcherYard");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherYard");
-                new Thread(new ConversionFromYardRunnable(s, "textWatcherYard")).start();
+                addTextChangedListeners("mTextWatcherYard");
+                new Thread(new ConversionFromYardRunnable(s, "mTextWatcherYard")).start();
             }
         }
 
@@ -117,16 +117,16 @@ public class LengthFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
-    private TextWatcher textWatcherMile = new TextWatcher() {
+    private TextWatcher mTextWatcherMile = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            lastEditTextFocused = LastEditTextFocused.MILE;
+            mLastEditTextFocused = LastEditTextFocused.MILE;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherMile");
+                removeTextChangedListeners("mTextWatcherMile");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherMile");
-                new Thread(new ConversionFromMileRunnable(s, "textWatcherMile")).start();
+                addTextChangedListeners("mTextWatcherMile");
+                new Thread(new ConversionFromMileRunnable(s, "mTextWatcherMile")).start();
             }
         }
 
@@ -137,16 +137,16 @@ public class LengthFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
-    private TextWatcher textWatcherMillimeter = new TextWatcher() {
+    private TextWatcher mTextWatcherMillimeter = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            lastEditTextFocused = LastEditTextFocused.MILLIMETER;
+            mLastEditTextFocused = LastEditTextFocused.MILLIMETER;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherMillimeter");
+                removeTextChangedListeners("mTextWatcherMillimeter");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherMillimeter");
-                new Thread(new ConversionFromMillimeterRunnable(s, "textWatcherMillimeter")).start();
+                addTextChangedListeners("mTextWatcherMillimeter");
+                new Thread(new ConversionFromMillimeterRunnable(s, "mTextWatcherMillimeter")).start();
             }
         }
 
@@ -157,16 +157,16 @@ public class LengthFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
-    private TextWatcher textWatcherCentimeter = new TextWatcher() {
+    private TextWatcher mTextWatcherCentimeter = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            lastEditTextFocused = LastEditTextFocused.CENTIMETER;
+            mLastEditTextFocused = LastEditTextFocused.CENTIMETER;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherCentimeter");
+                removeTextChangedListeners("mTextWatcherCentimeter");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherCentimeter");
-                new Thread(new ConversionFromCentimeterRunnable(s, "textWatcherCentimeter")).start();
+                addTextChangedListeners("mTextWatcherCentimeter");
+                new Thread(new ConversionFromCentimeterRunnable(s, "mTextWatcherCentimeter")).start();
             }
         }
 
@@ -177,16 +177,16 @@ public class LengthFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
-    private TextWatcher textWatcherMeter = new TextWatcher() {
+    private TextWatcher mTextWatcherMeter = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            lastEditTextFocused = LastEditTextFocused.METER;
+            mLastEditTextFocused = LastEditTextFocused.METER;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherMeter");
+                removeTextChangedListeners("mTextWatcherMeter");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherMeter");
-                new Thread(new ConversionFromMeterRunnable(s, "textWatcherMeter")).start();
+                addTextChangedListeners("mTextWatcherMeter");
+                new Thread(new ConversionFromMeterRunnable(s, "mTextWatcherMeter")).start();
             }
         }
 
@@ -197,16 +197,16 @@ public class LengthFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
-    private TextWatcher textWatcherKilometer = new TextWatcher() {
+    private TextWatcher mTextWatcherKilometer = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            lastEditTextFocused = LastEditTextFocused.KILOMETER;
+            mLastEditTextFocused = LastEditTextFocused.KILOMETER;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherKilometer");
+                removeTextChangedListeners("mTextWatcherKilometer");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherKilometer");
-                new Thread(new ConversionFromKilometerRunnable(s, "textWatcherKilometer")).start();
+                addTextChangedListeners("mTextWatcherKilometer");
+                new Thread(new ConversionFromKilometerRunnable(s, "mTextWatcherKilometer")).start();
             }
         }
 
@@ -227,46 +227,46 @@ public class LengthFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            textInputLayoutInch =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutInch =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_length_inch));
-            textInputLayoutFoot =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutFoot =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_length_foot));
-            textInputLayoutYard =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutYard =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_length_yard));
-            textInputLayoutMile =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutMile =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_length_mile));
-            textInputLayoutMillimeter =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutMillimeter =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_length_millimeter));
-            textInputLayoutCentimeter =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutCentimeter =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_length_centimeter));
-            textInputLayoutMeter =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutMeter =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_length_meter));
-            textInputLayoutKilometer =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutKilometer =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_length_kilometer));
 
-            editTextInch =
+            mEditTextInch =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_inch));
-            editTextFoot =
+            mEditTextFoot =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_foot));
-            editTextYard =
+            mEditTextYard =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_yard));
-            editTextMile =
+            mEditTextMile =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_mile));
-            editTextMillimeter =
+            mEditTextMillimeter =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_millimeter));
-            editTextCentimeter =
+            mEditTextCentimeter =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_centimeter));
-            editTextMeter =
+            mEditTextMeter =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_meter));
-            editTextKilometer =
+            mEditTextKilometer =
                     ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_kilometer));
 
             addTextChangedListeners(null);
@@ -280,68 +280,68 @@ public class LengthFragment extends BaseFragment {
         super.onResume();
         Timber.tag(TAG + ".onResume").i("Entered");
 
-        if (lastEditTextFocused == LastEditTextFocused.INCH) {
-            if ((getHandler() != null) && (editTextInch.getText() != null)) {
+        if (mLastEditTextFocused == LastEditTextFocused.INCH) {
+            if ((getHandler() != null) && (mEditTextInch.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextInch.getText());
+                Utils.sanitizeEditable(mEditTextInch.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromInchRunnable(editTextInch.getText(),
+                new Thread(new ConversionFromInchRunnable(mEditTextInch.getText(),
                         "onResume")).start();
             }
-        } else if (lastEditTextFocused == LastEditTextFocused.FOOT) {
-            if ((getHandler() != null) && (editTextFoot.getText() != null)) {
+        } else if (mLastEditTextFocused == LastEditTextFocused.FOOT) {
+            if ((getHandler() != null) && (mEditTextFoot.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextFoot.getText());
+                Utils.sanitizeEditable(mEditTextFoot.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromFootRunnable(editTextFoot.getText(),
+                new Thread(new ConversionFromFootRunnable(mEditTextFoot.getText(),
                         "onResume")).start();
             }
-        } else if (lastEditTextFocused == LastEditTextFocused.YARD) {
-            if ((getHandler() != null) && (editTextYard.getText() != null)) {
+        } else if (mLastEditTextFocused == LastEditTextFocused.YARD) {
+            if ((getHandler() != null) && (mEditTextYard.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextYard.getText());
+                Utils.sanitizeEditable(mEditTextYard.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromYardRunnable(editTextYard.getText(),
+                new Thread(new ConversionFromYardRunnable(mEditTextYard.getText(),
                         "onResume")).start();
             }
-        } else if (lastEditTextFocused == LastEditTextFocused.MILE) {
-            if ((getHandler() != null) && (editTextMile.getText() != null)) {
+        } else if (mLastEditTextFocused == LastEditTextFocused.MILE) {
+            if ((getHandler() != null) && (mEditTextMile.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextMile.getText());
+                Utils.sanitizeEditable(mEditTextMile.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMileRunnable(editTextMile.getText(),
+                new Thread(new ConversionFromMileRunnable(mEditTextMile.getText(),
                         "onResume")).start();
             }
-        } else if (lastEditTextFocused == LastEditTextFocused.MILLIMETER) {
-            if ((getHandler() != null) && (editTextMillimeter.getText() != null)) {
+        } else if (mLastEditTextFocused == LastEditTextFocused.MILLIMETER) {
+            if ((getHandler() != null) && (mEditTextMillimeter.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextMillimeter.getText());
+                Utils.sanitizeEditable(mEditTextMillimeter.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMillimeterRunnable(editTextMillimeter.getText(),
+                new Thread(new ConversionFromMillimeterRunnable(mEditTextMillimeter.getText(),
                         "onResume")).start();
             }
-        } else if (lastEditTextFocused == LastEditTextFocused.CENTIMETER) {
-            if ((getHandler() != null) && (editTextCentimeter.getText() != null)) {
+        } else if (mLastEditTextFocused == LastEditTextFocused.CENTIMETER) {
+            if ((getHandler() != null) && (mEditTextCentimeter.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextCentimeter.getText());
+                Utils.sanitizeEditable(mEditTextCentimeter.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromCentimeterRunnable(editTextCentimeter.getText(),
+                new Thread(new ConversionFromCentimeterRunnable(mEditTextCentimeter.getText(),
                         "onResume")).start();
             }
-        } else if (lastEditTextFocused == LastEditTextFocused.METER) {
-            if ((getHandler() != null) && (editTextMeter.getText() != null)) {
+        } else if (mLastEditTextFocused == LastEditTextFocused.METER) {
+            if ((getHandler() != null) && (mEditTextMeter.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextMeter.getText());
+                Utils.sanitizeEditable(mEditTextMeter.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMeterRunnable(editTextMeter.getText(),
+                new Thread(new ConversionFromMeterRunnable(mEditTextMeter.getText(),
                         "onResume")).start();
             }
-        } else if (lastEditTextFocused == LastEditTextFocused.KILOMETER) {
-            if ((getHandler() != null) && (editTextKilometer.getText() != null)) {
+        } else if (mLastEditTextFocused == LastEditTextFocused.KILOMETER) {
+            if ((getHandler() != null) && (mEditTextKilometer.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextKilometer.getText());
+                Utils.sanitizeEditable(mEditTextKilometer.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromKilometerRunnable(editTextKilometer.getText(),
+                new Thread(new ConversionFromKilometerRunnable(mEditTextKilometer.getText(),
                         "onResume")).start();
             }
         }
@@ -358,14 +358,14 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(TAG + ".addTextChangedListeners").i("Entered");
         }
 
-        editTextInch.addTextChangedListener(textWatcherInch);
-        editTextFoot.addTextChangedListener(textWatcherFoot);
-        editTextYard.addTextChangedListener(textWatcherYard);
-        editTextMile.addTextChangedListener(textWatcherMile);
-        editTextMillimeter.addTextChangedListener(textWatcherMillimeter);
-        editTextCentimeter.addTextChangedListener(textWatcherCentimeter);
-        editTextMeter.addTextChangedListener(textWatcherMeter);
-        editTextKilometer.addTextChangedListener(textWatcherKilometer);
+        mEditTextInch.addTextChangedListener(mTextWatcherInch);
+        mEditTextFoot.addTextChangedListener(mTextWatcherFoot);
+        mEditTextYard.addTextChangedListener(mTextWatcherYard);
+        mEditTextMile.addTextChangedListener(mTextWatcherMile);
+        mEditTextMillimeter.addTextChangedListener(mTextWatcherMillimeter);
+        mEditTextCentimeter.addTextChangedListener(mTextWatcherCentimeter);
+        mEditTextMeter.addTextChangedListener(mTextWatcherMeter);
+        mEditTextKilometer.addTextChangedListener(mTextWatcherKilometer);
     }
 
     private void removeTextChangedListeners(String callingClassName) {
@@ -375,14 +375,14 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(TAG + ".removeTextChangedListeners").i("Entered");
         }
 
-        editTextInch.removeTextChangedListener(textWatcherInch);
-        editTextFoot.removeTextChangedListener(textWatcherFoot);
-        editTextYard.removeTextChangedListener(textWatcherYard);
-        editTextMile.removeTextChangedListener(textWatcherMile);
-        editTextMillimeter.removeTextChangedListener(textWatcherMillimeter);
-        editTextCentimeter.removeTextChangedListener(textWatcherCentimeter);
-        editTextMeter.removeTextChangedListener(textWatcherMeter);
-        editTextKilometer.removeTextChangedListener(textWatcherKilometer);
+        mEditTextInch.removeTextChangedListener(mTextWatcherInch);
+        mEditTextFoot.removeTextChangedListener(mTextWatcherFoot);
+        mEditTextYard.removeTextChangedListener(mTextWatcherYard);
+        mEditTextMile.removeTextChangedListener(mTextWatcherMile);
+        mEditTextMillimeter.removeTextChangedListener(mTextWatcherMillimeter);
+        mEditTextCentimeter.removeTextChangedListener(mTextWatcherCentimeter);
+        mEditTextMeter.removeTextChangedListener(mTextWatcherMeter);
+        mEditTextKilometer.removeTextChangedListener(mTextWatcherKilometer);
     }
 
     // endregion
@@ -403,7 +403,7 @@ public class LengthFragment extends BaseFragment {
     // region Private classes
 
     private class ConversionFromInchRunnable implements Runnable {
-        private final String TAG = "ConversionFromInchRunnable";
+        private final String TAG = ConversionFromInchRunnable.class.getSimpleName();
 
         private Editable mEditableInch;
         private String mCallingClassName;
@@ -429,45 +429,45 @@ public class LengthFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutInch.setError(getString(
+                                    mTextInputLayoutInch.setError(getString(
                                             R.string.conversion_error_below_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutInch.setError(getString(
+                                    mTextInputLayoutInch.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutInch.setError(getString(
+                                    mTextInputLayoutInch.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutInch.setErrorEnabled(false);
-                                    textInputLayoutFoot.setErrorEnabled(false);
-                                    textInputLayoutYard.setErrorEnabled(false);
-                                    textInputLayoutMile.setErrorEnabled(false);
-                                    textInputLayoutMillimeter.setErrorEnabled(false);
-                                    textInputLayoutCentimeter.setErrorEnabled(false);
-                                    textInputLayoutMeter.setErrorEnabled(false);
-                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    mTextInputLayoutInch.setErrorEnabled(false);
+                                    mTextInputLayoutFoot.setErrorEnabled(false);
+                                    mTextInputLayoutYard.setErrorEnabled(false);
+                                    mTextInputLayoutMile.setErrorEnabled(false);
+                                    mTextInputLayoutMillimeter.setErrorEnabled(false);
+                                    mTextInputLayoutCentimeter.setErrorEnabled(false);
+                                    mTextInputLayoutMeter.setErrorEnabled(false);
+                                    mTextInputLayoutKilometer.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextFoot.setText(results.getValue0().get(0),
+                            mEditTextFoot.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextYard.setText(results.getValue0().get(1),
+                            mEditTextYard.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMile.setText(results.getValue0().get(2),
+                            mEditTextMile.setText(results.getValue0().get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(results.getValue0().get(3),
+                            mEditTextMillimeter.setText(results.getValue0().get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(results.getValue0().get(4),
+                            mEditTextCentimeter.setText(results.getValue0().get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.getValue0().get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.getValue0().get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -479,7 +479,7 @@ public class LengthFragment extends BaseFragment {
     }
 
     private class ConversionFromFootRunnable implements Runnable {
-        private final String TAG = "ConversionFromFootRunnable";
+        private final String TAG = ConversionFromFootRunnable.class.getSimpleName();
 
         private Editable mEditableFoot;
         private String mCallingClassName;
@@ -505,45 +505,45 @@ public class LengthFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutFoot.setError(getString(
+                                    mTextInputLayoutFoot.setError(getString(
                                             R.string.conversion_error_below_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutFoot.setError(getString(
+                                    mTextInputLayoutFoot.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutFoot.setError(getString(
+                                    mTextInputLayoutFoot.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutInch.setErrorEnabled(false);
-                                    textInputLayoutFoot.setErrorEnabled(false);
-                                    textInputLayoutYard.setErrorEnabled(false);
-                                    textInputLayoutMile.setErrorEnabled(false);
-                                    textInputLayoutMillimeter.setErrorEnabled(false);
-                                    textInputLayoutCentimeter.setErrorEnabled(false);
-                                    textInputLayoutMeter.setErrorEnabled(false);
-                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    mTextInputLayoutInch.setErrorEnabled(false);
+                                    mTextInputLayoutFoot.setErrorEnabled(false);
+                                    mTextInputLayoutYard.setErrorEnabled(false);
+                                    mTextInputLayoutMile.setErrorEnabled(false);
+                                    mTextInputLayoutMillimeter.setErrorEnabled(false);
+                                    mTextInputLayoutCentimeter.setErrorEnabled(false);
+                                    mTextInputLayoutMeter.setErrorEnabled(false);
+                                    mTextInputLayoutKilometer.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextYard.setText(results.getValue0().get(1),
+                            mEditTextYard.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMile.setText(results.getValue0().get(2),
+                            mEditTextMile.setText(results.getValue0().get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(results.getValue0().get(3),
+                            mEditTextMillimeter.setText(results.getValue0().get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(results.getValue0().get(4),
+                            mEditTextCentimeter.setText(results.getValue0().get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.getValue0().get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.getValue0().get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -555,7 +555,7 @@ public class LengthFragment extends BaseFragment {
     }
 
     private class ConversionFromYardRunnable implements Runnable {
-        private final String TAG = "ConversionFromYardRunnable";
+        private final String TAG = ConversionFromYardRunnable.class.getSimpleName();
 
         private Editable mEditableYard;
         private String mCallingClassName;
@@ -581,45 +581,45 @@ public class LengthFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutYard.setError(getString(
+                                    mTextInputLayoutYard.setError(getString(
                                             R.string.conversion_error_below_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutYard.setError(getString(
+                                    mTextInputLayoutYard.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutYard.setError(getString(
+                                    mTextInputLayoutYard.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutInch.setErrorEnabled(false);
-                                    textInputLayoutFoot.setErrorEnabled(false);
-                                    textInputLayoutYard.setErrorEnabled(false);
-                                    textInputLayoutMile.setErrorEnabled(false);
-                                    textInputLayoutMillimeter.setErrorEnabled(false);
-                                    textInputLayoutCentimeter.setErrorEnabled(false);
-                                    textInputLayoutMeter.setErrorEnabled(false);
-                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    mTextInputLayoutInch.setErrorEnabled(false);
+                                    mTextInputLayoutFoot.setErrorEnabled(false);
+                                    mTextInputLayoutYard.setErrorEnabled(false);
+                                    mTextInputLayoutMile.setErrorEnabled(false);
+                                    mTextInputLayoutMillimeter.setErrorEnabled(false);
+                                    mTextInputLayoutCentimeter.setErrorEnabled(false);
+                                    mTextInputLayoutMeter.setErrorEnabled(false);
+                                    mTextInputLayoutKilometer.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMile.setText(results.getValue0().get(2),
+                            mEditTextMile.setText(results.getValue0().get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(results.getValue0().get(3),
+                            mEditTextMillimeter.setText(results.getValue0().get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(results.getValue0().get(4),
+                            mEditTextCentimeter.setText(results.getValue0().get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.getValue0().get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.getValue0().get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -631,7 +631,7 @@ public class LengthFragment extends BaseFragment {
     }
 
     private class ConversionFromMileRunnable implements Runnable {
-        private final String TAG = "ConversionFromMileRunnable";
+        private final String TAG = ConversionFromMileRunnable.class.getSimpleName();
 
         private Editable mEditableMile;
         private String mCallingClassName;
@@ -657,45 +657,45 @@ public class LengthFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutMile.setError(getString(
+                                    mTextInputLayoutMile.setError(getString(
                                             R.string.conversion_error_below_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutMile.setError(getString(
+                                    mTextInputLayoutMile.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutMile.setError(getString(
+                                    mTextInputLayoutMile.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutInch.setErrorEnabled(false);
-                                    textInputLayoutFoot.setErrorEnabled(false);
-                                    textInputLayoutYard.setErrorEnabled(false);
-                                    textInputLayoutMile.setErrorEnabled(false);
-                                    textInputLayoutMillimeter.setErrorEnabled(false);
-                                    textInputLayoutCentimeter.setErrorEnabled(false);
-                                    textInputLayoutMeter.setErrorEnabled(false);
-                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    mTextInputLayoutInch.setErrorEnabled(false);
+                                    mTextInputLayoutFoot.setErrorEnabled(false);
+                                    mTextInputLayoutYard.setErrorEnabled(false);
+                                    mTextInputLayoutMile.setErrorEnabled(false);
+                                    mTextInputLayoutMillimeter.setErrorEnabled(false);
+                                    mTextInputLayoutCentimeter.setErrorEnabled(false);
+                                    mTextInputLayoutMeter.setErrorEnabled(false);
+                                    mTextInputLayoutKilometer.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextYard.setText(results.getValue0().get(2),
+                            mEditTextYard.setText(results.getValue0().get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(results.getValue0().get(3),
+                            mEditTextMillimeter.setText(results.getValue0().get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(results.getValue0().get(4),
+                            mEditTextCentimeter.setText(results.getValue0().get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.getValue0().get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.getValue0().get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -707,7 +707,7 @@ public class LengthFragment extends BaseFragment {
     }
 
     private class ConversionFromMillimeterRunnable implements Runnable {
-        private final String TAG = "ConversionFromMillimeterRunnable";
+        private final String TAG = ConversionFromMillimeterRunnable.class.getSimpleName();
 
         private Editable mEditableMillimeter;
         private String mCallingClassName;
@@ -734,45 +734,45 @@ public class LengthFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutMillimeter.setError(getString(
+                                    mTextInputLayoutMillimeter.setError(getString(
                                             R.string.conversion_error_below_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutMillimeter.setError(getString(
+                                    mTextInputLayoutMillimeter.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutMillimeter.setError(getString(
+                                    mTextInputLayoutMillimeter.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutInch.setErrorEnabled(false);
-                                    textInputLayoutFoot.setErrorEnabled(false);
-                                    textInputLayoutYard.setErrorEnabled(false);
-                                    textInputLayoutMile.setErrorEnabled(false);
-                                    textInputLayoutMillimeter.setErrorEnabled(false);
-                                    textInputLayoutCentimeter.setErrorEnabled(false);
-                                    textInputLayoutMeter.setErrorEnabled(false);
-                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    mTextInputLayoutInch.setErrorEnabled(false);
+                                    mTextInputLayoutFoot.setErrorEnabled(false);
+                                    mTextInputLayoutYard.setErrorEnabled(false);
+                                    mTextInputLayoutMile.setErrorEnabled(false);
+                                    mTextInputLayoutMillimeter.setErrorEnabled(false);
+                                    mTextInputLayoutCentimeter.setErrorEnabled(false);
+                                    mTextInputLayoutMeter.setErrorEnabled(false);
+                                    mTextInputLayoutKilometer.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextYard.setText(results.getValue0().get(2),
+                            mEditTextYard.setText(results.getValue0().get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMile.setText(results.getValue0().get(3),
+                            mEditTextMile.setText(results.getValue0().get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(results.getValue0().get(4),
+                            mEditTextCentimeter.setText(results.getValue0().get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.getValue0().get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.getValue0().get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -784,7 +784,7 @@ public class LengthFragment extends BaseFragment {
     }
 
     private class ConversionFromCentimeterRunnable implements Runnable {
-        private final String TAG = "ConversionFromCentimeterRunnable";
+        private final String TAG = ConversionFromCentimeterRunnable.class.getSimpleName();
 
         private Editable mEditableCentimeter;
         private String mCallingClassName;
@@ -811,45 +811,45 @@ public class LengthFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutCentimeter.setError(getString(
+                                    mTextInputLayoutCentimeter.setError(getString(
                                             R.string.conversion_error_below_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutCentimeter.setError(getString(
+                                    mTextInputLayoutCentimeter.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutCentimeter.setError(getString(
+                                    mTextInputLayoutCentimeter.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutInch.setErrorEnabled(false);
-                                    textInputLayoutFoot.setErrorEnabled(false);
-                                    textInputLayoutYard.setErrorEnabled(false);
-                                    textInputLayoutMile.setErrorEnabled(false);
-                                    textInputLayoutMillimeter.setErrorEnabled(false);
-                                    textInputLayoutCentimeter.setErrorEnabled(false);
-                                    textInputLayoutMeter.setErrorEnabled(false);
-                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    mTextInputLayoutInch.setErrorEnabled(false);
+                                    mTextInputLayoutFoot.setErrorEnabled(false);
+                                    mTextInputLayoutYard.setErrorEnabled(false);
+                                    mTextInputLayoutMile.setErrorEnabled(false);
+                                    mTextInputLayoutMillimeter.setErrorEnabled(false);
+                                    mTextInputLayoutCentimeter.setErrorEnabled(false);
+                                    mTextInputLayoutMeter.setErrorEnabled(false);
+                                    mTextInputLayoutKilometer.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextYard.setText(results.getValue0().get(2),
+                            mEditTextYard.setText(results.getValue0().get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMile.setText(results.getValue0().get(3),
+                            mEditTextMile.setText(results.getValue0().get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(results.getValue0().get(4),
+                            mEditTextMillimeter.setText(results.getValue0().get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.getValue0().get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.getValue0().get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -861,7 +861,7 @@ public class LengthFragment extends BaseFragment {
     }
 
     private class ConversionFromMeterRunnable implements Runnable {
-        private final String TAG = "ConversionFromMeterRunnable";
+        private final String TAG = ConversionFromMeterRunnable.class.getSimpleName();
 
         private Editable mEditableMeter;
         private String mCallingClassName;
@@ -887,45 +887,45 @@ public class LengthFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutMeter.setError(getString(
+                                    mTextInputLayoutMeter.setError(getString(
                                             R.string.conversion_error_below_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutMeter.setError(getString(
+                                    mTextInputLayoutMeter.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutMeter.setError(getString(
+                                    mTextInputLayoutMeter.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutInch.setErrorEnabled(false);
-                                    textInputLayoutFoot.setErrorEnabled(false);
-                                    textInputLayoutYard.setErrorEnabled(false);
-                                    textInputLayoutMile.setErrorEnabled(false);
-                                    textInputLayoutMillimeter.setErrorEnabled(false);
-                                    textInputLayoutCentimeter.setErrorEnabled(false);
-                                    textInputLayoutMeter.setErrorEnabled(false);
-                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    mTextInputLayoutInch.setErrorEnabled(false);
+                                    mTextInputLayoutFoot.setErrorEnabled(false);
+                                    mTextInputLayoutYard.setErrorEnabled(false);
+                                    mTextInputLayoutMile.setErrorEnabled(false);
+                                    mTextInputLayoutMillimeter.setErrorEnabled(false);
+                                    mTextInputLayoutCentimeter.setErrorEnabled(false);
+                                    mTextInputLayoutMeter.setErrorEnabled(false);
+                                    mTextInputLayoutKilometer.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextYard.setText(results.getValue0().get(2),
+                            mEditTextYard.setText(results.getValue0().get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMile.setText(results.getValue0().get(3),
+                            mEditTextMile.setText(results.getValue0().get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(results.getValue0().get(4),
+                            mEditTextMillimeter.setText(results.getValue0().get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(results.getValue0().get(5),
+                            mEditTextCentimeter.setText(results.getValue0().get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.getValue0().get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -937,7 +937,7 @@ public class LengthFragment extends BaseFragment {
     }
 
     private class ConversionFromKilometerRunnable implements Runnable {
-        private final String TAG = "ConversionFromKilometerRunnable";
+        private final String TAG = ConversionFromKilometerRunnable.class.getSimpleName();
 
         private Editable mEditableKilometer;
         private String mCallingClassName;
@@ -964,45 +964,45 @@ public class LengthFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutKilometer.setError(getString(
+                                    mTextInputLayoutKilometer.setError(getString(
                                             R.string.conversion_error_below_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutKilometer.setError(getString(
+                                    mTextInputLayoutKilometer.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutKilometer.setError(getString(
+                                    mTextInputLayoutKilometer.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutInch.setErrorEnabled(false);
-                                    textInputLayoutFoot.setErrorEnabled(false);
-                                    textInputLayoutYard.setErrorEnabled(false);
-                                    textInputLayoutMile.setErrorEnabled(false);
-                                    textInputLayoutMillimeter.setErrorEnabled(false);
-                                    textInputLayoutCentimeter.setErrorEnabled(false);
-                                    textInputLayoutMeter.setErrorEnabled(false);
-                                    textInputLayoutKilometer.setErrorEnabled(false);
+                                    mTextInputLayoutInch.setErrorEnabled(false);
+                                    mTextInputLayoutFoot.setErrorEnabled(false);
+                                    mTextInputLayoutYard.setErrorEnabled(false);
+                                    mTextInputLayoutMile.setErrorEnabled(false);
+                                    mTextInputLayoutMillimeter.setErrorEnabled(false);
+                                    mTextInputLayoutCentimeter.setErrorEnabled(false);
+                                    mTextInputLayoutMeter.setErrorEnabled(false);
+                                    mTextInputLayoutKilometer.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextYard.setText(results.getValue0().get(2),
+                            mEditTextYard.setText(results.getValue0().get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMile.setText(results.getValue0().get(3),
+                            mEditTextMile.setText(results.getValue0().get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMillimeter.setText(results.getValue0().get(4),
+                            mEditTextMillimeter.setText(results.getValue0().get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextCentimeter.setText(results.getValue0().get(5),
+                            mEditTextCentimeter.setText(results.getValue0().get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextMeter.setText(results.getValue0().get(6),
+                            mEditTextMeter.setText(results.getValue0().get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);

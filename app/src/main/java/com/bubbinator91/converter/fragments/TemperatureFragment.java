@@ -1,6 +1,7 @@
 package com.bubbinator91.converter.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -15,7 +16,6 @@ import com.bubbinator91.conversion.temperature.Kelvin;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.util.TextInputLayoutLAndAbove;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -36,25 +36,25 @@ public class TemperatureFragment extends BaseFragment {
 
     private final String TAG = "FragmentTemperature";
 
-    private AppCompatEditText editTextCelsius, editTextFahrenheit, editTextKelvin;
+    private AppCompatEditText mEditTextCelsius, mEditTextFahrenheit, mEditTextKelvin;
 
-    private TextInputLayoutLAndAbove textInputLayoutCelsius, textInputLayoutFahrenheit,
-            textInputLayoutKelvin;
+    private TextInputLayout mTextInputLayoutCelsius, mTextInputLayoutFahrenheit,
+            mTextInputLayoutKelvin;
 
-    private LastEditTextFocused lastEditTextFocused;
+    private LastEditTextFocused mLastEditTextFocused;
 
     // region TextWatchers
 
-    private TextWatcher textWatcherCelsius = new TextWatcher() {
+    private TextWatcher mTextWatcherCelsius = new TextWatcher() {
         @Override
         public void afterTextChanged(final Editable s) {
-            lastEditTextFocused = LastEditTextFocused.CELSIUS;
+            mLastEditTextFocused = LastEditTextFocused.CELSIUS;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherCelsius");
+                removeTextChangedListeners("mTextWatcherCelsius");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherCelsius");
-                new Thread(new ConversionFromCelsiusRunnable(s, "textWatcherCelsius")).start();
+                addTextChangedListeners("mTextWatcherCelsius");
+                new Thread(new ConversionFromCelsiusRunnable(s, "mTextWatcherCelsius")).start();
             }
         }
 
@@ -65,16 +65,16 @@ public class TemperatureFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
-    private TextWatcher textWatcherFahrenheit = new TextWatcher() {
+    private TextWatcher mTextWatcherFahrenheit = new TextWatcher() {
         @Override
         public void afterTextChanged(final Editable s) {
-            lastEditTextFocused = LastEditTextFocused.FAHRENHEIT;
+            mLastEditTextFocused = LastEditTextFocused.FAHRENHEIT;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherFahrenheit");
+                removeTextChangedListeners("mTextWatcherFahrenheit");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherFahrenheit");
-                new Thread(new ConversionFromFahrenheitRunnable(s, "textWatcherFahrenheit")).start();
+                addTextChangedListeners("mTextWatcherFahrenheit");
+                new Thread(new ConversionFromFahrenheitRunnable(s, "mTextWatcherFahrenheit")).start();
             }
         }
 
@@ -85,16 +85,16 @@ public class TemperatureFragment extends BaseFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
-    private TextWatcher textWatcherKelvin = new TextWatcher() {
+    private TextWatcher mTextWatcherKelvin = new TextWatcher() {
         @Override
         public void afterTextChanged(final Editable s) {
-            lastEditTextFocused = LastEditTextFocused.KELVIN;
+            mLastEditTextFocused = LastEditTextFocused.KELVIN;
 
             if ((getHandler() != null) && (s != null)) {
-                removeTextChangedListeners("textWatcherKelvin");
+                removeTextChangedListeners("mTextWatcherKelvin");
                 Utils.sanitizeEditable(s);
-                addTextChangedListeners("textWatcherKelvin");
-                new Thread(new ConversionFromKelvinRunnable(s, "textWatcherKelvin")).start();
+                addTextChangedListeners("mTextWatcherKelvin");
+                new Thread(new ConversionFromKelvinRunnable(s, "mTextWatcherKelvin")).start();
             }
         }
 
@@ -115,23 +115,23 @@ public class TemperatureFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            textInputLayoutCelsius =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutCelsius =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_temperature_celsius));
-            textInputLayoutFahrenheit =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutFahrenheit =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_temperature_fahrenheit));
-            textInputLayoutKelvin =
-                    ((TextInputLayoutLAndAbove) getRootView()
+            mTextInputLayoutKelvin =
+                    ((TextInputLayout) getRootView()
                             .findViewById(R.id.textInputLayout_temperature_kelvin));
 
-            editTextCelsius =
+            mEditTextCelsius =
                     ((AppCompatEditText) getRootView()
                             .findViewById(R.id.editText_temperature_celsius));
-            editTextFahrenheit =
+            mEditTextFahrenheit =
                     ((AppCompatEditText) getRootView()
                             .findViewById(R.id.editText_temperature_fahrenheit));
-            editTextKelvin =
+            mEditTextKelvin =
                     ((AppCompatEditText) getRootView()
                             .findViewById(R.id.editText_temperature_kelvin));
 
@@ -146,28 +146,28 @@ public class TemperatureFragment extends BaseFragment {
         super.onResume();
         Timber.tag(TAG + ".onResume").i("Entered");
 
-        if (lastEditTextFocused == LastEditTextFocused.CELSIUS) {
-            if ((getHandler() != null) && (editTextCelsius.getText() != null)) {
+        if (mLastEditTextFocused == LastEditTextFocused.CELSIUS) {
+            if ((getHandler() != null) && (mEditTextCelsius.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextCelsius.getText());
+                Utils.sanitizeEditable(mEditTextCelsius.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromCelsiusRunnable(editTextCelsius.getText(),
+                new Thread(new ConversionFromCelsiusRunnable(mEditTextCelsius.getText(),
                         "onResume")).start();
             }
-        } else if (lastEditTextFocused == LastEditTextFocused.FAHRENHEIT) {
-            if ((getHandler() != null) && (editTextFahrenheit.getText() != null)) {
+        } else if (mLastEditTextFocused == LastEditTextFocused.FAHRENHEIT) {
+            if ((getHandler() != null) && (mEditTextFahrenheit.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextFahrenheit.getText());
+                Utils.sanitizeEditable(mEditTextFahrenheit.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromFahrenheitRunnable(editTextFahrenheit.getText(),
+                new Thread(new ConversionFromFahrenheitRunnable(mEditTextFahrenheit.getText(),
                         "onResume")).start();
             }
-        } else if (lastEditTextFocused == LastEditTextFocused.KELVIN) {
-            if ((getHandler() != null) && (editTextKelvin.getText() != null)) {
+        } else if (mLastEditTextFocused == LastEditTextFocused.KELVIN) {
+            if ((getHandler() != null) && (mEditTextKelvin.getText() != null)) {
                 removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(editTextKelvin.getText());
+                Utils.sanitizeEditable(mEditTextKelvin.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromKelvinRunnable(editTextKelvin.getText(),
+                new Thread(new ConversionFromKelvinRunnable(mEditTextKelvin.getText(),
                         "onResume")).start();
             }
         }
@@ -184,9 +184,9 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(TAG + ".addTextChangedListeners").i("Entered");
         }
 
-        editTextCelsius.addTextChangedListener(textWatcherCelsius);
-        editTextFahrenheit.addTextChangedListener(textWatcherFahrenheit);
-        editTextKelvin.addTextChangedListener(textWatcherKelvin);
+        mEditTextCelsius.addTextChangedListener(mTextWatcherCelsius);
+        mEditTextFahrenheit.addTextChangedListener(mTextWatcherFahrenheit);
+        mEditTextKelvin.addTextChangedListener(mTextWatcherKelvin);
     }
 
     private void removeTextChangedListeners(String callingClassName) {
@@ -196,9 +196,9 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(TAG + ".removeTextChangedListeners").i("Entered");
         }
 
-        editTextCelsius.removeTextChangedListener(textWatcherCelsius);
-        editTextFahrenheit.removeTextChangedListener(textWatcherFahrenheit);
-        editTextKelvin.removeTextChangedListener(textWatcherKelvin);
+        mEditTextCelsius.removeTextChangedListener(mTextWatcherCelsius);
+        mEditTextFahrenheit.removeTextChangedListener(mTextWatcherFahrenheit);
+        mEditTextKelvin.removeTextChangedListener(mTextWatcherKelvin);
     }
 
     // endregion
@@ -219,7 +219,7 @@ public class TemperatureFragment extends BaseFragment {
     // region Private classes
 
     private class ConversionFromCelsiusRunnable implements Runnable {
-        private final String TAG = "ConversionFromCelsiusRunnable";
+        private final String TAG = ConversionFromCelsiusRunnable.class.getSimpleName();
 
         private Editable mEditableCelsius;
         private String mCallingClassName;
@@ -245,30 +245,30 @@ public class TemperatureFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutCelsius.setError(getString(
+                                    mTextInputLayoutCelsius.setError(getString(
                                             R.string.conversion_temperature_error_below_absolute_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutCelsius.setError(getString(
+                                    mTextInputLayoutCelsius.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutCelsius.setError(getString(
+                                    mTextInputLayoutCelsius.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutCelsius.setErrorEnabled(false);
-                                    textInputLayoutFahrenheit.setErrorEnabled(false);
-                                    textInputLayoutKelvin.setErrorEnabled(false);
+                                    mTextInputLayoutCelsius.setErrorEnabled(false);
+                                    mTextInputLayoutFahrenheit.setErrorEnabled(false);
+                                    mTextInputLayoutKelvin.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextFahrenheit.setText(results.getValue0().get(0),
+                            mEditTextFahrenheit.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKelvin.setText(results.getValue0().get(1),
+                            mEditTextKelvin.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -280,7 +280,7 @@ public class TemperatureFragment extends BaseFragment {
     }
 
     private class ConversionFromFahrenheitRunnable implements Runnable {
-        private final String TAG = "ConversionFromFahrenheitRunnable";
+        private final String TAG = ConversionFromFahrenheitRunnable.class.getSimpleName();
 
         private Editable mEditableFahrenheit;
         private String mCallingClassName;
@@ -306,30 +306,30 @@ public class TemperatureFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutFahrenheit.setError(getString(
+                                    mTextInputLayoutFahrenheit.setError(getString(
                                             R.string.conversion_temperature_error_below_absolute_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutFahrenheit.setError(getString(
+                                    mTextInputLayoutFahrenheit.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutFahrenheit.setError(getString(
+                                    mTextInputLayoutFahrenheit.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutCelsius.setErrorEnabled(false);
-                                    textInputLayoutFahrenheit.setErrorEnabled(false);
-                                    textInputLayoutKelvin.setErrorEnabled(false);
+                                    mTextInputLayoutCelsius.setErrorEnabled(false);
+                                    mTextInputLayoutFahrenheit.setErrorEnabled(false);
+                                    mTextInputLayoutKelvin.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextCelsius.setText(results.getValue0().get(0),
+                            mEditTextCelsius.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextKelvin.setText(results.getValue0().get(1),
+                            mEditTextKelvin.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -341,7 +341,7 @@ public class TemperatureFragment extends BaseFragment {
     }
 
     private class ConversionFromKelvinRunnable implements Runnable {
-        private final String TAG = "ConversionFromKelvinRunnable";
+        private final String TAG = ConversionFromKelvinRunnable.class.getSimpleName();
 
         private Editable mEditableKelvin;
         private String mCallingClassName;
@@ -367,30 +367,30 @@ public class TemperatureFragment extends BaseFragment {
 
                             switch (results.getValue1()) {
                                 case ERROR_BELOW_ZERO:
-                                    textInputLayoutKelvin.setError(getString(
+                                    mTextInputLayoutKelvin.setError(getString(
                                             R.string.conversion_temperature_error_below_absolute_zero
                                     ));
                                     break;
                                 case ERROR_INPUT_NOT_NUMERIC:
-                                    textInputLayoutKelvin.setError(getString(
+                                    mTextInputLayoutKelvin.setError(getString(
                                             R.string.conversion_error_input_not_numeric
                                     ));
                                     break;
                                 case ERROR_UNKNOWN:
-                                    textInputLayoutKelvin.setError(getString(
+                                    mTextInputLayoutKelvin.setError(getString(
                                             R.string.conversion_error_conversion_error
                                     ));
                                     break;
                                 default:
-                                    textInputLayoutCelsius.setErrorEnabled(false);
-                                    textInputLayoutFahrenheit.setErrorEnabled(false);
-                                    textInputLayoutKelvin.setErrorEnabled(false);
+                                    mTextInputLayoutCelsius.setErrorEnabled(false);
+                                    mTextInputLayoutFahrenheit.setErrorEnabled(false);
+                                    mTextInputLayoutKelvin.setErrorEnabled(false);
                                     break;
                             }
 
-                            editTextCelsius.setText(results.getValue0().get(0),
+                            mEditTextCelsius.setText(results.getValue0().get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            editTextFahrenheit.setText(results.getValue0().get(1),
+                            mEditTextFahrenheit.setText(results.getValue0().get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);

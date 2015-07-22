@@ -27,7 +27,7 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_data_transfer_speed_bps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:scrollHorizontally="true"
                     android:hint="@string/data_transfer_speed_bps"/>
 
-            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
+            </android.support.design.widget.TextInputLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -62,7 +62,7 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_data_transfer_speed_byps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                     android:scrollHorizontally="true"
                     android:hint="@string/data_transfer_speed_byps"/>
 
-            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
+            </android.support.design.widget.TextInputLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -97,7 +97,7 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_data_transfer_speed_kbps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                     android:scrollHorizontally="true"
                     android:hint="@string/data_transfer_speed_kbps"/>
 
-            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
+            </android.support.design.widget.TextInputLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -132,7 +132,7 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_data_transfer_speed_kbyps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
                     android:scrollHorizontally="true"
                     android:hint="@string/data_transfer_speed_kbyps"/>
 
-            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
+            </android.support.design.widget.TextInputLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -167,7 +167,7 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_data_transfer_speed_mbps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -186,7 +186,7 @@
                     android:scrollHorizontally="true"
                     android:hint="@string/data_transfer_speed_mbps"/>
 
-            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
+            </android.support.design.widget.TextInputLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -202,7 +202,7 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_data_transfer_speed_mbyps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -221,7 +221,7 @@
                     android:scrollHorizontally="true"
                     android:hint="@string/data_transfer_speed_mbyps"/>
 
-            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
+            </android.support.design.widget.TextInputLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -237,7 +237,7 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_data_transfer_speed_gbps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -256,7 +256,7 @@
                     android:scrollHorizontally="true"
                     android:hint="@string/data_transfer_speed_gbps"/>
 
-            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
+            </android.support.design.widget.TextInputLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -272,7 +272,7 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_data_transfer_speed_gbyps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -291,7 +291,7 @@
                     android:scrollHorizontally="true"
                     android:hint="@string/data_transfer_speed_gbyps"/>
 
-            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
+            </android.support.design.widget.TextInputLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -307,7 +307,7 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_data_transfer_speed_tbps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -326,7 +326,7 @@
                     android:scrollHorizontally="true"
                     android:hint="@string/data_transfer_speed_tbps"/>
 
-            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
+            </android.support.design.widget.TextInputLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -343,7 +343,7 @@
             cards:cardUseCompatPadding="true"
             cards:cardElevation="@dimen/card_elevation">
 
-            <com.bubbinator91.converter.util.TextInputLayoutLAndAbove
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_data_transfer_speed_tbyps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -362,7 +362,7 @@
                     android:scrollHorizontally="true"
                     android:hint="@string/data_transfer_speed_tbyps"/>
 
-            </com.bubbinator91.converter.util.TextInputLayoutLAndAbove>
+            </android.support.design.widget.TextInputLayout>
 
         </android.support.v7.widget.CardView>
 
