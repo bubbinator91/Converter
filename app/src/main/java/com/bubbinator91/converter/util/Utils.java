@@ -187,6 +187,10 @@ public class Utils {
 
         Timber.tag(TAG + ".sanitizeEditable").i("before = " + editable.toString());
 
+        // TODO: Fix a bug in here where interaction with leading zeroes doesn't function right.
+        // Basically, typing in "0". gets corrected to just ".", "-0." gets corrected to -., and
+        // "-0-" gets corrected to just "-".
+
         // check for A-Z, a-z, or spaces and remove them
         for (int i = 0; i < editable.length(); i++) {
             if (Character.isLetter(editable.charAt(i)) || Character.isSpaceChar(editable.charAt(i))) {
@@ -257,113 +261,49 @@ public class Utils {
 	 *
      * @return  A boolean value indicating whether or not the string is numeric
      */
-    @SuppressWarnings("all")
     public static boolean isNumeric(String string) {
         if (string.isEmpty()) {
             return false;
         }
+
         final char[] chars = string.toCharArray();
         int size = chars.length;
-        boolean hasExponent = false;
         boolean hasDecimalPoint = false;
-        boolean allowSigns = false;
-        boolean foundDigit = false;
 
-        // deal with any possible sign up front
-        final int start = (chars[0] == '-') ? 1 : 0;
-        if (size > start + 1 && chars[start] == '0') { // leading 0
-            if ((chars[start + 1] == 'x') || (chars[start + 1] == 'X')) { // leading 0x/0X
-                int i = start + 2;
-                if (i == size) {
-                    return false; // str == "0x"
-                }
-
-                // checking hex (it can't be anything else)
-                for (; i < chars.length; i++) {
-                    if ((chars[i] < '0' || chars[i] > '9')
-                            && (chars[i] < 'a' || chars[i] > 'f')
-                            && (chars[i] < 'A' || chars[i] > 'F')) {
-                        return false;
-                    }
-                }
-                return true;
-            } else if (Character.isDigit(chars[start + 1])) {
-                // leading 0, but not hex, must be octal
-                int i = start + 1;
-                for (; i < chars.length; i++) {
-                    if (chars[i] < '0' || chars[i] > '7') {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-        size--; // don't want to loop to the last char, check it afterwords for type qualifiers
-        int i = start;
-        // loop to the next to last char or to the last char if we need another digit to
-        // make a valid number (e.g. chars[0..5] = "1234E")
-        while (i < size || (i < size + 1 && allowSigns && !foundDigit)) {
-            if (chars[i] >= '0' && chars[i] <= '9') {
-                foundDigit = true;
-                allowSigns = false;
-            } else if (chars[i] == '.') {
-                if (hasDecimalPoint || hasExponent) {
-                    // two decimal points or dec in exponent
-                    return false;
-                }
-                hasDecimalPoint = true;
-            } else if (chars[i] == 'e' || chars[i] == 'E') {
-                // we've already taken care of hex.
-                if (hasExponent) {
-                    // two E's
-                    return false;
-                }
-                if (!foundDigit) {
-                    return false;
-                }
-                hasExponent = true;
-                allowSigns = true;
-            } else if (chars[i] == '+' || chars[i] == '-') {
-                if (!allowSigns) {
-                    return false;
-                }
-                allowSigns = false;
-                foundDigit = false; // we need a digit after the E
-            } else {
-                return false;
-            }
-            i++;
-        }
-        if (i < chars.length) {
-            if (chars[i] >= '0' && chars[i] <= '9') {
-                // no type qualifier, OK
-                return true;
-            }
-            if (chars[i] == 'e' || chars[i] == 'E') {
-                // can't have an E at the last byte
-                return false;
-            }
-            if (chars[i] == '.') {
-                if (hasDecimalPoint || hasExponent) {
-                    // two decimal points or dec in exponent
-                    return false;
-                }
-                // single trailing decimal point after non-exponent is ok
-                return foundDigit;
-            }
-            if (!allowSigns && (chars[i] == 'd' || chars[i] == 'D' || chars[i] == 'f' || chars[i] == 'F')) {
-                return foundDigit;
-            }
-            if ((chars[i] == 'l') || (chars[i] == 'L')) {
-                // not allowing L with an exponent or decimal point
-                return foundDigit && !hasExponent && !hasDecimalPoint;
-            }
-            // last character is illegal
+        /**
+         * Check if the leading character is a decimal point, and keep track of it if it is.
+         * If not, check to see if it's not a negative sign and if it's not a valid integer, and return false if
+         * either of those two things are true.
+         */
+        if ((size == 1) && ((chars[0] < '0') || (chars[0] > '9'))) {
             return false;
         }
-        // allowSigns is true iff the val ends in 'E'
-        // found digit is to make sure weird stuff like '.' and '1E-' doesn't pass
-        return !allowSigns && foundDigit;
+        if (chars[0] == '.') {
+            hasDecimalPoint = true;
+        } else if ((chars[0] != '-') && ((chars[0] < '0') || (chars[0] > '9'))) {
+            return false;
+        }
+
+        /**
+         * Scan the rest of the character array for weird things.
+         * If the character is a decimal point, and if a decimal point has already been encountered (meaning that there
+         *   are two decimals in the number), then it returns false;
+         * If the character is a decimal point, and if a decimal point hasn't already been encountered (meaning that only
+         *   one decimal point is present at this stage of scanning), then it sets a flag so that it can remember that a
+         *   decimal point has been encountered.
+         * Otherwise, if the current character is not a valid integer, then it returns false.
+         */
+        for (int i = 1; i < size; i++) {
+            if ((chars[i] == '.') && (hasDecimalPoint)) {
+                return false;
+            } else if ((chars[i] == '.') && (!hasDecimalPoint)) {
+                hasDecimalPoint = true;
+            } else if ((chars[i] < '0') || (chars[i] > '9')) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public static void addWhitespaceItems(ArrayList<String> list, int numItems) {
