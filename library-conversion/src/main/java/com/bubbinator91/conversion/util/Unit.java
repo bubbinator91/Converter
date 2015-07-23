@@ -48,8 +48,8 @@ public abstract class Unit {
         /**
          * If the size is one, return false if the character is not a number.
          * Check if the leading character is a decimal point, and keep track of it if it is.
-         * If not, check to see if it's not a negative sign and if it's not a valid integer, and return false if
-         *   either of those two things are true.
+         * If not, check to see if it's not a negative sign and if it's not a valid integer, and
+         *   return false if either of those two things are true.
          */
         if ((size == 1) && !Character.isDigit(chars[0])) {
             return false;
@@ -61,11 +61,11 @@ public abstract class Unit {
 
         /**
          * Scan the rest of the character array for weird things.
-         * If the character is a decimal point, and if a decimal point has already been encountered (meaning that there
-         *   are two decimals in the number), then it returns false;
-         * If the character is a decimal point, and if a decimal point hasn't already been encountered (meaning that only
-         *   one decimal point is present at this stage of scanning), then it sets a flag so that it can remember that a
-         *   decimal point has been encountered.
+         * If the character is a decimal point, and if a decimal point has already been encountered
+         *   (meaning that there are two decimals in the number), then it returns false.
+         * If the character is a decimal point, and if a decimal point hasn't already been
+         *   encountered (meaning that only one decimal point is present at this stage of scanning),
+         *   then it sets a flag so that it can remember that a decimal point has been encountered.
          * Otherwise, if the current character is not a valid integer, then it returns false.
          */
         for (int i = 1; i < size; i++) {

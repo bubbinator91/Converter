@@ -188,68 +188,99 @@ public class Utils {
 
         Timber.tag(TAG + ".sanitizeEditable").i("before = " + editable.toString());
 
-        // TODO: Fix a bug in here where interaction with leading zeroes doesn't function right.
-        // Basically, typing in "0". gets corrected to just ".", "-0." gets corrected to -., and
-        // "-0-" gets corrected to just "-".
+        DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();
+        char localeMinusSign = currentLocaleSymbols.getMinusSign();
+        char localeDecimalSeparator = currentLocaleSymbols.getDecimalSeparator();
+        boolean hasDecimalPoint = false;
+        boolean hasLeadingSign = false;
+        boolean hasLeadingZero = false;
+        int i = 0;
 
-        // check for A-Z, a-z, or spaces and remove them
-        for (int i = 0; i < editable.length(); i++) {
-            if (Character.isLetter(editable.charAt(i)) || Character.isSpaceChar(editable.charAt(i))) {
-                editable.delete(i, i + 1);
-                i--;
+        // If the number begins with a sign or a zero, move the start index forward, and mark the
+        // appropriate flag.
+        if (editable.charAt(0) == localeMinusSign) {
+            hasLeadingSign = true;
+            i = 1;
+        } else if (editable.charAt(0) == '0') {
+            hasLeadingZero = true;
+            i = 1;
+        }
+
+        // If the number begins with a sign AND a zero (ex. -0), move the start index forward, and
+        // mark the other appropriate flag.
+        if (hasLeadingSign && (editable.length() >= 2)) {
+            if (editable.charAt(1) == '0') {
+                hasLeadingZero = true;
+                i = 2;
             }
         }
 
-        if (editable.length() >= 2) {
-            // check for (a) leading zero(s) without a decimal point after it/them
-            if ((editable.charAt(0) == '0')) {
-                int j = 0;
-                boolean containsAllZeroes = false;
-                for (int i = 0; i < editable.length(); i++) {
-                    if (editable.charAt(i) == '0') {
-                        j++;
-                    } else {
-                        break;
-                    }
-                    if (i == (editable.length() - 1)) {
-                        containsAllZeroes = true;
-                    }
+        // Loop through the number and remove non-valid characters.
+        // If the number has a leading zero, that has to be handled specially.
+        while (i < editable.length()) {
+            if (hasLeadingZero) {
+                // If the current character is a decimal point, and a decimal point has not been
+                // encountered yet, mark the appropriate flag.
+                if ((editable.charAt(i) == localeDecimalSeparator) && !hasDecimalPoint) {
+                    hasDecimalPoint = true;
                 }
-                if (!containsAllZeroes) {
-                    editable.delete(0, j);
+                // Otherwise, if a double decimal point has been encountered, or if the current
+                // character is not a decimal point and not the numbers 1-9 and a decimal point has
+                // not been encountered, remove the current character.
+                else if (((editable.charAt(i) == localeDecimalSeparator) && hasDecimalPoint)
+                        || ((editable.charAt(i) != localeDecimalSeparator)
+                            && ((editable.charAt(i) < '1') || (editable.charAt(i) > '9'))
+                            && !hasDecimalPoint)) {
+                    editable.delete(i, i + 1);
+                    i--;
                 }
-            } else if ((editable.charAt(0) == '-') && (editable.charAt(1) == '0')) {
-                int j = 0;
-                boolean containsAllZeroes = false;
-                for (int i = 1; i < editable.length(); i++) {
-                    if (editable.charAt(i) == '0') {
-                        j++;
-                    } else {
-                        break;
+                // Otherwise, we've encountered the situation like "09" or "-04". In this case, we
+                // need to start at the beginning (after a leading sign, if one is present), and
+                // remove any leading zeroes before the non-zero number, and then mark the
+                // flag for a leading zero as false, since we've removed it.
+                else if ((editable.charAt(i) >= '1')
+                        && (editable.charAt(i) <= '9')
+                        && !hasDecimalPoint) {
+                    // Determine the beginning point here. If there's a leading sign, skip it.
+                    int j = 0;
+                    if (hasLeadingSign) {
+                        j = 1;
                     }
-                    if (i == (editable.length() - 1)) {
-                        containsAllZeroes = true;
-                    }
-                }
-                if (!containsAllZeroes) {
-                    editable.delete(1, j + 1);
-                }
-            }
-        }
 
-        // check for weird decimals and weird negative signs
-        boolean containsDecimal = false;
-        for (int i = 0; i < editable.length(); i++) {
-            if (i == 0) {
-                if (editable.charAt(0) == '.')
-                    containsDecimal = true;
-            } else if (i > 0) {
-                if ((editable.charAt(i) == '-') || ((editable.charAt(i) == '.') && containsDecimal)) {
-					editable.delete(i, i + 1);
-                } else if (editable.charAt(i) == '.') {
-                    containsDecimal = true;
+                    // Loop through the beginning of the number and remove any zeroes.
+                    while (j < editable.length()) {
+                        // If we encounter a non-zero digit, we're done, so break;
+                        if ((editable.charAt(j) >= '1') && (editable.charAt(j) <= '9')) {
+                            break;
+                        }
+
+                        editable.delete(j, j + 1);
+                        i--;
+                    }
+
+                    // Since we've removed the leading zero, mark the flag as false.
+                    hasLeadingZero = false;
+                }
+            } else {
+                // If the current character is a decimal point, and we haven't encountered one yet,
+                // mark the appropriate flag,
+                if ((editable.charAt(i) == localeDecimalSeparator) && !hasDecimalPoint) {
+                    hasDecimalPoint = true;
+                }
+                // Otherwise, if a double decimal point has been encountered, or if a minus sign has
+                // been found to be not at the beginning of the number, or if the character is not
+                // a valid digit, remove the current character.
+                else if (((editable.charAt(i) == localeDecimalSeparator) && hasDecimalPoint)
+                        || ((editable.charAt(i) == localeMinusSign) && (i != 0))
+                        || (editable.charAt(i) != localeMinusSign
+                            && (!Character.isDigit(editable.charAt(i))
+                                || Character.isSpaceChar(editable.charAt(i))))) {
+                    editable.delete(i, i + 1);
+                    i--;
                 }
             }
+
+            i++;
         }
 
         Timber.tag(TAG + ".sanitizeEditable").i("after = " + editable.toString());
@@ -277,8 +308,8 @@ public class Utils {
         /**
          * If the size is one, return false if the character is not a number.
          * Check if the leading character is a decimal point, and keep track of it if it is.
-         * If not, check to see if it's not a negative sign and if it's not a valid integer, and return false if
-         *   either of those two things are true.
+         * If not, check to see if it's not a negative sign and if it's not a valid integer, and
+         *   return false if either of those two things are true.
          */
         if ((size == 1) && !Character.isDigit(chars[0])) {
             return false;
@@ -290,11 +321,11 @@ public class Utils {
 
         /**
          * Scan the rest of the character array for weird things.
-         * If the character is a decimal point, and if a decimal point has already been encountered (meaning that there
-         *   are two decimals in the number), then it returns false;
-         * If the character is a decimal point, and if a decimal point hasn't already been encountered (meaning that only
-         *   one decimal point is present at this stage of scanning), then it sets a flag so that it can remember that a
-         *   decimal point has been encountered.
+         * If the character is a decimal point, and if a decimal point has already been encountered
+         *   (meaning that there are two decimals in the number), then it returns false.
+         * If the character is a decimal point, and if a decimal point hasn't already been
+         *   encountered (meaning that only one decimal point is present at this stage of scanning),
+         *   then it sets a flag so that it can remember that a decimal point has been encountered.
          * Otherwise, if the current character is not a valid integer, then it returns false.
          */
         for (int i = 1; i < size; i++) {
