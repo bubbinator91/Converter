@@ -56,7 +56,8 @@ public class Fahrenheit extends Unit {
                 addEmptyItems(results, 2);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
             }
-        } else if (fahrenheit.equals("-") || fahrenheit.equals(".") || fahrenheit.equals("")) {
+        } else if (fahrenheit.equals("-") || fahrenheit.equals(".")
+                || fahrenheit.equals("") || fahrenheit.equals("-.")) {
             results.clear();
             addEmptyItems(results, 2);
         } else {

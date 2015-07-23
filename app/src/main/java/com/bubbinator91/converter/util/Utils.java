@@ -2,6 +2,7 @@ package com.bubbinator91.converter.util;
 
 import android.text.Editable;
 
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 import timber.log.Timber;
@@ -262,25 +263,28 @@ public class Utils {
      * @return  A boolean value indicating whether or not the string is numeric
      */
     public static boolean isNumeric(String string) {
-        if (string.isEmpty()) {
+        if (string.isEmpty() || string.equals("-.")) {
             return false;
         }
 
         final char[] chars = string.toCharArray();
         int size = chars.length;
+        DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();
+        char localeMinusSign = currentLocaleSymbols.getMinusSign();
+        char localeDecimalSeparator = currentLocaleSymbols.getDecimalSeparator();
         boolean hasDecimalPoint = false;
 
         /**
+         * If the size is one, return false if the character is not a number.
          * Check if the leading character is a decimal point, and keep track of it if it is.
          * If not, check to see if it's not a negative sign and if it's not a valid integer, and return false if
-         * either of those two things are true.
+         *   either of those two things are true.
          */
-        if ((size == 1) && ((chars[0] < '0') || (chars[0] > '9'))) {
+        if ((size == 1) && !Character.isDigit(chars[0])) {
             return false;
-        }
-        if (chars[0] == '.') {
+        } else if (chars[0] == localeDecimalSeparator) {
             hasDecimalPoint = true;
-        } else if ((chars[0] != '-') && ((chars[0] < '0') || (chars[0] > '9'))) {
+        } else if ((chars[0] != localeMinusSign) && !Character.isDigit(chars[0])) {
             return false;
         }
 
@@ -294,9 +298,9 @@ public class Utils {
          * Otherwise, if the current character is not a valid integer, then it returns false.
          */
         for (int i = 1; i < size; i++) {
-            if ((chars[i] == '.') && (hasDecimalPoint)) {
+            if ((chars[i] == localeDecimalSeparator) && (hasDecimalPoint)) {
                 return false;
-            } else if ((chars[i] == '.') && (!hasDecimalPoint)) {
+            } else if ((chars[i] == localeDecimalSeparator) && (!hasDecimalPoint)) {
                 hasDecimalPoint = true;
             } else if ((chars[i] < '0') || (chars[i] > '9')) {
                 return false;

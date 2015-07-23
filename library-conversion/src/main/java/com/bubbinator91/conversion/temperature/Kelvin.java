@@ -45,17 +45,18 @@ public class Kelvin extends Unit {
                 results.add(toCelsius(kelvin, roundingLength));
                 results.add(toFahrenheit(kelvin, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".internal_toAll", e.getLocalizedMessage());
+                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 2);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".internal_toAll", e.getLocalizedMessage());
+                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 2);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
             }
-        } else if (kelvin.equals("-") || kelvin.equals(".") || kelvin.equals("")) {
+        } else if (kelvin.equals("-") || kelvin.equals(".")
+                || kelvin.equals("") || kelvin.equals("-.")) {
             addEmptyItems(results, 2);
         } else {
             results.clear();

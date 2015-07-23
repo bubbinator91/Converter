@@ -55,7 +55,8 @@ public class Celsius extends Unit {
                 addEmptyItems(results, 2);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
             }
-        } else if (celsius.equals("-") || celsius.equals(".") || celsius.equals("")) {
+        } else if (celsius.equals("-") || celsius.equals(".")
+                || celsius.equals("") || celsius.equals("-.")) {
             results.clear();
             addEmptyItems(results, 2);
         } else {
