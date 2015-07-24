@@ -4,6 +4,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_acceleration"
+            android:icon="@drawable/ic_acceleration_black_48px"
+            android:title="@string/title_acceleration"/>
+        <item
             android:id="@+id/nav_dts"
             android:icon="@drawable/ic_computer_black_48px"
             android:title="@string/title_data_transfer_speed"/>

@@ -15,7 +15,7 @@ import java.util.List;
  * Handles the conversion from miles per hour to other units of speed
  */
 public class MilesPerHour extends Unit {
-    private static final String TAG = MetersPerSecond.class.getSimpleName();
+    private static final String TAG = MilesPerHour.class.getSimpleName();
 
     // region Public methods
 

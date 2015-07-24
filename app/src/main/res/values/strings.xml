@@ -3,12 +3,19 @@
     <string name="app_name">Converter</string>
     <string name="action_settings">Settings</string>
 
+    <string name="title_acceleration">Acceleration</string>
     <string name="title_data_transfer_speed">Data Transfer Speed</string>
     <string name="title_length">Length</string>
     <string name="title_speed">Speed</string>
     <string name="title_temperature">Temperature</string>
 
     <string name="title_activity_settings">Settings</string>
+
+    <!--TODO: Change these to use the sub and sup tags at some point in the future-->
+    <string name="acceleration_mpss">Meter per square second (m/s^2)</string>
+    <string name="acceleration_cmpss">Centimeter per square second (cm/s^2)</string>
+    <string name="acceleration_fpss">Foot per square second (ft/s^2)</string>
+    <string name="acceleration_sg">Standard gravity (g_n)</string>
 
     <string name="data_transfer_speed_bps">Bits per second (bps)</string>
     <string name="data_transfer_speed_byps">Bytes per second (Bps)</string>

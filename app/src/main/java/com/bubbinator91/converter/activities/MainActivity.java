@@ -218,7 +218,9 @@ public class MainActivity extends BaseActivity {
     private void selectFragment(String fragmentName) {
         Timber.tag(TAG + ".selectFragment").i("Entered");
 
-        if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
+        if (fragmentName.equals(getString(R.string.title_acceleration))){
+            changeToFragment(new AccelerationFragment());
+        } else if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
             changeToFragment(new DataTransferSpeedFragment());
         } else if (fragmentName.equals(getString(R.string.title_length))) {
             changeToFragment(new LengthFragment());
@@ -233,7 +235,9 @@ public class MainActivity extends BaseActivity {
         Timber.tag(TAG + ".preChangeToFragment").i("Entered");
         Timber.tag(TAG + ".preChangeToFragment").i("fragmentName = " + fragmentName);
 
-        if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
+        if (fragmentName.equals(getString(R.string.title_acceleration))) {
+            mNavigationView.getMenu().findItem(R.id.nav_acceleration).setChecked(true);
+        } else if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
             mNavigationView.getMenu().findItem(R.id.nav_dts).setChecked(true);
         } else if (fragmentName.equals(getString(R.string.title_length))) {
             mNavigationView.getMenu().findItem(R.id.nav_length).setChecked(true);

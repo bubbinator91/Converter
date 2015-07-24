@@ -15,7 +15,7 @@ import java.util.List;
  * Handles the conversion from Kelvin to other temperatures
  */
 public class Kelvin extends Unit {
-    private static final String TAG = Fahrenheit.class.getSimpleName();
+    private static final String TAG = Kelvin.class.getSimpleName();
 
     // region Public methods
 

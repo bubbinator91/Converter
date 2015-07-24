@@ -15,7 +15,7 @@ import java.util.List;
  * Handles the conversion from feet to other units of length
  */
 public class Feet extends Unit {
-    private static final String TAG = Inches.class.getSimpleName();
+    private static final String TAG = Feet.class.getSimpleName();
 
     /**
      * Takes in the feet value as a {@link String} and converts it to inches, yards, miles,
