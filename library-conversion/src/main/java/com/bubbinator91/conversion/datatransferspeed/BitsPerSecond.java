@@ -47,7 +47,7 @@ public class BitsPerSecond extends Unit {
             try {
                 results.add(toBytesPerSecond(bps, roundingLength));
                 results.add(toKilobitsPerSecond(bps, roundingLength));
-                results.add(toKiloBytesPerSecond(bps, roundingLength));
+                results.add(toKilobytesPerSecond(bps, roundingLength));
                 results.add(toMegabitsPerSecond(bps, roundingLength));
                 results.add(toMegabytesPerSecond(bps, roundingLength));
                 results.add(toGigabitsPerSecond(bps, roundingLength));
@@ -164,7 +164,7 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKiloBytesPerSecond(String bps, int decimalPlaces) throws
+    public static String toKilobytesPerSecond(String bps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (bps == null) {
             return null;
