@@ -18,11 +18,11 @@ import com.bubbinator91.conversion.datatransferspeed.KilobitsPerSecond;
 import com.bubbinator91.conversion.datatransferspeed.KilobytesPerSecond;
 import com.bubbinator91.conversion.datatransferspeed.MegabitsPerSecond;
 import com.bubbinator91.conversion.datatransferspeed.MegabytesPerSecond;
+import com.bubbinator91.conversion.datatransferspeed.TerabitsPerSecond;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.conversion.datatransferspeed.TByps;
-import com.bubbinator91.converter.conversion.datatransferspeed.Tbps;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -1153,25 +1153,68 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableTbps != null) {
-                final List<String> results =
-                        Tbps.toAll(mEditableTbps.toString(), getNumOfDecimalPlaces());
+                final Tuple<List<String>, ConversionErrorCodes> results =
+                        TerabitsPerSecond.toAll(mEditableTbps.toString(), getNumOfDecimalPlaces());
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeTextChangedListeners(TAG + "." + mCallingClassName);
-                        mEditTextBps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-                        mEditTextByps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-                        mEditTextKbps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
-                        mEditTextKbyps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
-                        mEditTextMbps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
-                        mEditTextMbyps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
-                        mEditTextGbps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
-                        mEditTextGbyps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
-                        mEditTextTbyps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
-                        addTextChangedListeners(TAG + "." + mCallingClassName);
-                    }
-                });
+                if (results != null) {
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeTextChangedListeners(TAG + "." + mCallingClassName);
+
+                            switch (results.getValue1()) {
+                                case ERROR_BELOW_ZERO:
+                                    mTextInputLayoutTbps.setError(getString(
+                                            R.string.conversion_error_below_zero
+                                    ));
+                                    break;
+                                case ERROR_INPUT_NOT_NUMERIC:
+                                    mTextInputLayoutTbps.setError(getString(
+                                            R.string.conversion_error_input_not_numeric
+                                    ));
+                                    break;
+                                case ERROR_UNKNOWN:
+                                    mTextInputLayoutTbps.setError(getString(
+                                            R.string.conversion_error_conversion_error
+                                    ));
+                                    break;
+                                default:
+                                    mTextInputLayoutBps.setErrorEnabled(false);
+                                    mTextInputLayoutByps.setErrorEnabled(false);
+                                    mTextInputLayoutKbps.setErrorEnabled(false);
+                                    mTextInputLayoutKbyps.setErrorEnabled(false);
+                                    mTextInputLayoutMbps.setErrorEnabled(false);
+                                    mTextInputLayoutMbyps.setErrorEnabled(false);
+                                    mTextInputLayoutGbps.setErrorEnabled(false);
+                                    mTextInputLayoutGbyps.setErrorEnabled(false);
+                                    mTextInputLayoutTbps.setErrorEnabled(false);
+                                    mTextInputLayoutTbyps.setErrorEnabled(false);
+                                    break;
+                            }
+
+                            mEditTextBps.setText(results.getValue0().get(0),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            mEditTextByps.setText(results.getValue0().get(1),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            mEditTextKbps.setText(results.getValue0().get(2),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            mEditTextKbyps.setText(results.getValue0().get(3),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            mEditTextMbps.setText(results.getValue0().get(4),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            mEditTextMbyps.setText(results.getValue0().get(5),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            mEditTextGbps.setText(results.getValue0().get(6),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            mEditTextGbyps.setText(results.getValue0().get(7),
+                                    AppCompatTextView.BufferType.EDITABLE);
+                            mEditTextTbyps.setText(results.getValue0().get(8),
+                                    AppCompatTextView.BufferType.EDITABLE);
+
+                            addTextChangedListeners(TAG + "." + mCallingClassName);
+                        }
+                    });
+                }
             }
         }
     }
