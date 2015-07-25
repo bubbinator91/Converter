@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,6 @@ import com.bubbinator91.conversion.length.Miles;
 import com.bubbinator91.conversion.length.Millimeters;
 import com.bubbinator91.conversion.length.Yards;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Utils;
 
@@ -418,7 +418,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableInch != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Inches.toAll(mEditableInch.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -427,7 +427,7 @@ public class LengthFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutInch.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -455,19 +455,19 @@ public class LengthFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextFoot.setText(results.getValue0().get(0),
+                            mEditTextFoot.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextYard.setText(results.getValue0().get(1),
+                            mEditTextYard.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMile.setText(results.getValue0().get(2),
+                            mEditTextMile.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMillimeter.setText(results.getValue0().get(3),
+                            mEditTextMillimeter.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextCentimeter.setText(results.getValue0().get(4),
+                            mEditTextCentimeter.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -494,7 +494,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableFoot != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Feet.toAll(mEditableFoot.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -503,7 +503,7 @@ public class LengthFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutFoot.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -531,19 +531,19 @@ public class LengthFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextYard.setText(results.getValue0().get(1),
+                            mEditTextYard.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMile.setText(results.getValue0().get(2),
+                            mEditTextMile.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMillimeter.setText(results.getValue0().get(3),
+                            mEditTextMillimeter.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextCentimeter.setText(results.getValue0().get(4),
+                            mEditTextCentimeter.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -570,7 +570,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableYard != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Yards.toAll(mEditableYard.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -579,7 +579,7 @@ public class LengthFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutYard.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -607,19 +607,19 @@ public class LengthFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMile.setText(results.getValue0().get(2),
+                            mEditTextMile.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMillimeter.setText(results.getValue0().get(3),
+                            mEditTextMillimeter.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextCentimeter.setText(results.getValue0().get(4),
+                            mEditTextCentimeter.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -646,7 +646,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMile != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Miles.toAll(mEditableMile.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -655,7 +655,7 @@ public class LengthFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutMile.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -683,19 +683,19 @@ public class LengthFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextYard.setText(results.getValue0().get(2),
+                            mEditTextYard.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMillimeter.setText(results.getValue0().get(3),
+                            mEditTextMillimeter.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextCentimeter.setText(results.getValue0().get(4),
+                            mEditTextCentimeter.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -723,7 +723,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMillimeter != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Millimeters.toAll(mEditableMillimeter.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -732,7 +732,7 @@ public class LengthFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutMillimeter.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -760,19 +760,19 @@ public class LengthFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextYard.setText(results.getValue0().get(2),
+                            mEditTextYard.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMile.setText(results.getValue0().get(3),
+                            mEditTextMile.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextCentimeter.setText(results.getValue0().get(4),
+                            mEditTextCentimeter.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -800,7 +800,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableCentimeter != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Centimeters.toAll(mEditableCentimeter.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -809,7 +809,7 @@ public class LengthFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutCentimeter.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -837,19 +837,19 @@ public class LengthFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextYard.setText(results.getValue0().get(2),
+                            mEditTextYard.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMile.setText(results.getValue0().get(3),
+                            mEditTextMile.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMillimeter.setText(results.getValue0().get(4),
+                            mEditTextMillimeter.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMeter.setText(results.getValue0().get(5),
+                            mEditTextMeter.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -876,7 +876,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMeter != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Meters.toAll(mEditableMeter.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -885,7 +885,7 @@ public class LengthFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutMeter.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -913,19 +913,19 @@ public class LengthFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextYard.setText(results.getValue0().get(2),
+                            mEditTextYard.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMile.setText(results.getValue0().get(3),
+                            mEditTextMile.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMillimeter.setText(results.getValue0().get(4),
+                            mEditTextMillimeter.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextCentimeter.setText(results.getValue0().get(5),
+                            mEditTextCentimeter.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKilometer.setText(results.getValue0().get(6),
+                            mEditTextKilometer.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -953,7 +953,7 @@ public class LengthFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKilometer != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Kilometers.toAll(mEditableKilometer.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -962,7 +962,7 @@ public class LengthFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutKilometer.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -990,19 +990,19 @@ public class LengthFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextInch.setText(results.getValue0().get(0),
+                            mEditTextInch.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFoot.setText(results.getValue0().get(1),
+                            mEditTextFoot.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextYard.setText(results.getValue0().get(2),
+                            mEditTextYard.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMile.setText(results.getValue0().get(3),
+                            mEditTextMile.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMillimeter.setText(results.getValue0().get(4),
+                            mEditTextMillimeter.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextCentimeter.setText(results.getValue0().get(5),
+                            mEditTextCentimeter.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMeter.setText(results.getValue0().get(6),
+                            mEditTextMeter.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);

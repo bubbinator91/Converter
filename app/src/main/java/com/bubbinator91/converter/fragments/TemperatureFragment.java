@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,6 @@ import com.bubbinator91.conversion.temperature.Celsius;
 import com.bubbinator91.conversion.temperature.Fahrenheit;
 import com.bubbinator91.conversion.temperature.Kelvin;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Utils;
 
@@ -234,7 +234,7 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableCelsius != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Celsius.toAll(mEditableCelsius.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -243,7 +243,7 @@ public class TemperatureFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutCelsius.setError(getString(
                                             R.string.conversion_temperature_error_below_absolute_zero
@@ -266,9 +266,9 @@ public class TemperatureFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextFahrenheit.setText(results.getValue0().get(0),
+                            mEditTextFahrenheit.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKelvin.setText(results.getValue0().get(1),
+                            mEditTextKelvin.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -295,7 +295,7 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableFahrenheit != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Fahrenheit.toAll(mEditableFahrenheit.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -304,7 +304,7 @@ public class TemperatureFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutFahrenheit.setError(getString(
                                             R.string.conversion_temperature_error_below_absolute_zero
@@ -327,9 +327,9 @@ public class TemperatureFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextCelsius.setText(results.getValue0().get(0),
+                            mEditTextCelsius.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKelvin.setText(results.getValue0().get(1),
+                            mEditTextKelvin.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -356,7 +356,7 @@ public class TemperatureFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKelvin != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         Kelvin.toAll(mEditableKelvin.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -365,7 +365,7 @@ public class TemperatureFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutKelvin.setError(getString(
                                             R.string.conversion_temperature_error_below_absolute_zero
@@ -388,9 +388,9 @@ public class TemperatureFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextCelsius.setText(results.getValue0().get(0),
+                            mEditTextCelsius.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFahrenheit.setText(results.getValue0().get(1),
+                            mEditTextFahrenheit.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);

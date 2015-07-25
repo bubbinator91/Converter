@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import com.bubbinator91.conversion.acceleration.FeetPerSecondSquared;
 import com.bubbinator91.conversion.acceleration.MetersPerSecondSquared;
 import com.bubbinator91.conversion.acceleration.StandardGravity;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Utils;
 
@@ -266,7 +266,7 @@ public class AccelerationFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableCmpss != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         CentimetersPerSecondSquared.toAll(mEditableCmpss.toString(),
                                 getNumOfDecimalPlaces());
 
@@ -276,7 +276,7 @@ public class AccelerationFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutCmpss.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -300,11 +300,11 @@ public class AccelerationFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextFpss.setText(results.getValue0().get(0),
+                            mEditTextFpss.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMpss.setText(results.getValue0().get(1),
+                            mEditTextMpss.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextSg.setText(results.getValue0().get(2),
+                            mEditTextSg.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -331,7 +331,7 @@ public class AccelerationFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableFpss != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         FeetPerSecondSquared.toAll(mEditableFpss.toString(),
                                 getNumOfDecimalPlaces());
 
@@ -341,7 +341,7 @@ public class AccelerationFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutFpss.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -365,11 +365,11 @@ public class AccelerationFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextCmpss.setText(results.getValue0().get(0),
+                            mEditTextCmpss.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMpss.setText(results.getValue0().get(1),
+                            mEditTextMpss.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextSg.setText(results.getValue0().get(2),
+                            mEditTextSg.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -396,7 +396,7 @@ public class AccelerationFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMpss != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         MetersPerSecondSquared.toAll(mEditableMpss.toString(),
                                 getNumOfDecimalPlaces());
 
@@ -406,7 +406,7 @@ public class AccelerationFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutMpss.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -430,11 +430,11 @@ public class AccelerationFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextCmpss.setText(results.getValue0().get(0),
+                            mEditTextCmpss.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFpss.setText(results.getValue0().get(1),
+                            mEditTextFpss.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextSg.setText(results.getValue0().get(2),
+                            mEditTextSg.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -461,7 +461,7 @@ public class AccelerationFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableSg != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         StandardGravity.toAll(mEditableSg.toString(),
                                 getNumOfDecimalPlaces());
 
@@ -471,7 +471,7 @@ public class AccelerationFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutSg.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -495,11 +495,11 @@ public class AccelerationFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextCmpss.setText(results.getValue0().get(0),
+                            mEditTextCmpss.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFpss.setText(results.getValue0().get(1),
+                            mEditTextFpss.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMpss.setText(results.getValue0().get(2),
+                            mEditTextMpss.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);

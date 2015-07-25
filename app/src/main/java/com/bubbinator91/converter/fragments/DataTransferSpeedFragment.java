@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,6 @@ import com.bubbinator91.conversion.datatransferspeed.MegabytesPerSecond;
 import com.bubbinator91.conversion.datatransferspeed.TerabitsPerSecond;
 import com.bubbinator91.conversion.datatransferspeed.TerabytesPerSecond;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.util.Utils;
 
@@ -497,7 +497,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableBps != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         BitsPerSecond.toAll(mEditableBps.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -506,7 +506,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutBps.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -536,23 +536,23 @@ public class DataTransferSpeedFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextByps.setText(results.getValue0().get(0),
+                            mEditTextByps.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbps.setText(results.getValue0().get(1),
+                            mEditTextKbps.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbyps.setText(results.getValue0().get(2),
+                            mEditTextKbyps.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbps.setText(results.getValue0().get(3),
+                            mEditTextMbps.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbyps.setText(results.getValue0().get(4),
+                            mEditTextMbyps.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbps.setText(results.getValue0().get(5),
+                            mEditTextGbps.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbyps.setText(results.getValue0().get(6),
+                            mEditTextGbyps.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbps.setText(results.getValue0().get(7),
+                            mEditTextTbps.setText(results.first.get(7),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbyps.setText(results.getValue0().get(8),
+                            mEditTextTbyps.setText(results.first.get(8),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -579,7 +579,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableByps != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         BytesPerSecond.toAll(mEditableByps.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -588,7 +588,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutByps.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -618,23 +618,23 @@ public class DataTransferSpeedFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextBps.setText(results.getValue0().get(0),
+                            mEditTextBps.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbps.setText(results.getValue0().get(1),
+                            mEditTextKbps.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbyps.setText(results.getValue0().get(2),
+                            mEditTextKbyps.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbps.setText(results.getValue0().get(3),
+                            mEditTextMbps.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbyps.setText(results.getValue0().get(4),
+                            mEditTextMbyps.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbps.setText(results.getValue0().get(5),
+                            mEditTextGbps.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbyps.setText(results.getValue0().get(6),
+                            mEditTextGbyps.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbps.setText(results.getValue0().get(7),
+                            mEditTextTbps.setText(results.first.get(7),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbyps.setText(results.getValue0().get(8),
+                            mEditTextTbyps.setText(results.first.get(8),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -661,7 +661,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKbps != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         KilobitsPerSecond.toAll(mEditableKbps.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -670,7 +670,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutKbps.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -700,23 +700,23 @@ public class DataTransferSpeedFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextBps.setText(results.getValue0().get(0),
+                            mEditTextBps.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextByps.setText(results.getValue0().get(1),
+                            mEditTextByps.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbyps.setText(results.getValue0().get(2),
+                            mEditTextKbyps.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbps.setText(results.getValue0().get(3),
+                            mEditTextMbps.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbyps.setText(results.getValue0().get(4),
+                            mEditTextMbyps.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbps.setText(results.getValue0().get(5),
+                            mEditTextGbps.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbyps.setText(results.getValue0().get(6),
+                            mEditTextGbyps.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbps.setText(results.getValue0().get(7),
+                            mEditTextTbps.setText(results.first.get(7),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbyps.setText(results.getValue0().get(8),
+                            mEditTextTbyps.setText(results.first.get(8),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -743,7 +743,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableKbyps != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         KilobytesPerSecond.toAll(mEditableKbyps.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -752,7 +752,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutKbyps.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -782,23 +782,23 @@ public class DataTransferSpeedFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextBps.setText(results.getValue0().get(0),
+                            mEditTextBps.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextByps.setText(results.getValue0().get(1),
+                            mEditTextByps.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbps.setText(results.getValue0().get(2),
+                            mEditTextKbps.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbps.setText(results.getValue0().get(3),
+                            mEditTextMbps.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbyps.setText(results.getValue0().get(4),
+                            mEditTextMbyps.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbps.setText(results.getValue0().get(5),
+                            mEditTextGbps.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbyps.setText(results.getValue0().get(6),
+                            mEditTextGbyps.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbps.setText(results.getValue0().get(7),
+                            mEditTextTbps.setText(results.first.get(7),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbyps.setText(results.getValue0().get(8),
+                            mEditTextTbyps.setText(results.first.get(8),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -825,7 +825,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMbps != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         MegabitsPerSecond.toAll(mEditableMbps.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -834,7 +834,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutMbps.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -864,23 +864,23 @@ public class DataTransferSpeedFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextBps.setText(results.getValue0().get(0),
+                            mEditTextBps.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextByps.setText(results.getValue0().get(1),
+                            mEditTextByps.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbps.setText(results.getValue0().get(2),
+                            mEditTextKbps.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbyps.setText(results.getValue0().get(3),
+                            mEditTextKbyps.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbyps.setText(results.getValue0().get(4),
+                            mEditTextMbyps.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbps.setText(results.getValue0().get(5),
+                            mEditTextGbps.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbyps.setText(results.getValue0().get(6),
+                            mEditTextGbyps.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbps.setText(results.getValue0().get(7),
+                            mEditTextTbps.setText(results.first.get(7),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbyps.setText(results.getValue0().get(8),
+                            mEditTextTbyps.setText(results.first.get(8),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -907,7 +907,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableMbyps != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         MegabytesPerSecond.toAll(mEditableMbyps.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -916,7 +916,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutMbyps.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -946,23 +946,23 @@ public class DataTransferSpeedFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextBps.setText(results.getValue0().get(0),
+                            mEditTextBps.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextByps.setText(results.getValue0().get(1),
+                            mEditTextByps.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbps.setText(results.getValue0().get(2),
+                            mEditTextKbps.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbyps.setText(results.getValue0().get(3),
+                            mEditTextKbyps.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbps.setText(results.getValue0().get(4),
+                            mEditTextMbps.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbps.setText(results.getValue0().get(5),
+                            mEditTextGbps.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbyps.setText(results.getValue0().get(6),
+                            mEditTextGbyps.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbps.setText(results.getValue0().get(7),
+                            mEditTextTbps.setText(results.first.get(7),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbyps.setText(results.getValue0().get(8),
+                            mEditTextTbyps.setText(results.first.get(8),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -989,7 +989,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableGbps != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         GigabitsPerSecond.toAll(mEditableGbps.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -998,7 +998,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutGbps.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -1028,23 +1028,23 @@ public class DataTransferSpeedFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextBps.setText(results.getValue0().get(0),
+                            mEditTextBps.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextByps.setText(results.getValue0().get(1),
+                            mEditTextByps.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbps.setText(results.getValue0().get(2),
+                            mEditTextKbps.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbyps.setText(results.getValue0().get(3),
+                            mEditTextKbyps.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbps.setText(results.getValue0().get(4),
+                            mEditTextMbps.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbyps.setText(results.getValue0().get(5),
+                            mEditTextMbyps.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbyps.setText(results.getValue0().get(6),
+                            mEditTextGbyps.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbps.setText(results.getValue0().get(7),
+                            mEditTextTbps.setText(results.first.get(7),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbyps.setText(results.getValue0().get(8),
+                            mEditTextTbyps.setText(results.first.get(8),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -1071,7 +1071,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableGbyps != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         GigabytesPerSecond.toAll(mEditableGbyps.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -1080,7 +1080,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutGbyps.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -1110,23 +1110,23 @@ public class DataTransferSpeedFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextBps.setText(results.getValue0().get(0),
+                            mEditTextBps.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextByps.setText(results.getValue0().get(1),
+                            mEditTextByps.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbps.setText(results.getValue0().get(2),
+                            mEditTextKbps.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbyps.setText(results.getValue0().get(3),
+                            mEditTextKbyps.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbps.setText(results.getValue0().get(4),
+                            mEditTextMbps.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbyps.setText(results.getValue0().get(5),
+                            mEditTextMbyps.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbps.setText(results.getValue0().get(6),
+                            mEditTextGbps.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbps.setText(results.getValue0().get(7),
+                            mEditTextTbps.setText(results.first.get(7),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbyps.setText(results.getValue0().get(8),
+                            mEditTextTbyps.setText(results.first.get(8),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -1153,7 +1153,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableTbps != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         TerabitsPerSecond.toAll(mEditableTbps.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -1162,7 +1162,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutTbps.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -1192,23 +1192,23 @@ public class DataTransferSpeedFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextBps.setText(results.getValue0().get(0),
+                            mEditTextBps.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextByps.setText(results.getValue0().get(1),
+                            mEditTextByps.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbps.setText(results.getValue0().get(2),
+                            mEditTextKbps.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbyps.setText(results.getValue0().get(3),
+                            mEditTextKbyps.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbps.setText(results.getValue0().get(4),
+                            mEditTextMbps.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbyps.setText(results.getValue0().get(5),
+                            mEditTextMbyps.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbps.setText(results.getValue0().get(6),
+                            mEditTextGbps.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbyps.setText(results.getValue0().get(7),
+                            mEditTextGbyps.setText(results.first.get(7),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbyps.setText(results.getValue0().get(8),
+                            mEditTextTbyps.setText(results.first.get(8),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
@@ -1235,7 +1235,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
 
             if (mEditableTbyps != null) {
-                final Tuple<List<String>, ConversionErrorCodes> results =
+                final Pair<List<String>, ConversionErrorCodes> results =
                         TerabytesPerSecond.toAll(mEditableTbyps.toString(), getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -1244,7 +1244,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                         public void run() {
                             removeTextChangedListeners(TAG + "." + mCallingClassName);
 
-                            switch (results.getValue1()) {
+                            switch (results.second) {
                                 case ERROR_BELOW_ZERO:
                                     mTextInputLayoutTbyps.setError(getString(
                                             R.string.conversion_error_below_zero
@@ -1274,23 +1274,23 @@ public class DataTransferSpeedFragment extends BaseFragment {
                                     break;
                             }
 
-                            mEditTextBps.setText(results.getValue0().get(0),
+                            mEditTextBps.setText(results.first.get(0),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextByps.setText(results.getValue0().get(1),
+                            mEditTextByps.setText(results.first.get(1),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbps.setText(results.getValue0().get(2),
+                            mEditTextKbps.setText(results.first.get(2),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKbyps.setText(results.getValue0().get(3),
+                            mEditTextKbyps.setText(results.first.get(3),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbps.setText(results.getValue0().get(4),
+                            mEditTextMbps.setText(results.first.get(4),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMbyps.setText(results.getValue0().get(5),
+                            mEditTextMbyps.setText(results.first.get(5),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbps.setText(results.getValue0().get(6),
+                            mEditTextGbps.setText(results.first.get(6),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextGbyps.setText(results.getValue0().get(7),
+                            mEditTextGbyps.setText(results.first.get(7),
                                     AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextTbps.setText(results.getValue0().get(8),
+                            mEditTextTbps.setText(results.first.get(8),
                                     AppCompatTextView.BufferType.EDITABLE);
 
                             addTextChangedListeners(TAG + "." + mCallingClassName);
