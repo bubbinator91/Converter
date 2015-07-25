@@ -11,11 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bubbinator91.conversion.temperature.Celsius;
-import com.bubbinator91.conversion.temperature.Fahrenheit;
-import com.bubbinator91.conversion.temperature.Kelvin;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.tasks.temperature.FromCelsiusTask;
+import com.bubbinator91.converter.tasks.temperature.FromFahrenheitTask;
+import com.bubbinator91.converter.tasks.temperature.FromKelvinTask;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -50,11 +50,11 @@ public class TemperatureFragment extends BaseFragment {
         public void afterTextChanged(final Editable s) {
             mLastEditTextFocused = LastEditTextFocused.CELSIUS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherCelsius");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherCelsius");
-                new Thread(new ConversionFromCelsiusRunnable(s, "mTextWatcherCelsius")).start();
+                convertFromCelsius(s.toString());
             }
         }
 
@@ -70,11 +70,11 @@ public class TemperatureFragment extends BaseFragment {
         public void afterTextChanged(final Editable s) {
             mLastEditTextFocused = LastEditTextFocused.FAHRENHEIT;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherFahrenheit");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherFahrenheit");
-                new Thread(new ConversionFromFahrenheitRunnable(s, "mTextWatcherFahrenheit")).start();
+                convertFromFahrenheit(s.toString());
             }
         }
 
@@ -90,11 +90,11 @@ public class TemperatureFragment extends BaseFragment {
         public void afterTextChanged(final Editable s) {
             mLastEditTextFocused = LastEditTextFocused.KELVIN;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherKelvin");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherKelvin");
-                new Thread(new ConversionFromKelvinRunnable(s, "mTextWatcherKelvin")).start();
+                convertFromKelvin(s.toString());
             }
         }
 
@@ -147,28 +147,25 @@ public class TemperatureFragment extends BaseFragment {
         Timber.tag(TAG + ".onResume").i("Entered");
 
         if (mLastEditTextFocused == LastEditTextFocused.CELSIUS) {
-            if ((getHandler() != null) && (mEditTextCelsius.getText() != null)) {
+            if (mEditTextCelsius.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextCelsius.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromCelsiusRunnable(mEditTextCelsius.getText(),
-                        "onResume")).start();
+                convertFromCelsius(mEditTextCelsius.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.FAHRENHEIT) {
-            if ((getHandler() != null) && (mEditTextFahrenheit.getText() != null)) {
+            if (mEditTextFahrenheit.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextFahrenheit.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromFahrenheitRunnable(mEditTextFahrenheit.getText(),
-                        "onResume")).start();
+                convertFromFahrenheit(mEditTextFahrenheit.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.KELVIN) {
-            if ((getHandler() != null) && (mEditTextKelvin.getText() != null)) {
+            if (mEditTextKelvin.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextKelvin.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromKelvinRunnable(mEditTextKelvin.getText(),
-                        "onResume")).start();
+                convertFromKelvin(mEditTextKelvin.getText().toString());
             }
         }
     }
@@ -201,6 +198,147 @@ public class TemperatureFragment extends BaseFragment {
         mEditTextKelvin.removeTextChangedListener(mTextWatcherKelvin);
     }
 
+    private void convertFromCelsius(String celsius) {
+        String[] params = new String[2];
+        params[0] = celsius;
+        params[1] = Integer.toString(getNumOfDecimalPlaces());
+        FromCelsiusTask task = new FromCelsiusTask() {
+            @Override
+            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+                Timber.tag(TAG + ".onPostExecute").i("Entered");
+
+                if (results != null) {
+                    removeTextChangedListeners(TAG + ".onPostExecute");
+
+                    switch (results.second) {
+                        case ERROR_BELOW_ZERO:
+                            mTextInputLayoutCelsius.setError(getString(
+                                    R.string.conversion_temperature_error_below_absolute_zero
+                            ));
+                            break;
+                        case ERROR_INPUT_NOT_NUMERIC:
+                            mTextInputLayoutCelsius.setError(getString(
+                                    R.string.conversion_error_input_not_numeric
+                            ));
+                            break;
+                        case ERROR_UNKNOWN:
+                            mTextInputLayoutCelsius.setError(getString(
+                                    R.string.conversion_error_conversion_error
+                            ));
+                            break;
+                        default:
+                            mTextInputLayoutCelsius.setErrorEnabled(false);
+                            mTextInputLayoutFahrenheit.setErrorEnabled(false);
+                            mTextInputLayoutKelvin.setErrorEnabled(false);
+                            break;
+                    }
+
+                    mEditTextFahrenheit.setText(results.first.get(0),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextKelvin.setText(results.first.get(1),
+                            AppCompatTextView.BufferType.EDITABLE);
+
+                    addTextChangedListeners(TAG + ".onPostExecute");
+                }
+            }
+        };
+        task.execute(params);
+    }
+
+    private void convertFromFahrenheit(String fahrenheit) {
+        String[] params = new String[2];
+        params[0] = fahrenheit;
+        params[1] = Integer.toString(getNumOfDecimalPlaces());
+        FromFahrenheitTask task = new FromFahrenheitTask() {
+            @Override
+            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+                Timber.tag(TAG + ".onPostExecute").i("Entered");
+
+                if (results != null) {
+                    removeTextChangedListeners(TAG + ".onPostExecute");
+
+                    switch (results.second) {
+                        case ERROR_BELOW_ZERO:
+                            mTextInputLayoutFahrenheit.setError(getString(
+                                    R.string.conversion_temperature_error_below_absolute_zero
+                            ));
+                            break;
+                        case ERROR_INPUT_NOT_NUMERIC:
+                            mTextInputLayoutFahrenheit.setError(getString(
+                                    R.string.conversion_error_input_not_numeric
+                            ));
+                            break;
+                        case ERROR_UNKNOWN:
+                            mTextInputLayoutFahrenheit.setError(getString(
+                                    R.string.conversion_error_conversion_error
+                            ));
+                            break;
+                        default:
+                            mTextInputLayoutCelsius.setErrorEnabled(false);
+                            mTextInputLayoutFahrenheit.setErrorEnabled(false);
+                            mTextInputLayoutKelvin.setErrorEnabled(false);
+                            break;
+                    }
+
+                    mEditTextCelsius.setText(results.first.get(0),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextKelvin.setText(results.first.get(1),
+                            AppCompatTextView.BufferType.EDITABLE);
+
+                    addTextChangedListeners(TAG + ".onPostExecute");
+                }
+            }
+        };
+        task.execute(params);
+    }
+
+    private void convertFromKelvin(String kelvin) {
+        String[] params = new String[2];
+        params[0] = kelvin;
+        params[1] = Integer.toString(getNumOfDecimalPlaces());
+        FromKelvinTask task = new FromKelvinTask() {
+            @Override
+            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+                Timber.tag(TAG + ".onPostExecute").i("Entered");
+
+                if (results != null) {
+                    removeTextChangedListeners(TAG + ".onPostExecute");
+
+                    switch (results.second) {
+                        case ERROR_BELOW_ZERO:
+                            mTextInputLayoutKelvin.setError(getString(
+                                    R.string.conversion_temperature_error_below_absolute_zero
+                            ));
+                            break;
+                        case ERROR_INPUT_NOT_NUMERIC:
+                            mTextInputLayoutKelvin.setError(getString(
+                                    R.string.conversion_error_input_not_numeric
+                            ));
+                            break;
+                        case ERROR_UNKNOWN:
+                            mTextInputLayoutKelvin.setError(getString(
+                                    R.string.conversion_error_conversion_error
+                            ));
+                            break;
+                        default:
+                            mTextInputLayoutCelsius.setErrorEnabled(false);
+                            mTextInputLayoutFahrenheit.setErrorEnabled(false);
+                            mTextInputLayoutKelvin.setErrorEnabled(false);
+                            break;
+                    }
+
+                    mEditTextCelsius.setText(results.first.get(0),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextFahrenheit.setText(results.first.get(1),
+                            AppCompatTextView.BufferType.EDITABLE);
+
+                    addTextChangedListeners(TAG + ".onPostExecute");
+                }
+            }
+        };
+        task.execute(params);
+    }
+
     // endregion
 
     // region Overridden BaseFragment methods
@@ -213,193 +351,6 @@ public class TemperatureFragment extends BaseFragment {
 
     @Override
     protected int getScrollViewResource() { return R.id.fragment_temperature; }
-
-    // endregion
-
-    // region Private classes
-
-    private class ConversionFromCelsiusRunnable implements Runnable {
-        private final String TAG = ConversionFromCelsiusRunnable.class.getSimpleName();
-
-        private Editable mEditableCelsius;
-        private String mCallingClassName;
-
-        public ConversionFromCelsiusRunnable(Editable editableCelsius, String callingClassName) {
-            mEditableCelsius = editableCelsius;
-            mCallingClassName = callingClassName;
-        }
-
-        @Override
-        public void run() {
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-
-            if (mEditableCelsius != null) {
-                final Pair<List<String>, ConversionErrorCodes> results =
-                        Celsius.toAll(mEditableCelsius.toString(), getNumOfDecimalPlaces());
-
-                if (results != null) {
-                    getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            removeTextChangedListeners(TAG + "." + mCallingClassName);
-
-                            switch (results.second) {
-                                case ERROR_BELOW_ZERO:
-                                    mTextInputLayoutCelsius.setError(getString(
-                                            R.string.conversion_temperature_error_below_absolute_zero
-                                    ));
-                                    break;
-                                case ERROR_INPUT_NOT_NUMERIC:
-                                    mTextInputLayoutCelsius.setError(getString(
-                                            R.string.conversion_error_input_not_numeric
-                                    ));
-                                    break;
-                                case ERROR_UNKNOWN:
-                                    mTextInputLayoutCelsius.setError(getString(
-                                            R.string.conversion_error_conversion_error
-                                    ));
-                                    break;
-                                default:
-                                    mTextInputLayoutCelsius.setErrorEnabled(false);
-                                    mTextInputLayoutFahrenheit.setErrorEnabled(false);
-                                    mTextInputLayoutKelvin.setErrorEnabled(false);
-                                    break;
-                            }
-
-                            mEditTextFahrenheit.setText(results.first.get(0),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKelvin.setText(results.first.get(1),
-                                    AppCompatTextView.BufferType.EDITABLE);
-
-                            addTextChangedListeners(TAG + "." + mCallingClassName);
-                        }
-                    });
-                }
-            }
-        }
-    }
-
-    private class ConversionFromFahrenheitRunnable implements Runnable {
-        private final String TAG = ConversionFromFahrenheitRunnable.class.getSimpleName();
-
-        private Editable mEditableFahrenheit;
-        private String mCallingClassName;
-
-        public ConversionFromFahrenheitRunnable(Editable editableFahrenheit, String callingClassName) {
-            mEditableFahrenheit = editableFahrenheit;
-            mCallingClassName = callingClassName;
-        }
-
-        @Override
-        public void run() {
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-
-            if (mEditableFahrenheit != null) {
-                final Pair<List<String>, ConversionErrorCodes> results =
-                        Fahrenheit.toAll(mEditableFahrenheit.toString(), getNumOfDecimalPlaces());
-
-                if (results != null) {
-                    getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            removeTextChangedListeners(TAG + "." + mCallingClassName);
-
-                            switch (results.second) {
-                                case ERROR_BELOW_ZERO:
-                                    mTextInputLayoutFahrenheit.setError(getString(
-                                            R.string.conversion_temperature_error_below_absolute_zero
-                                    ));
-                                    break;
-                                case ERROR_INPUT_NOT_NUMERIC:
-                                    mTextInputLayoutFahrenheit.setError(getString(
-                                            R.string.conversion_error_input_not_numeric
-                                    ));
-                                    break;
-                                case ERROR_UNKNOWN:
-                                    mTextInputLayoutFahrenheit.setError(getString(
-                                            R.string.conversion_error_conversion_error
-                                    ));
-                                    break;
-                                default:
-                                    mTextInputLayoutCelsius.setErrorEnabled(false);
-                                    mTextInputLayoutFahrenheit.setErrorEnabled(false);
-                                    mTextInputLayoutKelvin.setErrorEnabled(false);
-                                    break;
-                            }
-
-                            mEditTextCelsius.setText(results.first.get(0),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextKelvin.setText(results.first.get(1),
-                                    AppCompatTextView.BufferType.EDITABLE);
-
-                            addTextChangedListeners(TAG + "." + mCallingClassName);
-                        }
-                    });
-                }
-            }
-        }
-    }
-
-    private class ConversionFromKelvinRunnable implements Runnable {
-        private final String TAG = ConversionFromKelvinRunnable.class.getSimpleName();
-
-        private Editable mEditableKelvin;
-        private String mCallingClassName;
-
-        public ConversionFromKelvinRunnable(Editable editableKelvin, String callingClassName) {
-            mEditableKelvin = editableKelvin;
-            mCallingClassName = callingClassName;
-        }
-
-        @Override
-        public void run() {
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-
-            if (mEditableKelvin != null) {
-                final Pair<List<String>, ConversionErrorCodes> results =
-                        Kelvin.toAll(mEditableKelvin.toString(), getNumOfDecimalPlaces());
-
-                if (results != null) {
-                    getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            removeTextChangedListeners(TAG + "." + mCallingClassName);
-
-                            switch (results.second) {
-                                case ERROR_BELOW_ZERO:
-                                    mTextInputLayoutKelvin.setError(getString(
-                                            R.string.conversion_temperature_error_below_absolute_zero
-                                    ));
-                                    break;
-                                case ERROR_INPUT_NOT_NUMERIC:
-                                    mTextInputLayoutKelvin.setError(getString(
-                                            R.string.conversion_error_input_not_numeric
-                                    ));
-                                    break;
-                                case ERROR_UNKNOWN:
-                                    mTextInputLayoutKelvin.setError(getString(
-                                            R.string.conversion_error_conversion_error
-                                    ));
-                                    break;
-                                default:
-                                    mTextInputLayoutCelsius.setErrorEnabled(false);
-                                    mTextInputLayoutFahrenheit.setErrorEnabled(false);
-                                    mTextInputLayoutKelvin.setErrorEnabled(false);
-                                    break;
-                            }
-
-                            mEditTextCelsius.setText(results.first.get(0),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFahrenheit.setText(results.first.get(1),
-                                    AppCompatTextView.BufferType.EDITABLE);
-
-                            addTextChangedListeners(TAG + "." + mCallingClassName);
-                        }
-                    });
-                }
-            }
-        }
-    }
 
     // endregion
 }
