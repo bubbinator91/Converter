@@ -46,7 +46,7 @@ public class AccelerationFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.CMPSS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherCmpss");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherCmpss");
@@ -66,7 +66,7 @@ public class AccelerationFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.FPSS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherFpss");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherFpss");
@@ -86,7 +86,7 @@ public class AccelerationFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.MPSS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherMpss");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherMpss");
@@ -106,7 +106,7 @@ public class AccelerationFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.SG;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherSg");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherSg");
@@ -169,28 +169,28 @@ public class AccelerationFragment extends BaseFragment {
         Timber.tag(TAG + ".onResume").i("Entered");
 
         if (mLastEditTextFocused == LastEditTextFocused.CMPSS) {
-            if ((getHandler() != null) && (mEditTextCmpss.getText() != null)) {
+            if (mEditTextCmpss.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextCmpss.getText());
                 addTextChangedListeners("onResume");
                 convertFromCentimetersPerSecondSquared(mEditTextCmpss.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.FPSS) {
-            if ((getHandler() != null) && (mEditTextFpss.getText() != null)) {
+            if (mEditTextFpss.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextFpss.getText());
                 addTextChangedListeners("onResume");
                 convertFromFeetPerSecondSquared(mEditTextFpss.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.MPSS) {
-            if ((getHandler() != null) && (mEditTextMpss.getText() != null)) {
+            if (mEditTextMpss.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextMpss.getText());
                 addTextChangedListeners("onResume");
                 convertFromMetersPerSecondSquared(mEditTextMpss.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.SG) {
-            if ((getHandler() != null) && (mEditTextSg.getText() != null)) {
+            if (mEditTextSg.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextSg.getText());
                 addTextChangedListeners("onResume");

@@ -62,7 +62,7 @@ public class LengthFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.INCH;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherInch");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherInch");
@@ -82,7 +82,7 @@ public class LengthFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.FOOT;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherFoot");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherFoot");
@@ -102,7 +102,7 @@ public class LengthFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.YARD;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherYard");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherYard");
@@ -122,7 +122,7 @@ public class LengthFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.MILE;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherMile");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherMile");
@@ -142,7 +142,7 @@ public class LengthFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.MILLIMETER;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherMillimeter");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherMillimeter");
@@ -162,7 +162,7 @@ public class LengthFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.CENTIMETER;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherCentimeter");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherCentimeter");
@@ -182,7 +182,7 @@ public class LengthFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.METER;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherMeter");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherMeter");
@@ -202,7 +202,7 @@ public class LengthFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.KILOMETER;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherKilometer");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherKilometer");
@@ -281,56 +281,56 @@ public class LengthFragment extends BaseFragment {
         Timber.tag(TAG + ".onResume").i("Entered");
 
         if (mLastEditTextFocused == LastEditTextFocused.INCH) {
-            if ((getHandler() != null) && (mEditTextInch.getText() != null)) {
+            if (mEditTextInch.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextInch.getText());
                 addTextChangedListeners("onResume");
                 convertFromInches(mEditTextInch.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.FOOT) {
-            if ((getHandler() != null) && (mEditTextFoot.getText() != null)) {
+            if (mEditTextFoot.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextFoot.getText());
                 addTextChangedListeners("onResume");
                 convertFromFeet(mEditTextFoot.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.YARD) {
-            if ((getHandler() != null) && (mEditTextYard.getText() != null)) {
+            if (mEditTextYard.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextYard.getText());
                 addTextChangedListeners("onResume");
                 convertFromYards(mEditTextYard.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.MILE) {
-            if ((getHandler() != null) && (mEditTextMile.getText() != null)) {
+            if (mEditTextMile.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextMile.getText());
                 addTextChangedListeners("onResume");
                 convertFromMiles(mEditTextMile.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.MILLIMETER) {
-            if ((getHandler() != null) && (mEditTextMillimeter.getText() != null)) {
+            if (mEditTextMillimeter.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextMillimeter.getText());
                 addTextChangedListeners("onResume");
                 convertFromMillimeters(mEditTextMillimeter.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.CENTIMETER) {
-            if ((getHandler() != null) && (mEditTextCentimeter.getText() != null)) {
+            if (mEditTextCentimeter.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextCentimeter.getText());
                 addTextChangedListeners("onResume");
                 convertFromCentimeters(mEditTextCentimeter.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.METER) {
-            if ((getHandler() != null) && (mEditTextMeter.getText() != null)) {
+            if (mEditTextMeter.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextMeter.getText());
                 addTextChangedListeners("onResume");
                 convertFromMeters(mEditTextMeter.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.KILOMETER) {
-            if ((getHandler() != null) && (mEditTextKilometer.getText() != null)) {
+            if (mEditTextKilometer.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextKilometer.getText());
                 addTextChangedListeners("onResume");

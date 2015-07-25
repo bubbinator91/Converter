@@ -61,7 +61,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.BPS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherBps");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherBps");
@@ -81,7 +81,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.BYPS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherByps");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherByps");
@@ -101,7 +101,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.KBPS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherKbps");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherKbps");
@@ -121,7 +121,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.KBYPS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherKbyps");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherKbyps");
@@ -141,7 +141,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.MBPS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherMbps");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherMbps");
@@ -161,7 +161,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.MBYPS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherMbyps");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherMbyps");
@@ -181,7 +181,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.GBPS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherGbps");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherGbps");
@@ -201,7 +201,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.GBYPS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherGbyps");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherGbyps");
@@ -221,7 +221,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.TBPS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherTbps");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherTbps");
@@ -241,7 +241,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         public void afterTextChanged(Editable s) {
             mLastEditTextFocused = LastEditTextFocused.TBYPS;
 
-            if ((getHandler() != null) && (s != null)) {
+            if (s != null) {
                 removeTextChangedListeners("mTextWatcherTbyps");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherTbyps");
@@ -340,70 +340,70 @@ public class DataTransferSpeedFragment extends BaseFragment {
         Timber.tag(TAG + ".onResume").i("Entered");
 
         if (mLastEditTextFocused == LastEditTextFocused.BPS) {
-            if ((getHandler() != null) && (mEditTextBps.getText() != null)) {
+            if (mEditTextBps.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextBps.getText());
                 addTextChangedListeners("onResume");
                 convertFromBitsPerSecond(mEditTextBps.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.BYPS) {
-            if ((getHandler() != null) && (mEditTextByps.getText() != null)) {
+            if (mEditTextByps.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextByps.getText());
                 addTextChangedListeners("onResume");
                 convertFromBytesPerSecond(mEditTextByps.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.KBPS) {
-            if ((getHandler() != null) && (mEditTextKbps.getText() != null)) {
+            if (mEditTextKbps.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextKbps.getText());
                 addTextChangedListeners("onResume");
                 convertFromKilobitsPerSecond(mEditTextKbps.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.KBYPS) {
-            if ((getHandler() != null) && (mEditTextKbyps.getText() != null)) {
+            if (mEditTextKbyps.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextKbyps.getText());
                 addTextChangedListeners("onResume");
                 convertFromKilobytesPerSecond(mEditTextKbyps.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.MBPS) {
-            if ((getHandler() != null) && (mEditTextMbps.getText() != null)) {
+            if (mEditTextMbps.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextMbps.getText());
                 addTextChangedListeners("onResume");
                 convertFromMegabitsPerSecond(mEditTextMbps.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.MBYPS) {
-            if ((getHandler() != null) && (mEditTextMbyps.getText() != null)) {
+            if (mEditTextMbyps.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextMbyps.getText());
                 addTextChangedListeners("onResume");
                 convertFromMegabytesPerSecond(mEditTextMbyps.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.GBPS) {
-            if ((getHandler() != null) && (mEditTextGbps.getText() != null)) {
+            if (mEditTextGbps.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextGbps.getText());
                 addTextChangedListeners("onResume");
                 convertFromGigabitsPerSecond(mEditTextGbps.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.GBYPS) {
-            if ((getHandler() != null) && (mEditTextGbyps.getText() != null)) {
+            if (mEditTextGbyps.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextGbyps.getText());
                 addTextChangedListeners("onResume");
                 convertFromGigabytesPerSecond(mEditTextGbyps.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.TBPS) {
-            if ((getHandler() != null) && (mEditTextTbps.getText() != null)) {
+            if (mEditTextTbps.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextTbps.getText());
                 addTextChangedListeners("onResume");
                 convertFromTerabitsPerSecond(mEditTextTbps.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.TBYPS) {
-            if ((getHandler() != null) && (mEditTextTbyps.getText() != null)) {
+            if (mEditTextTbyps.getText() != null) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextTbyps.getText());
                 addTextChangedListeners("onResume");

@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
@@ -32,7 +31,6 @@ public abstract class BaseFragment
     private final String TAG = "BaseFragment";
 
     private Activity mActivity = null;
-    private Handler mHandler = null;
     private SharedPreferences mPrefs = null;
     private int numOfDecimalPlaces = -1, lastY = 0;
 
@@ -66,8 +64,6 @@ public abstract class BaseFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Timber.tag(TAG + "." + getChildTag() + ".onCreateView").i("Entered");
         rootView = inflater.inflate(getLayoutResource(), container, false);
-
-        mHandler = getCurrentActivity().getWindow().getDecorView().getHandler();
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
 
@@ -195,25 +191,11 @@ public abstract class BaseFragment
     }
 
     /**
-     * Gets the instance of the parent {@link Activity}.
-     *
-     * @return  The instance of the parent {@link Activity}.
-     */
-    protected Activity getCurrentActivity() { return mActivity; }
-
-    /**
      * Gets the number of decimal places to round to.
      *
      * @return  The number of decimal places to round to.
      */
     protected int getNumOfDecimalPlaces() { return numOfDecimalPlaces; }
-
-    /**
-     * Gets the {@link Handler} obtained from the parent Activity.
-     *
-     * @return  A {@link Handler} object obtained from the parent Activity.
-     */
-    protected Handler getHandler() { return mHandler; }
 
     /**
      * Gets the root view that was inflated in {@link #onCreate(Bundle)}.
