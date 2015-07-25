@@ -12,9 +12,9 @@
     <string name="title_activity_settings">Settings</string>
 
     <!--TODO: Change these to use the sub and sup tags at some point in the future-->
-    <string name="acceleration_mpss">Meter per square second (m/s^2)</string>
-    <string name="acceleration_cmpss">Centimeter per square second (cm/s^2)</string>
-    <string name="acceleration_fpss">Foot per square second (ft/s^2)</string>
+    <string name="acceleration_mpss">Meters per second squared (m/s^2)</string>
+    <string name="acceleration_cmpss">Centimeters per second squared (cm/s^2)</string>
+    <string name="acceleration_fpss">Feet per second squared (ft/s^2)</string>
     <string name="acceleration_sg">Standard gravity (g_n)</string>
 
     <string name="data_transfer_speed_bps">Bits per second (bps)</string>

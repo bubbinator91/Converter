@@ -5,14 +5,15 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bubbinator91.conversion.acceleration.CentimeterPerSquareSecond;
-import com.bubbinator91.conversion.acceleration.FootPerSquareSecond;
+import com.bubbinator91.conversion.acceleration.CentimetersPerSecondSquared;
+import com.bubbinator91.conversion.acceleration.FeetPerSecondSquared;
+import com.bubbinator91.conversion.acceleration.MetersPerSecondSquared;
+import com.bubbinator91.conversion.acceleration.StandardGravity;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.converter.R;
@@ -266,7 +267,7 @@ public class AccelerationFragment extends BaseFragment {
 
             if (mEditableCmpss != null) {
                 final Tuple<List<String>, ConversionErrorCodes> results =
-                        CentimeterPerSquareSecond.toAll(mEditableCmpss.toString(),
+                        CentimetersPerSecondSquared.toAll(mEditableCmpss.toString(),
                                 getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -331,7 +332,7 @@ public class AccelerationFragment extends BaseFragment {
 
             if (mEditableFpss != null) {
                 final Tuple<List<String>, ConversionErrorCodes> results =
-                        FootPerSquareSecond.toAll(mEditableFpss.toString(),
+                        FeetPerSecondSquared.toAll(mEditableFpss.toString(),
                                 getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -396,7 +397,7 @@ public class AccelerationFragment extends BaseFragment {
 
             if (mEditableMpss != null) {
                 final Tuple<List<String>, ConversionErrorCodes> results =
-                        FootPerSquareSecond.toAll(mEditableMpss.toString(),
+                        MetersPerSecondSquared.toAll(mEditableMpss.toString(),
                                 getNumOfDecimalPlaces());
 
                 if (results != null) {
@@ -461,7 +462,7 @@ public class AccelerationFragment extends BaseFragment {
 
             if (mEditableSg != null) {
                 final Tuple<List<String>, ConversionErrorCodes> results =
-                        FootPerSquareSecond.toAll(mEditableSg.toString(),
+                        StandardGravity.toAll(mEditableSg.toString(),
                                 getNumOfDecimalPlaces());
 
                 if (results != null) {
