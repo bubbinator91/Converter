@@ -1,9 +1,9 @@
 package com.bubbinator91.conversion.datatransferspeed;
 
 import android.util.Log;
+import android.util.Pair;
 
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -26,7 +26,7 @@ public class BytesPerSecond extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
      *          bits per second, kilobits per second, kilobytes per second, megabits per second,
      *          megabytes per second, gigabits per second, gigabytes per second, terabits per
      *          second, and terabytes per second values (in that order; they will be empty
@@ -34,7 +34,7 @@ public class BytesPerSecond extends Unit {
      *          found in {@link ConversionErrorCodes}, or null if the <code>byps</code> parameter is
      *          null;
      */
-    public static Tuple<List<String>, ConversionErrorCodes> toAll(String byps, int decimalPlaces) {
+    public static Pair<List<String>, ConversionErrorCodes> toAll(String byps, int decimalPlaces) {
         if (byps == null) {
             return null;
         }
@@ -73,7 +73,7 @@ public class BytesPerSecond extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Tuple<>(results, error);
+        return new Pair<>(results, error);
     }
 
     /**

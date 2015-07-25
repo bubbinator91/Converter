@@ -1,9 +1,9 @@
 package com.bubbinator91.conversion.speed;
 
 import android.util.Log;
+import android.util.Pair;
 
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -28,13 +28,13 @@ public class KilometersPerHour extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
      *          feet per second, knots, meters per second, and miles per hour values (in that order;
      *          they will be empty {@link String}s if there is an error), and the second item is one
      *          of the error codes found in {@link ConversionErrorCodes}, or null if the
      *          <code>kph</code> parameter is null.
      */
-    public static Tuple<List<String>, ConversionErrorCodes> toAll(String kph, int decimalPlaces) {
+    public static Pair<List<String>, ConversionErrorCodes> toAll(String kph, int decimalPlaces) {
         if (kph == null) {
             return null;
         }
@@ -68,7 +68,7 @@ public class KilometersPerHour extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Tuple<>(results, error);
+        return new Pair<>(results, error);
     }
 
     /**
