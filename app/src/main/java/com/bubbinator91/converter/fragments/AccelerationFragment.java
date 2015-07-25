@@ -11,12 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bubbinator91.conversion.acceleration.CentimetersPerSecondSquared;
-import com.bubbinator91.conversion.acceleration.FeetPerSecondSquared;
-import com.bubbinator91.conversion.acceleration.MetersPerSecondSquared;
-import com.bubbinator91.conversion.acceleration.StandardGravity;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.tasks.acceleration.FromCentimetersPerSecondSquaredTask;
+import com.bubbinator91.converter.tasks.acceleration.FromFeetPerSecondSquaredTask;
+import com.bubbinator91.converter.tasks.acceleration.FromMetersPerSecondSquaredTask;
+import com.bubbinator91.converter.tasks.acceleration.FromStandardGravityTask;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class AccelerationFragment extends BaseFragment {
                 removeTextChangedListeners("mTextWatcherCmpss");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherCmpss");
-                new Thread(new ConversionFromCmpssRunnable(s, "mTextWatcherCmpss")).start();
+                convertFromCentimetersPerSecondSquared(s.toString());
             }
         }
 
@@ -70,7 +70,7 @@ public class AccelerationFragment extends BaseFragment {
                 removeTextChangedListeners("mTextWatcherFpss");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherFpss");
-                new Thread(new ConversionFromFpssRunnable(s, "mTextWatcherFpss")).start();
+                convertFromFeetPerSecondSquared(s.toString());
             }
         }
 
@@ -90,7 +90,7 @@ public class AccelerationFragment extends BaseFragment {
                 removeTextChangedListeners("mTextWatcherMpss");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherMpss");
-                new Thread(new ConversionFromMpssRunnable(s, "mTextWatcherMpss")).start();
+                convertFromMetersPerSecondSquared(s.toString());
             }
         }
 
@@ -110,7 +110,7 @@ public class AccelerationFragment extends BaseFragment {
                 removeTextChangedListeners("mTextWatcherSg");
                 Utils.sanitizeEditable(s);
                 addTextChangedListeners("mTextWatcherSg");
-                new Thread(new ConversionFromSgRunnable(s, "mTextWatcherSg")).start();
+                convertFromStandardGravity(s.toString());
             }
         }
 
@@ -173,32 +173,28 @@ public class AccelerationFragment extends BaseFragment {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextCmpss.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromCmpssRunnable(mEditTextCmpss.getText(),
-                        "onResume")).start();
+                convertFromCentimetersPerSecondSquared(mEditTextCmpss.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.FPSS) {
             if ((getHandler() != null) && (mEditTextFpss.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextFpss.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromFpssRunnable(mEditTextFpss.getText(),
-                        "onResume")).start();
+                convertFromFeetPerSecondSquared(mEditTextFpss.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.MPSS) {
             if ((getHandler() != null) && (mEditTextMpss.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextMpss.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromMpssRunnable(mEditTextMpss.getText(),
-                        "onResume")).start();
+                convertFromMetersPerSecondSquared(mEditTextMpss.getText().toString());
             }
         } else if (mLastEditTextFocused == LastEditTextFocused.SG) {
             if ((getHandler() != null) && (mEditTextSg.getText() != null)) {
                 removeTextChangedListeners("onResume");
                 Utils.sanitizeEditable(mEditTextSg.getText());
                 addTextChangedListeners("onResume");
-                new Thread(new ConversionFromSgRunnable(mEditTextSg.getText(),
-                        "onResume")).start();
+                convertFromStandardGravity(mEditTextSg.getText().toString());
             }
         }
     }
@@ -233,6 +229,206 @@ public class AccelerationFragment extends BaseFragment {
         mEditTextSg.removeTextChangedListener(mTextWatcherSg);
     }
 
+    private void convertFromCentimetersPerSecondSquared(String cmpss) {
+        String[] params = new String[2];
+        params[0] = cmpss;
+        params[1] = Integer.toString(getNumOfDecimalPlaces());
+        FromCentimetersPerSecondSquaredTask task = new FromCentimetersPerSecondSquaredTask() {
+            @Override
+            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+                Timber.tag(TAG + ".onPostExecute").i("Entered");
+
+                if (results != null) {
+                    removeTextChangedListeners(TAG + ".onPostExecute");
+
+                    switch (results.second) {
+                        case ERROR_BELOW_ZERO:
+                            mTextInputLayoutCmpss.setError(getString(
+                                    R.string.conversion_error_below_zero
+                            ));
+                            break;
+                        case ERROR_INPUT_NOT_NUMERIC:
+                            mTextInputLayoutCmpss.setError(getString(
+                                    R.string.conversion_error_input_not_numeric
+                            ));
+                            break;
+                        case ERROR_UNKNOWN:
+                            mTextInputLayoutCmpss.setError(getString(
+                                    R.string.conversion_error_conversion_error
+                            ));
+                            break;
+                        default:
+                            mTextInputLayoutCmpss.setErrorEnabled(false);
+                            mTextInputLayoutFpss.setErrorEnabled(false);
+                            mTextInputLayoutMpss.setErrorEnabled(false);
+                            mTextInputLayoutSg.setErrorEnabled(false);
+                            break;
+                    }
+
+                    mEditTextFpss.setText(results.first.get(0),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextMpss.setText(results.first.get(1),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextSg.setText(results.first.get(2),
+                            AppCompatTextView.BufferType.EDITABLE);
+
+                    addTextChangedListeners(TAG + ".onPostExecute");
+                }
+            }
+        };
+        task.execute(params);
+    }
+
+    private void convertFromFeetPerSecondSquared(String fpss) {
+        String[] params = new String[2];
+        params[0] = fpss;
+        params[1] = Integer.toString(getNumOfDecimalPlaces());
+        FromFeetPerSecondSquaredTask task = new FromFeetPerSecondSquaredTask() {
+            @Override
+            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+                Timber.tag(TAG + ".onPostExecute").i("Entered");
+
+                if (results != null) {
+                    removeTextChangedListeners(TAG + ".onPostExecute");
+
+                    switch (results.second) {
+                        case ERROR_BELOW_ZERO:
+                            mTextInputLayoutFpss.setError(getString(
+                                    R.string.conversion_error_below_zero
+                            ));
+                            break;
+                        case ERROR_INPUT_NOT_NUMERIC:
+                            mTextInputLayoutFpss.setError(getString(
+                                    R.string.conversion_error_input_not_numeric
+                            ));
+                            break;
+                        case ERROR_UNKNOWN:
+                            mTextInputLayoutFpss.setError(getString(
+                                    R.string.conversion_error_conversion_error
+                            ));
+                            break;
+                        default:
+                            mTextInputLayoutCmpss.setErrorEnabled(false);
+                            mTextInputLayoutFpss.setErrorEnabled(false);
+                            mTextInputLayoutMpss.setErrorEnabled(false);
+                            mTextInputLayoutSg.setErrorEnabled(false);
+                            break;
+                    }
+
+                    mEditTextCmpss.setText(results.first.get(0),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextMpss.setText(results.first.get(1),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextSg.setText(results.first.get(2),
+                            AppCompatTextView.BufferType.EDITABLE);
+
+                    addTextChangedListeners(TAG + ".onPostExecute");
+                }
+            }
+        };
+        task.execute(params);
+    }
+
+    private void convertFromMetersPerSecondSquared(String mpss) {
+        String[] params = new String[2];
+        params[0] = mpss;
+        params[1] = Integer.toString(getNumOfDecimalPlaces());
+        FromMetersPerSecondSquaredTask task = new FromMetersPerSecondSquaredTask() {
+            @Override
+            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+                Timber.tag(TAG + ".onPostExecute").i("Entered");
+
+                if (results != null) {
+                    removeTextChangedListeners(TAG + ".onPostExecute");
+
+                    switch (results.second) {
+                        case ERROR_BELOW_ZERO:
+                            mTextInputLayoutMpss.setError(getString(
+                                    R.string.conversion_error_below_zero
+                            ));
+                            break;
+                        case ERROR_INPUT_NOT_NUMERIC:
+                            mTextInputLayoutMpss.setError(getString(
+                                    R.string.conversion_error_input_not_numeric
+                            ));
+                            break;
+                        case ERROR_UNKNOWN:
+                            mTextInputLayoutMpss.setError(getString(
+                                    R.string.conversion_error_conversion_error
+                            ));
+                            break;
+                        default:
+                            mTextInputLayoutCmpss.setErrorEnabled(false);
+                            mTextInputLayoutFpss.setErrorEnabled(false);
+                            mTextInputLayoutMpss.setErrorEnabled(false);
+                            mTextInputLayoutSg.setErrorEnabled(false);
+                            break;
+                    }
+
+                    mEditTextCmpss.setText(results.first.get(0),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextFpss.setText(results.first.get(1),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextSg.setText(results.first.get(2),
+                            AppCompatTextView.BufferType.EDITABLE);
+
+                    addTextChangedListeners(TAG + ".onPostExecute");
+                }
+            }
+        };
+        task.execute(params);
+    }
+
+    private void convertFromStandardGravity(String sg) {
+        String[] params = new String[2];
+        params[0] = sg;
+        params[1] = Integer.toString(getNumOfDecimalPlaces());
+        FromStandardGravityTask task = new FromStandardGravityTask() {
+            @Override
+            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+                Timber.tag(TAG + ".onPostExecute").i("Entered");
+
+                if (results != null) {
+                    removeTextChangedListeners(TAG + ".onPostExecute");
+
+                    switch (results.second) {
+                        case ERROR_BELOW_ZERO:
+                            mTextInputLayoutSg.setError(getString(
+                                    R.string.conversion_error_below_zero
+                            ));
+                            break;
+                        case ERROR_INPUT_NOT_NUMERIC:
+                            mTextInputLayoutSg.setError(getString(
+                                    R.string.conversion_error_input_not_numeric
+                            ));
+                            break;
+                        case ERROR_UNKNOWN:
+                            mTextInputLayoutSg.setError(getString(
+                                    R.string.conversion_error_conversion_error
+                            ));
+                            break;
+                        default:
+                            mTextInputLayoutCmpss.setErrorEnabled(false);
+                            mTextInputLayoutFpss.setErrorEnabled(false);
+                            mTextInputLayoutMpss.setErrorEnabled(false);
+                            mTextInputLayoutSg.setErrorEnabled(false);
+                            break;
+                    }
+
+                    mEditTextCmpss.setText(results.first.get(0),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextFpss.setText(results.first.get(1),
+                            AppCompatTextView.BufferType.EDITABLE);
+                    mEditTextMpss.setText(results.first.get(2),
+                            AppCompatTextView.BufferType.EDITABLE);
+
+                    addTextChangedListeners(TAG + ".onPostExecute");
+                }
+            }
+        };
+        task.execute(params);
+    }
+
     // endregion
 
     // region Overridden BaseFragment methods
@@ -245,270 +441,6 @@ public class AccelerationFragment extends BaseFragment {
 
     @Override
     protected int getScrollViewResource() { return R.id.fragment_acceleration; }
-
-    // endregion
-
-    // region Private classes
-
-    private class ConversionFromCmpssRunnable implements Runnable {
-        private final String TAG = ConversionFromCmpssRunnable.class.getSimpleName();
-
-        private Editable mEditableCmpss;
-        private String mCallingClassName;
-
-        public ConversionFromCmpssRunnable(Editable editableCmpss, String callingClassName) {
-            mEditableCmpss = editableCmpss;
-            mCallingClassName = callingClassName;
-        }
-
-        @Override
-        public void run() {
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-
-            if (mEditableCmpss != null) {
-                final Pair<List<String>, ConversionErrorCodes> results =
-                        CentimetersPerSecondSquared.toAll(mEditableCmpss.toString(),
-                                getNumOfDecimalPlaces());
-
-                if (results != null) {
-                    getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            removeTextChangedListeners(TAG + "." + mCallingClassName);
-
-                            switch (results.second) {
-                                case ERROR_BELOW_ZERO:
-                                    mTextInputLayoutCmpss.setError(getString(
-                                            R.string.conversion_error_below_zero
-                                    ));
-                                    break;
-                                case ERROR_INPUT_NOT_NUMERIC:
-                                    mTextInputLayoutCmpss.setError(getString(
-                                            R.string.conversion_error_input_not_numeric
-                                    ));
-                                    break;
-                                case ERROR_UNKNOWN:
-                                    mTextInputLayoutCmpss.setError(getString(
-                                            R.string.conversion_error_conversion_error
-                                    ));
-                                    break;
-                                default:
-                                    mTextInputLayoutCmpss.setErrorEnabled(false);
-                                    mTextInputLayoutFpss.setErrorEnabled(false);
-                                    mTextInputLayoutMpss.setErrorEnabled(false);
-                                    mTextInputLayoutSg.setErrorEnabled(false);
-                                    break;
-                            }
-
-                            mEditTextFpss.setText(results.first.get(0),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMpss.setText(results.first.get(1),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextSg.setText(results.first.get(2),
-                                    AppCompatTextView.BufferType.EDITABLE);
-
-                            addTextChangedListeners(TAG + "." + mCallingClassName);
-                        }
-                    });
-                }
-            }
-        }
-    }
-
-    private class ConversionFromFpssRunnable implements Runnable {
-        private final String TAG = ConversionFromFpssRunnable.class.getSimpleName();
-
-        private Editable mEditableFpss;
-        private String mCallingClassName;
-
-        public ConversionFromFpssRunnable(Editable editableFpss, String callingClassName) {
-            mEditableFpss = editableFpss;
-            mCallingClassName = callingClassName;
-        }
-
-        @Override
-        public void run() {
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-
-            if (mEditableFpss != null) {
-                final Pair<List<String>, ConversionErrorCodes> results =
-                        FeetPerSecondSquared.toAll(mEditableFpss.toString(),
-                                getNumOfDecimalPlaces());
-
-                if (results != null) {
-                    getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            removeTextChangedListeners(TAG + "." + mCallingClassName);
-
-                            switch (results.second) {
-                                case ERROR_BELOW_ZERO:
-                                    mTextInputLayoutFpss.setError(getString(
-                                            R.string.conversion_error_below_zero
-                                    ));
-                                    break;
-                                case ERROR_INPUT_NOT_NUMERIC:
-                                    mTextInputLayoutFpss.setError(getString(
-                                            R.string.conversion_error_input_not_numeric
-                                    ));
-                                    break;
-                                case ERROR_UNKNOWN:
-                                    mTextInputLayoutFpss.setError(getString(
-                                            R.string.conversion_error_conversion_error
-                                    ));
-                                    break;
-                                default:
-                                    mTextInputLayoutCmpss.setErrorEnabled(false);
-                                    mTextInputLayoutFpss.setErrorEnabled(false);
-                                    mTextInputLayoutMpss.setErrorEnabled(false);
-                                    mTextInputLayoutSg.setErrorEnabled(false);
-                                    break;
-                            }
-
-                            mEditTextCmpss.setText(results.first.get(0),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMpss.setText(results.first.get(1),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextSg.setText(results.first.get(2),
-                                    AppCompatTextView.BufferType.EDITABLE);
-
-                            addTextChangedListeners(TAG + "." + mCallingClassName);
-                        }
-                    });
-                }
-            }
-        }
-    }
-
-    private class ConversionFromMpssRunnable implements Runnable {
-        private final String TAG = ConversionFromMpssRunnable.class.getSimpleName();
-
-        private Editable mEditableMpss;
-        private String mCallingClassName;
-
-        public ConversionFromMpssRunnable(Editable editableMpss, String callingClassName) {
-            mEditableMpss = editableMpss;
-            mCallingClassName = callingClassName;
-        }
-
-        @Override
-        public void run() {
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-
-            if (mEditableMpss != null) {
-                final Pair<List<String>, ConversionErrorCodes> results =
-                        MetersPerSecondSquared.toAll(mEditableMpss.toString(),
-                                getNumOfDecimalPlaces());
-
-                if (results != null) {
-                    getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            removeTextChangedListeners(TAG + "." + mCallingClassName);
-
-                            switch (results.second) {
-                                case ERROR_BELOW_ZERO:
-                                    mTextInputLayoutMpss.setError(getString(
-                                            R.string.conversion_error_below_zero
-                                    ));
-                                    break;
-                                case ERROR_INPUT_NOT_NUMERIC:
-                                    mTextInputLayoutMpss.setError(getString(
-                                            R.string.conversion_error_input_not_numeric
-                                    ));
-                                    break;
-                                case ERROR_UNKNOWN:
-                                    mTextInputLayoutMpss.setError(getString(
-                                            R.string.conversion_error_conversion_error
-                                    ));
-                                    break;
-                                default:
-                                    mTextInputLayoutCmpss.setErrorEnabled(false);
-                                    mTextInputLayoutFpss.setErrorEnabled(false);
-                                    mTextInputLayoutMpss.setErrorEnabled(false);
-                                    mTextInputLayoutSg.setErrorEnabled(false);
-                                    break;
-                            }
-
-                            mEditTextCmpss.setText(results.first.get(0),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFpss.setText(results.first.get(1),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextSg.setText(results.first.get(2),
-                                    AppCompatTextView.BufferType.EDITABLE);
-
-                            addTextChangedListeners(TAG + "." + mCallingClassName);
-                        }
-                    });
-                }
-            }
-        }
-    }
-
-    private class ConversionFromSgRunnable implements Runnable {
-        private final String TAG = ConversionFromSgRunnable.class.getSimpleName();
-
-        private Editable mEditableSg;
-        private String mCallingClassName;
-
-        public ConversionFromSgRunnable(Editable editableSg, String callingClassName) {
-            mEditableSg = editableSg;
-            mCallingClassName = callingClassName;
-        }
-
-        @Override
-        public void run() {
-            Timber.tag(mCallingClassName + "." + this.TAG + ".run").i("Entered");
-
-            if (mEditableSg != null) {
-                final Pair<List<String>, ConversionErrorCodes> results =
-                        StandardGravity.toAll(mEditableSg.toString(),
-                                getNumOfDecimalPlaces());
-
-                if (results != null) {
-                    getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            removeTextChangedListeners(TAG + "." + mCallingClassName);
-
-                            switch (results.second) {
-                                case ERROR_BELOW_ZERO:
-                                    mTextInputLayoutSg.setError(getString(
-                                            R.string.conversion_error_below_zero
-                                    ));
-                                    break;
-                                case ERROR_INPUT_NOT_NUMERIC:
-                                    mTextInputLayoutSg.setError(getString(
-                                            R.string.conversion_error_input_not_numeric
-                                    ));
-                                    break;
-                                case ERROR_UNKNOWN:
-                                    mTextInputLayoutSg.setError(getString(
-                                            R.string.conversion_error_conversion_error
-                                    ));
-                                    break;
-                                default:
-                                    mTextInputLayoutCmpss.setErrorEnabled(false);
-                                    mTextInputLayoutFpss.setErrorEnabled(false);
-                                    mTextInputLayoutMpss.setErrorEnabled(false);
-                                    mTextInputLayoutSg.setErrorEnabled(false);
-                                    break;
-                            }
-
-                            mEditTextCmpss.setText(results.first.get(0),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextFpss.setText(results.first.get(1),
-                                    AppCompatTextView.BufferType.EDITABLE);
-                            mEditTextMpss.setText(results.first.get(2),
-                                    AppCompatTextView.BufferType.EDITABLE);
-
-                            addTextChangedListeners(TAG + "." + mCallingClassName);
-                        }
-                    });
-                }
-            }
-        }
-    }
 
     // endregion
 }
