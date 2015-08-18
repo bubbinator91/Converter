@@ -96,7 +96,7 @@ public class FeetPerSecondSquared extends Unit {
         if (acceleration.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            acceleration = acceleration.multiply(new BigDecimal("30.48"))
+            acceleration = acceleration.multiply(new BigDecimal("30.48000000012"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (acceleration.compareTo(BigDecimal.ZERO) == 0) {
                 acceleration = BigDecimal.ZERO;
@@ -135,7 +135,7 @@ public class FeetPerSecondSquared extends Unit {
         if (acceleration.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            acceleration = acceleration.multiply(new BigDecimal("0.3048"))
+            acceleration = acceleration.multiply(new BigDecimal("0.3048000000012"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (acceleration.compareTo(BigDecimal.ZERO) == 0) {
                 acceleration = BigDecimal.ZERO;
@@ -174,7 +174,7 @@ public class FeetPerSecondSquared extends Unit {
         if (acceleration.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            acceleration = acceleration.multiply(new BigDecimal("0.031080950172"))
+            acceleration = acceleration.multiply(new BigDecimal("0.03108095017236"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (acceleration.compareTo(BigDecimal.ZERO) == 0) {
                 acceleration = BigDecimal.ZERO;

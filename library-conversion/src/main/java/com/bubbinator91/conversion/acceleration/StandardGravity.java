@@ -94,7 +94,7 @@ public class StandardGravity extends Unit {
         if (acceleration.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            acceleration = acceleration.multiply(new BigDecimal("980.665"))
+            acceleration = acceleration.multiply(new BigDecimal("980.6649999788"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (acceleration.compareTo(BigDecimal.ZERO) == 0) {
                 acceleration = BigDecimal.ZERO;
@@ -132,7 +132,7 @@ public class StandardGravity extends Unit {
         if (acceleration.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            acceleration = acceleration.multiply(new BigDecimal("32.174048556"))
+            acceleration = acceleration.multiply(new BigDecimal("32.17404855561"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (acceleration.compareTo(BigDecimal.ZERO) == 0) {
                 acceleration = BigDecimal.ZERO;
@@ -170,7 +170,7 @@ public class StandardGravity extends Unit {
         if (acceleration.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            acceleration = acceleration.multiply(new BigDecimal("9.80665"))
+            acceleration = acceleration.multiply(new BigDecimal("9.806649999788"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (acceleration.compareTo(BigDecimal.ZERO) == 0) {
                 acceleration = BigDecimal.ZERO;
