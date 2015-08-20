@@ -44,7 +44,19 @@ public class DataTransferSpeedFragment extends BaseFragment {
         TBPS,
         TBYPS
     }
-    private final String TAG = "FragmentDataTransferSpeed";
+
+    private static final String BPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_BPS_VALUE";
+    private static final String BYPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_BYPS_VALUE";
+    private static final String KBPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_KBPS_VALUE";
+    private static final String KBYPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_KBYPS_VALUE";
+    private static final String MBPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_MBPS_VALUE";
+    private static final String MBYPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_MBYPS_VALUE";
+    private static final String GBPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_GBPS_VALUE";
+    private static final String GBYPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_GBYPS_VALUE";
+    private static final String TBPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_TBPS_VALUE";
+    private static final String TBYPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_TBYPS_VALUE";
+
+    private final String TAG = DataTransferSpeedFragment.class.getSimpleName();
 
     @Bind(R.id.editText_data_transfer_speed_bps)    AppCompatEditText mEditTextBps;
     @Bind(R.id.editText_data_transfer_speed_byps)   AppCompatEditText mEditTextByps;
@@ -69,6 +81,8 @@ public class DataTransferSpeedFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_data_transfer_speed_tbyps)   TextInputLayout mTextInputLayoutTbyps;
 
     private LastEditTextFocused mLastEditTextFocused;
+
+    private boolean wasOnlyResumed = false;
 
     // region TextWatchers
 
@@ -274,6 +288,12 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
     // endregion
 
+    // region Constructor(s)
+
+    public DataTransferSpeedFragment() { setArguments(new Bundle()); }
+
+    // endregion
+
     // region Lifecycle methods
 
     @Override
@@ -283,9 +303,9 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
         if (getRootView() != null) {
             ButterKnife.bind(this, getRootView());
-            addTextChangedListeners(null);
         }
 
+        wasOnlyResumed = false;
         return getRootView();
     }
 
@@ -294,82 +314,160 @@ public class DataTransferSpeedFragment extends BaseFragment {
         super.onResume();
         Timber.tag(TAG + ".onResume").i("Entered");
 
-        if (mLastEditTextFocused == LastEditTextFocused.BPS) {
-            if (mEditTextBps.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextBps.getText());
-                addTextChangedListeners("onResume");
-                convertFromBitsPerSecond(mEditTextBps.getText().toString());
+        removeTextChangedListeners("onResume");
+
+        if (!wasOnlyResumed) {
+            if (shouldPersistValues() && (getSharedPreferences() != null)) {
+                if ((getSharedPreferences().getString(BPS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(BYPS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(KBPS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(KBYPS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(MBPS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(MBYPS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(GBPS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(GBYPS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(TBPS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(TBYPS_VALUE_PERSIST_KEY, null) != null)) {
+                    mEditTextBps.setText(getSharedPreferences().getString(BPS_VALUE_PERSIST_KEY, ""));
+                    mEditTextByps.setText(getSharedPreferences().getString(BYPS_VALUE_PERSIST_KEY, ""));
+                    mEditTextKbps.setText(getSharedPreferences().getString(KBPS_VALUE_PERSIST_KEY, ""));
+                    mEditTextKbyps.setText(getSharedPreferences().getString(KBYPS_VALUE_PERSIST_KEY, ""));
+                    mEditTextMbps.setText(getSharedPreferences().getString(MBPS_VALUE_PERSIST_KEY, ""));
+                    mEditTextMbyps.setText(getSharedPreferences().getString(MBYPS_VALUE_PERSIST_KEY, ""));
+                    mEditTextGbps.setText(getSharedPreferences().getString(GBPS_VALUE_PERSIST_KEY, ""));
+                    mEditTextGbyps.setText(getSharedPreferences().getString(GBYPS_VALUE_PERSIST_KEY, ""));
+                    mEditTextTbps.setText(getSharedPreferences().getString(TBPS_VALUE_PERSIST_KEY, ""));
+                    mEditTextTbyps.setText(getSharedPreferences().getString(TBYPS_VALUE_PERSIST_KEY, ""));
+                }
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.BYPS) {
-            if (mEditTextByps.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextByps.getText());
-                addTextChangedListeners("onResume");
-                convertFromBytesPerSecond(mEditTextByps.getText().toString());
+
+            if ((getArguments().getString(BPS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(BYPS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(KBPS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(KBYPS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(MBPS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(MBYPS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(GBPS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(GBYPS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(TBPS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(TBYPS_VALUE_PERSIST_KEY) != null)) {
+                mEditTextBps.setText(getArguments().getString(BPS_VALUE_PERSIST_KEY));
+                mEditTextByps.setText(getArguments().getString(BYPS_VALUE_PERSIST_KEY));
+                mEditTextKbps.setText(getArguments().getString(KBPS_VALUE_PERSIST_KEY));
+                mEditTextKbyps.setText(getArguments().getString(KBYPS_VALUE_PERSIST_KEY));
+                mEditTextMbps.setText(getArguments().getString(MBPS_VALUE_PERSIST_KEY));
+                mEditTextMbyps.setText(getArguments().getString(MBYPS_VALUE_PERSIST_KEY));
+                mEditTextGbps.setText(getArguments().getString(GBPS_VALUE_PERSIST_KEY));
+                mEditTextGbyps.setText(getArguments().getString(GBYPS_VALUE_PERSIST_KEY));
+                mEditTextTbps.setText(getArguments().getString(TBPS_VALUE_PERSIST_KEY));
+                mEditTextTbyps.setText(getArguments().getString(TBYPS_VALUE_PERSIST_KEY));
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.KBPS) {
-            if (mEditTextKbps.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextKbps.getText());
-                addTextChangedListeners("onResume");
-                convertFromKilobitsPerSecond(mEditTextKbps.getText().toString());
+        } else {
+            if (mLastEditTextFocused == LastEditTextFocused.BPS) {
+                if (mEditTextBps.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextBps.getText());
+                    convertFromBitsPerSecond(mEditTextBps.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.BYPS) {
+                if (mEditTextByps.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextByps.getText());
+                    convertFromBytesPerSecond(mEditTextByps.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.KBPS) {
+                if (mEditTextKbps.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextKbps.getText());
+                    convertFromKilobitsPerSecond(mEditTextKbps.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.KBYPS) {
+                if (mEditTextKbyps.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextKbyps.getText());
+                    convertFromKilobytesPerSecond(mEditTextKbyps.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.MBPS) {
+                if (mEditTextMbps.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextMbps.getText());
+                    convertFromMegabitsPerSecond(mEditTextMbps.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.MBYPS) {
+                if (mEditTextMbyps.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextMbyps.getText());
+                    convertFromMegabytesPerSecond(mEditTextMbyps.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.GBPS) {
+                if (mEditTextGbps.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextGbps.getText());
+                    convertFromGigabitsPerSecond(mEditTextGbps.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.GBYPS) {
+                if (mEditTextGbyps.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextGbyps.getText());
+                    convertFromGigabytesPerSecond(mEditTextGbyps.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.TBPS) {
+                if (mEditTextTbps.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextTbps.getText());
+                    convertFromTerabitsPerSecond(mEditTextTbps.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.TBYPS) {
+                if (mEditTextTbyps.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextTbyps.getText());
+                    convertFromTerabytesPerSecond(mEditTextTbyps.getText().toString());
+                }
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.KBYPS) {
-            if (mEditTextKbyps.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextKbyps.getText());
-                addTextChangedListeners("onResume");
-                convertFromKilobytesPerSecond(mEditTextKbyps.getText().toString());
-            }
-        } else if (mLastEditTextFocused == LastEditTextFocused.MBPS) {
-            if (mEditTextMbps.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextMbps.getText());
-                addTextChangedListeners("onResume");
-                convertFromMegabitsPerSecond(mEditTextMbps.getText().toString());
-            }
-        } else if (mLastEditTextFocused == LastEditTextFocused.MBYPS) {
-            if (mEditTextMbyps.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextMbyps.getText());
-                addTextChangedListeners("onResume");
-                convertFromMegabytesPerSecond(mEditTextMbyps.getText().toString());
-            }
-        } else if (mLastEditTextFocused == LastEditTextFocused.GBPS) {
-            if (mEditTextGbps.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextGbps.getText());
-                addTextChangedListeners("onResume");
-                convertFromGigabitsPerSecond(mEditTextGbps.getText().toString());
-            }
-        } else if (mLastEditTextFocused == LastEditTextFocused.GBYPS) {
-            if (mEditTextGbyps.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextGbyps.getText());
-                addTextChangedListeners("onResume");
-                convertFromGigabytesPerSecond(mEditTextGbyps.getText().toString());
-            }
-        } else if (mLastEditTextFocused == LastEditTextFocused.TBPS) {
-            if (mEditTextTbps.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextTbps.getText());
-                addTextChangedListeners("onResume");
-                convertFromTerabitsPerSecond(mEditTextTbps.getText().toString());
-            }
-        } else if (mLastEditTextFocused == LastEditTextFocused.TBYPS) {
-            if (mEditTextTbyps.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextTbyps.getText());
-                addTextChangedListeners("onResume");
-                convertFromTerabytesPerSecond(mEditTextTbyps.getText().toString());
-            }
+        }
+
+        wasOnlyResumed = true;
+        addTextChangedListeners("onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Timber.tag(TAG + ".onPause").i("Entered");
+
+        if (!mEditTextBps.getText().toString().isEmpty()
+                && !mEditTextByps.getText().toString().isEmpty()
+                && !mEditTextKbps.getText().toString().isEmpty()
+                && !mEditTextKbyps.getText().toString().isEmpty()
+                && !mEditTextMbps.getText().toString().isEmpty()
+                && !mEditTextMbyps.getText().toString().isEmpty()
+                && !mEditTextGbps.getText().toString().isEmpty()
+                && !mEditTextGbyps.getText().toString().isEmpty()
+                && !mEditTextTbps.getText().toString().isEmpty()
+                && !mEditTextTbyps.getText().toString().isEmpty()) {
+            getArguments().putString(BPS_VALUE_PERSIST_KEY, mEditTextBps.getText().toString());
+            getArguments().putString(BYPS_VALUE_PERSIST_KEY, mEditTextByps.getText().toString());
+            getArguments().putString(KBPS_VALUE_PERSIST_KEY, mEditTextKbps.getText().toString());
+            getArguments().putString(KBYPS_VALUE_PERSIST_KEY, mEditTextKbyps.getText().toString());
+            getArguments().putString(MBPS_VALUE_PERSIST_KEY, mEditTextMbps.getText().toString());
+            getArguments().putString(MBYPS_VALUE_PERSIST_KEY, mEditTextMbyps.getText().toString());
+            getArguments().putString(GBPS_VALUE_PERSIST_KEY, mEditTextGbps.getText().toString());
+            getArguments().putString(GBYPS_VALUE_PERSIST_KEY, mEditTextGbyps.getText().toString());
+            getArguments().putString(TBPS_VALUE_PERSIST_KEY, mEditTextTbps.getText().toString());
+            getArguments().putString(TBYPS_VALUE_PERSIST_KEY, mEditTextTbyps.getText().toString());
+        }
+
+        if (shouldPersistValues() && (getSharedPreferences() != null)) {
+            getSharedPreferences()
+                    .edit()
+                    .putString(BPS_VALUE_PERSIST_KEY, mEditTextBps.getText().toString())
+                    .putString(BYPS_VALUE_PERSIST_KEY, mEditTextByps.getText().toString())
+                    .putString(KBPS_VALUE_PERSIST_KEY, mEditTextKbps.getText().toString())
+                    .putString(KBYPS_VALUE_PERSIST_KEY, mEditTextKbyps.getText().toString())
+                    .putString(MBPS_VALUE_PERSIST_KEY, mEditTextMbps.getText().toString())
+                    .putString(MBYPS_VALUE_PERSIST_KEY, mEditTextMbyps.getText().toString())
+                    .putString(GBPS_VALUE_PERSIST_KEY, mEditTextGbps.getText().toString())
+                    .putString(GBYPS_VALUE_PERSIST_KEY, mEditTextGbyps.getText().toString())
+                    .putString(TBPS_VALUE_PERSIST_KEY, mEditTextTbps.getText().toString())
+                    .putString(TBYPS_VALUE_PERSIST_KEY, mEditTextTbyps.getText().toString())
+                    .apply();
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Timber.tag(TAG + ".onDestroyView").i("Entered");
         ButterKnife.unbind(this);
     }
 

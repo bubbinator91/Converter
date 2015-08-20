@@ -36,6 +36,10 @@ public class TemperatureFragment extends BaseFragment {
         KELVIN
     }
 
+    private static final String CELSIUS_VALUE_PERSIST_KEY = "TEMP_FRAGMENT_CELSIUS_VALUE";
+    private static final String FAHRENHEIT_VALUE_PERSIST_KEY = "TEMP_FRAGMENT_FAHRENHEIT_VALUE";
+    private static final String KELVIN_VALUE_PERSIST_KEY = "TEMP_FRAGMENT_KELVIN_VALUE";
+
     private final String TAG = TemperatureFragment.class.getSimpleName();
 
     @Bind(R.id.editText_temperature_celsius)    AppCompatEditText mEditTextCelsius;
@@ -47,6 +51,8 @@ public class TemperatureFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_temperature_kelvin)      TextInputLayout mTextInputLayoutKelvin;
 
     private LastEditTextFocused mLastEditTextFocused;
+
+    private boolean wasOnlyResumed = false;
 
     // region TextWatchers
 
@@ -112,6 +118,12 @@ public class TemperatureFragment extends BaseFragment {
 
     // endregion
 
+    // region Constructor(s)
+
+    public TemperatureFragment() { setArguments(new Bundle()); }
+
+    // endregion
+
     // region Lifecycle methods
 
     @Override
@@ -121,9 +133,9 @@ public class TemperatureFragment extends BaseFragment {
 
         if (getRootView() != null) {
             ButterKnife.bind(this, getRootView());
-            addTextChangedListeners(null);
         }
 
+        wasOnlyResumed = false;
         return getRootView();
     }
 
@@ -132,33 +144,79 @@ public class TemperatureFragment extends BaseFragment {
         super.onResume();
         Timber.tag(TAG + ".onResume").i("Entered");
 
-        if (mLastEditTextFocused == LastEditTextFocused.CELSIUS) {
-            if (mEditTextCelsius.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextCelsius.getText());
-                addTextChangedListeners("onResume");
-                convertFromCelsius(mEditTextCelsius.getText().toString());
+        removeTextChangedListeners("onResume");
+
+        if (!wasOnlyResumed) {
+            if (shouldPersistValues() && (getSharedPreferences() != null)) {
+                if ((getSharedPreferences().getString(CELSIUS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(FAHRENHEIT_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(KELVIN_VALUE_PERSIST_KEY, null) != null)) {
+                    mEditTextCelsius.setText(getSharedPreferences().getString(CELSIUS_VALUE_PERSIST_KEY, ""));
+                    mEditTextFahrenheit.setText(getSharedPreferences().getString(FAHRENHEIT_VALUE_PERSIST_KEY, ""));
+                    mEditTextKelvin.setText(getSharedPreferences().getString(KELVIN_VALUE_PERSIST_KEY, ""));
+                }
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.FAHRENHEIT) {
-            if (mEditTextFahrenheit.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextFahrenheit.getText());
-                addTextChangedListeners("onResume");
-                convertFromFahrenheit(mEditTextFahrenheit.getText().toString());
+
+            if ((getArguments().getString(CELSIUS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(FAHRENHEIT_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(KELVIN_VALUE_PERSIST_KEY) != null)) {
+                mEditTextCelsius.setText(getArguments().getString(CELSIUS_VALUE_PERSIST_KEY));
+                mEditTextFahrenheit.setText(getArguments().getString(FAHRENHEIT_VALUE_PERSIST_KEY));
+                mEditTextKelvin.setText(getArguments().getString(KELVIN_VALUE_PERSIST_KEY));
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.KELVIN) {
-            if (mEditTextKelvin.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextKelvin.getText());
-                addTextChangedListeners("onResume");
-                convertFromKelvin(mEditTextKelvin.getText().toString());
+        } else {
+            if (mLastEditTextFocused == LastEditTextFocused.CELSIUS) {
+                if (mEditTextCelsius.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextCelsius.getText());
+                    convertFromCelsius(mEditTextCelsius.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.FAHRENHEIT) {
+                if (mEditTextFahrenheit.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextFahrenheit.getText());
+                    convertFromFahrenheit(mEditTextFahrenheit.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.KELVIN) {
+                if (mEditTextKelvin.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextKelvin.getText());
+                    convertFromKelvin(mEditTextKelvin.getText().toString());
+                }
             }
+        }
+
+        wasOnlyResumed = true;
+        addTextChangedListeners("onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Timber.tag(TAG + ".onPause").i("Entered");
+
+        if (!mEditTextCelsius.getText().toString().isEmpty()
+                && !mEditTextFahrenheit.getText().toString().isEmpty()
+                && !mEditTextKelvin.getText().toString().isEmpty()) {
+            getArguments().putString(CELSIUS_VALUE_PERSIST_KEY,
+                    mEditTextCelsius.getText().toString());
+            getArguments().putString(FAHRENHEIT_VALUE_PERSIST_KEY,
+                    mEditTextFahrenheit.getText().toString());
+            getArguments().putString(KELVIN_VALUE_PERSIST_KEY,
+                    mEditTextKelvin.getText().toString());
+        }
+
+        if (shouldPersistValues() && (getSharedPreferences() != null)) {
+            getSharedPreferences()
+                    .edit()
+                    .putString(CELSIUS_VALUE_PERSIST_KEY, mEditTextCelsius.getText().toString())
+                    .putString(FAHRENHEIT_VALUE_PERSIST_KEY, mEditTextFahrenheit.getText().toString())
+                    .putString(KELVIN_VALUE_PERSIST_KEY, mEditTextKelvin.getText().toString())
+                    .apply();
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Timber.tag(TAG + ".onDestroyView").i("Entered");
         ButterKnife.unbind(this);
     }
 

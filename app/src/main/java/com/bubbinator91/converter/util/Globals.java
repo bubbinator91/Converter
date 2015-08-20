@@ -11,4 +11,5 @@ public class Globals {
 	public static final String PREFERENCE_DECIMAL_PLACES = "decimal_places";
 	public static final String PREFERENCE_LOGCAT = "is_logcat_enabled";
 	public static final String PREFERENCE_FIRSTRUN = "is_first_run";
+	public static final String PREFERENCE_PERSIST = "persist_values";
 }

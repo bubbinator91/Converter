@@ -53,6 +53,8 @@
     <string name="activity_settings_logcat_summary">Turn on logcat messages</string>
     <string name="activity_settings_decimal">Decimal Places</string>
     <string name="activity_settings_decimal_summary">Number of decimal places you want to see</string>
+    <string name="activity_settings_persist">Persist Values</string>
+    <string name="activity_settings_persist_summary">Save the values in each of the conversion fields, even if the app is closed</string>
 
     <!-- Errors -->
 
@@ -67,6 +69,7 @@
 
     <string name="util_key_debug">is_logcat_enabled</string>
     <string name="util_key_decimal">decimal_places</string>
+    <string name="util_key_persist_values">persist_values</string>
     <string name="util_key_trans_from_settings">transitioned_from_settings</string>
 
 </resources>

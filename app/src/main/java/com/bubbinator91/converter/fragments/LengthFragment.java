@@ -46,7 +46,16 @@ public class LengthFragment extends BaseFragment {
         KILOMETER
     }
 
-    private final String TAG = "FragmentLength";
+    private static final String INCH_VALUE_PERSIST_KEY = "LENGTH_FRAGMENT_INCH_VALUE";
+    private static final String FOOT_VALUE_PERSIST_KEY = "LENGTH_FRAGMENT_FOOT_VALUE";
+    private static final String YARD_VALUE_PERSIST_KEY = "LENGTH_FRAGMENT_YARD_VALUE";
+    private static final String MILE_VALUE_PERSIST_KEY = "LENGTH_FRAGMENT_MILE_VALUE";
+    private static final String MILLIMETER_VALUE_PERSIST_KEY = "LENGTH_FRAGMENT_MILLIMETER_VALUE";
+    private static final String CENTIMETER_VALUE_PERSIST_KEY = "LENGTH_FRAGMENT_CENTIMETER_VALUE";
+    private static final String METER_VALUE_PERSIST_KEY = "LENGTH_FRAGMENT_METER_VALUE";
+    private static final String KILOMETER_VALUE_PERSIST_KEY = "LENGTH_FRAGMENT_KILOMETER_VALUE";
+
+    private final String TAG = LengthFragment.class.getSimpleName();
 
     @Bind(R.id.editText_length_inch)        AppCompatEditText mEditTextInch;
     @Bind(R.id.editText_length_foot)        AppCompatEditText mEditTextFoot;
@@ -67,6 +76,8 @@ public class LengthFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_length_kilometer)    TextInputLayout mTextInputLayoutKilometer;
 
     private LastEditTextFocused mLastEditTextFocused;
+
+    private boolean wasOnlyResumed = false;
 
     // region TextWatchers
 
@@ -232,6 +243,12 @@ public class LengthFragment extends BaseFragment {
 
     // endregion
 
+    // region Constructor(s)
+
+    public LengthFragment() { setArguments(new Bundle()); }
+
+    // endregion
+
     // region Lifecycle methods
 
     @Override
@@ -241,9 +258,9 @@ public class LengthFragment extends BaseFragment {
 
         if (getRootView() != null) {
             ButterKnife.bind(this, getRootView());
-            addTextChangedListeners(null);
         }
 
+        wasOnlyResumed = false;
         return getRootView();
     }
 
@@ -252,68 +269,136 @@ public class LengthFragment extends BaseFragment {
         super.onResume();
         Timber.tag(TAG + ".onResume").i("Entered");
 
-        if (mLastEditTextFocused == LastEditTextFocused.INCH) {
-            if (mEditTextInch.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextInch.getText());
-                addTextChangedListeners("onResume");
-                convertFromInches(mEditTextInch.getText().toString());
+        removeTextChangedListeners("onResume");
+
+        if (!wasOnlyResumed) {
+            if (shouldPersistValues() && (getSharedPreferences() != null)) {
+                if ((getSharedPreferences().getString(INCH_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(FOOT_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(YARD_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(MILE_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(MILLIMETER_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(CENTIMETER_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(METER_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(KILOMETER_VALUE_PERSIST_KEY, null) != null)) {
+                    mEditTextInch.setText(getSharedPreferences().getString(INCH_VALUE_PERSIST_KEY, ""));
+                    mEditTextFoot.setText(getSharedPreferences().getString(FOOT_VALUE_PERSIST_KEY, ""));
+                    mEditTextYard.setText(getSharedPreferences().getString(YARD_VALUE_PERSIST_KEY, ""));
+                    mEditTextMile.setText(getSharedPreferences().getString(MILE_VALUE_PERSIST_KEY, ""));
+                    mEditTextMillimeter.setText(getSharedPreferences().getString(MILLIMETER_VALUE_PERSIST_KEY, ""));
+                    mEditTextCentimeter.setText(getSharedPreferences().getString(CENTIMETER_VALUE_PERSIST_KEY, ""));
+                    mEditTextMeter.setText(getSharedPreferences().getString(METER_VALUE_PERSIST_KEY, ""));
+                    mEditTextKilometer.setText(getSharedPreferences().getString(KILOMETER_VALUE_PERSIST_KEY, ""));
+                }
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.FOOT) {
-            if (mEditTextFoot.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextFoot.getText());
-                addTextChangedListeners("onResume");
-                convertFromFeet(mEditTextFoot.getText().toString());
+
+            if ((getArguments().getString(INCH_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(FOOT_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(YARD_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(MILE_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(MILLIMETER_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(CENTIMETER_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(METER_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(KILOMETER_VALUE_PERSIST_KEY) != null)) {
+                mEditTextInch.setText(getArguments().getString(INCH_VALUE_PERSIST_KEY));
+                mEditTextFoot.setText(getArguments().getString(FOOT_VALUE_PERSIST_KEY));
+                mEditTextYard.setText(getArguments().getString(YARD_VALUE_PERSIST_KEY));
+                mEditTextMile.setText(getArguments().getString(MILE_VALUE_PERSIST_KEY));
+                mEditTextMillimeter.setText(getArguments().getString(MILLIMETER_VALUE_PERSIST_KEY));
+                mEditTextCentimeter.setText(getArguments().getString(CENTIMETER_VALUE_PERSIST_KEY));
+                mEditTextMeter.setText(getArguments().getString(METER_VALUE_PERSIST_KEY));
+                mEditTextKilometer.setText(getArguments().getString(KILOMETER_VALUE_PERSIST_KEY));
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.YARD) {
-            if (mEditTextYard.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextYard.getText());
-                addTextChangedListeners("onResume");
-                convertFromYards(mEditTextYard.getText().toString());
+        } else {
+            if (mLastEditTextFocused == LastEditTextFocused.INCH) {
+                if (mEditTextInch.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextInch.getText());
+                    convertFromInches(mEditTextInch.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.FOOT) {
+                if (mEditTextFoot.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextFoot.getText());
+                    convertFromFeet(mEditTextFoot.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.YARD) {
+                if (mEditTextYard.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextYard.getText());
+                    convertFromYards(mEditTextYard.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.MILE) {
+                if (mEditTextMile.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextMile.getText());
+                    convertFromMiles(mEditTextMile.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.MILLIMETER) {
+                if (mEditTextMillimeter.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextMillimeter.getText());
+                    convertFromMillimeters(mEditTextMillimeter.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.CENTIMETER) {
+                if (mEditTextCentimeter.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextCentimeter.getText());
+                    convertFromCentimeters(mEditTextCentimeter.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.METER) {
+                if (mEditTextMeter.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextMeter.getText());
+                    convertFromMeters(mEditTextMeter.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.KILOMETER) {
+                if (mEditTextKilometer.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextKilometer.getText());
+                    convertFromKilometers(mEditTextKilometer.getText().toString());
+                }
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.MILE) {
-            if (mEditTextMile.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextMile.getText());
-                addTextChangedListeners("onResume");
-                convertFromMiles(mEditTextMile.getText().toString());
-            }
-        } else if (mLastEditTextFocused == LastEditTextFocused.MILLIMETER) {
-            if (mEditTextMillimeter.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextMillimeter.getText());
-                addTextChangedListeners("onResume");
-                convertFromMillimeters(mEditTextMillimeter.getText().toString());
-            }
-        } else if (mLastEditTextFocused == LastEditTextFocused.CENTIMETER) {
-            if (mEditTextCentimeter.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextCentimeter.getText());
-                addTextChangedListeners("onResume");
-                convertFromCentimeters(mEditTextCentimeter.getText().toString());
-            }
-        } else if (mLastEditTextFocused == LastEditTextFocused.METER) {
-            if (mEditTextMeter.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextMeter.getText());
-                addTextChangedListeners("onResume");
-                convertFromMeters(mEditTextMeter.getText().toString());
-            }
-        } else if (mLastEditTextFocused == LastEditTextFocused.KILOMETER) {
-            if (mEditTextKilometer.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextKilometer.getText());
-                addTextChangedListeners("onResume");
-                convertFromKilometers(mEditTextKilometer.getText().toString());
-            }
+        }
+
+        wasOnlyResumed = true;
+        addTextChangedListeners("onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Timber.tag(TAG + ".onPause").i("Entered");
+
+        if (!mEditTextInch.getText().toString().isEmpty()
+                && !mEditTextFoot.getText().toString().isEmpty()
+                && !mEditTextYard.getText().toString().isEmpty()
+                && !mEditTextMile.getText().toString().isEmpty()
+                && !mEditTextMillimeter.getText().toString().isEmpty()
+                && !mEditTextCentimeter.getText().toString().isEmpty()
+                && !mEditTextMeter.getText().toString().isEmpty()
+                && !mEditTextKilometer.getText().toString().isEmpty()) {
+            getArguments().putString(INCH_VALUE_PERSIST_KEY, mEditTextInch.getText().toString());
+            getArguments().putString(FOOT_VALUE_PERSIST_KEY, mEditTextFoot.getText().toString());
+            getArguments().putString(YARD_VALUE_PERSIST_KEY, mEditTextYard.getText().toString());
+            getArguments().putString(MILE_VALUE_PERSIST_KEY, mEditTextMile.getText().toString());
+            getArguments().putString(MILLIMETER_VALUE_PERSIST_KEY, mEditTextMillimeter.getText().toString());
+            getArguments().putString(CENTIMETER_VALUE_PERSIST_KEY, mEditTextCentimeter.getText().toString());
+            getArguments().putString(METER_VALUE_PERSIST_KEY, mEditTextMeter.getText().toString());
+            getArguments().putString(KILOMETER_VALUE_PERSIST_KEY, mEditTextKilometer.getText().toString());
+        }
+
+        if (shouldPersistValues() && (getSharedPreferences() != null)) {
+            getSharedPreferences()
+                    .edit()
+                    .putString(INCH_VALUE_PERSIST_KEY, mEditTextInch.getText().toString())
+                    .putString(FOOT_VALUE_PERSIST_KEY, mEditTextFoot.getText().toString())
+                    .putString(YARD_VALUE_PERSIST_KEY, mEditTextYard.getText().toString())
+                    .putString(MILE_VALUE_PERSIST_KEY, mEditTextMile.getText().toString())
+                    .putString(MILLIMETER_VALUE_PERSIST_KEY, mEditTextMillimeter.getText().toString())
+                    .putString(CENTIMETER_VALUE_PERSIST_KEY, mEditTextCentimeter.getText().toString())
+                    .putString(METER_VALUE_PERSIST_KEY, mEditTextMeter.getText().toString())
+                    .putString(KILOMETER_VALUE_PERSIST_KEY, mEditTextKilometer.getText().toString())
+                    .apply();
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Timber.tag(TAG + ".onDestroyView").i("Entered");
         ButterKnife.unbind(this);
     }
 

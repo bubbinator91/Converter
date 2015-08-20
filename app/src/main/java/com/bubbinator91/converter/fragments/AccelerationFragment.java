@@ -32,7 +32,13 @@ public class AccelerationFragment extends BaseFragment {
         MPSS,
         SG
     }
-    private final String TAG = "FragmentAcceleration";
+
+    private static final String CMPSS_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_CMPSS_VALUE";
+    private static final String FPSS_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_FPSS_VALUE";
+    private static final String MPSS_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_MPSS_VALUE";
+    private static final String SG_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_SG_VALUE";
+
+    private final String TAG = AccelerationFragment.class.getSimpleName();
 
     @Bind(R.id.editText_acceleration_cmpss) AppCompatEditText mEditTextCmpss;
     @Bind(R.id.editText_acceleration_fpss)  AppCompatEditText mEditTextFpss;
@@ -45,6 +51,8 @@ public class AccelerationFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_acceleration_sg)     TextInputLayout mTextInputLayoutSg;
 
     private LastEditTextFocused mLastEditTextFocused;
+
+    private boolean wasOnlyResumed = false;
 
     // region TextWatchers
 
@@ -130,6 +138,12 @@ public class AccelerationFragment extends BaseFragment {
 
     // endregion
 
+    // region Constructor(s)
+
+    public AccelerationFragment() { setArguments(new Bundle()); }
+
+    // endregion
+
     // region Lifecycle methods
 
     @Override
@@ -139,9 +153,9 @@ public class AccelerationFragment extends BaseFragment {
 
         if (getRootView() != null) {
             ButterKnife.bind(this, getRootView());
-            addTextChangedListeners(null);
         }
 
+        wasOnlyResumed = false;
         return getRootView();
     }
 
@@ -150,40 +164,88 @@ public class AccelerationFragment extends BaseFragment {
         super.onResume();
         Timber.tag(TAG + ".onResume").i("Entered");
 
-        if (mLastEditTextFocused == LastEditTextFocused.CMPSS) {
-            if (mEditTextCmpss.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextCmpss.getText());
-                addTextChangedListeners("onResume");
-                convertFromCentimetersPerSecondSquared(mEditTextCmpss.getText().toString());
+        removeTextChangedListeners("onResume");
+
+        if (!wasOnlyResumed) {
+            if (shouldPersistValues() && (getSharedPreferences() != null)) {
+                if ((getSharedPreferences().getString(CMPSS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(FPSS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(MPSS_VALUE_PERSIST_KEY, null) != null)
+                        && (getSharedPreferences().getString(SG_VALUE_PERSIST_KEY, null) != null)) {
+                    mEditTextCmpss.setText(getSharedPreferences().getString(CMPSS_VALUE_PERSIST_KEY, ""));
+                    mEditTextFpss.setText(getSharedPreferences().getString(FPSS_VALUE_PERSIST_KEY, ""));
+                    mEditTextMpss.setText(getSharedPreferences().getString(MPSS_VALUE_PERSIST_KEY, ""));
+                    mEditTextSg.setText(getSharedPreferences().getString(SG_VALUE_PERSIST_KEY, ""));
+                }
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.FPSS) {
-            if (mEditTextFpss.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextFpss.getText());
-                addTextChangedListeners("onResume");
-                convertFromFeetPerSecondSquared(mEditTextFpss.getText().toString());
+
+            if ((getArguments().getString(CMPSS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(FPSS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(MPSS_VALUE_PERSIST_KEY) != null)
+                    && (getArguments().getString(SG_VALUE_PERSIST_KEY) != null)) {
+                mEditTextCmpss.setText(getArguments().getString(CMPSS_VALUE_PERSIST_KEY));
+                mEditTextFpss.setText(getArguments().getString(FPSS_VALUE_PERSIST_KEY));
+                mEditTextMpss.setText(getArguments().getString(MPSS_VALUE_PERSIST_KEY));
+                mEditTextSg.setText(getArguments().getString(SG_VALUE_PERSIST_KEY));
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.MPSS) {
-            if (mEditTextMpss.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextMpss.getText());
-                addTextChangedListeners("onResume");
-                convertFromMetersPerSecondSquared(mEditTextMpss.getText().toString());
+        } else {
+            if (mLastEditTextFocused == LastEditTextFocused.CMPSS) {
+                if (mEditTextCmpss.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextCmpss.getText());
+                    convertFromCentimetersPerSecondSquared(mEditTextCmpss.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.FPSS) {
+                if (mEditTextFpss.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextFpss.getText());
+                    convertFromFeetPerSecondSquared(mEditTextFpss.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.MPSS) {
+                if (mEditTextMpss.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextMpss.getText());
+                    convertFromMetersPerSecondSquared(mEditTextMpss.getText().toString());
+                }
+            } else if (mLastEditTextFocused == LastEditTextFocused.SG) {
+                if (mEditTextSg.getText() != null) {
+                    Utils.sanitizeEditable(mEditTextSg.getText());
+                    convertFromStandardGravity(mEditTextSg.getText().toString());
+                }
             }
-        } else if (mLastEditTextFocused == LastEditTextFocused.SG) {
-            if (mEditTextSg.getText() != null) {
-                removeTextChangedListeners("onResume");
-                Utils.sanitizeEditable(mEditTextSg.getText());
-                addTextChangedListeners("onResume");
-                convertFromStandardGravity(mEditTextSg.getText().toString());
-            }
+        }
+
+        wasOnlyResumed = true;
+        addTextChangedListeners("onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Timber.tag(TAG + ".onPause").i("Entered");
+
+        if (!mEditTextCmpss.getText().toString().isEmpty()
+                && !mEditTextFpss.getText().toString().isEmpty()
+                && !mEditTextMpss.getText().toString().isEmpty()
+                && !mEditTextSg.getText().toString().isEmpty()) {
+            getArguments().putString(CMPSS_VALUE_PERSIST_KEY, mEditTextCmpss.getText().toString());
+            getArguments().putString(FPSS_VALUE_PERSIST_KEY, mEditTextFpss.getText().toString());
+            getArguments().putString(MPSS_VALUE_PERSIST_KEY, mEditTextMpss.getText().toString());
+            getArguments().putString(SG_VALUE_PERSIST_KEY, mEditTextSg.getText().toString());
+        }
+
+        if (shouldPersistValues() && (getSharedPreferences() != null)) {
+            getSharedPreferences()
+                    .edit()
+                    .putString(CMPSS_VALUE_PERSIST_KEY, mEditTextCmpss.getText().toString())
+                    .putString(FPSS_VALUE_PERSIST_KEY, mEditTextFpss.getText().toString())
+                    .putString(MPSS_VALUE_PERSIST_KEY, mEditTextMpss.getText().toString())
+                    .putString(SG_VALUE_PERSIST_KEY, mEditTextSg.getText().toString())
+                    .apply();
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Timber.tag(TAG + ".onDestroyView").i("Entered");
         ButterKnife.unbind(this);
     }
 

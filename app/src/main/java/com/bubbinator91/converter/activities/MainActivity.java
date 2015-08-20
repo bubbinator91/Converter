@@ -21,6 +21,9 @@ import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.fragments.*;
 import com.bubbinator91.converter.util.GlobalsManager;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -42,9 +45,10 @@ public class MainActivity extends BaseActivity {
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private String lastSelectedFragment = null;
     private final String STATE_SELECTED_FRAGMENT = "selected_fragment";
-
     private Handler mHandler = new Handler();
     private boolean wasActivityRestarted = false;
+    private List<Fragment> mFragmentList;
+    private SharedPreferences mPrefs;
 
     // region Lifecycle methods
 
@@ -61,9 +65,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem item) {
                         if (!lastSelectedFragment.equals(item.getTitle().toString())) {
-                            if (preChangeToFragment(item.getTitle().toString())) {
-                                selectFragment(item.getTitle().toString());
-                            }
+                            selectFragment(item.getTitle().toString());
                         }
                         return true;
                     }
@@ -86,13 +88,19 @@ public class MainActivity extends BaseActivity {
 
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
+
+        mFragmentList = new LinkedList<>();
+        mFragmentList.add(new AccelerationFragment());
+        mFragmentList.add(new DataTransferSpeedFragment());
+        mFragmentList.add(new LengthFragment());
+        mFragmentList.add(new SpeedFragment());
+        mFragmentList.add(new TemperatureFragment());
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
         Timber.tag(TAG + ".onRestart").i("Entered");
-
         wasActivityRestarted = true;
     }
 
@@ -103,20 +111,30 @@ public class MainActivity extends BaseActivity {
 
         if (!wasActivityRestarted) {
             Timber.tag(TAG + ".onStart").i("Activity was not restarted");
-            lastSelectedFragment = PreferenceManager
-                    .getDefaultSharedPreferences(this)
-                    .getString(STATE_SELECTED_FRAGMENT, "null");
+
+            try {
+                for (Fragment fragment : mFragmentList) {
+                    getFragmentManager().beginTransaction()
+                            .add(R.id.container, fragment)
+                            .hide(fragment)
+                            .commit();
+                }
+            } catch (IllegalStateException e) {
+                // TODO Figure out what to do here
+            }
+
+            mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+            lastSelectedFragment = mPrefs.getString(STATE_SELECTED_FRAGMENT, "null");
             Timber.tag(TAG + ".onStart").i("lastSelectedFragment = " + lastSelectedFragment);
             if (!GlobalsManager.INSTANCE.isTransitioningToMainActivity()) {
                 if (!lastSelectedFragment.equals("null")) {
-                    if (preChangeToFragment(lastSelectedFragment)) {
-                        selectFragment(lastSelectedFragment);
-                    }
+                    selectFragment(lastSelectedFragment);
                 }
             } else {
                 GlobalsManager.INSTANCE.setIsTransitioningToMainActivity(false);
                 if (!lastSelectedFragment.equals("null")) {
-                    preChangeToFragment(lastSelectedFragment);
+                    applyFragmentPropertiesToActivity(lastSelectedFragment);
                 }
             }
         }
@@ -134,7 +152,7 @@ public class MainActivity extends BaseActivity {
                 + GlobalsManager.INSTANCE.decimalPlaceLength());
 
         if (!lastSelectedFragment.equals("null")) {
-            preChangeToFragment(lastSelectedFragment);
+            applyFragmentPropertiesToActivity(lastSelectedFragment);
         }
     }
 
@@ -207,32 +225,9 @@ public class MainActivity extends BaseActivity {
 
     // region Fragment switching methods
 
-    /**
-     * Switches to the fragment that is selected by the user in
-     * the navigation drawer.
-     *
-     * @param fragmentName	the name of the selected fragment as a {@link String}, which is used to
-     *                      determine which fragment to switch to
-     */
-    private void selectFragment(String fragmentName) {
-        Timber.tag(TAG + ".selectFragment").i("Entered");
-
-        if (fragmentName.equals(getString(R.string.title_acceleration))){
-            changeToFragment(new AccelerationFragment());
-        } else if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
-            changeToFragment(new DataTransferSpeedFragment());
-        } else if (fragmentName.equals(getString(R.string.title_length))) {
-            changeToFragment(new LengthFragment());
-        } else if (fragmentName.equals(getString(R.string.title_speed))) {
-            changeToFragment(new SpeedFragment());
-        } else if (fragmentName.equals(getString(R.string.title_temperature))) {
-            changeToFragment(new TemperatureFragment());
-        }
-    }
-
-    private boolean preChangeToFragment(String fragmentName) {
-        Timber.tag(TAG + ".preChangeToFragment").i("Entered");
-        Timber.tag(TAG + ".preChangeToFragment").i("fragmentName = " + fragmentName);
+    private boolean applyFragmentPropertiesToActivity(String fragmentName) {
+        Timber.tag(TAG + ".setToolbarTitle").i("Entered");
+        Timber.tag(TAG + ".setToolbarTitle").i("fragmentName = " + fragmentName);
 
         if (fragmentName.equals(getString(R.string.title_acceleration))) {
             mNavigationView.getMenu().findItem(R.id.nav_acceleration).setChecked(true);
@@ -252,9 +247,8 @@ public class MainActivity extends BaseActivity {
         getToolbar().setTitle(fragmentName);
         mDrawerLayout.closeDrawer(GravityCompat.START);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (preferences != null) {
-            SharedPreferences.Editor editor = preferences.edit();
+        if (mPrefs != null) {
+            SharedPreferences.Editor editor = mPrefs.edit();
             editor.putString(STATE_SELECTED_FRAGMENT, lastSelectedFragment);
             editor.apply();
         }
@@ -262,25 +256,70 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
-    private void changeToFragment(final Fragment fragment) {
-        Timber.tag(TAG + ".changeToFragment").i("Entered");
+    /**
+     * Switches to the fragment that is selected by the user in the navigation drawer.
+     *
+     * @param fragmentName	the name of the selected fragment as a {@link String}, which is used to
+     *                      determine which fragment to switch to
+     */
+    private void selectFragment(final String fragmentName) {
+        Timber.tag(TAG + ".selectFragment").i("Entered");
 
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                try {
-                    FragmentManager fragmentManager = getFragmentManager();
+                if (fragmentName.equals(getString(R.string.title_acceleration))){
+                    mNavigationView.getMenu().findItem(R.id.nav_acceleration).setChecked(true);
+                    changeToFragment(mFragmentList.get(0));
+                } else if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
+                    mNavigationView.getMenu().findItem(R.id.nav_dts).setChecked(true);
+                    changeToFragment(mFragmentList.get(1));
+                } else if (fragmentName.equals(getString(R.string.title_length))) {
+                    mNavigationView.getMenu().findItem(R.id.nav_length).setChecked(true);
+                    changeToFragment(mFragmentList.get(2));
+                } else if (fragmentName.equals(getString(R.string.title_speed))) {
+                    mNavigationView.getMenu().findItem(R.id.nav_speed).setChecked(true);
+                    changeToFragment(mFragmentList.get(3));
+                } else if (fragmentName.equals(getString(R.string.title_temperature))) {
+                    mNavigationView.getMenu().findItem(R.id.nav_temperature).setChecked(true);
+                    changeToFragment(mFragmentList.get(4));
+                }
+
+                lastSelectedFragment = fragmentName;
+                getToolbar().setTitle(fragmentName);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+
+                if (mPrefs != null) {
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putString(STATE_SELECTED_FRAGMENT, lastSelectedFragment);
+                    editor.apply();
+                }
+            }
+        }, 50);
+    }
+
+    private void changeToFragment(final Fragment fragment) {
+        Timber.tag(TAG + ".changeToFragment").i("Entered");
+        try {
+            FragmentManager fragmentManager = getFragmentManager();
+            if (!lastSelectedFragment.equals("null")) {
+                for (Fragment fragmentToHide : mFragmentList) {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.fragment_slide_in_right,
                                     R.anim.fragment_slide_out_left)
-                            .replace(R.id.container, fragment)
-                            .addToBackStack(null)
+                            .hide(fragmentToHide)
                             .commit();
-                } catch (IllegalStateException e) {
-                    Timber.tag(TAG + ".changeToFragment").e(e.getMessage());
                 }
             }
-        }, 225);
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.fragment_slide_in_right,
+                            R.anim.fragment_slide_out_left)
+                    .show(fragment)
+                    .commit();
+        } catch (IllegalStateException e) {
+            Timber.tag(TAG + ".changeToFragment").e(e.getMessage());
+            // TODO Figure out what to do here
+        }
     }
 
     // endregion

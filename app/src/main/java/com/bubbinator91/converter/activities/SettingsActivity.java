@@ -1,6 +1,5 @@
 package com.bubbinator91.converter.activities;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -91,12 +90,6 @@ public class SettingsActivity extends BaseActivity {
         private final String TAG = "SettingsFragment";
 
         // region Lifecycle methods
-
-        @Override
-        public void onAttach(Activity activity) {
-            Timber.tag(TAG + ".onAttach").i("Entered");
-            super.onAttach(activity);
-        }
 
         @Override
         public void onCreate(final Bundle savedInstanceState) {

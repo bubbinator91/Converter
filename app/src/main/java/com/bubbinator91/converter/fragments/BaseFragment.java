@@ -1,6 +1,5 @@
 package com.bubbinator91.converter.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
@@ -30,22 +29,19 @@ public abstract class BaseFragment
         implements ViewTreeObserver.OnScrollChangedListener {
     private final String TAG = "BaseFragment";
 
-    private Activity mActivity = null;
     private SharedPreferences mPrefs = null;
-    private int numOfDecimalPlaces = -1, lastY = 0;
+    private int numOfDecimalPlaces = -1;
+    private boolean shouldPersistValues = false;
 
     private View rootView = null;
     private ScrollView mScrollView = null;
-    private int mToolbarHeight = 0;
-    private int mToolbarOffset = 0;
+    private int mToolbarHeight = 0, mToolbarOffset = 0, lastY = 0;
 
     // region Lifecycle methods
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mActivity = getActivity();
 
         if (BuildConfig.DEBUG) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -60,7 +56,7 @@ public abstract class BaseFragment
         Timber.tag(TAG + "." + getChildTag() + ".onCreateView").i("Entered");
         rootView = inflater.inflate(getLayoutResource(), container, false);
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
         TypedArray actionBarAttrs = getActivity()
                 .obtainStyledAttributes(new int[] {
@@ -86,6 +82,7 @@ public abstract class BaseFragment
         if (mPrefs != null) {
             numOfDecimalPlaces =
                     Integer.parseInt(mPrefs.getString(Globals.PREFERENCE_DECIMAL_PLACES, "-1"));
+            shouldPersistValues = mPrefs.getBoolean(Globals.PREFERENCE_PERSIST, false);
         }
         if (numOfDecimalPlaces == -1) {
             numOfDecimalPlaces = 8;
@@ -97,7 +94,7 @@ public abstract class BaseFragment
         super.onPause();
         Timber.tag(TAG + "." + getChildTag() + ".onPause").i("Entered");
 
-        Toolbar toolbar = ((Toolbar) mActivity.findViewById(R.id.toolbar));
+        Toolbar toolbar = ((Toolbar) getActivity().findViewById(R.id.toolbar));
         if (toolbar != null) {
             // Animate toolbar down if hidden
             while (mToolbarOffset > 0) {
@@ -129,7 +126,7 @@ public abstract class BaseFragment
                 mToolbarOffset = 0;
             }
 
-            Toolbar toolbar = ((Toolbar) mActivity.findViewById(R.id.toolbar));
+            Toolbar toolbar = ((Toolbar) getActivity().findViewById(R.id.toolbar));
             try {
                 // If the user is dragging the ScrollView up (they are heading towards the bottom of
                 // the ScrollView) and if the current scrolling position of the ScrollView is
@@ -198,6 +195,21 @@ public abstract class BaseFragment
      * @return  The root view that was inflated in {@link #onCreate(Bundle)}.
      */
     protected View getRootView() { return rootView; }
+
+    /**
+     * Gets the {@link SharedPreferences} object for use in any child class.
+     *
+     * @return  A {@link SharedPreferences} object.
+     */
+    protected SharedPreferences getSharedPreferences() { return mPrefs; }
+
+    /**
+     * Gets the status of the persist values setting, which will tell the fragments if they should
+     * store their values permanently so they can be reloaded even if the app is closed.
+     *
+     * @return  false if the fragments should not persist values; true otherwise.
+     */
+    public boolean shouldPersistValues() { return shouldPersistValues; }
 
     // endregion
 
