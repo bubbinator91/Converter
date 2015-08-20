@@ -22,6 +22,8 @@ import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 /**
@@ -40,10 +42,17 @@ public class SpeedFragment extends BaseFragment {
 
     private final String TAG = "FragmentSpeed";
 
-    private AppCompatEditText mEditTextFps, mEditTextKnot, mEditTextKph, mEditTextMps, mEditTextMph;
+    @Bind(R.id.editText_speed_fps)  AppCompatEditText mEditTextFps;
+    @Bind(R.id.editText_speed_knot) AppCompatEditText mEditTextKnot;
+    @Bind(R.id.editText_speed_kph)  AppCompatEditText mEditTextKph;
+    @Bind(R.id.editText_speed_mps)  AppCompatEditText mEditTextMps;
+    @Bind(R.id.editText_speed_mph)  AppCompatEditText mEditTextMph;
 
-    private TextInputLayout mTextInputLayoutFps, mTextInputLayoutKnot, mTextInputLayoutKph,
-            mTextInputLayoutMps, mTextInputLayoutMph;
+    @Bind(R.id.textInputLayout_speed_fps)   TextInputLayout mTextInputLayoutFps;
+    @Bind(R.id.textInputLayout_speed_knot)  TextInputLayout mTextInputLayoutKnot;
+    @Bind(R.id.textInputLayout_speed_kph)   TextInputLayout mTextInputLayoutKph;
+    @Bind(R.id.textInputLayout_speed_mps)   TextInputLayout mTextInputLayoutMps;
+    @Bind(R.id.textInputLayout_speed_mph)   TextInputLayout mTextInputLayoutMph;
 
     private LastEditTextFocused mLastEditTextFocused;
 
@@ -154,33 +163,7 @@ public class SpeedFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            mTextInputLayoutFps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_speed_fps));
-            mTextInputLayoutKnot =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_speed_knot));
-            mTextInputLayoutKph =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_speed_kph));
-            mTextInputLayoutMps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_speed_mps));
-            mTextInputLayoutMph =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_speed_mph));
-
-            mEditTextFps =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_fps));
-            mEditTextKnot =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_knot));
-            mEditTextKph =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_kph));
-            mEditTextMps =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_mps));
-            mEditTextMph =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_speed_mph));
-
+            ButterKnife.bind(this, getRootView());
             addTextChangedListeners(null);
         }
 
@@ -228,6 +211,12 @@ public class SpeedFragment extends BaseFragment {
                 convertFromMilesPerHour(mEditTextMph.getText().toString());
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     // endregion

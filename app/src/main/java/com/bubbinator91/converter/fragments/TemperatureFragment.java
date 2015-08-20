@@ -38,13 +38,13 @@ public class TemperatureFragment extends BaseFragment {
 
     private final String TAG = TemperatureFragment.class.getSimpleName();
 
-    @Bind(R.id.editText_temperature_celsius) AppCompatEditText mEditTextCelsius;
+    @Bind(R.id.editText_temperature_celsius)    AppCompatEditText mEditTextCelsius;
     @Bind(R.id.editText_temperature_fahrenheit) AppCompatEditText mEditTextFahrenheit;
-    @Bind(R.id.editText_temperature_kelvin) AppCompatEditText mEditTextKelvin;
+    @Bind(R.id.editText_temperature_kelvin)     AppCompatEditText mEditTextKelvin;
 
-    @Bind(R.id.textInputLayout_temperature_celsius) TextInputLayout mTextInputLayoutCelsius;
-    @Bind(R.id.textInputLayout_temperature_fahrenheit) TextInputLayout mTextInputLayoutFahrenheit;
-    @Bind(R.id.textInputLayout_temperature_kelvin) TextInputLayout mTextInputLayoutKelvin;
+    @Bind(R.id.textInputLayout_temperature_celsius)     TextInputLayout mTextInputLayoutCelsius;
+    @Bind(R.id.textInputLayout_temperature_fahrenheit)  TextInputLayout mTextInputLayoutFahrenheit;
+    @Bind(R.id.textInputLayout_temperature_kelvin)      TextInputLayout mTextInputLayoutKelvin;
 
     private LastEditTextFocused mLastEditTextFocused;
 
@@ -154,6 +154,12 @@ public class TemperatureFragment extends BaseFragment {
                 convertFromKelvin(mEditTextKelvin.getText().toString());
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     // endregion

@@ -25,6 +25,8 @@ import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 /**
@@ -46,12 +48,23 @@ public class LengthFragment extends BaseFragment {
 
     private final String TAG = "FragmentLength";
 
-    private AppCompatEditText mEditTextInch, mEditTextFoot, mEditTextYard, mEditTextMile,
-            mEditTextMillimeter, mEditTextCentimeter, mEditTextMeter, mEditTextKilometer;
+    @Bind(R.id.editText_length_inch)        AppCompatEditText mEditTextInch;
+    @Bind(R.id.editText_length_foot)        AppCompatEditText mEditTextFoot;
+    @Bind(R.id.editText_length_yard)        AppCompatEditText mEditTextYard;
+    @Bind(R.id.editText_length_mile)        AppCompatEditText mEditTextMile;
+    @Bind(R.id.editText_length_millimeter)  AppCompatEditText mEditTextMillimeter;
+    @Bind(R.id.editText_length_centimeter)  AppCompatEditText mEditTextCentimeter;
+    @Bind(R.id.editText_length_meter)       AppCompatEditText mEditTextMeter;
+    @Bind(R.id.editText_length_kilometer)   AppCompatEditText mEditTextKilometer;
 
-    private TextInputLayout mTextInputLayoutInch, mTextInputLayoutFoot, mTextInputLayoutYard,
-            mTextInputLayoutMile, mTextInputLayoutMillimeter, mTextInputLayoutCentimeter,
-            mTextInputLayoutMeter, mTextInputLayoutKilometer;
+    @Bind(R.id.textInputLayout_length_inch)         TextInputLayout mTextInputLayoutInch;
+    @Bind(R.id.textInputLayout_length_foot)         TextInputLayout mTextInputLayoutFoot;
+    @Bind(R.id.textInputLayout_length_yard)         TextInputLayout mTextInputLayoutYard;
+    @Bind(R.id.textInputLayout_length_mile)         TextInputLayout mTextInputLayoutMile;
+    @Bind(R.id.textInputLayout_length_millimeter)   TextInputLayout mTextInputLayoutMillimeter;
+    @Bind(R.id.textInputLayout_length_centimeter)   TextInputLayout mTextInputLayoutCentimeter;
+    @Bind(R.id.textInputLayout_length_meter)        TextInputLayout mTextInputLayoutMeter;
+    @Bind(R.id.textInputLayout_length_kilometer)    TextInputLayout mTextInputLayoutKilometer;
 
     private LastEditTextFocused mLastEditTextFocused;
 
@@ -227,48 +240,7 @@ public class LengthFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            mTextInputLayoutInch =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_length_inch));
-            mTextInputLayoutFoot =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_length_foot));
-            mTextInputLayoutYard =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_length_yard));
-            mTextInputLayoutMile =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_length_mile));
-            mTextInputLayoutMillimeter =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_length_millimeter));
-            mTextInputLayoutCentimeter =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_length_centimeter));
-            mTextInputLayoutMeter =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_length_meter));
-            mTextInputLayoutKilometer =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_length_kilometer));
-
-            mEditTextInch =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_inch));
-            mEditTextFoot =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_foot));
-            mEditTextYard =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_yard));
-            mEditTextMile =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_mile));
-            mEditTextMillimeter =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_millimeter));
-            mEditTextCentimeter =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_centimeter));
-            mEditTextMeter =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_meter));
-            mEditTextKilometer =
-                    ((AppCompatEditText) getRootView().findViewById(R.id.editText_length_kilometer));
-
+            ButterKnife.bind(this, getRootView());
             addTextChangedListeners(null);
         }
 
@@ -337,6 +309,12 @@ public class LengthFragment extends BaseFragment {
                 convertFromKilometers(mEditTextKilometer.getText().toString());
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     // endregion

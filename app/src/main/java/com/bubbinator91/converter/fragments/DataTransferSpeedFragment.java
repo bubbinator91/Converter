@@ -27,6 +27,8 @@ import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class DataTransferSpeedFragment extends BaseFragment {
@@ -44,13 +46,27 @@ public class DataTransferSpeedFragment extends BaseFragment {
     }
     private final String TAG = "FragmentDataTransferSpeed";
 
-    private AppCompatEditText mEditTextBps, mEditTextByps, mEditTextKbps, mEditTextKbyps,
-            mEditTextMbps, mEditTextMbyps, mEditTextGbps, mEditTextGbyps, mEditTextTbps,
-            mEditTextTbyps;
+    @Bind(R.id.editText_data_transfer_speed_bps)    AppCompatEditText mEditTextBps;
+    @Bind(R.id.editText_data_transfer_speed_byps)   AppCompatEditText mEditTextByps;
+    @Bind(R.id.editText_data_transfer_speed_kbps)   AppCompatEditText mEditTextKbps;
+    @Bind(R.id.editText_data_transfer_speed_kbyps)  AppCompatEditText mEditTextKbyps;
+    @Bind(R.id.editText_data_transfer_speed_mbps)   AppCompatEditText mEditTextMbps;
+    @Bind(R.id.editText_data_transfer_speed_mbyps)  AppCompatEditText mEditTextMbyps;
+    @Bind(R.id.editText_data_transfer_speed_gbps)   AppCompatEditText mEditTextGbps;
+    @Bind(R.id.editText_data_transfer_speed_gbyps)  AppCompatEditText mEditTextGbyps;
+    @Bind(R.id.editText_data_transfer_speed_tbps)   AppCompatEditText mEditTextTbps;
+    @Bind(R.id.editText_data_transfer_speed_tbyps)  AppCompatEditText mEditTextTbyps;
 
-    private TextInputLayout mTextInputLayoutBps, mTextInputLayoutByps, mTextInputLayoutKbps,
-            mTextInputLayoutKbyps, mTextInputLayoutMbps, mTextInputLayoutMbyps, mTextInputLayoutGbps,
-            mTextInputLayoutGbyps, mTextInputLayoutTbps, mTextInputLayoutTbyps;
+    @Bind(R.id.textInputLayout_data_transfer_speed_bps)     TextInputLayout mTextInputLayoutBps;
+    @Bind(R.id.textInputLayout_data_transfer_speed_byps)    TextInputLayout mTextInputLayoutByps;
+    @Bind(R.id.textInputLayout_data_transfer_speed_kbps)    TextInputLayout mTextInputLayoutKbps;
+    @Bind(R.id.textInputLayout_data_transfer_speed_kbyps)   TextInputLayout mTextInputLayoutKbyps;
+    @Bind(R.id.textInputLayout_data_transfer_speed_mbps)    TextInputLayout mTextInputLayoutMbps;
+    @Bind(R.id.textInputLayout_data_transfer_speed_mbyps)   TextInputLayout mTextInputLayoutMbyps;
+    @Bind(R.id.textInputLayout_data_transfer_speed_gbps)    TextInputLayout mTextInputLayoutGbps;
+    @Bind(R.id.textInputLayout_data_transfer_speed_gbyps)   TextInputLayout mTextInputLayoutGbyps;
+    @Bind(R.id.textInputLayout_data_transfer_speed_tbps)    TextInputLayout mTextInputLayoutTbps;
+    @Bind(R.id.textInputLayout_data_transfer_speed_tbyps)   TextInputLayout mTextInputLayoutTbyps;
 
     private LastEditTextFocused mLastEditTextFocused;
 
@@ -266,68 +282,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            mTextInputLayoutBps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_data_transfer_speed_bps));
-            mTextInputLayoutByps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_data_transfer_speed_byps));
-            mTextInputLayoutKbps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_data_transfer_speed_kbps));
-            mTextInputLayoutKbyps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_data_transfer_speed_kbyps));
-            mTextInputLayoutMbps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_data_transfer_speed_mbps));
-            mTextInputLayoutMbyps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_data_transfer_speed_mbyps));
-            mTextInputLayoutGbps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_data_transfer_speed_gbps));
-            mTextInputLayoutGbyps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_data_transfer_speed_gbyps));
-            mTextInputLayoutTbps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_data_transfer_speed_tbps));
-            mTextInputLayoutTbyps =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_data_transfer_speed_tbyps));
-
-            mEditTextBps =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_data_transfer_speed_bps));
-            mEditTextByps =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_data_transfer_speed_byps));
-            mEditTextKbps =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_data_transfer_speed_kbps));
-            mEditTextKbyps =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_data_transfer_speed_kbyps));
-            mEditTextMbps =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_data_transfer_speed_mbps));
-            mEditTextMbyps =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_data_transfer_speed_mbyps));
-            mEditTextGbps =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_data_transfer_speed_gbps));
-            mEditTextGbyps =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_data_transfer_speed_gbyps));
-            mEditTextTbps =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_data_transfer_speed_tbps));
-            mEditTextTbyps =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_data_transfer_speed_tbyps));
-
+            ButterKnife.bind(this, getRootView());
             addTextChangedListeners(null);
         }
 
@@ -410,6 +365,12 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 convertFromTerabytesPerSecond(mEditTextTbyps.getText().toString());
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     // endregion

@@ -33,6 +33,9 @@ android {
             minifyEnabled true
             // Library specific proguard files
             proguardFile 'proguard-butterknife-7.pro'
+            proguardFile 'proguard-support-design.pro'
+            proguardFile 'proguard-support-v7-appcompat.pro'
+            proguardFile 'proguard-support-v7-cardview.pro'
             // Default proguard files and project app specific rules
             proguardFile 'proguard-project-app.pro'
             proguardFile getDefaultProguardFile('proguard-android.txt')

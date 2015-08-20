@@ -21,6 +21,8 @@ import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class AccelerationFragment extends BaseFragment {
@@ -32,10 +34,15 @@ public class AccelerationFragment extends BaseFragment {
     }
     private final String TAG = "FragmentAcceleration";
 
-    private AppCompatEditText mEditTextCmpss, mEditTextFpss, mEditTextMpss, mEditTextSg;
+    @Bind(R.id.editText_acceleration_cmpss) AppCompatEditText mEditTextCmpss;
+    @Bind(R.id.editText_acceleration_fpss)  AppCompatEditText mEditTextFpss;
+    @Bind(R.id.editText_acceleration_mpss)  AppCompatEditText mEditTextMpss;
+    @Bind(R.id.editText_acceleration_sg)    AppCompatEditText mEditTextSg;
 
-    private TextInputLayout mTextInputLayoutCmpss, mTextInputLayoutFpss, mTextInputLayoutMpss,
-            mTextInputLayoutSg;
+    @Bind(R.id.textInputLayout_acceleration_cmpss)  TextInputLayout mTextInputLayoutCmpss;
+    @Bind(R.id.textInputLayout_acceleration_fpss)   TextInputLayout mTextInputLayoutFpss;
+    @Bind(R.id.textInputLayout_acceleration_mpss)   TextInputLayout mTextInputLayoutMpss;
+    @Bind(R.id.textInputLayout_acceleration_sg)     TextInputLayout mTextInputLayoutSg;
 
     private LastEditTextFocused mLastEditTextFocused;
 
@@ -131,32 +138,7 @@ public class AccelerationFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            mTextInputLayoutCmpss =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_acceleration_cmpss));
-            mTextInputLayoutFpss =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_acceleration_fpss));
-            mTextInputLayoutMpss =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_acceleration_mpss));
-            mTextInputLayoutSg =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_acceleration_sg));
-
-            mEditTextCmpss =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_acceleration_cmpss));
-            mEditTextFpss =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_acceleration_fpss));
-            mEditTextMpss =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_acceleration_mpss));
-            mEditTextSg =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_acceleration_sg));
-
+            ButterKnife.bind(this, getRootView());
             addTextChangedListeners(null);
         }
 
@@ -197,6 +179,12 @@ public class AccelerationFragment extends BaseFragment {
                 convertFromStandardGravity(mEditTextSg.getText().toString());
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     // endregion
