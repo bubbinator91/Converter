@@ -20,6 +20,8 @@ import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 /**
@@ -34,12 +36,15 @@ public class TemperatureFragment extends BaseFragment {
         KELVIN
     }
 
-    private final String TAG = "FragmentTemperature";
+    private final String TAG = TemperatureFragment.class.getSimpleName();
 
-    private AppCompatEditText mEditTextCelsius, mEditTextFahrenheit, mEditTextKelvin;
+    @Bind(R.id.editText_temperature_celsius) AppCompatEditText mEditTextCelsius;
+    @Bind(R.id.editText_temperature_fahrenheit) AppCompatEditText mEditTextFahrenheit;
+    @Bind(R.id.editText_temperature_kelvin) AppCompatEditText mEditTextKelvin;
 
-    private TextInputLayout mTextInputLayoutCelsius, mTextInputLayoutFahrenheit,
-            mTextInputLayoutKelvin;
+    @Bind(R.id.textInputLayout_temperature_celsius) TextInputLayout mTextInputLayoutCelsius;
+    @Bind(R.id.textInputLayout_temperature_fahrenheit) TextInputLayout mTextInputLayoutFahrenheit;
+    @Bind(R.id.textInputLayout_temperature_kelvin) TextInputLayout mTextInputLayoutKelvin;
 
     private LastEditTextFocused mLastEditTextFocused;
 
@@ -115,26 +120,7 @@ public class TemperatureFragment extends BaseFragment {
         Timber.tag(TAG + ".onCreateView").i("Entered");
 
         if (getRootView() != null) {
-            mTextInputLayoutCelsius =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_temperature_celsius));
-            mTextInputLayoutFahrenheit =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_temperature_fahrenheit));
-            mTextInputLayoutKelvin =
-                    ((TextInputLayout) getRootView()
-                            .findViewById(R.id.textInputLayout_temperature_kelvin));
-
-            mEditTextCelsius =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_temperature_celsius));
-            mEditTextFahrenheit =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_temperature_fahrenheit));
-            mEditTextKelvin =
-                    ((AppCompatEditText) getRootView()
-                            .findViewById(R.id.editText_temperature_kelvin));
-
+            ButterKnife.bind(this, getRootView());
             addTextChangedListeners(null);
         }
 
