@@ -13,6 +13,7 @@ import org.junit.runners.Suite;
         AccelerationFragmentTest.class,
         DataTransferSpeedFragmentTest.class,
         LengthFragmentTest.class,
+        SpeedFragmentTest.class,
         TemperatureFragmentTest.class
 })
 public class FragmentsSuite {}
