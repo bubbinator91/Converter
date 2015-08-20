@@ -21,6 +21,8 @@ import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.fragments.*;
 import com.bubbinator91.converter.util.GlobalsManager;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 /**
@@ -34,13 +36,14 @@ import timber.log.Timber;
 public class MainActivity extends BaseActivity {
     private final String TAG = "MainActivity";
 
-    private DrawerLayout mDrawerLayout;
-    private NavigationView mNavigationView;
+    @Bind(R.id.activity_main_layout) DrawerLayout mDrawerLayout;
+    @Bind(R.id.drawer_view) NavigationView mNavigationView;
+
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private String lastSelectedFragment = null;
     private final String STATE_SELECTED_FRAGMENT = "selected_fragment";
 
-    private Handler mHandler;
+    private Handler mHandler = new Handler();
     private boolean wasActivityRestarted = false;
 
     // region Lifecycle methods
@@ -49,13 +52,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Timber.tag(TAG + ".onCreate").i("Entered");
+        ButterKnife.bind(this);
         wasActivityRestarted = false;
         setToolbarIcon(-1, true);
-
-        mHandler = new Handler();
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.activity_main_layout);
-        mNavigationView = (NavigationView) findViewById(R.id.drawer_view);
 
         mNavigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {

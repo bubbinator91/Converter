@@ -42,15 +42,10 @@ public abstract class BaseFragment
     // region Lifecycle methods
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Timber.tag(TAG + "." + getChildTag() + ".onAttach").i("Entered");
-        mActivity = activity;
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mActivity = getActivity();
 
         if (BuildConfig.DEBUG) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
