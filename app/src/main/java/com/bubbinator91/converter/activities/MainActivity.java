@@ -58,17 +58,17 @@ public class MainActivity extends BaseActivity {
         mNavigationView = (NavigationView) findViewById(R.id.drawer_view);
 
         mNavigationView.setNavigationItemSelectedListener(
-            new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(MenuItem item) {
-                    if (!lastSelectedFragment.equals(item.getTitle().toString())) {
-                        if (preChangeToFragment(item.getTitle().toString())) {
-                            selectFragment(item.getTitle().toString());
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        if (!lastSelectedFragment.equals(item.getTitle().toString())) {
+                            if (preChangeToFragment(item.getTitle().toString())) {
+                                selectFragment(item.getTitle().toString());
+                            }
                         }
+                        return true;
                     }
-                    return true;
                 }
-            }
         );
 
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this,

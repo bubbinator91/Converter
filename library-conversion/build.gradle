@@ -14,19 +14,21 @@ android {
     }
     buildTypes {
         debug {
-            zipAlignEnabled false
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled false
         }
         release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
-            minifyEnabled true
-            // Default proguard files and project library specific rules
-            proguardFile 'proguard-project-library.pro'
-            proguardFile getDefaultProguardFile('proguard-android.txt')
         }
     }
     testOptions {
         unitTests.returnDefaultValues = true
+    }
+    lintOptions {
+        disable 'InvalidPackage'
     }
 }
 

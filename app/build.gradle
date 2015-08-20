@@ -25,26 +25,23 @@ android {
     }
     buildTypes {
         debug {
-            zipAlignEnabled false
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled false
         }
         release {
-            zipAlignEnabled true
             minifyEnabled true
-            // Library specific proguard files
-            proguardFile 'proguard-butterknife-7.pro'
-            proguardFile 'proguard-support-design.pro'
-            proguardFile 'proguard-support-v7-appcompat.pro'
-            proguardFile 'proguard-support-v7-cardview.pro'
-            // Default proguard files and project app specific rules
-            proguardFile 'proguard-project-app.pro'
-            proguardFile getDefaultProguardFile('proguard-android.txt')
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
         }
     }
     sourceSets {
         main {
             svg.srcDir 'src/main/svg'
         }
+    }
+    lintOptions {
+        disable 'InvalidPackage'
     }
 }
 
