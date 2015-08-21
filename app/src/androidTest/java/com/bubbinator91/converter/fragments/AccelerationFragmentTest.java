@@ -37,7 +37,7 @@ public class AccelerationFragmentTest {
     @Test
     public void convertToAllFromCentimetersPerSecondSquared() {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(0);
+        mActivity.loadFragment("Acceleration");
 
         onView(withId(R.id.editText_acceleration_cmpss)).perform(typeText("8.0235641526359876"));
         onView(withId(R.id.editText_acceleration_fpss)).check(matches(withText("0.2632402937")));
@@ -45,7 +45,7 @@ public class AccelerationFragmentTest {
         onView(withId(R.id.editText_acceleration_sg)).check(matches(withText("0.0081817585")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(0);
+        mActivity.loadFragment("Acceleration");
 
         onView(withId(R.id.editText_acceleration_cmpss)).perform(typeText("8.0235641526359876"));
         onView(withId(R.id.editText_acceleration_fpss)).check(matches(withText("0.26324")));
@@ -56,7 +56,7 @@ public class AccelerationFragmentTest {
     @Test
     public void convertToAllFromFeetPerSecondSquared() {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(0);
+        mActivity.loadFragment("Acceleration");
 
         onView(withId(R.id.editText_acceleration_fpss)).perform(typeText("2.5064318986478525"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("76.3960442711")));
@@ -64,7 +64,7 @@ public class AccelerationFragmentTest {
         onView(withId(R.id.editText_acceleration_sg)).check(matches(withText("0.077902285")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(0);
+        mActivity.loadFragment("Acceleration");
 
         onView(withId(R.id.editText_acceleration_fpss)).perform(typeText("2.5064318986478525"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("76.39604")));
@@ -75,7 +75,7 @@ public class AccelerationFragmentTest {
     @Test
     public void convertToAllFromMetersPerSecondSquared() {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(0);
+        mActivity.loadFragment("Acceleration");
 
         onView(withId(R.id.editText_acceleration_mpss)).perform(typeText("1.568946531647201"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("156.8946531647")));
@@ -83,7 +83,7 @@ public class AccelerationFragmentTest {
         onView(withId(R.id.editText_acceleration_sg)).check(matches(withText("0.1599880216")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(0);
+        mActivity.loadFragment("Acceleration");
 
         onView(withId(R.id.editText_acceleration_mpss)).perform(typeText("1.568946531647201"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("156.89465")));
@@ -94,7 +94,7 @@ public class AccelerationFragmentTest {
     @Test
     public void convertToAllFromStandardGravity() {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(0);
+        mActivity.loadFragment("Acceleration");
 
         onView(withId(R.id.editText_acceleration_sg)).perform(typeText("0.564859764825136"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("553.9382012603")));
@@ -102,7 +102,7 @@ public class AccelerationFragmentTest {
         onView(withId(R.id.editText_acceleration_mpss)).check(matches(withText("5.5393820126")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(0);
+        mActivity.loadFragment("Acceleration");
 
         onView(withId(R.id.editText_acceleration_sg)).perform(typeText("0.564859764825136"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("553.9382")));

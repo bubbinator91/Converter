@@ -37,7 +37,7 @@ public class DataTransferSpeedFragmentTest {
     @Test
     public void convertToAllFromBitsPerSecond() throws Exception {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_bps)).perform(scrollTo(), typeText("8000000000.9764326598653"));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1000000000.1220540825")));
@@ -51,7 +51,7 @@ public class DataTransferSpeedFragmentTest {
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).check(matches(withText("0.001")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_bps)).perform(scrollTo(), typeText("8000000000.9764326598653"));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1000000000.12205")));
@@ -68,7 +68,7 @@ public class DataTransferSpeedFragmentTest {
     @Test
     public void convertToAllFromBytesPerSecond() throws Exception {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_byps)).perform(scrollTo(), typeText("1000000009.764953261346"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000000078.1196260908")));
@@ -82,7 +82,7 @@ public class DataTransferSpeedFragmentTest {
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).check(matches(withText("0.001")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_byps)).perform(scrollTo(), typeText("1000000009.764953261346"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000000078.11963")));
@@ -99,7 +99,7 @@ public class DataTransferSpeedFragmentTest {
     @Test
     public void convertToAllFromKilobitsPerSecond() throws Exception {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_kbps)).perform(scrollTo(), typeText("8000008.9764953164976"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000008976.4953164976")));
@@ -113,7 +113,7 @@ public class DataTransferSpeedFragmentTest {
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).check(matches(withText("0.0010000011")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_kbps)).perform(scrollTo(), typeText("8000008.9764953164976"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000008976.49532")));
@@ -130,7 +130,7 @@ public class DataTransferSpeedFragmentTest {
     @Test
     public void convertToAllFromKilobytesPerSecond() throws Exception {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_kbyps)).perform(scrollTo(), typeText("1000001.122061915316"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000008976.495322528")));
@@ -144,7 +144,7 @@ public class DataTransferSpeedFragmentTest {
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).check(matches(withText("0.0010000011")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_kbyps)).perform(scrollTo(), typeText("1000001.122061915316"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000008976.49532")));
@@ -161,7 +161,7 @@ public class DataTransferSpeedFragmentTest {
     @Test
     public void convertToAllFromMegabitsPerSecond() throws Exception {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_mbps)).perform(scrollTo(), typeText("8009.976435623164"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8009976435.623164")));
@@ -175,7 +175,7 @@ public class DataTransferSpeedFragmentTest {
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).check(matches(withText("0.0010012471")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_mbps)).perform(scrollTo(), typeText("8009.976435623164"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8009976435.62316")));
@@ -192,7 +192,7 @@ public class DataTransferSpeedFragmentTest {
     @Test
     public void convertToAllFromMegabytesPerSecond() throws Exception {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_mbyps)).perform(scrollTo(), typeText("1005.9764326594613"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8047811461.2756904")));
@@ -206,7 +206,7 @@ public class DataTransferSpeedFragmentTest {
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).check(matches(withText("0.0010059764")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_mbyps)).perform(scrollTo(), typeText("1005.9764326594613"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8047811461.27569")));
@@ -223,7 +223,7 @@ public class DataTransferSpeedFragmentTest {
     @Test
     public void convertToAllFromGigabitsPerSecond() throws Exception {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_gbps)).perform(scrollTo(), typeText("8.946731926437619"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8946731926.437619")));
@@ -237,7 +237,7 @@ public class DataTransferSpeedFragmentTest {
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).check(matches(withText("0.0011183415")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_gbps)).perform(scrollTo(), typeText("8.946731926437619"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8946731926.43762")));
@@ -254,7 +254,7 @@ public class DataTransferSpeedFragmentTest {
     @Test
     public void convertToAllFromGigabytesPerSecond() throws Exception {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_gbyps)).perform(scrollTo(), typeText("2.8946231649761316296"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("23156985319.8090530368")));
@@ -268,7 +268,7 @@ public class DataTransferSpeedFragmentTest {
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).check(matches(withText("0.0028946232")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_gbyps)).perform(scrollTo(), typeText("2.8946231649761316296"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("23156985319.80905")));
@@ -285,7 +285,7 @@ public class DataTransferSpeedFragmentTest {
     @Test
     public void convertToAllFromTerabitsPerSecond() throws Exception {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_tbps)).perform(scrollTo(), typeText("0.59461326596492331649564319"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("594613265964.9233164956")));
@@ -299,7 +299,7 @@ public class DataTransferSpeedFragmentTest {
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).check(matches(withText("0.0743266582")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_tbps)).perform(scrollTo(), typeText("0.59461326596492331649564319"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("594613265964.92332")));
@@ -316,7 +316,7 @@ public class DataTransferSpeedFragmentTest {
     @Test
     public void convertToAllFromTerabytesPerSecond() throws Exception {
         mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).perform(scrollTo(), typeText("0.0264976532649164376495623"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("211981226119.3315011965")));
@@ -330,7 +330,7 @@ public class DataTransferSpeedFragmentTest {
         onView(withId(R.id.editText_data_transfer_speed_tbps)).check(matches(withText("0.2119812261")));
 
         mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment(1);
+        mActivity.loadFragment("DTS");
 
         onView(withId(R.id.editText_data_transfer_speed_tbyps)).perform(scrollTo(), typeText("0.0264976532649164376495623"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("211981226119.3315")));

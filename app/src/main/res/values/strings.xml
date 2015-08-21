@@ -5,6 +5,7 @@
 
     <string name="title_acceleration">Acceleration</string>
     <string name="title_data_transfer_speed">Data Transfer Speed</string>
+    <string name="title_fuel_consumption">Fuel Consumption</string>
     <string name="title_length">Length</string>
     <string name="title_speed">Speed</string>
     <string name="title_temperature">Temperature</string>
@@ -27,6 +28,11 @@
     <string name="data_transfer_speed_gbyps">Gigabytes per second (GBps)</string>
     <string name="data_transfer_speed_tbps">Terabits per second (Tbps)</string>
     <string name="data_transfer_speed_tbyps">Terabytes per second (TBps)</string>
+
+    <string name="fuel_consumption_usmpg">US Miles per gallon (mpg)</string>
+    <string name="fuel_consumption_ukmpg">UK Miles per gallon (mpg)</string>
+    <string name="fuel_consumption_kpl">Kilometers per liter (km/L)</string>
+    <string name="fuel_consumption_l100k">Liters per 100 kilometers (L/100km)</string>
 
     <string name="length_inch">Inch (in)</string>
     <string name="length_foot">Foot (ft)</string>

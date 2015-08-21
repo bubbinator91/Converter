@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.fragments.AccelerationFragment;
 import com.bubbinator91.converter.fragments.DataTransferSpeedFragment;
+import com.bubbinator91.converter.fragments.FuelConsumptionFragment;
 import com.bubbinator91.converter.fragments.LengthFragment;
 import com.bubbinator91.converter.fragments.SpeedFragment;
 import com.bubbinator91.converter.fragments.TemperatureFragment;
@@ -39,30 +40,35 @@ public class TestActivity extends BaseActivity {
                 .apply();
     }
 
-    public void loadFragment(int id) {
+    public void loadFragment(String name) {
         FragmentManager fragmentManager = getFragmentManager();
-        switch (id) {
-            case 0:
+        switch (name) {
+            case "Acceleration":
                 fragmentManager.beginTransaction()
                         .replace(R.id.test_frag_container, new AccelerationFragment())
                         .commit();
                 break;
-            case 1:
+            case "DTS":
                 fragmentManager.beginTransaction()
                         .replace(R.id.test_frag_container, new DataTransferSpeedFragment())
                         .commit();
                 break;
-            case 2:
+            case "Fuel":
+                fragmentManager.beginTransaction()
+                        .replace(R.id.test_frag_container, new FuelConsumptionFragment())
+                        .commit();
+                break;
+            case "Length":
                 fragmentManager.beginTransaction()
                         .replace(R.id.test_frag_container, new LengthFragment())
                         .commit();
                 break;
-            case 3:
+            case "Speed":
                 fragmentManager.beginTransaction()
                         .replace(R.id.test_frag_container, new SpeedFragment())
                         .commit();
                 break;
-            case 4:
+            case "Temperature":
                 fragmentManager.beginTransaction()
                         .replace(R.id.test_frag_container, new TemperatureFragment())
                         .commit();

@@ -92,6 +92,7 @@ public class MainActivity extends BaseActivity {
         mFragmentList = new LinkedList<>();
         mFragmentList.add(new AccelerationFragment());
         mFragmentList.add(new DataTransferSpeedFragment());
+        mFragmentList.add(new FuelConsumptionFragment());
         mFragmentList.add(new LengthFragment());
         mFragmentList.add(new SpeedFragment());
         mFragmentList.add(new TemperatureFragment());
@@ -233,6 +234,8 @@ public class MainActivity extends BaseActivity {
             mNavigationView.getMenu().findItem(R.id.nav_acceleration).setChecked(true);
         } else if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
             mNavigationView.getMenu().findItem(R.id.nav_dts).setChecked(true);
+        } else if (fragmentName.equals(getString(R.string.title_fuel_consumption))) {
+            mNavigationView.getMenu().findItem(R.id.nav_fuel).setChecked(true);
         } else if (fragmentName.equals(getString(R.string.title_length))) {
             mNavigationView.getMenu().findItem(R.id.nav_length).setChecked(true);
         } else if (fragmentName.equals(getString(R.string.title_speed))) {
@@ -274,15 +277,18 @@ public class MainActivity extends BaseActivity {
                 } else if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
                     mNavigationView.getMenu().findItem(R.id.nav_dts).setChecked(true);
                     changeToFragment(mFragmentList.get(1));
+                } else if (fragmentName.equals(getString(R.string.title_fuel_consumption))) {
+                    mNavigationView.getMenu().findItem(R.id.nav_fuel).setChecked(true);
+                    changeToFragment(mFragmentList.get(2));
                 } else if (fragmentName.equals(getString(R.string.title_length))) {
                     mNavigationView.getMenu().findItem(R.id.nav_length).setChecked(true);
-                    changeToFragment(mFragmentList.get(2));
+                    changeToFragment(mFragmentList.get(3));
                 } else if (fragmentName.equals(getString(R.string.title_speed))) {
                     mNavigationView.getMenu().findItem(R.id.nav_speed).setChecked(true);
-                    changeToFragment(mFragmentList.get(3));
+                    changeToFragment(mFragmentList.get(4));
                 } else if (fragmentName.equals(getString(R.string.title_temperature))) {
                     mNavigationView.getMenu().findItem(R.id.nav_temperature).setChecked(true);
-                    changeToFragment(mFragmentList.get(4));
+                    changeToFragment(mFragmentList.get(5));
                 }
 
                 lastSelectedFragment = fragmentName;
