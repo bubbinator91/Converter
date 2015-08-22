@@ -3,6 +3,7 @@ package com.bubbinator91.converter.tasks.fuelconsumption;
 import android.os.AsyncTask;
 import android.util.Pair;
 
+import com.bubbinator91.conversion.fuelconsumption.KilometersPerLiter;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 
 import java.util.List;
@@ -29,13 +30,11 @@ public class FromKilometersPerLiterTask
             return null;
         }
 
-        // TODO Link to library here
-        /*
+
         try {
             return KilometersPerLiter.toAll(params[0], Integer.parseInt(params[1]));
         } catch (NumberFormatException e) {
             return null;
-        }*/
-        return null;
+        }
     }
 }

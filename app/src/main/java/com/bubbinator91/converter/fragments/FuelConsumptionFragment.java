@@ -315,11 +315,11 @@ public class FuelConsumptionFragment extends BaseFragment {
                             break;
                     }
 
-                    mEditTextUkmpg.setText(results.first.get(1),
+                    mEditTextUkmpg.setText(results.first.get(0),
                             AppCompatTextView.BufferType.EDITABLE);
-                    mEditTextKpl.setText(results.first.get(2),
+                    mEditTextKpl.setText(results.first.get(1),
                             AppCompatTextView.BufferType.EDITABLE);
-                    mEditTextL100k.setText(results.first.get(3),
+                    mEditTextL100k.setText(results.first.get(2),
                             AppCompatTextView.BufferType.EDITABLE);
 
                     addTextChangedListeners(TAG + ".onPostExecute");
@@ -365,11 +365,11 @@ public class FuelConsumptionFragment extends BaseFragment {
                             break;
                     }
 
-                    mEditTextUsmpg.setText(results.first.get(1),
+                    mEditTextUsmpg.setText(results.first.get(0),
                             AppCompatTextView.BufferType.EDITABLE);
-                    mEditTextKpl.setText(results.first.get(2),
+                    mEditTextKpl.setText(results.first.get(1),
                             AppCompatTextView.BufferType.EDITABLE);
-                    mEditTextL100k.setText(results.first.get(3),
+                    mEditTextL100k.setText(results.first.get(2),
                             AppCompatTextView.BufferType.EDITABLE);
 
                     addTextChangedListeners(TAG + ".onPostExecute");
@@ -415,11 +415,11 @@ public class FuelConsumptionFragment extends BaseFragment {
                             break;
                     }
 
-                    mEditTextUsmpg.setText(results.first.get(1),
+                    mEditTextUsmpg.setText(results.first.get(0),
                             AppCompatTextView.BufferType.EDITABLE);
-                    mEditTextUkmpg.setText(results.first.get(2),
+                    mEditTextUkmpg.setText(results.first.get(1),
                             AppCompatTextView.BufferType.EDITABLE);
-                    mEditTextL100k.setText(results.first.get(3),
+                    mEditTextL100k.setText(results.first.get(2),
                             AppCompatTextView.BufferType.EDITABLE);
 
                     addTextChangedListeners(TAG + ".onPostExecute");
@@ -465,11 +465,11 @@ public class FuelConsumptionFragment extends BaseFragment {
                             break;
                     }
 
-                    mEditTextUsmpg.setText(results.first.get(1),
+                    mEditTextUsmpg.setText(results.first.get(0),
                             AppCompatTextView.BufferType.EDITABLE);
-                    mEditTextUkmpg.setText(results.first.get(2),
+                    mEditTextUkmpg.setText(results.first.get(1),
                             AppCompatTextView.BufferType.EDITABLE);
-                    mEditTextKpl.setText(results.first.get(3),
+                    mEditTextKpl.setText(results.first.get(2),
                             AppCompatTextView.BufferType.EDITABLE);
 
                     addTextChangedListeners(TAG + ".onPostExecute");
