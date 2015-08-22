@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Handles the conversion from US miles per gallon (mpg) to other units of fuel consumption
+ * Handles the conversion from US miles per gallon (mpg) to other units of fuel consumption.
  */
 public class USMilesPerGallon extends Unit {
     private static final String TAG = USMilesPerGallon.class.getSimpleName();
@@ -96,7 +96,7 @@ public class USMilesPerGallon extends Unit {
         if (fuel.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            fuel = fuel.multiply(new BigDecimal("1.2009499"))
+            fuel = fuel.multiply(new BigDecimal("1.2009499255398"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (fuel.compareTo(BigDecimal.ZERO) == 0) {
                 fuel = BigDecimal.ZERO;
@@ -135,7 +135,7 @@ public class USMilesPerGallon extends Unit {
         if (fuel.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            fuel = fuel.multiply(new BigDecimal("0.4251437"))
+            fuel = fuel.multiply(new BigDecimal("0.42514370749052"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (fuel.compareTo(BigDecimal.ZERO) == 0) {
                 fuel = BigDecimal.ZERO;
@@ -174,7 +174,8 @@ public class USMilesPerGallon extends Unit {
         if (fuel.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            fuel = fuel.multiply(new BigDecimal("235.2145833"))
+            fuel = (new BigDecimal("378.5411784"))
+                    .divide((fuel.multiply(new BigDecimal("1.609344"))), 100, BigDecimal.ROUND_HALF_UP)
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (fuel.compareTo(BigDecimal.ZERO) == 0) {
                 fuel = BigDecimal.ZERO;

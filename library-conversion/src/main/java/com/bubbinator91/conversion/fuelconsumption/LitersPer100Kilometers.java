@@ -97,7 +97,8 @@ public class LitersPer100Kilometers extends Unit {
         if (fuel.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            fuel = fuel.multiply(new BigDecimal("235.2145833"))
+            fuel = (new BigDecimal("378.5411784"))
+                    .divide((fuel.multiply(new BigDecimal("1.609344"))), 100, BigDecimal.ROUND_HALF_UP)
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (fuel.compareTo(BigDecimal.ZERO) == 0) {
                 fuel = BigDecimal.ZERO;
@@ -136,7 +137,8 @@ public class LitersPer100Kilometers extends Unit {
         if (fuel.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            fuel = fuel.multiply(new BigDecimal("282.4809363"))
+            fuel = (new BigDecimal("454.609"))
+                    .divide((fuel.multiply(new BigDecimal("1.609344"))), 100, BigDecimal.ROUND_HALF_UP)
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (fuel.compareTo(BigDecimal.ZERO) == 0) {
                 fuel = BigDecimal.ZERO;
@@ -175,7 +177,8 @@ public class LitersPer100Kilometers extends Unit {
         if (fuel.compareTo(BigDecimal.ZERO) >= 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            fuel = fuel.multiply(new BigDecimal("100"))
+            fuel = (new BigDecimal("100"))
+                    .divide(fuel, 100, BigDecimal.ROUND_HALF_UP)
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
             if (fuel.compareTo(BigDecimal.ZERO) == 0) {
                 fuel = BigDecimal.ZERO;

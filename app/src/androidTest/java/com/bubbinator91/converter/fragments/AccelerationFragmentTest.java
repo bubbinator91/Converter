@@ -35,7 +35,7 @@ public class AccelerationFragmentTest {
     }
 
     @Test
-    public void convertToAllFromCentimetersPerSecondSquared() {
+    public void convertToAllFromCentimetersPerSecondSquared() throws Exception {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Acceleration");
 
@@ -54,7 +54,7 @@ public class AccelerationFragmentTest {
     }
 
     @Test
-    public void convertToAllFromFeetPerSecondSquared() {
+    public void convertToAllFromFeetPerSecondSquared() throws Exception {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Acceleration");
 
@@ -73,7 +73,7 @@ public class AccelerationFragmentTest {
     }
 
     @Test
-    public void convertToAllFromMetersPerSecondSquared() {
+    public void convertToAllFromMetersPerSecondSquared() throws Exception {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Acceleration");
 
@@ -92,7 +92,7 @@ public class AccelerationFragmentTest {
     }
 
     @Test
-    public void convertToAllFromStandardGravity() {
+    public void convertToAllFromStandardGravity() throws Exception {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Acceleration");
 
