@@ -32,14 +32,14 @@ public class FeetPerSecondSquared extends Unit {
      *          the second item is one of the error codes found in {@link ConversionErrorCodes}, or
      *          null if the <code>fpss</code> parameter is null.
      */
-    public static Pair<List<String>, ConversionErrorCodes> toAll(String fpss, int decimalPlaces) {
+    public static Pair<List<String>, Integer> toAll(String fpss, int decimalPlaces) {
         if (fpss == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
         List<String> results = new LinkedList<>();
-        ConversionErrorCodes error = ConversionErrorCodes.ERROR_NONE;
+        int error = ConversionErrorCodes.ERROR_NONE;
 
         if (isNumeric(fpss)) {
             try {

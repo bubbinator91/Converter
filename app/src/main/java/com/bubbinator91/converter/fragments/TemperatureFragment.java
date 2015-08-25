@@ -30,17 +30,16 @@ import timber.log.Timber;
  */
 
 public class TemperatureFragment extends BaseFragment {
-    private enum LastEditTextFocused {
-        CELSIUS,
-        FAHRENHEIT,
-        KELVIN
-    }
+    private final String TAG = TemperatureFragment.class.getSimpleName();
+
+    private static final int LAST_EDIT_TEXT_FOCUSED_CELSIUS = 0;
+    private static final int LAST_EDIT_TEXT_FOCUSED_FAHRENHEIT = 1;
+    private static final int LAST_EDIT_TEXT_FOCUSED_KELVIN = 2;
 
     private static final String CELSIUS_VALUE_PERSIST_KEY = "TEMP_FRAGMENT_CELSIUS_VALUE";
     private static final String FAHRENHEIT_VALUE_PERSIST_KEY = "TEMP_FRAGMENT_FAHRENHEIT_VALUE";
     private static final String KELVIN_VALUE_PERSIST_KEY = "TEMP_FRAGMENT_KELVIN_VALUE";
-
-    private final String TAG = TemperatureFragment.class.getSimpleName();
+    private static final String LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY = "ACCELERATION_FRAGMENT_LETF_VALUE";
 
     @Bind(R.id.editText_temperature_celsius)    AppCompatEditText mEditTextCelsius;
     @Bind(R.id.editText_temperature_fahrenheit) AppCompatEditText mEditTextFahrenheit;
@@ -50,16 +49,14 @@ public class TemperatureFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_temperature_fahrenheit)  TextInputLayout mTextInputLayoutFahrenheit;
     @Bind(R.id.textInputLayout_temperature_kelvin)      TextInputLayout mTextInputLayoutKelvin;
 
-    private LastEditTextFocused mLastEditTextFocused;
-
-    private boolean wasOnlyResumed = false;
+    private int mLastEditTextFocused;
 
     // region TextWatchers
 
     private TextWatcher mTextWatcherCelsius = new TextWatcher() {
         @Override
         public void afterTextChanged(final Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.CELSIUS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_CELSIUS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherCelsius");
@@ -79,7 +76,7 @@ public class TemperatureFragment extends BaseFragment {
     private TextWatcher mTextWatcherFahrenheit = new TextWatcher() {
         @Override
         public void afterTextChanged(final Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.FAHRENHEIT;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_FAHRENHEIT;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherFahrenheit");
@@ -99,7 +96,7 @@ public class TemperatureFragment extends BaseFragment {
     private TextWatcher mTextWatcherKelvin = new TextWatcher() {
         @Override
         public void afterTextChanged(final Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.KELVIN;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KELVIN;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherKelvin");
@@ -118,12 +115,6 @@ public class TemperatureFragment extends BaseFragment {
 
     // endregion
 
-    // region Constructor(s)
-
-    public TemperatureFragment() { setArguments(new Bundle()); }
-
-    // endregion
-
     // region Lifecycle methods
 
     @Override
@@ -135,7 +126,7 @@ public class TemperatureFragment extends BaseFragment {
             ButterKnife.bind(this, getRootView());
         }
 
-        wasOnlyResumed = false;
+        setWasOnCreateRan(true);
         return getRootView();
     }
 
@@ -146,44 +137,37 @@ public class TemperatureFragment extends BaseFragment {
 
         removeTextChangedListeners("onResume");
 
-        if (!wasOnlyResumed) {
-            if (shouldPersistValues() && (getSharedPreferences() != null)) {
-                if ((getSharedPreferences().getString(CELSIUS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(FAHRENHEIT_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(KELVIN_VALUE_PERSIST_KEY, null) != null)) {
-                    mEditTextCelsius.setText(getSharedPreferences().getString(CELSIUS_VALUE_PERSIST_KEY, ""));
-                    mEditTextFahrenheit.setText(getSharedPreferences().getString(FAHRENHEIT_VALUE_PERSIST_KEY, ""));
-                    mEditTextKelvin.setText(getSharedPreferences().getString(KELVIN_VALUE_PERSIST_KEY, ""));
-                }
+        if (wasOnCreateRan() && (getSharedPreferences() != null)) {
+            if ((getSharedPreferences().getString(CELSIUS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(FAHRENHEIT_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(KELVIN_VALUE_PERSIST_KEY, null) != null)) {
+                mEditTextCelsius.setText(getSharedPreferences().getString(CELSIUS_VALUE_PERSIST_KEY, ""));
+                mEditTextFahrenheit.setText(getSharedPreferences().getString(FAHRENHEIT_VALUE_PERSIST_KEY, ""));
+                mEditTextKelvin.setText(getSharedPreferences().getString(KELVIN_VALUE_PERSIST_KEY, ""));
             }
-
-            if ((getArguments().getString(CELSIUS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(FAHRENHEIT_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(KELVIN_VALUE_PERSIST_KEY) != null)) {
-                mEditTextCelsius.setText(getArguments().getString(CELSIUS_VALUE_PERSIST_KEY));
-                mEditTextFahrenheit.setText(getArguments().getString(FAHRENHEIT_VALUE_PERSIST_KEY));
-                mEditTextKelvin.setText(getArguments().getString(KELVIN_VALUE_PERSIST_KEY));
-            }
-        } else {
-            if (mLastEditTextFocused == LastEditTextFocused.CELSIUS) {
-                if (mEditTextCelsius.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextCelsius.getText());
-                    convertFromCelsius(mEditTextCelsius.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.FAHRENHEIT) {
-                if (mEditTextFahrenheit.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextFahrenheit.getText());
-                    convertFromFahrenheit(mEditTextFahrenheit.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.KELVIN) {
-                if (mEditTextKelvin.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextKelvin.getText());
-                    convertFromKelvin(mEditTextKelvin.getText().toString());
-                }
+            if (getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, -1) != -1) {
+                mLastEditTextFocused = getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, 0);
             }
         }
 
-        wasOnlyResumed = true;
+        if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_CELSIUS) {
+            if (mEditTextCelsius.getText() != null) {
+                Utils.sanitizeEditable(mEditTextCelsius.getText());
+                convertFromCelsius(mEditTextCelsius.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_FAHRENHEIT) {
+            if (mEditTextFahrenheit.getText() != null) {
+                Utils.sanitizeEditable(mEditTextFahrenheit.getText());
+                convertFromFahrenheit(mEditTextFahrenheit.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KELVIN) {
+            if (mEditTextKelvin.getText() != null) {
+                Utils.sanitizeEditable(mEditTextKelvin.getText());
+                convertFromKelvin(mEditTextKelvin.getText().toString());
+            }
+        }
+
+        setWasOnCreateRan(false);
         addTextChangedListeners("onResume");
     }
 
@@ -192,23 +176,13 @@ public class TemperatureFragment extends BaseFragment {
         super.onPause();
         Timber.tag(TAG + ".onPause").i("Entered");
 
-        if (!mEditTextCelsius.getText().toString().isEmpty()
-                && !mEditTextFahrenheit.getText().toString().isEmpty()
-                && !mEditTextKelvin.getText().toString().isEmpty()) {
-            getArguments().putString(CELSIUS_VALUE_PERSIST_KEY,
-                    mEditTextCelsius.getText().toString());
-            getArguments().putString(FAHRENHEIT_VALUE_PERSIST_KEY,
-                    mEditTextFahrenheit.getText().toString());
-            getArguments().putString(KELVIN_VALUE_PERSIST_KEY,
-                    mEditTextKelvin.getText().toString());
-        }
-
-        if (shouldPersistValues() && (getSharedPreferences() != null)) {
+        if (getSharedPreferences() != null) {
             getSharedPreferences()
                     .edit()
                     .putString(CELSIUS_VALUE_PERSIST_KEY, mEditTextCelsius.getText().toString())
                     .putString(FAHRENHEIT_VALUE_PERSIST_KEY, mEditTextFahrenheit.getText().toString())
                     .putString(KELVIN_VALUE_PERSIST_KEY, mEditTextKelvin.getText().toString())
+                    .putInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, mLastEditTextFocused)
                     .apply();
         }
     }
@@ -254,24 +228,24 @@ public class TemperatureFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromCelsiusTask task = new FromCelsiusTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutCelsius.setError(getString(
                                     R.string.conversion_temperature_error_below_absolute_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutCelsius.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutCelsius.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -301,24 +275,24 @@ public class TemperatureFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromFahrenheitTask task = new FromFahrenheitTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutFahrenheit.setError(getString(
                                     R.string.conversion_temperature_error_below_absolute_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutFahrenheit.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutFahrenheit.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -348,24 +322,24 @@ public class TemperatureFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromKelvinTask task = new FromKelvinTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutKelvin.setError(getString(
                                     R.string.conversion_temperature_error_below_absolute_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutKelvin.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutKelvin.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));

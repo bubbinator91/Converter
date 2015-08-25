@@ -10,22 +10,23 @@ package com.bubbinator91.converter.util;
 public enum GlobalsManager {
     INSTANCE;
 
-    private boolean isTransitioningBackToMainActivity, isLogcatEnabled, isFirstRun;
+    private boolean isGoingBackToMainActivityFromSettings, isLogcatEnabled, isFirstRun;
     private int decimalPlaceLength;
 
     GlobalsManager() {
-        isTransitioningBackToMainActivity = false;
+        isGoingBackToMainActivityFromSettings = false;
         isLogcatEnabled = true;
         isFirstRun = true;
         decimalPlaceLength = 8;
     }
 
     /**
-     * Gets the status of whether or not the app is transitioning to the main activity.
+     * Gets the status of whether or not the app is transitioning to the main activity from the
+     * settings activity.
      *
      * @return  false if the app is not transitioning to the main activity; true otherwise.
      */
-    public boolean isTransitioningToMainActivity() { return isTransitioningBackToMainActivity; }
+    public boolean isGoingToMainActivityFromSettings() { return isGoingBackToMainActivityFromSettings; }
 
     /**
      * Gets the status of whether or not information messages should be written to the logcat.
@@ -49,12 +50,13 @@ public enum GlobalsManager {
     public int decimalPlaceLength() { return decimalPlaceLength; }
 
     /**
-     * Sets the status of whether or not the app is transitioning to the main activity.
+     * Sets the status of whether or not the app is transitioning to the main activity from the
+     * settings activity.
      *
      * @param state     false if the app is not transitioning to the main activity; true otherwise.
      */
-    public void setIsTransitioningToMainActivity(boolean state) {
-        isTransitioningBackToMainActivity = state;
+    public void setIsGoingToMainActivityFromSettings(boolean state) {
+        isGoingBackToMainActivityFromSettings = state;
     }
 
     /**

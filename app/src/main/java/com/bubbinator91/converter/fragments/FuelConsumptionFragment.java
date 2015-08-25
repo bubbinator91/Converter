@@ -26,19 +26,18 @@ import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class FuelConsumptionFragment extends BaseFragment {
-    private enum LastEditTextFocused {
-        USMPG,
-        UKMPG,
-        KPL,
-        L100K
-    }
+    private final String TAG = FuelConsumptionFragment.class.getSimpleName();
+
+    private static final int LAST_EDIT_TEXT_FOCUSED_USMPG = 0;
+    private static final int LAST_EDIT_TEXT_FOCUSED_UKMPG = 1;
+    private static final int LAST_EDIT_TEXT_FOCUSED_KPL = 2;
+    private static final int LAST_EDIT_TEXT_FOCUSED_L100K = 3;
 
     private static final String USMPG_VALUE_PERSIST_KEY = "FUEL_CONSUMPTION_FRAGMENT_USMPG_VALUE";
     private static final String UKMPG_VALUE_PERSIST_KEY = "FUEL_CONSUMPTION_FRAGMENT_UKMPG_VALUE";
     private static final String KPL_VALUE_PERSIST_KEY = "FUEL_CONSUMPTION_FRAGMENT_KPL_VALUE";
     private static final String L100K_VALUE_PERSIST_KEY = "FUEL_CONSUMPTION_FRAGMENT_L100K_VALUE";
-
-    private final String TAG = FuelConsumptionFragment.class.getSimpleName();
+    private static final String LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY = "FUEL_CONSUMPTION_FRAGMENT_LETF_VALUE";
 
     @Bind(R.id.editText_fuel_consumption_usmpg) AppCompatEditText mEditTextUsmpg;
     @Bind(R.id.editText_fuel_consumption_ukmpg) AppCompatEditText mEditTextUkmpg;
@@ -50,16 +49,14 @@ public class FuelConsumptionFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_fuel_consumption_kpl)    TextInputLayout mTextInputLayoutKpl;
     @Bind(R.id.textInputLayout_fuel_consumption_l100k)  TextInputLayout mTextInputLayoutL100k;
 
-    private LastEditTextFocused mLastEditTextFocused;
-
-    private boolean wasOnlyResumed = false;
+    private int mLastEditTextFocused;
 
     // region TextWatchers
 
     private TextWatcher mTextWatcherUsmpg = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.USMPG;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_USMPG;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherUsmpg");
@@ -79,7 +76,7 @@ public class FuelConsumptionFragment extends BaseFragment {
     private TextWatcher mTextWatcherUkmpg = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.UKMPG;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_UKMPG;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherUkmpg");
@@ -99,7 +96,7 @@ public class FuelConsumptionFragment extends BaseFragment {
     private TextWatcher mTextWatcherKpl = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.KPL;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KPL;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherKpl");
@@ -119,7 +116,7 @@ public class FuelConsumptionFragment extends BaseFragment {
     private TextWatcher mTextWatcherL100k = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.L100K;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_L100K;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherL100k");
@@ -138,12 +135,6 @@ public class FuelConsumptionFragment extends BaseFragment {
 
     // endregion
 
-    // region Constructor(s)
-
-    public FuelConsumptionFragment() { setArguments(new Bundle()); }
-
-    // endregion
-
     // region Lifecycle methods
 
     @Override
@@ -155,7 +146,7 @@ public class FuelConsumptionFragment extends BaseFragment {
             ButterKnife.bind(this, getRootView());
         }
 
-        wasOnlyResumed = false;
+        setWasOnCreateRan(true);
         return getRootView();
     }
 
@@ -166,53 +157,44 @@ public class FuelConsumptionFragment extends BaseFragment {
 
         removeTextChangedListeners("onResume");
 
-        if (!wasOnlyResumed) {
-            if (shouldPersistValues() && (getSharedPreferences() != null)) {
-                if ((getSharedPreferences().getString(USMPG_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(UKMPG_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(KPL_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(L100K_VALUE_PERSIST_KEY, null) != null)) {
-                    mEditTextUsmpg.setText(getSharedPreferences().getString(USMPG_VALUE_PERSIST_KEY, ""));
-                    mEditTextUkmpg.setText(getSharedPreferences().getString(UKMPG_VALUE_PERSIST_KEY, ""));
-                    mEditTextKpl.setText(getSharedPreferences().getString(KPL_VALUE_PERSIST_KEY, ""));
-                    mEditTextL100k.setText(getSharedPreferences().getString(L100K_VALUE_PERSIST_KEY, ""));
-                }
+        if (wasOnCreateRan() && (getSharedPreferences() != null)) {
+            if ((getSharedPreferences().getString(USMPG_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(UKMPG_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(KPL_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(L100K_VALUE_PERSIST_KEY, null) != null)) {
+                mEditTextUsmpg.setText(getSharedPreferences().getString(USMPG_VALUE_PERSIST_KEY, ""));
+                mEditTextUkmpg.setText(getSharedPreferences().getString(UKMPG_VALUE_PERSIST_KEY, ""));
+                mEditTextKpl.setText(getSharedPreferences().getString(KPL_VALUE_PERSIST_KEY, ""));
+                mEditTextL100k.setText(getSharedPreferences().getString(L100K_VALUE_PERSIST_KEY, ""));
             }
-
-            if ((getArguments().getString(USMPG_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(UKMPG_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(KPL_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(L100K_VALUE_PERSIST_KEY) != null)) {
-                mEditTextUsmpg.setText(getArguments().getString(USMPG_VALUE_PERSIST_KEY));
-                mEditTextUkmpg.setText(getArguments().getString(UKMPG_VALUE_PERSIST_KEY));
-                mEditTextKpl.setText(getArguments().getString(KPL_VALUE_PERSIST_KEY));
-                mEditTextL100k.setText(getArguments().getString(L100K_VALUE_PERSIST_KEY));
-            }
-        } else {
-            if (mLastEditTextFocused == LastEditTextFocused.USMPG) {
-                if (mEditTextUsmpg.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextUsmpg.getText());
-                    convertFromUSMilesPerGallon(mEditTextUsmpg.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.UKMPG) {
-                if (mEditTextUkmpg.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextUkmpg.getText());
-                    convertFromUSMilesPerGallon(mEditTextUkmpg.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.KPL) {
-                if (mEditTextKpl.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextKpl.getText());
-                    convertFromUSMilesPerGallon(mEditTextKpl.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.L100K) {
-                if (mEditTextL100k.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextL100k.getText());
-                    convertFromUSMilesPerGallon(mEditTextL100k.getText().toString());
-                }
+            if (getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, -1) != -1) {
+                mLastEditTextFocused = getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, 0);
             }
         }
 
-        wasOnlyResumed = true;
+        if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_USMPG) {
+            if (mEditTextUsmpg.getText() != null) {
+                Utils.sanitizeEditable(mEditTextUsmpg.getText());
+                convertFromUSMilesPerGallon(mEditTextUsmpg.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_UKMPG) {
+            if (mEditTextUkmpg.getText() != null) {
+                Utils.sanitizeEditable(mEditTextUkmpg.getText());
+                convertFromUSMilesPerGallon(mEditTextUkmpg.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KPL) {
+            if (mEditTextKpl.getText() != null) {
+                Utils.sanitizeEditable(mEditTextKpl.getText());
+                convertFromUSMilesPerGallon(mEditTextKpl.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_L100K) {
+            if (mEditTextL100k.getText() != null) {
+                Utils.sanitizeEditable(mEditTextL100k.getText());
+                convertFromUSMilesPerGallon(mEditTextL100k.getText().toString());
+            }
+        }
+
+        setWasOnCreateRan(false);
         addTextChangedListeners("onResume");
     }
 
@@ -221,23 +203,14 @@ public class FuelConsumptionFragment extends BaseFragment {
         super.onPause();
         Timber.tag(TAG + ".onPause").i("Entered");
 
-        if (!mEditTextUsmpg.getText().toString().isEmpty()
-                && !mEditTextUkmpg.getText().toString().isEmpty()
-                && !mEditTextKpl.getText().toString().isEmpty()
-                && !mEditTextL100k.getText().toString().isEmpty()) {
-            getArguments().putString(USMPG_VALUE_PERSIST_KEY, mEditTextUsmpg.getText().toString());
-            getArguments().putString(UKMPG_VALUE_PERSIST_KEY, mEditTextUkmpg.getText().toString());
-            getArguments().putString(KPL_VALUE_PERSIST_KEY, mEditTextKpl.getText().toString());
-            getArguments().putString(L100K_VALUE_PERSIST_KEY, mEditTextL100k.getText().toString());
-        }
-
-        if (shouldPersistValues() && (getSharedPreferences() != null)) {
+        if (getSharedPreferences() != null) {
             getSharedPreferences()
                     .edit()
                     .putString(USMPG_VALUE_PERSIST_KEY, mEditTextUsmpg.getText().toString())
                     .putString(UKMPG_VALUE_PERSIST_KEY, mEditTextUkmpg.getText().toString())
                     .putString(KPL_VALUE_PERSIST_KEY, mEditTextKpl.getText().toString())
                     .putString(L100K_VALUE_PERSIST_KEY, mEditTextL100k.getText().toString())
+                    .putInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, mLastEditTextFocused)
                     .apply();
         }
     }
@@ -285,24 +258,24 @@ public class FuelConsumptionFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromUSMilesPerGallonTask task = new FromUSMilesPerGallonTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutUsmpg.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutUsmpg.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutUsmpg.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -335,24 +308,24 @@ public class FuelConsumptionFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromUKMilesPerGallonTask task = new FromUKMilesPerGallonTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutUkmpg.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutUkmpg.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutUkmpg.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -385,24 +358,24 @@ public class FuelConsumptionFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromKilometersPerLiterTask task = new FromKilometersPerLiterTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutKpl.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutKpl.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutKpl.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -435,24 +408,24 @@ public class FuelConsumptionFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromLitersPer100KilometersTask task = new FromLitersPer100KilometersTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutL100k.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutL100k.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutL100k.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));

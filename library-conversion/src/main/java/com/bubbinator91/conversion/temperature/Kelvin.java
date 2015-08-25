@@ -29,16 +29,17 @@ public class Kelvin extends Unit {
      * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
      *          celsius and fahrenheit values (in that order; they will be empty {@link String}s if
      *          there is an error), and the second item is one of the error codes found in
-     *          {@link ConversionErrorCodes}, or null if the <code>kelvin</code> parameter is null.
+     *          {@link ConversionErrorCodes} as an {@link Integer} object, or null if the
+     *          <code>kelvin</code> parameter is null;
      */
-    public static Pair<List<String>, ConversionErrorCodes> toAll(String kelvin, int decimalPlaces) {
+    public static Pair<List<String>, Integer> toAll(String kelvin, int decimalPlaces) {
         if (kelvin == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
         List<String> results = new LinkedList<>();
-        ConversionErrorCodes error = ConversionErrorCodes.ERROR_NONE;
+        int error = ConversionErrorCodes.ERROR_NONE;
 
         if (isNumeric(kelvin)) {
             try {

@@ -32,17 +32,17 @@ public class TerabytesPerSecond extends Unit {
      *          megabits per second, megabytes per second, gigabits per second, gigabytes per
      *          second, and terabits per second values (in that order; they will be empty
      *          {@link String}s if there is an error), and the second item is one of the error codes
-     *          found in {@link ConversionErrorCodes}, or null if the <code>tbyps</code> parameter
-     *          is null;
+     *          found in {@link ConversionErrorCodes} as an {@link Integer} object, or null if the
+     *          <code>tbyps</code> parameter is null;
      */
-    public static Pair<List<String>, ConversionErrorCodes> toAll(String tbyps, int decimalPlaces) {
+    public static Pair<List<String>, Integer> toAll(String tbyps, int decimalPlaces) {
         if (tbyps == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
         List<String> results = new LinkedList<>();
-        ConversionErrorCodes error = ConversionErrorCodes.ERROR_NONE;
+        int error = ConversionErrorCodes.ERROR_NONE;
 
         if (isNumeric(tbyps)) {
             try {

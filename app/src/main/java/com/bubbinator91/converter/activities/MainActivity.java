@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.fragments.*;
@@ -37,7 +38,7 @@ import timber.log.Timber;
  * category or class.
  */
 public class MainActivity extends BaseActivity {
-    private final String TAG = "MainActivity";
+    private final String TAG = MainActivity.class.getSimpleName();
 
     @Bind(R.id.activity_main_layout) DrawerLayout mDrawerLayout;
     @Bind(R.id.drawer_view) NavigationView mNavigationView;
@@ -47,7 +48,6 @@ public class MainActivity extends BaseActivity {
     private final String STATE_SELECTED_FRAGMENT = "selected_fragment";
     private Handler mHandler = new Handler();
     private boolean wasActivityRestarted = false;
-    private List<Fragment> mFragmentList;
     private SharedPreferences mPrefs;
 
     // region Lifecycle methods
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem item) {
                         if (!lastSelectedFragment.equals(item.getTitle().toString())) {
-                            selectFragment(item.getTitle().toString());
+                            switchToFragment(item.getTitle().toString());
                         }
                         return true;
                     }
@@ -88,14 +88,6 @@ public class MainActivity extends BaseActivity {
 
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
-
-        mFragmentList = new LinkedList<>();
-        mFragmentList.add(new AccelerationFragment());
-        mFragmentList.add(new DataTransferSpeedFragment());
-        mFragmentList.add(new FuelConsumptionFragment());
-        mFragmentList.add(new LengthFragment());
-        mFragmentList.add(new SpeedFragment());
-        mFragmentList.add(new TemperatureFragment());
     }
 
     @Override
@@ -113,29 +105,18 @@ public class MainActivity extends BaseActivity {
         if (!wasActivityRestarted) {
             Timber.tag(TAG + ".onStart").i("Activity was not restarted");
 
-            try {
-                for (Fragment fragment : mFragmentList) {
-                    getFragmentManager().beginTransaction()
-                            .add(R.id.container, fragment)
-                            .hide(fragment)
-                            .commit();
-                }
-            } catch (IllegalStateException e) {
-                // TODO Figure out what to do here
-            }
-
             mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
             lastSelectedFragment = mPrefs.getString(STATE_SELECTED_FRAGMENT, "null");
             Timber.tag(TAG + ".onStart").i("lastSelectedFragment = " + lastSelectedFragment);
-            if (!GlobalsManager.INSTANCE.isTransitioningToMainActivity()) {
+            if (!GlobalsManager.INSTANCE.isGoingToMainActivityFromSettings()) {
                 if (!lastSelectedFragment.equals("null")) {
-                    selectFragment(lastSelectedFragment);
+                    switchToFragment(lastSelectedFragment);
                 }
             } else {
-                GlobalsManager.INSTANCE.setIsTransitioningToMainActivity(false);
+                GlobalsManager.INSTANCE.setIsGoingToMainActivityFromSettings(false);
                 if (!lastSelectedFragment.equals("null")) {
-                    applyFragmentPropertiesToActivity(lastSelectedFragment);
+                    setFragmentRelatedProperties(lastSelectedFragment);
                 }
             }
         }
@@ -153,7 +134,7 @@ public class MainActivity extends BaseActivity {
                 + GlobalsManager.INSTANCE.decimalPlaceLength());
 
         if (!lastSelectedFragment.equals("null")) {
-            applyFragmentPropertiesToActivity(lastSelectedFragment);
+            setFragmentRelatedProperties(lastSelectedFragment);
         }
     }
 
@@ -224,39 +205,49 @@ public class MainActivity extends BaseActivity {
 
     // endregion
 
-    // region Fragment switching methods
+    // region Fragment related methods
 
-    private boolean applyFragmentPropertiesToActivity(String fragmentName) {
-        Timber.tag(TAG + ".setToolbarTitle").i("Entered");
-        Timber.tag(TAG + ".setToolbarTitle").i("fragmentName = " + fragmentName);
-
-        if (fragmentName.equals(getString(R.string.title_acceleration))) {
-            mNavigationView.getMenu().findItem(R.id.nav_acceleration).setChecked(true);
-        } else if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
-            mNavigationView.getMenu().findItem(R.id.nav_dts).setChecked(true);
-        } else if (fragmentName.equals(getString(R.string.title_fuel_consumption))) {
-            mNavigationView.getMenu().findItem(R.id.nav_fuel).setChecked(true);
-        } else if (fragmentName.equals(getString(R.string.title_length))) {
-            mNavigationView.getMenu().findItem(R.id.nav_length).setChecked(true);
-        } else if (fragmentName.equals(getString(R.string.title_speed))) {
-            mNavigationView.getMenu().findItem(R.id.nav_speed).setChecked(true);
-        } else if (fragmentName.equals(getString(R.string.title_temperature))) {
-            mNavigationView.getMenu().findItem(R.id.nav_temperature).setChecked(true);
-        } else {
-            return false;
-        }
-
-        lastSelectedFragment = fragmentName;
-        getToolbar().setTitle(fragmentName);
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-
+    private void saveLastSelectedFragment() {
+        Timber.tag(TAG + ".saveLastSelectedFragment").i("Entered");
         if (mPrefs != null) {
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putString(STATE_SELECTED_FRAGMENT, lastSelectedFragment);
             editor.apply();
         }
+    }
 
-        return true;
+    private void setFragmentRelatedProperties(String fragmentName) {
+        Timber.tag(TAG + ".setFragmentRelatedProperties").i("Entered");
+        Timber.tag(TAG + ".setFragmentRelatedProperties").i("fragmentName = " + fragmentName);
+
+        setNavigationDrawerItemChecked(fragmentName);
+        lastSelectedFragment = fragmentName;
+        getToolbar().setTitle(fragmentName);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+
+        saveLastSelectedFragment();
+    }
+
+    private void setNavigationDrawerItemChecked(String itemName) {
+        Timber.tag(TAG + ".setNavigationDrawerItemChecked").i("Entered");
+        Timber.tag(TAG + ".setNavigationDrawerItemChecked").i("fragmentName = " + itemName);
+
+        if (itemName.equals(getString(R.string.title_acceleration))) {
+            mNavigationView.getMenu().findItem(R.id.nav_acceleration).setChecked(true);
+        } else if (itemName.equals(getString(R.string.title_data_transfer_speed))) {
+            mNavigationView.getMenu().findItem(R.id.nav_dts).setChecked(true);
+        } else if (itemName.equals(getString(R.string.title_fuel_consumption))) {
+            mNavigationView.getMenu().findItem(R.id.nav_fuel).setChecked(true);
+        } else if (itemName.equals(getString(R.string.title_length))) {
+            mNavigationView.getMenu().findItem(R.id.nav_length).setChecked(true);
+        } else if (itemName.equals(getString(R.string.title_speed))) {
+            mNavigationView.getMenu().findItem(R.id.nav_speed).setChecked(true);
+        } else if (itemName.equals(getString(R.string.title_temperature))) {
+            mNavigationView.getMenu().findItem(R.id.nav_temperature).setChecked(true);
+        } else {
+            Timber.tag(TAG + ".setFragmentRelatedProperties")
+                    .e("itemName parameter is invalid");
+        }
     }
 
     /**
@@ -265,67 +256,50 @@ public class MainActivity extends BaseActivity {
      * @param fragmentName	the name of the selected fragment as a {@link String}, which is used to
      *                      determine which fragment to switch to
      */
-    private void selectFragment(final String fragmentName) {
+    private void switchToFragment(final String fragmentName) {
         Timber.tag(TAG + ".selectFragment").i("Entered");
+
+        final Fragment fragmentToSwitchTo;
+
+        if (fragmentName.equals(getString(R.string.title_acceleration))) {
+            fragmentToSwitchTo = new AccelerationFragment();
+        } else if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
+            fragmentToSwitchTo = new DataTransferSpeedFragment();
+        } else if (fragmentName.equals(getString(R.string.title_fuel_consumption))) {
+            fragmentToSwitchTo = new FuelConsumptionFragment();
+        } else if (fragmentName.equals(getString(R.string.title_length))) {
+            fragmentToSwitchTo = new LengthFragment();
+        } else if (fragmentName.equals(getString(R.string.title_speed))) {
+            fragmentToSwitchTo = new SpeedFragment();
+        } else if (fragmentName.equals(getString(R.string.title_temperature))) {
+            fragmentToSwitchTo = new TemperatureFragment();
+        } else {
+            fragmentToSwitchTo = null;
+        }
 
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (fragmentName.equals(getString(R.string.title_acceleration))){
-                    mNavigationView.getMenu().findItem(R.id.nav_acceleration).setChecked(true);
-                    changeToFragment(mFragmentList.get(0));
-                } else if (fragmentName.equals(getString(R.string.title_data_transfer_speed))) {
-                    mNavigationView.getMenu().findItem(R.id.nav_dts).setChecked(true);
-                    changeToFragment(mFragmentList.get(1));
-                } else if (fragmentName.equals(getString(R.string.title_fuel_consumption))) {
-                    mNavigationView.getMenu().findItem(R.id.nav_fuel).setChecked(true);
-                    changeToFragment(mFragmentList.get(2));
-                } else if (fragmentName.equals(getString(R.string.title_length))) {
-                    mNavigationView.getMenu().findItem(R.id.nav_length).setChecked(true);
-                    changeToFragment(mFragmentList.get(3));
-                } else if (fragmentName.equals(getString(R.string.title_speed))) {
-                    mNavigationView.getMenu().findItem(R.id.nav_speed).setChecked(true);
-                    changeToFragment(mFragmentList.get(4));
-                } else if (fragmentName.equals(getString(R.string.title_temperature))) {
-                    mNavigationView.getMenu().findItem(R.id.nav_temperature).setChecked(true);
-                    changeToFragment(mFragmentList.get(5));
-                }
+                if (fragmentToSwitchTo != null) {
+                    try {
+                        getFragmentManager().beginTransaction()
+                                .setCustomAnimations(R.anim.fragment_slide_in_right,
+                                        R.anim.fragment_slide_out_left)
+                                .replace(R.id.container, fragmentToSwitchTo)
+                                .commit();
 
-                lastSelectedFragment = fragmentName;
-                getToolbar().setTitle(fragmentName);
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-
-                if (mPrefs != null) {
-                    SharedPreferences.Editor editor = mPrefs.edit();
-                    editor.putString(STATE_SELECTED_FRAGMENT, lastSelectedFragment);
-                    editor.apply();
+                        lastSelectedFragment = fragmentName;
+                        getToolbar().setTitle(fragmentName);
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        saveLastSelectedFragment();
+                    } catch (IllegalStateException e) {
+                        Timber.tag(TAG + ".changeToFragment").e(e.getMessage());
+                        Toast.makeText(getParent(), "", Toast.LENGTH_LONG).show();
+                        setNavigationDrawerItemChecked(lastSelectedFragment);
+                    }
                 }
             }
-        }, 50);
-    }
-
-    private void changeToFragment(final Fragment fragment) {
-        Timber.tag(TAG + ".changeToFragment").i("Entered");
-        try {
-            FragmentManager fragmentManager = getFragmentManager();
-            if (!lastSelectedFragment.equals("null")) {
-                for (Fragment fragmentToHide : mFragmentList) {
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.fragment_slide_in_right,
-                                    R.anim.fragment_slide_out_left)
-                            .hide(fragmentToHide)
-                            .commit();
-                }
-            }
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.fragment_slide_in_right,
-                            R.anim.fragment_slide_out_left)
-                    .show(fragment)
-                    .commit();
-        } catch (IllegalStateException e) {
-            Timber.tag(TAG + ".changeToFragment").e(e.getMessage());
-            // TODO Figure out what to do here
-        }
+        }, 225);
     }
 
     // endregion

@@ -39,7 +39,7 @@ public class FuelConsumptionFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Fuel");
 
-        onView(withId(R.id.editText_fuel_consumption_usmpg)).perform(typeText("2.15235645123659"));
+        onView(withId(R.id.editText_fuel_consumption_usmpg)).perform(scrollTo(), clearText(), typeText("2.15235645123659"));
         onView(withId(R.id.editText_fuel_consumption_ukmpg)).check(matches(withText("2.5848723198")));
         onView(withId(R.id.editText_fuel_consumption_kpl)).check(matches(withText("0.9150608015")));
         onView(withId(R.id.editText_fuel_consumption_l100k)).check(matches(withText("109.2823557168")));
@@ -47,7 +47,7 @@ public class FuelConsumptionFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Fuel");
 
-        onView(withId(R.id.editText_fuel_consumption_usmpg)).perform(typeText("2.15235645123659"));
+        onView(withId(R.id.editText_fuel_consumption_usmpg)).perform(scrollTo(), clearText(), typeText("2.15235645123659"));
         onView(withId(R.id.editText_fuel_consumption_ukmpg)).check(matches(withText("2.58487")));
         onView(withId(R.id.editText_fuel_consumption_kpl)).check(matches(withText("0.91506")));
         onView(withId(R.id.editText_fuel_consumption_l100k)).check(matches(withText("109.28236")));
@@ -58,7 +58,7 @@ public class FuelConsumptionFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Fuel");
 
-        onView(withId(R.id.editText_fuel_consumption_ukmpg)).perform(typeText("3.6589456897564"));
+        onView(withId(R.id.editText_fuel_consumption_ukmpg)).perform(scrollTo(), clearText(), typeText("3.6589456897564"));
         onView(withId(R.id.editText_fuel_consumption_usmpg)).check(matches(withText("3.0467096187")));
         onView(withId(R.id.editText_fuel_consumption_kpl)).check(matches(withText("1.295289423")));
         onView(withId(R.id.editText_fuel_consumption_l100k)).check(matches(withText("77.2028229669")));
@@ -66,7 +66,7 @@ public class FuelConsumptionFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Fuel");
 
-        onView(withId(R.id.editText_fuel_consumption_ukmpg)).perform(typeText("3.6589456897564"));
+        onView(withId(R.id.editText_fuel_consumption_ukmpg)).perform(scrollTo(), clearText(), typeText("3.6589456897564"));
         onView(withId(R.id.editText_fuel_consumption_usmpg)).check(matches(withText("3.04671")));
         onView(withId(R.id.editText_fuel_consumption_kpl)).check(matches(withText("1.29529")));
         onView(withId(R.id.editText_fuel_consumption_l100k)).check(matches(withText("77.20282")));
@@ -77,7 +77,7 @@ public class FuelConsumptionFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Fuel");
 
-        onView(withId(R.id.editText_fuel_consumption_kpl)).perform(typeText("4.5613258749654"));
+        onView(withId(R.id.editText_fuel_consumption_kpl)).perform(scrollTo(), clearText(), typeText("4.5613258749654"));
         onView(withId(R.id.editText_fuel_consumption_usmpg)).check(matches(withText("10.7289036498")));
         onView(withId(R.id.editText_fuel_consumption_ukmpg)).check(matches(withText("12.8848760393")));
         onView(withId(R.id.editText_fuel_consumption_l100k)).check(matches(withText("21.923450054")));
@@ -85,7 +85,7 @@ public class FuelConsumptionFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Fuel");
 
-        onView(withId(R.id.editText_fuel_consumption_kpl)).perform(typeText("4.5613258749654"));
+        onView(withId(R.id.editText_fuel_consumption_kpl)).perform(scrollTo(), clearText(), typeText("4.5613258749654"));
         onView(withId(R.id.editText_fuel_consumption_usmpg)).check(matches(withText("10.7289")));
         onView(withId(R.id.editText_fuel_consumption_ukmpg)).check(matches(withText("12.88488")));
         onView(withId(R.id.editText_fuel_consumption_l100k)).check(matches(withText("21.92345")));
@@ -96,7 +96,7 @@ public class FuelConsumptionFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Fuel");
 
-        onView(withId(R.id.editText_fuel_consumption_l100k)).perform(typeText("8.56498658974125"));
+        onView(withId(R.id.editText_fuel_consumption_l100k)).perform(scrollTo(), clearText(), typeText("8.56498658974125"));
         onView(withId(R.id.editText_fuel_consumption_usmpg)).check(matches(withText("27.4623411104")));
         onView(withId(R.id.editText_fuel_consumption_ukmpg)).check(matches(withText("32.9808965107")));
         onView(withId(R.id.editText_fuel_consumption_kpl)).check(matches(withText("11.6754415144")));
@@ -104,7 +104,7 @@ public class FuelConsumptionFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Fuel");
 
-        onView(withId(R.id.editText_fuel_consumption_l100k)).perform(typeText("8.56498658974125"));
+        onView(withId(R.id.editText_fuel_consumption_l100k)).perform(scrollTo(), clearText(), typeText("8.56498658974125"));
         onView(withId(R.id.editText_fuel_consumption_usmpg)).check(matches(withText("27.46234")));
         onView(withId(R.id.editText_fuel_consumption_ukmpg)).check(matches(withText("32.9809")));
         onView(withId(R.id.editText_fuel_consumption_kpl)).check(matches(withText("11.67544")));

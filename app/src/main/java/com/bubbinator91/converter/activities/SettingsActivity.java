@@ -22,7 +22,7 @@ import timber.log.Timber;
  * {@link PreferenceFragment}.
  */
 public class SettingsActivity extends BaseActivity {
-    private final String TAG = "SettingsActivity";
+    private final String TAG = SettingsActivity.class.getSimpleName();
 
     // region Lifecycle methods
 
@@ -64,7 +64,7 @@ public class SettingsActivity extends BaseActivity {
                     ))
             );
         }
-        GlobalsManager.INSTANCE.setIsTransitioningToMainActivity(true);
+        GlobalsManager.INSTANCE.setIsGoingToMainActivityFromSettings(true);
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }

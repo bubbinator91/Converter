@@ -39,7 +39,7 @@ public class AccelerationFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Acceleration");
 
-        onView(withId(R.id.editText_acceleration_cmpss)).perform(typeText("8.0235641526359876"));
+        onView(withId(R.id.editText_acceleration_cmpss)).perform(scrollTo(), clearText(), typeText("8.0235641526359876"));
         onView(withId(R.id.editText_acceleration_fpss)).check(matches(withText("0.2632402937")));
         onView(withId(R.id.editText_acceleration_mpss)).check(matches(withText("0.0802356415")));
         onView(withId(R.id.editText_acceleration_sg)).check(matches(withText("0.0081817585")));
@@ -47,7 +47,7 @@ public class AccelerationFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Acceleration");
 
-        onView(withId(R.id.editText_acceleration_cmpss)).perform(typeText("8.0235641526359876"));
+        onView(withId(R.id.editText_acceleration_cmpss)).perform(scrollTo(), clearText(), typeText("8.0235641526359876"));
         onView(withId(R.id.editText_acceleration_fpss)).check(matches(withText("0.26324")));
         onView(withId(R.id.editText_acceleration_mpss)).check(matches(withText("0.08024")));
         onView(withId(R.id.editText_acceleration_sg)).check(matches(withText("0.00818")));
@@ -58,7 +58,7 @@ public class AccelerationFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Acceleration");
 
-        onView(withId(R.id.editText_acceleration_fpss)).perform(typeText("2.5064318986478525"));
+        onView(withId(R.id.editText_acceleration_fpss)).perform(scrollTo(), clearText(), typeText("2.5064318986478525"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("76.3960442711")));
         onView(withId(R.id.editText_acceleration_mpss)).check(matches(withText("0.7639604427")));
         onView(withId(R.id.editText_acceleration_sg)).check(matches(withText("0.077902285")));
@@ -66,7 +66,7 @@ public class AccelerationFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Acceleration");
 
-        onView(withId(R.id.editText_acceleration_fpss)).perform(typeText("2.5064318986478525"));
+        onView(withId(R.id.editText_acceleration_fpss)).perform(scrollTo(), clearText(), typeText("2.5064318986478525"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("76.39604")));
         onView(withId(R.id.editText_acceleration_mpss)).check(matches(withText("0.76396")));
         onView(withId(R.id.editText_acceleration_sg)).check(matches(withText("0.0779")));
@@ -77,7 +77,7 @@ public class AccelerationFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Acceleration");
 
-        onView(withId(R.id.editText_acceleration_mpss)).perform(typeText("1.568946531647201"));
+        onView(withId(R.id.editText_acceleration_mpss)).perform(scrollTo(), clearText(), typeText("1.568946531647201"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("156.8946531647")));
         onView(withId(R.id.editText_acceleration_fpss)).check(matches(withText("5.1474623742")));
         onView(withId(R.id.editText_acceleration_sg)).check(matches(withText("0.1599880216")));
@@ -85,7 +85,7 @@ public class AccelerationFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Acceleration");
 
-        onView(withId(R.id.editText_acceleration_mpss)).perform(typeText("1.568946531647201"));
+        onView(withId(R.id.editText_acceleration_mpss)).perform(scrollTo(), clearText(), typeText("1.568946531647201"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("156.89465")));
         onView(withId(R.id.editText_acceleration_fpss)).check(matches(withText("5.14746")));
         onView(withId(R.id.editText_acceleration_sg)).check(matches(withText("0.15999")));
@@ -96,7 +96,7 @@ public class AccelerationFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Acceleration");
 
-        onView(withId(R.id.editText_acceleration_sg)).perform(typeText("0.564859764825136"));
+        onView(withId(R.id.editText_acceleration_sg)).perform(scrollTo(), clearText(), typeText("0.564859764825136"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("553.9382012603")));
         onView(withId(R.id.editText_acceleration_fpss)).check(matches(withText("18.1738255006")));
         onView(withId(R.id.editText_acceleration_mpss)).check(matches(withText("5.5393820126")));
@@ -104,7 +104,7 @@ public class AccelerationFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Acceleration");
 
-        onView(withId(R.id.editText_acceleration_sg)).perform(typeText("0.564859764825136"));
+        onView(withId(R.id.editText_acceleration_sg)).perform(scrollTo(), clearText(), typeText("0.564859764825136"));
         onView(withId(R.id.editText_acceleration_cmpss)).check(matches(withText("553.9382")));
         onView(withId(R.id.editText_acceleration_fpss)).check(matches(withText("18.17383")));
         onView(withId(R.id.editText_acceleration_mpss)).check(matches(withText("5.53938")));

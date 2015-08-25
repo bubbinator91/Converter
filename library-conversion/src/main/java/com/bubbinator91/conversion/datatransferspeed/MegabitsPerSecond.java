@@ -32,17 +32,17 @@ public class MegabitsPerSecond extends Unit {
      *          megabytes per second, gigabits per second, gigabytes per second, terabits per
      *          second, and terabytes per second values (in that order; they will be empty
      *          {@link String}s if there is an error), and the second item is one of the error codes
-     *          found in {@link ConversionErrorCodes}, or null if the <code>mbps</code> parameter
-     *          is null;
+     *          found in {@link ConversionErrorCodes} as an {@link Integer} object, or null if the
+     *          <code>mbps</code> parameter is null;
      */
-    public static Pair<List<String>, ConversionErrorCodes> toAll(String mbps, int decimalPlaces) {
+    public static Pair<List<String>, Integer> toAll(String mbps, int decimalPlaces) {
         if (mbps == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
         List<String> results = new LinkedList<>();
-        ConversionErrorCodes error = ConversionErrorCodes.ERROR_NONE;
+        int error = ConversionErrorCodes.ERROR_NONE;
 
         if (isNumeric(mbps)) {
             try {

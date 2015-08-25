@@ -12,12 +12,6 @@
             android:key="@string/util_key_decimal"
             android:defaultValue="8"/>
 
-        <SwitchPreference
-            android:title="@string/activity_settings_persist"
-            android:summary="@string/activity_settings_persist_summary"
-            android:key="@string/util_key_persist_values"
-            android:defaultValue="false"/>
-
     </PreferenceCategory>
 
     <PreferenceCategory

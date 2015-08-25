@@ -39,7 +39,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_inch)).perform(scrollTo(), typeText("1.258633885023369824"));
+        onView(withId(R.id.editText_length_inch)).perform(scrollTo(), clearText(), typeText("1.258633885023369824"));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("0.1048861571")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("0.0349620524")));
         onView(withId(R.id.editText_length_mile)).check(matches(withText("0.0000198648")));
@@ -51,7 +51,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_inch)).perform(scrollTo(), typeText("1.258633885023369824"));
+        onView(withId(R.id.editText_length_inch)).perform(scrollTo(), clearText(), typeText("1.258633885023369824"));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("0.10489")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("0.03496")));
         onView(withId(R.id.editText_length_mile)).check(matches(withText("0.00002")));
@@ -66,7 +66,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_foot)).perform(scrollTo(), typeText("10.694673465926534"));
+        onView(withId(R.id.editText_length_foot)).perform(scrollTo(), clearText(), typeText("10.694673465926534"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("128.3360815911")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("3.5648911553")));
         onView(withId(R.id.editText_length_mile)).check(matches(withText("0.0020255063")));
@@ -78,7 +78,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_foot)).perform(scrollTo(), typeText("10.694673465926534"));
+        onView(withId(R.id.editText_length_foot)).perform(scrollTo(), clearText(), typeText("10.694673465926534"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("128.33608")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("3.56489")));
         onView(withId(R.id.editText_length_mile)).check(matches(withText("0.00203")));
@@ -93,7 +93,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_yard)).perform(scrollTo(), typeText("94.677446"));
+        onView(withId(R.id.editText_length_yard)).perform(scrollTo(), clearText(), typeText("94.677446"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("3408.388056")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("284.032338")));
         onView(withId(R.id.editText_length_mile)).check(matches(withText("0.0537940034")));
@@ -105,7 +105,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_yard)).perform(scrollTo(), typeText("94.677446"));
+        onView(withId(R.id.editText_length_yard)).perform(scrollTo(), clearText(), typeText("94.677446"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("3408.38806")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("284.03234")));
         onView(withId(R.id.editText_length_mile)).check(matches(withText("0.05379")));
@@ -120,7 +120,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_mile)).perform(scrollTo(), typeText("8.569852369523695441288"));
+        onView(withId(R.id.editText_length_mile)).perform(scrollTo(), clearText(), typeText("8.569852369523695441288"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("542985.8461330213")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("45248.8205110851")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("15082.9401703617")));
@@ -132,7 +132,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_mile)).perform(scrollTo(), typeText("8.569852369523695441288"));
+        onView(withId(R.id.editText_length_mile)).perform(scrollTo(), clearText(), typeText("8.569852369523695441288"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("542985.84613")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("45248.82051")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("15082.94017")));
@@ -147,7 +147,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_millimeter)).perform(scrollTo(), typeText("58.85236982258084"));
+        onView(withId(R.id.editText_length_millimeter)).perform(scrollTo(), clearText(), typeText("58.85236982258084"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("2.317022434")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("0.1930852028")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("0.0643617343")));
@@ -159,7 +159,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_millimeter)).perform(scrollTo(), typeText("58.85236982258084"));
+        onView(withId(R.id.editText_length_millimeter)).perform(scrollTo(), clearText(), typeText("58.85236982258084"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("2.31702")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("0.19309")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("0.06436")));
@@ -174,7 +174,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_centimeter)).perform(scrollTo(), typeText("56943.98653164976"));
+        onView(withId(R.id.editText_length_centimeter)).perform(scrollTo(), clearText(), typeText("56943.98653164976"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("22418.8923352952")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("1868.2410279413")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("622.7470093138")));
@@ -186,7 +186,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_centimeter)).perform(scrollTo(), typeText("56943.98653164976"));
+        onView(withId(R.id.editText_length_centimeter)).perform(scrollTo(), clearText(), typeText("56943.98653164976"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("22418.89234")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("1868.24103")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("622.74701")));
@@ -201,7 +201,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_meter)).perform(scrollTo(), typeText("824.3642518597643169"));
+        onView(withId(R.id.editText_length_meter)).perform(scrollTo(), clearText(), typeText("824.3642518597643169"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("32455.2855062899")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("2704.6071255242")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("901.5357085081")));
@@ -213,7 +213,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_meter)).perform(scrollTo(), typeText("824.3642518597643169"));
+        onView(withId(R.id.editText_length_meter)).perform(scrollTo(), clearText(), typeText("824.3642518597643169"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("32455.28551")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("2704.60713")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("901.53571")));
@@ -228,7 +228,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_kilometer)).perform(scrollTo(), typeText("8.5649764312526591"));
+        onView(withId(R.id.editText_length_kilometer)).perform(scrollTo(), clearText(), typeText("8.5649764312526591"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("337203.7965060102")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("28100.3163755009")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("9366.772125167")));
@@ -240,7 +240,7 @@ public class LengthFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("Length");
 
-        onView(withId(R.id.editText_length_kilometer)).perform(scrollTo(), typeText("8.5649764312526591"));
+        onView(withId(R.id.editText_length_kilometer)).perform(scrollTo(), clearText(), typeText("8.5649764312526591"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("337203.79651")));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("28100.31638")));
         onView(withId(R.id.editText_length_yard)).check(matches(withText("9366.77213")));

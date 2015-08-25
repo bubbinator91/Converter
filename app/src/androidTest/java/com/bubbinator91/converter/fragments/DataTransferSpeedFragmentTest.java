@@ -39,7 +39,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_bps)).perform(scrollTo(), typeText("8000000000.9764326598653"));
+        onView(withId(R.id.editText_data_transfer_speed_bps)).perform(scrollTo(), clearText(), typeText("8000000000.9764326598653"));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1000000000.1220540825")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8000000.0009764327")));
         onView(withId(R.id.editText_data_transfer_speed_kbyps)).check(matches(withText("1000000.0001220541")));
@@ -53,7 +53,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_bps)).perform(scrollTo(), typeText("8000000000.9764326598653"));
+        onView(withId(R.id.editText_data_transfer_speed_bps)).perform(scrollTo(), clearText(), typeText("8000000000.9764326598653"));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1000000000.12205")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8000000.00098")));
         onView(withId(R.id.editText_data_transfer_speed_kbyps)).check(matches(withText("1000000.00012")));
@@ -70,7 +70,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_byps)).perform(scrollTo(), typeText("1000000009.764953261346"));
+        onView(withId(R.id.editText_data_transfer_speed_byps)).perform(scrollTo(), clearText(), typeText("1000000009.764953261346"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000000078.1196260908")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8000000.0781196261")));
         onView(withId(R.id.editText_data_transfer_speed_kbyps)).check(matches(withText("1000000.0097649533")));
@@ -84,7 +84,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_byps)).perform(scrollTo(), typeText("1000000009.764953261346"));
+        onView(withId(R.id.editText_data_transfer_speed_byps)).perform(scrollTo(), clearText(), typeText("1000000009.764953261346"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000000078.11963")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8000000.07812")));
         onView(withId(R.id.editText_data_transfer_speed_kbyps)).check(matches(withText("1000000.00976")));
@@ -101,7 +101,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_kbps)).perform(scrollTo(), typeText("8000008.9764953164976"));
+        onView(withId(R.id.editText_data_transfer_speed_kbps)).perform(scrollTo(), clearText(), typeText("8000008.9764953164976"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000008976.4953164976")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1000001122.0619145622")));
         onView(withId(R.id.editText_data_transfer_speed_kbyps)).check(matches(withText("1000001.1220619146")));
@@ -115,7 +115,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_kbps)).perform(scrollTo(), typeText("8000008.9764953164976"));
+        onView(withId(R.id.editText_data_transfer_speed_kbps)).perform(scrollTo(), clearText(), typeText("8000008.9764953164976"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000008976.49532")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1000001122.06191")));
         onView(withId(R.id.editText_data_transfer_speed_kbyps)).check(matches(withText("1000001.12206")));
@@ -132,7 +132,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_kbyps)).perform(scrollTo(), typeText("1000001.122061915316"));
+        onView(withId(R.id.editText_data_transfer_speed_kbyps)).perform(scrollTo(), clearText(), typeText("1000001.122061915316"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000008976.495322528")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1000001122.061915316")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8000008.9764953225")));
@@ -146,7 +146,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_kbyps)).perform(scrollTo(), typeText("1000001.122061915316"));
+        onView(withId(R.id.editText_data_transfer_speed_kbyps)).perform(scrollTo(), clearText(), typeText("1000001.122061915316"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8000008976.49532")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1000001122.06192")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8000008.9765")));
@@ -163,7 +163,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_mbps)).perform(scrollTo(), typeText("8009.976435623164"));
+        onView(withId(R.id.editText_data_transfer_speed_mbps)).perform(scrollTo(), clearText(), typeText("8009.976435623164"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8009976435.623164")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1001247054.4528955")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8009976.435623164")));
@@ -177,7 +177,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_mbps)).perform(scrollTo(), typeText("8009.976435623164"));
+        onView(withId(R.id.editText_data_transfer_speed_mbps)).perform(scrollTo(), clearText(), typeText("8009.976435623164"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8009976435.62316")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1001247054.4529")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8009976.43562")));
@@ -194,7 +194,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_mbyps)).perform(scrollTo(), typeText("1005.9764326594613"));
+        onView(withId(R.id.editText_data_transfer_speed_mbyps)).perform(scrollTo(), clearText(), typeText("1005.9764326594613"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8047811461.2756904")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1005976432.6594613")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8047811.4612756904")));
@@ -208,7 +208,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_mbyps)).perform(scrollTo(), typeText("1005.9764326594613"));
+        onView(withId(R.id.editText_data_transfer_speed_mbyps)).perform(scrollTo(), clearText(), typeText("1005.9764326594613"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8047811461.27569")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1005976432.65946")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8047811.46128")));
@@ -225,7 +225,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_gbps)).perform(scrollTo(), typeText("8.946731926437619"));
+        onView(withId(R.id.editText_data_transfer_speed_gbps)).perform(scrollTo(), clearText(), typeText("8.946731926437619"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8946731926.437619")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1118341490.804702375")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8946731.926437619")));
@@ -239,7 +239,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_gbps)).perform(scrollTo(), typeText("8.946731926437619"));
+        onView(withId(R.id.editText_data_transfer_speed_gbps)).perform(scrollTo(), clearText(), typeText("8.946731926437619"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("8946731926.43762")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("1118341490.8047")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("8946731.92644")));
@@ -256,7 +256,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_gbyps)).perform(scrollTo(), typeText("2.8946231649761316296"));
+        onView(withId(R.id.editText_data_transfer_speed_gbyps)).perform(scrollTo(), clearText(), typeText("2.8946231649761316296"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("23156985319.8090530368")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("2894623164.9761316296")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("23156985.319809053")));
@@ -270,7 +270,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_gbyps)).perform(scrollTo(), typeText("2.8946231649761316296"));
+        onView(withId(R.id.editText_data_transfer_speed_gbyps)).perform(scrollTo(), clearText(), typeText("2.8946231649761316296"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("23156985319.80905")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("2894623164.97613")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("23156985.31981")));
@@ -287,7 +287,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_tbps)).perform(scrollTo(), typeText("0.59461326596492331649564319"));
+        onView(withId(R.id.editText_data_transfer_speed_tbps)).perform(scrollTo(), clearText(), typeText("0.59461326596492331649564319"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("594613265964.9233164956")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("74326658245.615414562")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("594613265.9649233165")));
@@ -301,7 +301,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_tbps)).perform(scrollTo(), typeText("0.59461326596492331649564319"));
+        onView(withId(R.id.editText_data_transfer_speed_tbps)).perform(scrollTo(), clearText(), typeText("0.59461326596492331649564319"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("594613265964.92332")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("74326658245.61541")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("594613265.96492")));
@@ -318,7 +318,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(10);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_tbyps)).perform(scrollTo(), typeText("0.0264976532649164376495623"));
+        onView(withId(R.id.editText_data_transfer_speed_tbyps)).perform(scrollTo(), clearText(), typeText("0.0264976532649164376495623"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("211981226119.3315011965")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("26497653264.9164376496")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("211981226.1193315012")));
@@ -332,7 +332,7 @@ public class DataTransferSpeedFragmentTest {
         mActivity.setDecimalPlaces(5);
         mActivity.loadFragment("DTS");
 
-        onView(withId(R.id.editText_data_transfer_speed_tbyps)).perform(scrollTo(), typeText("0.0264976532649164376495623"));
+        onView(withId(R.id.editText_data_transfer_speed_tbyps)).perform(scrollTo(), clearText(), typeText("0.0264976532649164376495623"));
         onView(withId(R.id.editText_data_transfer_speed_bps)).check(matches(withText("211981226119.3315")));
         onView(withId(R.id.editText_data_transfer_speed_byps)).check(matches(withText("26497653264.91644")));
         onView(withId(R.id.editText_data_transfer_speed_kbps)).check(matches(withText("211981226.11933")));

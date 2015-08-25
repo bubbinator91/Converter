@@ -29,17 +29,17 @@ public class UKMilesPerGallon extends Unit {
      * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
      *          US miles per gallon, kilometers per liter, and liters per 100 kilometers values (in
      *          that order; they will be empty {@link String}s if there is an error), and the second
-     *          item is one of the error codes found in {@link ConversionErrorCodes}, or null if the
-     *          <code>ukmpg</code> parameter is null.
+     *          item is one of the error codes found in {@link ConversionErrorCodes} as an
+     *          {@link Integer} object, or null if the <code>ukmpg</code> parameter is null;
      */
-    public static Pair<List<String>, ConversionErrorCodes> toAll(String ukmpg, int decimalPlaces) {
+    public static Pair<List<String>, Integer> toAll(String ukmpg, int decimalPlaces) {
         if (ukmpg == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
         List<String> results = new LinkedList<>();
-        ConversionErrorCodes error = ConversionErrorCodes.ERROR_NONE;
+        int error = ConversionErrorCodes.ERROR_NONE;
 
         if (isNumeric(ukmpg)) {
             try {

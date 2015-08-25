@@ -32,21 +32,20 @@ import timber.log.Timber;
  */
 
 public class SpeedFragment extends BaseFragment {
-    private enum LastEditTextFocused {
-        FPS,
-        KNOT,
-        KPH,
-        MPS,
-        MPH
-    }
+    private final String TAG = SpeedFragment.class.getSimpleName();
+
+    private static final int LAST_EDIT_TEXT_FOCUSED_FPS = 0;
+    private static final int LAST_EDIT_TEXT_FOCUSED_KNOT = 1;
+    private static final int LAST_EDIT_TEXT_FOCUSED_KPH = 2;
+    private static final int LAST_EDIT_TEXT_FOCUSED_MPS = 3;
+    private static final int LAST_EDIT_TEXT_FOCUSED_MPH = 4;
 
     private static final String FPS_VALUE_PERSIST_KEY = "SPEED_FRAGMENT_FPS_VALUE";
     private static final String KNOT_VALUE_PERSIST_KEY = "SPEED_FRAGMENT_KNOT_VALUE";
     private static final String KPH_VALUE_PERSIST_KEY = "SPEED_FRAGMENT_KPH_VALUE";
     private static final String MPS_VALUE_PERSIST_KEY = "SPEED_FRAGMENT_MPS_VALUE";
     private static final String MPH_VALUE_PERSIST_KEY = "SPEED_FRAGMENT_MPH_VALUE";
-
-    private final String TAG = SpeedFragment.class.getSimpleName();
+    private static final String LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY = "SPEED_FRAGMENT_LETF_VALUE";
 
     @Bind(R.id.editText_speed_fps)  AppCompatEditText mEditTextFps;
     @Bind(R.id.editText_speed_knot) AppCompatEditText mEditTextKnot;
@@ -60,16 +59,14 @@ public class SpeedFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_speed_mps)   TextInputLayout mTextInputLayoutMps;
     @Bind(R.id.textInputLayout_speed_mph)   TextInputLayout mTextInputLayoutMph;
 
-    private LastEditTextFocused mLastEditTextFocused;
-
-    private boolean wasOnlyResumed = false;
+    private int mLastEditTextFocused;
 
     // region TextWatchers
 
     private TextWatcher mTextWatcherFps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.FPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_FPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherFps");
@@ -88,7 +85,7 @@ public class SpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherKnot = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.KNOT;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KNOT;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherKnot");
@@ -107,7 +104,7 @@ public class SpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherKph = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.KPH;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KPH;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherKph");
@@ -126,7 +123,7 @@ public class SpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherMps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.MPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherMps");
@@ -145,7 +142,7 @@ public class SpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherMph = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.MPH;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MPH;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherMph");
@@ -163,12 +160,6 @@ public class SpeedFragment extends BaseFragment {
 
     // endregion
 
-    // region Constructor(s)
-
-    public SpeedFragment() { setArguments(new Bundle()); }
-
-    // endregion
-
     // region Lifecycle methods
 
     @Override
@@ -180,7 +171,7 @@ public class SpeedFragment extends BaseFragment {
             ButterKnife.bind(this, getRootView());
         }
 
-        wasOnlyResumed = false;
+        setWasOnCreateRan(true);
         return getRootView();
     }
 
@@ -191,62 +182,51 @@ public class SpeedFragment extends BaseFragment {
 
         removeTextChangedListeners("onResume");
 
-        if (!wasOnlyResumed) {
-            if (shouldPersistValues() && (getSharedPreferences() != null)) {
-                if ((getSharedPreferences().getString(FPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(KNOT_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(KPH_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(MPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(MPH_VALUE_PERSIST_KEY, null) != null)) {
-                    mEditTextFps.setText(getSharedPreferences().getString(FPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextKnot.setText(getSharedPreferences().getString(KNOT_VALUE_PERSIST_KEY, ""));
-                    mEditTextKph.setText(getSharedPreferences().getString(KPH_VALUE_PERSIST_KEY, ""));
-                    mEditTextMps.setText(getSharedPreferences().getString(MPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextMph.setText(getSharedPreferences().getString(MPH_VALUE_PERSIST_KEY, ""));
-                }
+        if (wasOnCreateRan() && (getSharedPreferences() != null)) {
+            if ((getSharedPreferences().getString(FPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(KNOT_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(KPH_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(MPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(MPH_VALUE_PERSIST_KEY, null) != null)) {
+                mEditTextFps.setText(getSharedPreferences().getString(FPS_VALUE_PERSIST_KEY, ""));
+                mEditTextKnot.setText(getSharedPreferences().getString(KNOT_VALUE_PERSIST_KEY, ""));
+                mEditTextKph.setText(getSharedPreferences().getString(KPH_VALUE_PERSIST_KEY, ""));
+                mEditTextMps.setText(getSharedPreferences().getString(MPS_VALUE_PERSIST_KEY, ""));
+                mEditTextMph.setText(getSharedPreferences().getString(MPH_VALUE_PERSIST_KEY, ""));
             }
-
-            if ((getArguments().getString(FPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(KNOT_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(KPH_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(MPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(MPH_VALUE_PERSIST_KEY) != null)) {
-                mEditTextFps.setText(getArguments().getString(FPS_VALUE_PERSIST_KEY));
-                mEditTextKnot.setText(getArguments().getString(KNOT_VALUE_PERSIST_KEY));
-                mEditTextKph.setText(getArguments().getString(KPH_VALUE_PERSIST_KEY));
-                mEditTextMps.setText(getArguments().getString(MPS_VALUE_PERSIST_KEY));
-                mEditTextMph.setText(getArguments().getString(MPH_VALUE_PERSIST_KEY));
-            }
-        } else {
-            if (mLastEditTextFocused == LastEditTextFocused.FPS) {
-                if (mEditTextFps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextFps.getText());
-                    convertFromFeetPerSecond(mEditTextFps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.KNOT) {
-                if (mEditTextKnot.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextKnot.getText());
-                    convertFromKnots(mEditTextKnot.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.KPH) {
-                if (mEditTextKph.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextKph.getText());
-                    convertFromKilometersPerHour(mEditTextKph.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.MPS) {
-                if (mEditTextMps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextMps.getText());
-                    convertFromMetersPerSecond(mEditTextMps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.MPH) {
-                if (mEditTextMph.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextMph.getText());
-                    convertFromMilesPerHour(mEditTextMph.getText().toString());
-                }
+            if (getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, -1) != -1) {
+                mLastEditTextFocused = getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, 0);
             }
         }
 
-        wasOnlyResumed = true;
+        if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_FPS) {
+            if (mEditTextFps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextFps.getText());
+                convertFromFeetPerSecond(mEditTextFps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KNOT) {
+            if (mEditTextKnot.getText() != null) {
+                Utils.sanitizeEditable(mEditTextKnot.getText());
+                convertFromKnots(mEditTextKnot.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KPH) {
+            if (mEditTextKph.getText() != null) {
+                Utils.sanitizeEditable(mEditTextKph.getText());
+                convertFromKilometersPerHour(mEditTextKph.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_MPS) {
+            if (mEditTextMps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextMps.getText());
+                convertFromMetersPerSecond(mEditTextMps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_MPH) {
+            if (mEditTextMph.getText() != null) {
+                Utils.sanitizeEditable(mEditTextMph.getText());
+                convertFromMilesPerHour(mEditTextMph.getText().toString());
+            }
+        }
+
+        setWasOnCreateRan(false);
         addTextChangedListeners("onResume");
     }
 
@@ -255,19 +235,7 @@ public class SpeedFragment extends BaseFragment {
         super.onPause();
         Timber.tag(TAG + ".onPause").i("Entered");
 
-        if (!mEditTextFps.getText().toString().isEmpty()
-                && !mEditTextKnot.getText().toString().isEmpty()
-                && !mEditTextKph.getText().toString().isEmpty()
-                && !mEditTextMps.getText().toString().isEmpty()
-                && !mEditTextMph.getText().toString().isEmpty()) {
-            getArguments().putString(FPS_VALUE_PERSIST_KEY, mEditTextFps.getText().toString());
-            getArguments().putString(KNOT_VALUE_PERSIST_KEY, mEditTextKnot.getText().toString());
-            getArguments().putString(KPH_VALUE_PERSIST_KEY, mEditTextKph.getText().toString());
-            getArguments().putString(MPS_VALUE_PERSIST_KEY, mEditTextMps.getText().toString());
-            getArguments().putString(MPH_VALUE_PERSIST_KEY, mEditTextMph.getText().toString());
-        }
-
-        if (shouldPersistValues() && (getSharedPreferences() != null)) {
+        if (getSharedPreferences() != null) {
             getSharedPreferences()
                     .edit()
                     .putString(FPS_VALUE_PERSIST_KEY, mEditTextFps.getText().toString())
@@ -275,6 +243,7 @@ public class SpeedFragment extends BaseFragment {
                     .putString(KPH_VALUE_PERSIST_KEY, mEditTextKph.getText().toString())
                     .putString(MPS_VALUE_PERSIST_KEY, mEditTextMps.getText().toString())
                     .putString(MPH_VALUE_PERSIST_KEY, mEditTextMph.getText().toString())
+                    .putInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, mLastEditTextFocused)
                     .apply();
         }
     }
@@ -324,24 +293,24 @@ public class SpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromFeetPerSecondTask task = new FromFeetPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutFps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutFps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutFps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -377,24 +346,24 @@ public class SpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromKilometersPerHourTask task = new FromKilometersPerHourTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutKph.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutKph.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutKph.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -430,24 +399,24 @@ public class SpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromKnotsTask task = new FromKnotsTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutKnot.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutKnot.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutKnot.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -483,24 +452,24 @@ public class SpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromMetersPerSecondTask task = new FromMetersPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutMps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutMps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutMps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -536,24 +505,24 @@ public class SpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromMilesPerHourTask task = new FromMilesPerHourTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutMph.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutMph.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutMph.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));

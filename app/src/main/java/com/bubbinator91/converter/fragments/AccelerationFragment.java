@@ -26,19 +26,18 @@ import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class AccelerationFragment extends BaseFragment {
-    private enum LastEditTextFocused {
-        CMPSS,
-        FPSS,
-        MPSS,
-        SG
-    }
+    private static final String TAG = AccelerationFragment.class.getSimpleName();
+
+    private static final int LAST_EDIT_TEXT_FOCUSED_CMPSS = 0;
+    private static final int LAST_EDIT_TEXT_FOCUSED_FPSS = 1;
+    private static final int LAST_EDIT_TEXT_FOCUSED_MPSS = 2;
+    private static final int LAST_EDIT_TEXT_FOCUSED_SG = 3;
 
     private static final String CMPSS_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_CMPSS_VALUE";
     private static final String FPSS_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_FPSS_VALUE";
     private static final String MPSS_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_MPSS_VALUE";
     private static final String SG_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_SG_VALUE";
-
-    private final String TAG = AccelerationFragment.class.getSimpleName();
+    private static final String LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY = "ACCELERATION_FRAGMENT_LETF_VALUE";
 
     @Bind(R.id.editText_acceleration_cmpss) AppCompatEditText mEditTextCmpss;
     @Bind(R.id.editText_acceleration_fpss)  AppCompatEditText mEditTextFpss;
@@ -50,16 +49,14 @@ public class AccelerationFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_acceleration_mpss)   TextInputLayout mTextInputLayoutMpss;
     @Bind(R.id.textInputLayout_acceleration_sg)     TextInputLayout mTextInputLayoutSg;
 
-    private LastEditTextFocused mLastEditTextFocused;
-
-    private boolean wasOnlyResumed = false;
+    private int mLastEditTextFocused;
 
     // region TextWatchers
 
     private TextWatcher mTextWatcherCmpss = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.CMPSS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_CMPSS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherCmpss");
@@ -79,7 +76,7 @@ public class AccelerationFragment extends BaseFragment {
     private TextWatcher mTextWatcherFpss = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.FPSS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_FPSS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherFpss");
@@ -99,7 +96,7 @@ public class AccelerationFragment extends BaseFragment {
     private TextWatcher mTextWatcherMpss = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.MPSS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MPSS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherMpss");
@@ -119,7 +116,7 @@ public class AccelerationFragment extends BaseFragment {
     private TextWatcher mTextWatcherSg = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.SG;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_SG;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherSg");
@@ -138,12 +135,6 @@ public class AccelerationFragment extends BaseFragment {
 
     // endregion
 
-    // region Constructor(s)
-
-    public AccelerationFragment() { setArguments(new Bundle()); }
-
-    // endregion
-
     // region Lifecycle methods
 
     @Override
@@ -155,7 +146,7 @@ public class AccelerationFragment extends BaseFragment {
             ButterKnife.bind(this, getRootView());
         }
 
-        wasOnlyResumed = false;
+        setWasOnCreateRan(true);
         return getRootView();
     }
 
@@ -166,53 +157,44 @@ public class AccelerationFragment extends BaseFragment {
 
         removeTextChangedListeners("onResume");
 
-        if (!wasOnlyResumed) {
-            if (shouldPersistValues() && (getSharedPreferences() != null)) {
-                if ((getSharedPreferences().getString(CMPSS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(FPSS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(MPSS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(SG_VALUE_PERSIST_KEY, null) != null)) {
-                    mEditTextCmpss.setText(getSharedPreferences().getString(CMPSS_VALUE_PERSIST_KEY, ""));
-                    mEditTextFpss.setText(getSharedPreferences().getString(FPSS_VALUE_PERSIST_KEY, ""));
-                    mEditTextMpss.setText(getSharedPreferences().getString(MPSS_VALUE_PERSIST_KEY, ""));
-                    mEditTextSg.setText(getSharedPreferences().getString(SG_VALUE_PERSIST_KEY, ""));
-                }
+        if (wasOnCreateRan() && (getSharedPreferences() != null)) {
+            if ((getSharedPreferences().getString(CMPSS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(FPSS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(MPSS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(SG_VALUE_PERSIST_KEY, null) != null)) {
+                mEditTextCmpss.setText(getSharedPreferences().getString(CMPSS_VALUE_PERSIST_KEY, ""));
+                mEditTextFpss.setText(getSharedPreferences().getString(FPSS_VALUE_PERSIST_KEY, ""));
+                mEditTextMpss.setText(getSharedPreferences().getString(MPSS_VALUE_PERSIST_KEY, ""));
+                mEditTextSg.setText(getSharedPreferences().getString(SG_VALUE_PERSIST_KEY, ""));
             }
-
-            if ((getArguments().getString(CMPSS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(FPSS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(MPSS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(SG_VALUE_PERSIST_KEY) != null)) {
-                mEditTextCmpss.setText(getArguments().getString(CMPSS_VALUE_PERSIST_KEY));
-                mEditTextFpss.setText(getArguments().getString(FPSS_VALUE_PERSIST_KEY));
-                mEditTextMpss.setText(getArguments().getString(MPSS_VALUE_PERSIST_KEY));
-                mEditTextSg.setText(getArguments().getString(SG_VALUE_PERSIST_KEY));
-            }
-        } else {
-            if (mLastEditTextFocused == LastEditTextFocused.CMPSS) {
-                if (mEditTextCmpss.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextCmpss.getText());
-                    convertFromCentimetersPerSecondSquared(mEditTextCmpss.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.FPSS) {
-                if (mEditTextFpss.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextFpss.getText());
-                    convertFromFeetPerSecondSquared(mEditTextFpss.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.MPSS) {
-                if (mEditTextMpss.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextMpss.getText());
-                    convertFromMetersPerSecondSquared(mEditTextMpss.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.SG) {
-                if (mEditTextSg.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextSg.getText());
-                    convertFromStandardGravity(mEditTextSg.getText().toString());
-                }
+            if (getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, -1) != -1) {
+                mLastEditTextFocused = getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, 0);
             }
         }
 
-        wasOnlyResumed = true;
+        if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_CMPSS) {
+            if (mEditTextCmpss.getText() != null) {
+                Utils.sanitizeEditable(mEditTextCmpss.getText());
+                convertFromCentimetersPerSecondSquared(mEditTextCmpss.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_FPSS) {
+            if (mEditTextFpss.getText() != null) {
+                Utils.sanitizeEditable(mEditTextFpss.getText());
+                convertFromFeetPerSecondSquared(mEditTextFpss.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_MPSS) {
+            if (mEditTextMpss.getText() != null) {
+                Utils.sanitizeEditable(mEditTextMpss.getText());
+                convertFromMetersPerSecondSquared(mEditTextMpss.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_SG) {
+            if (mEditTextSg.getText() != null) {
+                Utils.sanitizeEditable(mEditTextSg.getText());
+                convertFromStandardGravity(mEditTextSg.getText().toString());
+            }
+        }
+
+        setWasOnCreateRan(false);
         addTextChangedListeners("onResume");
     }
 
@@ -221,23 +203,14 @@ public class AccelerationFragment extends BaseFragment {
         super.onPause();
         Timber.tag(TAG + ".onPause").i("Entered");
 
-        if (!mEditTextCmpss.getText().toString().isEmpty()
-                && !mEditTextFpss.getText().toString().isEmpty()
-                && !mEditTextMpss.getText().toString().isEmpty()
-                && !mEditTextSg.getText().toString().isEmpty()) {
-            getArguments().putString(CMPSS_VALUE_PERSIST_KEY, mEditTextCmpss.getText().toString());
-            getArguments().putString(FPSS_VALUE_PERSIST_KEY, mEditTextFpss.getText().toString());
-            getArguments().putString(MPSS_VALUE_PERSIST_KEY, mEditTextMpss.getText().toString());
-            getArguments().putString(SG_VALUE_PERSIST_KEY, mEditTextSg.getText().toString());
-        }
-
-        if (shouldPersistValues() && (getSharedPreferences() != null)) {
+        if (getSharedPreferences() != null) {
             getSharedPreferences()
                     .edit()
                     .putString(CMPSS_VALUE_PERSIST_KEY, mEditTextCmpss.getText().toString())
                     .putString(FPSS_VALUE_PERSIST_KEY, mEditTextFpss.getText().toString())
                     .putString(MPSS_VALUE_PERSIST_KEY, mEditTextMpss.getText().toString())
                     .putString(SG_VALUE_PERSIST_KEY, mEditTextSg.getText().toString())
+                    .putInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, mLastEditTextFocused)
                     .apply();
         }
     }
@@ -285,24 +258,24 @@ public class AccelerationFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromCentimetersPerSecondSquaredTask task = new FromCentimetersPerSecondSquaredTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutCmpss.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutCmpss.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutCmpss.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -335,24 +308,24 @@ public class AccelerationFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromFeetPerSecondSquaredTask task = new FromFeetPerSecondSquaredTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutFpss.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutFpss.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutFpss.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -385,24 +358,24 @@ public class AccelerationFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromMetersPerSecondSquaredTask task = new FromMetersPerSecondSquaredTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutMpss.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutMpss.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutMpss.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -435,24 +408,24 @@ public class AccelerationFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromStandardGravityTask task = new FromStandardGravityTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutSg.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutSg.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutSg.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));

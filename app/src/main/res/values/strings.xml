@@ -75,7 +75,6 @@
 
     <string name="util_key_debug">is_logcat_enabled</string>
     <string name="util_key_decimal">decimal_places</string>
-    <string name="util_key_persist_values">persist_values</string>
     <string name="util_key_trans_from_settings">transitioned_from_settings</string>
 
 </resources>

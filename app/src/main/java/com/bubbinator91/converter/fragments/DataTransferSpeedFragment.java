@@ -32,18 +32,18 @@ import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class DataTransferSpeedFragment extends BaseFragment {
-    private enum LastEditTextFocused {
-        BPS,
-        BYPS,
-        KBPS,
-        KBYPS,
-        MBPS,
-        MBYPS,
-        GBPS,
-        GBYPS,
-        TBPS,
-        TBYPS
-    }
+    private static final String TAG = DataTransferSpeedFragment.class.getSimpleName();
+
+    private static final int LAST_EDIT_TEXT_FOCUSED_BPS = 0;
+    private static final int LAST_EDIT_TEXT_FOCUSED_BYPS = 1;
+    private static final int LAST_EDIT_TEXT_FOCUSED_KBPS = 2;
+    private static final int LAST_EDIT_TEXT_FOCUSED_KBYPS = 3;
+    private static final int LAST_EDIT_TEXT_FOCUSED_MBPS = 4;
+    private static final int LAST_EDIT_TEXT_FOCUSED_MBYPS = 5;
+    private static final int LAST_EDIT_TEXT_FOCUSED_GBPS = 6;
+    private static final int LAST_EDIT_TEXT_FOCUSED_GBYPS = 7;
+    private static final int LAST_EDIT_TEXT_FOCUSED_TBPS = 8;
+    private static final int LAST_EDIT_TEXT_FOCUSED_TBYPS = 9;
 
     private static final String BPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_BPS_VALUE";
     private static final String BYPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_BYPS_VALUE";
@@ -55,8 +55,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     private static final String GBYPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_GBYPS_VALUE";
     private static final String TBPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_TBPS_VALUE";
     private static final String TBYPS_VALUE_PERSIST_KEY = "DTS_FRAGMENT_TBYPS_VALUE";
-
-    private final String TAG = DataTransferSpeedFragment.class.getSimpleName();
+    private static final String LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY = "DTS_FRAGMENT_LETF_VALUE";
 
     @Bind(R.id.editText_data_transfer_speed_bps)    AppCompatEditText mEditTextBps;
     @Bind(R.id.editText_data_transfer_speed_byps)   AppCompatEditText mEditTextByps;
@@ -80,16 +79,14 @@ public class DataTransferSpeedFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_data_transfer_speed_tbps)    TextInputLayout mTextInputLayoutTbps;
     @Bind(R.id.textInputLayout_data_transfer_speed_tbyps)   TextInputLayout mTextInputLayoutTbyps;
 
-    private LastEditTextFocused mLastEditTextFocused;
-
-    private boolean wasOnlyResumed = false;
+    private int mLastEditTextFocused;
 
     // region TextWatchers
 
     private TextWatcher mTextWatcherBps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.BPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_BPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherBps");
@@ -109,7 +106,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherByps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.BYPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_BYPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherByps");
@@ -129,7 +126,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherKbps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.KBPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KBPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherKbps");
@@ -149,7 +146,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherKbyps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.KBYPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KBYPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherKbyps");
@@ -169,7 +166,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherMbps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.MBPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MBPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherMbps");
@@ -189,7 +186,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherMbyps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.MBYPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MBYPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherMbyps");
@@ -209,7 +206,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherGbps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.GBPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_GBPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherGbps");
@@ -229,7 +226,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherGbyps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.GBYPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_GBYPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherGbyps");
@@ -249,7 +246,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherTbps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.TBPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_TBPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherTbps");
@@ -269,7 +266,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
     private TextWatcher mTextWatcherTbyps = new TextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LastEditTextFocused.TBYPS;
+            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_TBYPS;
 
             if (s != null) {
                 removeTextChangedListeners("mTextWatcherTbyps");
@@ -288,12 +285,6 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
     // endregion
 
-    // region Constructor(s)
-
-    public DataTransferSpeedFragment() { setArguments(new Bundle()); }
-
-    // endregion
-
     // region Lifecycle methods
 
     @Override
@@ -305,7 +296,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
             ButterKnife.bind(this, getRootView());
         }
 
-        wasOnlyResumed = false;
+        setWasOnCreateRan(true);
         return getRootView();
     }
 
@@ -316,107 +307,86 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
         removeTextChangedListeners("onResume");
 
-        if (!wasOnlyResumed) {
-            if (shouldPersistValues() && (getSharedPreferences() != null)) {
-                if ((getSharedPreferences().getString(BPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(BYPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(KBPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(KBYPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(MBPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(MBYPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(GBPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(GBYPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(TBPS_VALUE_PERSIST_KEY, null) != null)
-                        && (getSharedPreferences().getString(TBYPS_VALUE_PERSIST_KEY, null) != null)) {
-                    mEditTextBps.setText(getSharedPreferences().getString(BPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextByps.setText(getSharedPreferences().getString(BYPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextKbps.setText(getSharedPreferences().getString(KBPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextKbyps.setText(getSharedPreferences().getString(KBYPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextMbps.setText(getSharedPreferences().getString(MBPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextMbyps.setText(getSharedPreferences().getString(MBYPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextGbps.setText(getSharedPreferences().getString(GBPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextGbyps.setText(getSharedPreferences().getString(GBYPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextTbps.setText(getSharedPreferences().getString(TBPS_VALUE_PERSIST_KEY, ""));
-                    mEditTextTbyps.setText(getSharedPreferences().getString(TBYPS_VALUE_PERSIST_KEY, ""));
-                }
+        if (wasOnCreateRan() && (getSharedPreferences() != null)) {
+            if ((getSharedPreferences().getString(BPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(BYPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(KBPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(KBYPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(MBPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(MBYPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(GBPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(GBYPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(TBPS_VALUE_PERSIST_KEY, null) != null)
+                    && (getSharedPreferences().getString(TBYPS_VALUE_PERSIST_KEY, null) != null)) {
+                mEditTextBps.setText(getSharedPreferences().getString(BPS_VALUE_PERSIST_KEY, ""));
+                mEditTextByps.setText(getSharedPreferences().getString(BYPS_VALUE_PERSIST_KEY, ""));
+                mEditTextKbps.setText(getSharedPreferences().getString(KBPS_VALUE_PERSIST_KEY, ""));
+                mEditTextKbyps.setText(getSharedPreferences().getString(KBYPS_VALUE_PERSIST_KEY, ""));
+                mEditTextMbps.setText(getSharedPreferences().getString(MBPS_VALUE_PERSIST_KEY, ""));
+                mEditTextMbyps.setText(getSharedPreferences().getString(MBYPS_VALUE_PERSIST_KEY, ""));
+                mEditTextGbps.setText(getSharedPreferences().getString(GBPS_VALUE_PERSIST_KEY, ""));
+                mEditTextGbyps.setText(getSharedPreferences().getString(GBYPS_VALUE_PERSIST_KEY, ""));
+                mEditTextTbps.setText(getSharedPreferences().getString(TBPS_VALUE_PERSIST_KEY, ""));
+                mEditTextTbyps.setText(getSharedPreferences().getString(TBYPS_VALUE_PERSIST_KEY, ""));
             }
-
-            if ((getArguments().getString(BPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(BYPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(KBPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(KBYPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(MBPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(MBYPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(GBPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(GBYPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(TBPS_VALUE_PERSIST_KEY) != null)
-                    && (getArguments().getString(TBYPS_VALUE_PERSIST_KEY) != null)) {
-                mEditTextBps.setText(getArguments().getString(BPS_VALUE_PERSIST_KEY));
-                mEditTextByps.setText(getArguments().getString(BYPS_VALUE_PERSIST_KEY));
-                mEditTextKbps.setText(getArguments().getString(KBPS_VALUE_PERSIST_KEY));
-                mEditTextKbyps.setText(getArguments().getString(KBYPS_VALUE_PERSIST_KEY));
-                mEditTextMbps.setText(getArguments().getString(MBPS_VALUE_PERSIST_KEY));
-                mEditTextMbyps.setText(getArguments().getString(MBYPS_VALUE_PERSIST_KEY));
-                mEditTextGbps.setText(getArguments().getString(GBPS_VALUE_PERSIST_KEY));
-                mEditTextGbyps.setText(getArguments().getString(GBYPS_VALUE_PERSIST_KEY));
-                mEditTextTbps.setText(getArguments().getString(TBPS_VALUE_PERSIST_KEY));
-                mEditTextTbyps.setText(getArguments().getString(TBYPS_VALUE_PERSIST_KEY));
-            }
-        } else {
-            if (mLastEditTextFocused == LastEditTextFocused.BPS) {
-                if (mEditTextBps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextBps.getText());
-                    convertFromBitsPerSecond(mEditTextBps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.BYPS) {
-                if (mEditTextByps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextByps.getText());
-                    convertFromBytesPerSecond(mEditTextByps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.KBPS) {
-                if (mEditTextKbps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextKbps.getText());
-                    convertFromKilobitsPerSecond(mEditTextKbps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.KBYPS) {
-                if (mEditTextKbyps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextKbyps.getText());
-                    convertFromKilobytesPerSecond(mEditTextKbyps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.MBPS) {
-                if (mEditTextMbps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextMbps.getText());
-                    convertFromMegabitsPerSecond(mEditTextMbps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.MBYPS) {
-                if (mEditTextMbyps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextMbyps.getText());
-                    convertFromMegabytesPerSecond(mEditTextMbyps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.GBPS) {
-                if (mEditTextGbps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextGbps.getText());
-                    convertFromGigabitsPerSecond(mEditTextGbps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.GBYPS) {
-                if (mEditTextGbyps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextGbyps.getText());
-                    convertFromGigabytesPerSecond(mEditTextGbyps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.TBPS) {
-                if (mEditTextTbps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextTbps.getText());
-                    convertFromTerabitsPerSecond(mEditTextTbps.getText().toString());
-                }
-            } else if (mLastEditTextFocused == LastEditTextFocused.TBYPS) {
-                if (mEditTextTbyps.getText() != null) {
-                    Utils.sanitizeEditable(mEditTextTbyps.getText());
-                    convertFromTerabytesPerSecond(mEditTextTbyps.getText().toString());
-                }
+            if (getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, -1) != -1) {
+                mLastEditTextFocused = getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, 0);
             }
         }
 
-        wasOnlyResumed = true;
+        if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_BPS) {
+            if (mEditTextBps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextBps.getText());
+                convertFromBitsPerSecond(mEditTextBps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_BYPS) {
+            if (mEditTextByps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextByps.getText());
+                convertFromBytesPerSecond(mEditTextByps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KBPS) {
+            if (mEditTextKbps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextKbps.getText());
+                convertFromKilobitsPerSecond(mEditTextKbps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KBYPS) {
+            if (mEditTextKbyps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextKbyps.getText());
+                convertFromKilobytesPerSecond(mEditTextKbyps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_MBPS) {
+            if (mEditTextMbps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextMbps.getText());
+                convertFromMegabitsPerSecond(mEditTextMbps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_MBYPS) {
+            if (mEditTextMbyps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextMbyps.getText());
+                convertFromMegabytesPerSecond(mEditTextMbyps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_GBPS) {
+            if (mEditTextGbps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextGbps.getText());
+                convertFromGigabitsPerSecond(mEditTextGbps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_GBYPS) {
+            if (mEditTextGbyps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextGbyps.getText());
+                convertFromGigabytesPerSecond(mEditTextGbyps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_TBPS) {
+            if (mEditTextTbps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextTbps.getText());
+                convertFromTerabitsPerSecond(mEditTextTbps.getText().toString());
+            }
+        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_TBYPS) {
+            if (mEditTextTbyps.getText() != null) {
+                Utils.sanitizeEditable(mEditTextTbyps.getText());
+                convertFromTerabytesPerSecond(mEditTextTbyps.getText().toString());
+            }
+        }
+
+        setWasOnCreateRan(false);
         addTextChangedListeners("onResume");
     }
 
@@ -425,29 +395,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
         super.onPause();
         Timber.tag(TAG + ".onPause").i("Entered");
 
-        if (!mEditTextBps.getText().toString().isEmpty()
-                && !mEditTextByps.getText().toString().isEmpty()
-                && !mEditTextKbps.getText().toString().isEmpty()
-                && !mEditTextKbyps.getText().toString().isEmpty()
-                && !mEditTextMbps.getText().toString().isEmpty()
-                && !mEditTextMbyps.getText().toString().isEmpty()
-                && !mEditTextGbps.getText().toString().isEmpty()
-                && !mEditTextGbyps.getText().toString().isEmpty()
-                && !mEditTextTbps.getText().toString().isEmpty()
-                && !mEditTextTbyps.getText().toString().isEmpty()) {
-            getArguments().putString(BPS_VALUE_PERSIST_KEY, mEditTextBps.getText().toString());
-            getArguments().putString(BYPS_VALUE_PERSIST_KEY, mEditTextByps.getText().toString());
-            getArguments().putString(KBPS_VALUE_PERSIST_KEY, mEditTextKbps.getText().toString());
-            getArguments().putString(KBYPS_VALUE_PERSIST_KEY, mEditTextKbyps.getText().toString());
-            getArguments().putString(MBPS_VALUE_PERSIST_KEY, mEditTextMbps.getText().toString());
-            getArguments().putString(MBYPS_VALUE_PERSIST_KEY, mEditTextMbyps.getText().toString());
-            getArguments().putString(GBPS_VALUE_PERSIST_KEY, mEditTextGbps.getText().toString());
-            getArguments().putString(GBYPS_VALUE_PERSIST_KEY, mEditTextGbyps.getText().toString());
-            getArguments().putString(TBPS_VALUE_PERSIST_KEY, mEditTextTbps.getText().toString());
-            getArguments().putString(TBYPS_VALUE_PERSIST_KEY, mEditTextTbyps.getText().toString());
-        }
-
-        if (shouldPersistValues() && (getSharedPreferences() != null)) {
+        if (getSharedPreferences() != null) {
             getSharedPreferences()
                     .edit()
                     .putString(BPS_VALUE_PERSIST_KEY, mEditTextBps.getText().toString())
@@ -460,6 +408,7 @@ public class DataTransferSpeedFragment extends BaseFragment {
                     .putString(GBYPS_VALUE_PERSIST_KEY, mEditTextGbyps.getText().toString())
                     .putString(TBPS_VALUE_PERSIST_KEY, mEditTextTbps.getText().toString())
                     .putString(TBYPS_VALUE_PERSIST_KEY, mEditTextTbyps.getText().toString())
+                    .putInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, mLastEditTextFocused)
                     .apply();
         }
     }
@@ -519,24 +468,24 @@ public class DataTransferSpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromBitsPerSecondTask task = new FromBitsPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutBps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutBps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutBps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -587,24 +536,24 @@ public class DataTransferSpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromBytesPerSecondTask task = new FromBytesPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutByps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutByps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutByps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -655,24 +604,24 @@ public class DataTransferSpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromKilobitsPerSecondTask task = new FromKilobitsPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutKbps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutKbps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutKbps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -723,24 +672,24 @@ public class DataTransferSpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromKilobytesPerSecondTask task = new FromKilobytesPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutKbyps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutKbyps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutKbyps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -791,24 +740,24 @@ public class DataTransferSpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromMegabitsPerSecondTask task = new FromMegabitsPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutMbps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutMbps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutMbps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -859,24 +808,24 @@ public class DataTransferSpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromMegabytesPerSecondTask task = new FromMegabytesPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutMbyps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutMbyps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutMbyps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -927,24 +876,24 @@ public class DataTransferSpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromGigabitsPerSecondTask task = new FromGigabitsPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutGbps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutGbps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutGbps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -995,24 +944,24 @@ public class DataTransferSpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromGigabytesPerSecondTask task = new FromGigabytesPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutGbyps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutGbyps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutGbyps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -1063,24 +1012,24 @@ public class DataTransferSpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromTerabitsPerSecondTask task = new FromTerabitsPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutTbps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutTbps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutTbps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));
@@ -1131,24 +1080,24 @@ public class DataTransferSpeedFragment extends BaseFragment {
         params[1] = Integer.toString(getNumOfDecimalPlaces());
         FromTerabytesPerSecondTask task = new FromTerabytesPerSecondTask() {
             @Override
-            protected void onPostExecute(Pair<List<String>, ConversionErrorCodes> results) {
+            protected void onPostExecute(Pair<List<String>, Integer> results) {
                 Timber.tag(TAG + ".onPostExecute").i("Entered");
 
                 if (results != null) {
                     removeTextChangedListeners(TAG + ".onPostExecute");
 
                     switch (results.second) {
-                        case ERROR_BELOW_ZERO:
+                        case ConversionErrorCodes.ERROR_BELOW_ZERO:
                             mTextInputLayoutTbyps.setError(getString(
                                     R.string.conversion_error_below_zero
                             ));
                             break;
-                        case ERROR_INPUT_NOT_NUMERIC:
+                        case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
                             mTextInputLayoutTbyps.setError(getString(
                                     R.string.conversion_error_input_not_numeric
                             ));
                             break;
-                        case ERROR_UNKNOWN:
+                        case ConversionErrorCodes.ERROR_UNKNOWN:
                             mTextInputLayoutTbyps.setError(getString(
                                     R.string.conversion_error_conversion_error
                             ));

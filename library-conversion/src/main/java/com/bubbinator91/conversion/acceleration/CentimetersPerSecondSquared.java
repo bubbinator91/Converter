@@ -33,14 +33,14 @@ public class CentimetersPerSecondSquared extends Unit {
      *          item is one of the error codes found in {@link ConversionErrorCodes}, or null if the
      *          <code>cmpss</code> parameter is null.
      */
-    public static Pair<List<String>, ConversionErrorCodes> toAll(String cmpss, int decimalPlaces) {
+    public static Pair<List<String>, Integer> toAll(String cmpss, int decimalPlaces) {
         if (cmpss == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
         List<String> results = new LinkedList<>();
-        ConversionErrorCodes error = ConversionErrorCodes.ERROR_NONE;
+        int error = ConversionErrorCodes.ERROR_NONE;
 
         if (isNumeric(cmpss)) {
             try {

@@ -31,14 +31,14 @@ public class StandardGravity extends Unit {
      *          error), and the second item is one of the error codes found in
      *          {@link ConversionErrorCodes}, or null if the <code>sg</code> parameter is null.
      */
-    public static Pair<List<String>, ConversionErrorCodes> toAll(String sg, int decimalPlaces) {
+    public static Pair<List<String>, Integer> toAll(String sg, int decimalPlaces) {
         if (sg == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
         List<String> results = new LinkedList<>();
-        ConversionErrorCodes error = ConversionErrorCodes.ERROR_NONE;
+        int error = ConversionErrorCodes.ERROR_NONE;
 
         if (isNumeric(sg)) {
             try {

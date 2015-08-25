@@ -23,7 +23,7 @@ import timber.log.Timber;
  * disables the Action Bar (ex. Theme.AppCompat.NoActionBar).
  */
 public abstract class BaseActivity extends AppCompatActivity {
-	private final String TAG = "BaseActivity";
+	private final String TAG = BaseActivity.class.getSimpleName();
 
 	private Toolbar mToolbar;
 

@@ -27,15 +27,15 @@ import timber.log.Timber;
 public abstract class BaseFragment
         extends Fragment
         implements ViewTreeObserver.OnScrollChangedListener {
-    private final String TAG = "BaseFragment";
+    private final String TAG = BaseFragment.class.getSimpleName();
 
     private SharedPreferences mPrefs = null;
     private int numOfDecimalPlaces = -1;
-    private boolean shouldPersistValues = false;
 
     private View rootView = null;
     private ScrollView mScrollView = null;
     private int mToolbarHeight = 0, mToolbarOffset = 0, lastY = 0;
+    private boolean wasOnCreateRan;
 
     // region Lifecycle methods
 
@@ -49,6 +49,8 @@ public abstract class BaseFragment
                     .penaltyLog()
                     .build());
         }
+
+        wasOnCreateRan = true;
     }
 
     @Override
@@ -82,7 +84,6 @@ public abstract class BaseFragment
         if (mPrefs != null) {
             numOfDecimalPlaces =
                     Integer.parseInt(mPrefs.getString(Globals.PREFERENCE_DECIMAL_PLACES, "-1"));
-            shouldPersistValues = mPrefs.getBoolean(Globals.PREFERENCE_PERSIST, false);
         }
         if (numOfDecimalPlaces == -1) {
             numOfDecimalPlaces = 8;
@@ -126,6 +127,7 @@ public abstract class BaseFragment
                 mToolbarOffset = 0;
             }
 
+            // TODO Good idea to implement dagger here
             Toolbar toolbar = ((Toolbar) getActivity().findViewById(R.id.toolbar));
             try {
                 // If the user is dragging the ScrollView up (they are heading towards the bottom of
@@ -203,13 +205,9 @@ public abstract class BaseFragment
      */
     protected SharedPreferences getSharedPreferences() { return mPrefs; }
 
-    /**
-     * Gets the status of the persist values setting, which will tell the fragments if they should
-     * store their values permanently so they can be reloaded even if the app is closed.
-     *
-     * @return  false if the fragments should not persist values; true otherwise.
-     */
-    public boolean shouldPersistValues() { return shouldPersistValues; }
+    protected boolean wasOnCreateRan() { return wasOnCreateRan; }
+
+    protected void setWasOnCreateRan(boolean value) { wasOnCreateRan = value; }
 
     // endregion
 

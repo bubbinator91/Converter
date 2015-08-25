@@ -19,11 +19,11 @@ import timber.log.Timber;
  * round to.
  */
 public class FromMilesPerHourTask
-        extends AsyncTask<String, Void, Pair<List<String>, ConversionErrorCodes>> {
+        extends AsyncTask<String, Void, Pair<List<String>, Integer>> {
     protected final String TAG = FromMilesPerHourTask.class.getSimpleName();
 
     @Override
-    protected Pair<List<String>, ConversionErrorCodes> doInBackground(String... params) {
+    protected Pair<List<String>, Integer> doInBackground(String... params) {
         Timber.tag(TAG + ".doInBackground").i("Entered");
 
         if ((params == null) || (params.length < 2)) {
