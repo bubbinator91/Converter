@@ -5,7 +5,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,7 @@ import com.bubbinator91.converter.tasks.acceleration.FromCentimetersPerSecondSqu
 import com.bubbinator91.converter.tasks.acceleration.FromFeetPerSecondSquaredTask;
 import com.bubbinator91.converter.tasks.acceleration.FromMetersPerSecondSquaredTask;
 import com.bubbinator91.converter.tasks.acceleration.FromStandardGravityTask;
+import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -49,91 +49,9 @@ public class AccelerationFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_acceleration_mpss)   TextInputLayout mTextInputLayoutMpss;
     @Bind(R.id.textInputLayout_acceleration_sg)     TextInputLayout mTextInputLayoutSg;
 
+    private SimpleTextWatcher mTextWatcherCmpss, mTextWatcherFpss, mTextWatcherMpss, mTextWatcherSg;
+
     private int mLastEditTextFocused;
-
-    // region TextWatchers
-
-    private TextWatcher mTextWatcherCmpss = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_CMPSS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherCmpss");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherCmpss");
-                convertFromCentimetersPerSecondSquared(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherFpss = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_FPSS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherFpss");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherFpss");
-                convertFromFeetPerSecondSquared(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherMpss = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MPSS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherMpss");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherMpss");
-                convertFromMetersPerSecondSquared(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherSg = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_SG;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherSg");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherSg");
-                convertFromStandardGravity(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    // endregion
 
     // region Lifecycle methods
 
@@ -144,6 +62,62 @@ public class AccelerationFragment extends BaseFragment {
 
         if (getRootView() != null) {
             ButterKnife.bind(this, getRootView());
+
+            mTextWatcherCmpss = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_CMPSS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherCmpss");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherCmpss");
+                        convertFromCentimetersPerSecondSquared(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherFpss = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_FPSS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherFpss");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherFpss");
+                        convertFromFeetPerSecondSquared(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherMpss = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MPSS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherMpss");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherMpss");
+                        convertFromMetersPerSecondSquared(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherSg = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_SG;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherSg");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherSg");
+                        convertFromStandardGravity(s.toString());
+                    }
+                }
+            };
         }
 
         setWasOnCreateRan(true);
@@ -192,10 +166,11 @@ public class AccelerationFragment extends BaseFragment {
                 Utils.sanitizeEditable(mEditTextSg.getText());
                 convertFromStandardGravity(mEditTextSg.getText().toString());
             }
+        } else {
+            addTextChangedListeners("onResume");
         }
 
         setWasOnCreateRan(false);
-        addTextChangedListeners("onResume");
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,7 @@ import com.bubbinator91.converter.tasks.length.FromMetersTask;
 import com.bubbinator91.converter.tasks.length.FromMilesTask;
 import com.bubbinator91.converter.tasks.length.FromMillimetersTask;
 import com.bubbinator91.converter.tasks.length.FromYardsTask;
+import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -74,171 +74,11 @@ public class LengthFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_length_meter)        TextInputLayout mTextInputLayoutMeter;
     @Bind(R.id.textInputLayout_length_kilometer)    TextInputLayout mTextInputLayoutKilometer;
 
+    private SimpleTextWatcher mTextWatcherInch, mTextWatcherFoot, mTextWatcherYard,
+            mTextWatcherMile, mTextWatcherMillimeter, mTextWatcherCentimeter, mTextWatcherMeter,
+            mTextWatcherKilometer;
+
     private int mLastEditTextFocused;
-
-    // region TextWatchers
-
-    private TextWatcher mTextWatcherInch = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_INCH;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherInch");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherInch");
-                convertFromInches(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherFoot = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_FOOT;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherFoot");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherFoot");
-                convertFromFeet(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherYard = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_YARD;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherYard");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherYard");
-                convertFromYards(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherMile = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MILE;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherMile");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherMile");
-                convertFromMiles(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherMillimeter = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MILLIMETER;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherMillimeter");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherMillimeter");
-                convertFromMillimeters(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherCentimeter = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_CENTIMETER;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherCentimeter");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherCentimeter");
-                convertFromCentimeters(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherMeter = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_METER;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherMeter");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherMeter");
-                convertFromMeters(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherKilometer = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KILOMETER;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherKilometer");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherKilometer");
-                convertFromKilometers(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    // endregion
 
     // region Lifecycle methods
 
@@ -249,6 +89,118 @@ public class LengthFragment extends BaseFragment {
 
         if (getRootView() != null) {
             ButterKnife.bind(this, getRootView());
+
+            mTextWatcherInch = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_INCH;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherInch");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherInch");
+                        convertFromInches(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherFoot = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_FOOT;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherFoot");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherFoot");
+                        convertFromFeet(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherYard = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_YARD;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherYard");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherYard");
+                        convertFromYards(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherMile = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MILE;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherMile");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherMile");
+                        convertFromMiles(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherMillimeter = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MILLIMETER;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherMillimeter");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherMillimeter");
+                        convertFromMillimeters(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherCentimeter = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_CENTIMETER;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherCentimeter");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherCentimeter");
+                        convertFromCentimeters(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherMeter = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_METER;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherMeter");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherMeter");
+                        convertFromMeters(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherKilometer = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KILOMETER;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherKilometer");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherKilometer");
+                        convertFromKilometers(s.toString());
+                    }
+                }
+            };
         }
 
         setWasOnCreateRan(true);
@@ -325,10 +277,11 @@ public class LengthFragment extends BaseFragment {
                 Utils.sanitizeEditable(mEditTextKilometer.getText());
                 convertFromKilometers(mEditTextKilometer.getText().toString());
             }
+        } else {
+            addTextChangedListeners("onResume");
         }
 
         setWasOnCreateRan(false);
-        addTextChangedListeners("onResume");
     }
 
     @Override

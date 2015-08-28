@@ -5,7 +5,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.tasks.temperature.FromCelsiusTask;
 import com.bubbinator91.converter.tasks.temperature.FromFahrenheitTask;
 import com.bubbinator91.converter.tasks.temperature.FromKelvinTask;
+import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -49,71 +49,9 @@ public class TemperatureFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_temperature_fahrenheit)  TextInputLayout mTextInputLayoutFahrenheit;
     @Bind(R.id.textInputLayout_temperature_kelvin)      TextInputLayout mTextInputLayoutKelvin;
 
+    private SimpleTextWatcher mTextWatcherCelsius, mTextWatcherFahrenheit, mTextWatcherKelvin;
+
     private int mLastEditTextFocused;
-
-    // region TextWatchers
-
-    private TextWatcher mTextWatcherCelsius = new TextWatcher() {
-        @Override
-        public void afterTextChanged(final Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_CELSIUS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherCelsius");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherCelsius");
-                convertFromCelsius(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherFahrenheit = new TextWatcher() {
-        @Override
-        public void afterTextChanged(final Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_FAHRENHEIT;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherFahrenheit");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherFahrenheit");
-                convertFromFahrenheit(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherKelvin = new TextWatcher() {
-        @Override
-        public void afterTextChanged(final Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KELVIN;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherKelvin");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherKelvin");
-                convertFromKelvin(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    // endregion
 
     // region Lifecycle methods
 
@@ -124,6 +62,48 @@ public class TemperatureFragment extends BaseFragment {
 
         if (getRootView() != null) {
             ButterKnife.bind(this, getRootView());
+
+            mTextWatcherCelsius = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(final Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_CELSIUS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherCelsius");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherCelsius");
+                        convertFromCelsius(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherFahrenheit = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(final Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_FAHRENHEIT;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherFahrenheit");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherFahrenheit");
+                        convertFromFahrenheit(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherKelvin = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(final Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KELVIN;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherKelvin");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherKelvin");
+                        convertFromKelvin(s.toString());
+                    }
+                }
+            };
         }
 
         setWasOnCreateRan(true);
@@ -165,10 +145,11 @@ public class TemperatureFragment extends BaseFragment {
                 Utils.sanitizeEditable(mEditTextKelvin.getText());
                 convertFromKelvin(mEditTextKelvin.getText().toString());
             }
+        } else {
+            addTextChangedListeners("onResume");
         }
 
         setWasOnCreateRan(false);
-        addTextChangedListeners("onResume");
     }
 
     @Override

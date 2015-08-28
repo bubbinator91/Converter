@@ -2,7 +2,6 @@ package com.bubbinator91.converter.activities;
 
 import android.app.ActivityOptions;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,9 +20,6 @@ import android.widget.Toast;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.fragments.*;
 import com.bubbinator91.converter.util.GlobalsManager;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

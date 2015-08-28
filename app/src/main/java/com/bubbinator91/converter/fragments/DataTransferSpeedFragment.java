@@ -5,7 +5,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +22,7 @@ import com.bubbinator91.converter.tasks.datatransferspeed.FromMegabitsPerSecondT
 import com.bubbinator91.converter.tasks.datatransferspeed.FromMegabytesPerSecondTask;
 import com.bubbinator91.converter.tasks.datatransferspeed.FromTerabitsPerSecondTask;
 import com.bubbinator91.converter.tasks.datatransferspeed.FromTerabytesPerSecondTask;
+import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -79,211 +79,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_data_transfer_speed_tbps)    TextInputLayout mTextInputLayoutTbps;
     @Bind(R.id.textInputLayout_data_transfer_speed_tbyps)   TextInputLayout mTextInputLayoutTbyps;
 
+    private SimpleTextWatcher mTextWatcherBps, mTextWatcherByps, mTextWatcherKbps,
+            mTextWatcherKbyps, mTextWatcherMbps, mTextWatcherMbyps, mTextWatcherGbps,
+            mTextWatcherGbyps, mTextWatcherTbps, mTextWatcherTbyps;
+
     private int mLastEditTextFocused;
-
-    // region TextWatchers
-
-    private TextWatcher mTextWatcherBps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_BPS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherBps");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherBps");
-                convertFromBitsPerSecond(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherByps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_BYPS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherByps");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherByps");
-                convertFromBytesPerSecond(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherKbps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KBPS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherKbps");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherKbps");
-                convertFromKilobitsPerSecond(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherKbyps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KBYPS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherKbyps");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherKbyps");
-                convertFromKilobytesPerSecond(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherMbps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MBPS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherMbps");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherMbps");
-                convertFromMegabitsPerSecond(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherMbyps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MBYPS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherMbyps");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherMbyps");
-                convertFromMegabytesPerSecond(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherGbps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_GBPS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherGbps");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherGbps");
-                convertFromGigabitsPerSecond(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherGbyps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_GBYPS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherGbyps");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherGbyps");
-                convertFromGigabytesPerSecond(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherTbps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_TBPS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherTbps");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherTbps");
-                convertFromTerabitsPerSecond(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherTbyps = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_TBYPS;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherTbyps");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherTbyps");
-                convertFromTerabytesPerSecond(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    // endregion
 
     // region Lifecycle methods
 
@@ -294,6 +94,146 @@ public class DataTransferSpeedFragment extends BaseFragment {
 
         if (getRootView() != null) {
             ButterKnife.bind(this, getRootView());
+
+            mTextWatcherBps = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_BPS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherBps");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherBps");
+                        convertFromBitsPerSecond(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherByps = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_BYPS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherByps");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherByps");
+                        convertFromBytesPerSecond(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherKbps = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KBPS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherKbps");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherKbps");
+                        convertFromKilobitsPerSecond(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherKbyps = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KBYPS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherKbyps");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherKbyps");
+                        convertFromKilobytesPerSecond(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherMbps = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MBPS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherMbps");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherMbps");
+                        convertFromMegabitsPerSecond(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherMbyps = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_MBYPS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherMbyps");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherMbyps");
+                        convertFromMegabytesPerSecond(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherGbps = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_GBPS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherGbps");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherGbps");
+                        convertFromGigabitsPerSecond(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherGbyps = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_GBYPS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherGbyps");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherGbyps");
+                        convertFromGigabytesPerSecond(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherTbps = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_TBPS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherTbps");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherTbps");
+                        convertFromTerabitsPerSecond(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherTbyps = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_TBYPS;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherTbyps");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherTbyps");
+                        convertFromTerabytesPerSecond(s.toString());
+                    }
+                }
+            };
         }
 
         setWasOnCreateRan(true);
@@ -384,10 +324,11 @@ public class DataTransferSpeedFragment extends BaseFragment {
                 Utils.sanitizeEditable(mEditTextTbyps.getText());
                 convertFromTerabytesPerSecond(mEditTextTbyps.getText().toString());
             }
+        } else {
+            addTextChangedListeners("onResume");
         }
 
         setWasOnCreateRan(false);
-        addTextChangedListeners("onResume");
     }
 
     @Override

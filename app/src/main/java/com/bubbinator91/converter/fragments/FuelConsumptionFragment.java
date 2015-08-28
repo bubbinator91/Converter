@@ -5,7 +5,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,7 @@ import com.bubbinator91.converter.tasks.fuelconsumption.FromKilometersPerLiterTa
 import com.bubbinator91.converter.tasks.fuelconsumption.FromLitersPer100KilometersTask;
 import com.bubbinator91.converter.tasks.fuelconsumption.FromUKMilesPerGallonTask;
 import com.bubbinator91.converter.tasks.fuelconsumption.FromUSMilesPerGallonTask;
+import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
 import java.util.List;
@@ -49,91 +49,10 @@ public class FuelConsumptionFragment extends BaseFragment {
     @Bind(R.id.textInputLayout_fuel_consumption_kpl)    TextInputLayout mTextInputLayoutKpl;
     @Bind(R.id.textInputLayout_fuel_consumption_l100k)  TextInputLayout mTextInputLayoutL100k;
 
+    private SimpleTextWatcher mTextWatcherUsmpg, mTextWatcherUkmpg, mTextWatcherKpl,
+            mTextWatcherL100k;
+
     private int mLastEditTextFocused;
-
-    // region TextWatchers
-
-    private TextWatcher mTextWatcherUsmpg = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_USMPG;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherUsmpg");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherUsmpg");
-                convertFromUSMilesPerGallon(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherUkmpg = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_UKMPG;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherUkmpg");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherUkmpg");
-                convertFromUKMilesPerGallon(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherKpl = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KPL;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherKpl");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherKpl");
-                convertFromKilometersPerLiter(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    private TextWatcher mTextWatcherL100k = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_L100K;
-
-            if (s != null) {
-                removeTextChangedListeners("mTextWatcherL100k");
-                Utils.sanitizeEditable(s);
-                addTextChangedListeners("mTextWatcherL100k");
-                convertFromLitersPer100Kilometers(s.toString());
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    };
-
-    // endregion
 
     // region Lifecycle methods
 
@@ -144,6 +63,62 @@ public class FuelConsumptionFragment extends BaseFragment {
 
         if (getRootView() != null) {
             ButterKnife.bind(this, getRootView());
+
+            mTextWatcherUsmpg = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_USMPG;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherUsmpg");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherUsmpg");
+                        convertFromUSMilesPerGallon(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherUkmpg = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_UKMPG;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherUkmpg");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherUkmpg");
+                        convertFromUKMilesPerGallon(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherKpl = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KPL;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherKpl");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherKpl");
+                        convertFromKilometersPerLiter(s.toString());
+                    }
+                }
+            };
+
+            mTextWatcherL100k = new SimpleTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_L100K;
+
+                    if (s != null) {
+                        removeTextChangedListeners("mTextWatcherL100k");
+                        Utils.sanitizeEditable(s);
+                        addTextChangedListeners("mTextWatcherL100k");
+                        convertFromLitersPer100Kilometers(s.toString());
+                    }
+                }
+            };
         }
 
         setWasOnCreateRan(true);
@@ -180,22 +155,23 @@ public class FuelConsumptionFragment extends BaseFragment {
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_UKMPG) {
             if (mEditTextUkmpg.getText() != null) {
                 Utils.sanitizeEditable(mEditTextUkmpg.getText());
-                convertFromUSMilesPerGallon(mEditTextUkmpg.getText().toString());
+                convertFromUKMilesPerGallon(mEditTextUkmpg.getText().toString());
             }
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KPL) {
             if (mEditTextKpl.getText() != null) {
                 Utils.sanitizeEditable(mEditTextKpl.getText());
-                convertFromUSMilesPerGallon(mEditTextKpl.getText().toString());
+                convertFromKilometersPerLiter(mEditTextKpl.getText().toString());
             }
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_L100K) {
             if (mEditTextL100k.getText() != null) {
                 Utils.sanitizeEditable(mEditTextL100k.getText());
-                convertFromUSMilesPerGallon(mEditTextL100k.getText().toString());
+                convertFromLitersPer100Kilometers(mEditTextL100k.getText().toString());
             }
+        } else {
+            addTextChangedListeners("onResume");
         }
 
         setWasOnCreateRan(false);
-        addTextChangedListeners("onResume");
     }
 
     @Override
