@@ -57,14 +57,11 @@ public class MainActivity extends BaseActivity {
         setToolbarIcon(-1, true);
 
         mNavigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem item) {
-                        if (!lastSelectedFragment.equals(item.getTitle().toString())) {
-                            switchToFragment(item.getTitle().toString());
-                        }
-                        return true;
+                menuItem -> {
+                    if (!lastSelectedFragment.equals(menuItem.getTitle().toString())) {
+                        switchToFragment(menuItem.getTitle().toString());
                     }
+                    return true;
                 }
         );
 
@@ -273,29 +270,29 @@ public class MainActivity extends BaseActivity {
             fragmentToSwitchTo = null;
         }
 
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (fragmentToSwitchTo != null) {
-                    try {
-                        getFragmentManager().beginTransaction()
-                                .setCustomAnimations(R.anim.fragment_slide_in_right,
-                                        R.anim.fragment_slide_out_left)
-                                .replace(R.id.container, fragmentToSwitchTo)
-                                .commit();
+        mHandler.postDelayed(
+                () -> {
+                    if (fragmentToSwitchTo != null) {
+                        try {
+                            getFragmentManager().beginTransaction()
+                                    .setCustomAnimations(R.anim.fragment_slide_in_right,
+                                            R.anim.fragment_slide_out_left)
+                                    .replace(R.id.container, fragmentToSwitchTo)
+                                    .commit();
 
-                        lastSelectedFragment = fragmentName;
-                        getToolbar().setTitle(fragmentName);
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        saveLastSelectedFragment();
-                    } catch (IllegalStateException e) {
-                        Timber.tag(TAG + ".changeToFragment").e(e.getMessage());
-                        Toast.makeText(getParent(), "", Toast.LENGTH_LONG).show();
-                        setNavigationDrawerItemChecked(lastSelectedFragment);
+                            lastSelectedFragment = fragmentName;
+                            getToolbar().setTitle(fragmentName);
+                            mDrawerLayout.closeDrawer(GravityCompat.START);
+                            saveLastSelectedFragment();
+                        } catch (IllegalStateException e) {
+                            Timber.tag(TAG + ".changeToFragment").e(e.getMessage());
+                            Toast.makeText(getParent(), "", Toast.LENGTH_LONG).show();
+                            setNavigationDrawerItemChecked(lastSelectedFragment);
+                        }
                     }
                 }
-            }
-        }, 225);
+                , 225
+        );
     }
 
     // endregion

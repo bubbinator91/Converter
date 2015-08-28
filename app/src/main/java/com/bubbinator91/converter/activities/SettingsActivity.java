@@ -2,7 +2,6 @@ package com.bubbinator91.converter.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
@@ -99,24 +98,21 @@ public class SettingsActivity extends BaseActivity {
             addPreferencesFromResource(R.xml.settings);
 
             SwitchPreference logcatSwitch =
-                    ((SwitchPreference) findPreference(
-                            getResources().getString(R.string.util_key_debug)
-                    ));
-            logcatSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (((boolean) newValue) != GlobalsManager.INSTANCE.isLogcatEnabled()) {
-                        GlobalsManager.INSTANCE.setIsLogcatEnabled((boolean) newValue);
-                        return true;
-                    } else if (((boolean) newValue) == GlobalsManager.INSTANCE.isLogcatEnabled()) {
-                        GlobalsManager.INSTANCE
-                                .setIsLogcatEnabled(!GlobalsManager.INSTANCE.isLogcatEnabled());
-                        return false;
-                    } else {
-                        return false;
+                    ((SwitchPreference) findPreference(getResources().getString(R.string.util_key_debug)));
+            logcatSwitch.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        if (((boolean) newValue) != GlobalsManager.INSTANCE.isLogcatEnabled()) {
+                            GlobalsManager.INSTANCE.setIsLogcatEnabled((boolean) newValue);
+                            return true;
+                        } else if (((boolean) newValue) == GlobalsManager.INSTANCE.isLogcatEnabled()) {
+                            GlobalsManager.INSTANCE
+                                    .setIsLogcatEnabled(!GlobalsManager.INSTANCE.isLogcatEnabled());
+                            return false;
+                        } else {
+                            return false;
+                        }
                     }
-                }
-            });
+            );
         }
 
         // endregion

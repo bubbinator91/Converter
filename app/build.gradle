@@ -1,14 +1,6 @@
-buildscript {
-    repositories() {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.trello:victor:0.1.4'
-    }
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'com.trello.victor'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 23
@@ -34,6 +26,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     sourceSets {
         main {
