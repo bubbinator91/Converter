@@ -27,6 +27,10 @@
 
 ## END PROJECT SPECIFIC GUARDS ##
 
+## RETROLAMBDA GUARDS ##
+
+-dontwarn java.lang.invoke.*
+
 ## BUTTERKNIFE GUARDS ##
 
 -keep class butterknife.** { *; }

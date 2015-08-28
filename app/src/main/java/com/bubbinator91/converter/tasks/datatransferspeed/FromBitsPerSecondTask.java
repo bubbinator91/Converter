@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Pair;
 
 import com.bubbinator91.conversion.datatransferspeed.BitsPerSecond;
-import com.bubbinator91.conversion.util.ConversionErrorCodes;
 
 import java.util.List;
 
