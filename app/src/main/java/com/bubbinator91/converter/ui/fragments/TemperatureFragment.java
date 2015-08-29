@@ -28,10 +28,10 @@ import timber.log.Timber;
 
 /**
  * Celsius, Fahrenheit, Kelvin
- * Conversions comply with the conversions through Google.com
  */
-
-public class TemperatureFragment extends BaseFragment<TemperaturePresenter> implements TemperatureView {
+public class TemperatureFragment
+        extends BaseFragment<TemperaturePresenter>
+        implements TemperatureView {
     private final String TAG = TemperatureFragment.class.getSimpleName();
 
     private static final int LAST_EDIT_TEXT_FOCUSED_CELSIUS = 0;
@@ -47,8 +47,7 @@ public class TemperatureFragment extends BaseFragment<TemperaturePresenter> impl
 
     private int mLastEditTextFocused;
 
-    @Inject
-    TemperaturePresenter mTemperaturePresenter;
+    @Inject TemperaturePresenter mTemperaturePresenter;
 
     @Bind(R.id.editText_temperature_celsius)    AppCompatEditText mEditTextCelsius;
     @Bind(R.id.editText_temperature_fahrenheit) AppCompatEditText mEditTextFahrenheit;
@@ -77,8 +76,10 @@ public class TemperatureFragment extends BaseFragment<TemperaturePresenter> impl
                         removeTextChangedListeners("mTextWatcherCelsius");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherCelsius");
-                        getPresenter().getConversionFromCelsiusResults(s.toString(),
-                                getNumOfDecimalPlaces());
+                        getPresenter().getConversionFromCelsiusResults(
+                                s.toString(),
+                                getNumOfDecimalPlaces()
+                        );
                     }
                 }
             };
@@ -107,8 +108,10 @@ public class TemperatureFragment extends BaseFragment<TemperaturePresenter> impl
                         removeTextChangedListeners("mTextWatcherKelvin");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherKelvin");
-                        getPresenter().getConversionFromKelvinResults(s.toString(),
-                                getNumOfDecimalPlaces());
+                        getPresenter().getConversionFromKelvinResults(
+                                s.toString(),
+                                getNumOfDecimalPlaces()
+                        );
                     }
                 }
             };
@@ -139,20 +142,26 @@ public class TemperatureFragment extends BaseFragment<TemperaturePresenter> impl
         if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_CELSIUS) {
             if (mEditTextCelsius.getText() != null) {
                 Utils.sanitizeEditable(mEditTextCelsius.getText());
-                getPresenter().getConversionFromCelsiusResults(mEditTextCelsius.getText().toString(),
-                        getNumOfDecimalPlaces());
+                getPresenter().getConversionFromCelsiusResults(
+                        mEditTextCelsius.getText().toString(),
+                        getNumOfDecimalPlaces()
+                );
             }
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_FAHRENHEIT) {
             if (mEditTextFahrenheit.getText() != null) {
                 Utils.sanitizeEditable(mEditTextFahrenheit.getText());
-                getPresenter().getConversionFromFahrenheitResults(mEditTextFahrenheit.getText().toString(),
-                        getNumOfDecimalPlaces());
+                getPresenter().getConversionFromFahrenheitResults(
+                        mEditTextFahrenheit.getText().toString(),
+                        getNumOfDecimalPlaces()
+                );
             }
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KELVIN) {
             if (mEditTextKelvin.getText() != null) {
                 Utils.sanitizeEditable(mEditTextKelvin.getText());
-                getPresenter().getConversionFromKelvinResults(mEditTextKelvin.getText().toString(),
-                        getNumOfDecimalPlaces());
+                getPresenter().getConversionFromKelvinResults(
+                        mEditTextKelvin.getText().toString(),
+                        getNumOfDecimalPlaces()
+                );
             }
         } else {
             addTextChangedListeners("onResume");
@@ -333,13 +342,19 @@ public class TemperatureFragment extends BaseFragment<TemperaturePresenter> impl
     // region Overridden BaseFragment methods
 
     @Override
-    protected String getChildTag() { return TAG; }
+    protected String getChildTag() {
+        return TAG;
+    }
 
     @Override
-    protected int getLayoutResource() { return R.layout.fragment_temperature; }
+    protected int getLayoutResource() {
+        return R.layout.fragment_temperature;
+    }
 
     @Override
-    protected int getScrollViewResource() { return R.id.fragment_temperature; }
+    protected int getScrollViewResource() {
+        return R.id.fragment_temperature;
+    }
 
     @Override
     protected TemperaturePresenter getPresenter() {
@@ -355,7 +370,9 @@ public class TemperatureFragment extends BaseFragment<TemperaturePresenter> impl
     }
 
     @Override
-    protected void registerViewWithPresenter() { getPresenter().registerView(this); }
+    protected void registerViewWithPresenter() {
+        getPresenter().registerView(this);
+    }
 
     // endregion
 }

@@ -18,7 +18,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.ui.fragments.*;
+import com.bubbinator91.converter.ui.fragments.AccelerationFragment;
+import com.bubbinator91.converter.ui.fragments.DataTransferSpeedFragment;
+import com.bubbinator91.converter.ui.fragments.FuelConsumptionFragment;
+import com.bubbinator91.converter.ui.fragments.LengthFragment;
+import com.bubbinator91.converter.ui.fragments.SpeedFragment;
+import com.bubbinator91.converter.ui.fragments.TemperatureFragment;
 import com.bubbinator91.converter.util.GlobalsManager;
 
 import butterknife.Bind;
@@ -36,8 +41,10 @@ import timber.log.Timber;
 public class MainActivity extends BaseActivity {
     private final String TAG = MainActivity.class.getSimpleName();
 
-    @Bind(R.id.activity_main_layout) DrawerLayout mDrawerLayout;
-    @Bind(R.id.drawer_view) NavigationView mNavigationView;
+    @Bind(R.id.activity_main_layout)
+    DrawerLayout mDrawerLayout;
+    @Bind(R.id.drawer_view)
+    NavigationView mNavigationView;
 
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private String lastSelectedFragment = null;
@@ -56,8 +63,7 @@ public class MainActivity extends BaseActivity {
         wasActivityRestarted = false;
         setToolbarIcon(-1, true);
 
-        mNavigationView.setNavigationItemSelectedListener(
-                menuItem -> {
+        mNavigationView.setNavigationItemSelectedListener(menuItem -> {
                     if (!lastSelectedFragment.equals(menuItem.getTitle().toString())) {
                         switchToFragment(menuItem.getTitle().toString());
                     }
@@ -152,10 +158,14 @@ public class MainActivity extends BaseActivity {
     // region Overridden BaseActivity methods
 
     @Override
-    protected int getLayoutResourceId() { return R.layout.activity_main; }
+    protected int getLayoutResourceId() {
+        return R.layout.activity_main;
+    }
 
     @Override
-    protected String getChildTag() { return TAG; }
+    protected String getChildTag() {
+        return TAG;
+    }
 
     // endregion
 
@@ -246,8 +256,8 @@ public class MainActivity extends BaseActivity {
     /**
      * Switches to the fragment that is selected by the user in the navigation drawer.
      *
-     * @param fragmentName	the name of the selected fragment as a {@link String}, which is used to
-     *                      determine which fragment to switch to
+     * @param fragmentName the name of the selected fragment as a {@link String}, which is used to
+     *                     determine which fragment to switch to
      */
     private void switchToFragment(final String fragmentName) {
         Timber.tag(TAG + ".selectFragment").i("Entered");
@@ -270,8 +280,7 @@ public class MainActivity extends BaseActivity {
             fragmentToSwitchTo = null;
         }
 
-        mHandler.postDelayed(
-                () -> {
+        mHandler.postDelayed(() -> {
                     if (fragmentToSwitchTo != null) {
                         try {
                             getFragmentManager().beginTransaction()
