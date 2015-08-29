@@ -1,5 +1,6 @@
 package com.bubbinator91.converter.dagger.components;
 
+import com.bubbinator91.converter.dagger.modules.ConversionModule;
 import com.bubbinator91.converter.dagger.modules.PresenterModule;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
 import com.bubbinator91.converter.ui.fragments.AccelerationFragment;
@@ -16,7 +17,7 @@ import dagger.Component;
  * the app.
  */
 @ActivityScope
-@Component(modules = PresenterModule.class)
+@Component(modules = {ConversionModule.class, PresenterModule.class})
 public interface FragmentInjectorComponent {
     void inject(AccelerationFragment accelerationFragment);
 

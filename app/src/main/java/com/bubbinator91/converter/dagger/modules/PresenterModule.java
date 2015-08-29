@@ -1,5 +1,6 @@
 package com.bubbinator91.converter.dagger.modules;
 
+import com.bubbinator91.conversion.Acceleration;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
 import com.bubbinator91.converter.ui.interfaces.acceleration.AccelerationPresenter;
 import com.bubbinator91.converter.ui.interfaces.temperature.TemperaturePresenter;
@@ -16,15 +17,16 @@ import dagger.Provides;
  * {@link com.bubbinator91.converter.ui.interfaces.base.Presenter} to each specific fragment.
  */
 @Module
-@ActivityScope
 @Singleton
 public class PresenterModule {
     @Provides
-    AccelerationPresenter providesAccelerationPresenter() {
-        return new AccelerationPresenterImpl();
+    @ActivityScope
+    AccelerationPresenter providesAccelerationPresenter(Acceleration acceleration) {
+        return new AccelerationPresenterImpl(acceleration);
     }
 
     @Provides
+    @ActivityScope
     TemperaturePresenter providesTemperaturePresenter() {
         return new TemperaturePresenterImpl();
     }

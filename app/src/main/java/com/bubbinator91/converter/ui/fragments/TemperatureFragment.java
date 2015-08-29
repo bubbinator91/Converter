@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
+import com.bubbinator91.converter.dagger.modules.ConversionModule;
 import com.bubbinator91.converter.dagger.modules.PresenterModule;
 import com.bubbinator91.converter.ui.interfaces.temperature.TemperaturePresenter;
 import com.bubbinator91.converter.ui.interfaces.temperature.TemperatureView;
@@ -361,6 +362,7 @@ public class TemperatureFragment
         if (mTemperaturePresenter == null) {
             DaggerFragmentInjectorComponent
                     .builder()
+                    .conversionModule(new ConversionModule())
                     .presenterModule(new PresenterModule())
                     .build()
                     .inject(this);

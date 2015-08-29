@@ -1,9 +1,6 @@
 package com.bubbinator91.converter.ui.presenters;
 
-import com.bubbinator91.conversion.acceleration.CentimetersPerSecondSquared;
-import com.bubbinator91.conversion.acceleration.FeetPerSecondSquared;
-import com.bubbinator91.conversion.acceleration.MetersPerSecondSquared;
-import com.bubbinator91.conversion.acceleration.StandardGravity;
+import com.bubbinator91.conversion.Acceleration;
 import com.bubbinator91.converter.ui.interfaces.acceleration.AccelerationPresenter;
 import com.bubbinator91.converter.ui.interfaces.acceleration.AccelerationView;
 
@@ -19,65 +16,71 @@ public class AccelerationPresenterImpl implements AccelerationPresenter {
 
     private AccelerationView mAccelerationView;
 
+    private final Acceleration acceleration;
+
+    public AccelerationPresenterImpl(Acceleration acceleration) {
+        this.acceleration = acceleration;
+    }
+
     public void registerView(AccelerationView activity) {
         mAccelerationView = activity;
     }
 
     public void getConversionFromCentimetersPerSecondSquaredResults(String cmpss, int decimalPlaces) {
-        Observable.just(CentimetersPerSecondSquared.toAll(cmpss, decimalPlaces))
+        Observable.just(acceleration.convertFromCentimetersPerSecondSquaredToAll(cmpss, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mAccelerationView
                                 .displayConversionFromCentimetersPerSecondSquared(
-                                        conversionResults.first,
-                                        conversionResults.second
+                                        conversionResults.getFirst(),
+                                        conversionResults.getSecond()
                                 );
                     }
                 });
     }
 
     public void getConversionFromFeetPerSecondSquaredResults(String fpss, int decimalPlaces) {
-        Observable.just(FeetPerSecondSquared.toAll(fpss, decimalPlaces))
+        Observable.just(acceleration.convertFromFeetPerSecondSquaredToAll(fpss, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mAccelerationView
                                 .displayConversionFromFeetPerSecondSquared(
-                                        conversionResults.first,
-                                        conversionResults.second
+                                        conversionResults.getFirst(),
+                                        conversionResults.getSecond()
                                 );
                     }
                 });
     }
 
     public void getConversionFromMetersPerSecondSquaredResults(String mpss, int decimalPlaces) {
-        Observable.just(MetersPerSecondSquared.toAll(mpss, decimalPlaces))
+        Observable.just(acceleration.convertFromMetersPerSecondSquaredToAll(mpss, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mAccelerationView
                                 .displayConversionFromMetersPerSecondSquared(
-                                        conversionResults.first,
-                                        conversionResults.second
+                                        conversionResults.getFirst(),
+                                        conversionResults.getSecond()
                                 );
                     }
                 });
     }
 
     public void getConversionFromStandardGravity(String sg, int decimalPlaces) {
-        Observable.just(StandardGravity.toAll(sg, decimalPlaces))
+        Observable.just(acceleration.convertFromStandardGravityToAll(sg, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mAccelerationView
                                 .displayConversionFromStandardGravity(
-                                        conversionResults.first,
-                                        conversionResults.second
+                                        conversionResults.getFirst(),
+                                        conversionResults.getSecond()
                                 );
                     }
                 });
