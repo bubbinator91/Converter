@@ -194,6 +194,7 @@ public class TemperatureFragment
 
     // region Overridden TemperatureView methods
 
+    @Override
     public void displayConversionFromCelsiusResults(List<String> results, int errorCode) {
         Timber.tag(TAG + ".displayConversionFromCelsiusResults").i("Entered");
 
@@ -232,6 +233,7 @@ public class TemperatureFragment
         }
     }
 
+    @Override
     public void displayConversionFromFahrenheitResults(List<String> results, int errorCode) {
         Timber.tag(TAG + ".displayConversionFromFahrenheitResults").i("Entered");
 
@@ -270,6 +272,7 @@ public class TemperatureFragment
         }
     }
 
+    @Override
     public void displayConversionFromKelvinResults(List<String> results, int errorCode) {
         Timber.tag(TAG + ".displayConversionFromKelvinResults").i("Entered");
 
@@ -312,6 +315,7 @@ public class TemperatureFragment
 
     // region Overridden ConverterView methods
 
+    @Override
     public void addTextChangedListeners(String callingClassName) {
         if (callingClassName != null) {
             Timber.tag(TAG + "." + callingClassName + ".addTextChangedListeners").i("Entered");
@@ -324,6 +328,7 @@ public class TemperatureFragment
         mEditTextKelvin.addTextChangedListener(mTextWatcherKelvin);
     }
 
+    @Override
     public void removeTextChangedListeners(String callingClassName) {
         if (callingClassName != null) {
             Timber.tag(TAG + "." + callingClassName + ".removeTextChangedListeners").i("Entered");

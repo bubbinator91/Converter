@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.speed;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,33 @@ import java.util.List;
  * Handles the conversion from knots to other units of speed
  */
 public class KilometersPerHour extends Unit {
-    private static final String TAG = KilometersPerHour.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private KilometersPerHour() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link FeetPerSecond} class. Private so that only the FeetPerSecond
+     * class can use it, and static so that it can carry a static instance of the FeetPerSecond
+     * class.
+     */
+    private static class KilometersPerHourInstance {
+        private static final KilometersPerHour INSTANCE = new KilometersPerHour();
+    }
+
+    /**
+     * Gets the instance of the {@link KilometersPerHour} class from the KilometersPerHourInstance
+     * class. Protected so that only members of the same package can use this method, such as
+     * {@link Speed}.
+     *
+     * @return  An instance of the {@link KilometersPerHour} class.
+     */
+    protected static KilometersPerHour getInstance() {
+        return KilometersPerHourInstance.INSTANCE;
+    }
+
+    // endregion
 
     // region Public methods
 
@@ -28,13 +52,13 @@ public class KilometersPerHour extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          feet per second, knots, meters per second, and miles per hour values (in that order;
      *          they will be empty {@link String}s if there is an error), and the second item is one
      *          of the error codes found in {@link ConversionErrorCodes} as an {@link Integer}
      *          object, or null if the <code>kph</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String kph, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String kph, int decimalPlaces) {
         if (kph == null) {
             return null;
         }
@@ -50,12 +74,10 @@ public class KilometersPerHour extends Unit {
                 results.add(toMetersPerSecond(kph, roundingLength));
                 results.add(toMilesPerHour(kph, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 4);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 4);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -68,7 +90,7 @@ public class KilometersPerHour extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -87,7 +109,7 @@ public class KilometersPerHour extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toFeetPerSecond(String kph, int decimalPlaces)
+    public String toFeetPerSecond(String kph, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kph == null) {
             return null;
@@ -124,7 +146,7 @@ public class KilometersPerHour extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKnots(String kph, int decimalPlaces)
+    public String toKnots(String kph, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kph == null) {
             return null;
@@ -162,7 +184,7 @@ public class KilometersPerHour extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMetersPerSecond(String kph, int decimalPlaces)
+    public String toMetersPerSecond(String kph, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kph == null) {
             return null;
@@ -198,7 +220,7 @@ public class KilometersPerHour extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMilesPerHour(String kph, int decimalPlaces)
+    public String toMilesPerHour(String kph, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kph == null) {
             return null;

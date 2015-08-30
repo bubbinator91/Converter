@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.speed;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,33 @@ import java.util.List;
  * Handles the conversion from meters per second to other units of speed
  */
 public class MetersPerSecond extends Unit {
-    private static final String TAG = MetersPerSecond.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private MetersPerSecond() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link MetersPerSecond} class. Private so that only the
+     * MetersPerSecond class can use it, and static so that it can carry a static instance of the
+     * MetersPerSecond class.
+     */
+    private static class MetersPerSecondInstance {
+        private static final MetersPerSecond INSTANCE = new MetersPerSecond();
+    }
+
+    /**
+     * Gets the instance of the {@link MetersPerSecond} class from the MetersPerSecondInstance
+     * class. Protected so that only members of the same package can use this method, such as
+     * {@link Speed}.
+     *
+     * @return  An instance of the {@link MetersPerSecond} class.
+     */
+    protected static MetersPerSecond getInstance() {
+        return MetersPerSecondInstance.INSTANCE;
+    }
+
+    // endregion
 
     // region Public methods
 
@@ -27,13 +51,13 @@ public class MetersPerSecond extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          feet per second, knots, kilometers per hour, and miles per hour values (in that
      *          order; they will be empty {@link String}s if there is an error), and the second item
      *          is one of the error codes found in {@link ConversionErrorCodes} as an
      *          {@link Integer} object, or null if the <code>mps</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String mps, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String mps, int decimalPlaces) {
         if (mps == null) {
             return null;
         }
@@ -49,12 +73,10 @@ public class MetersPerSecond extends Unit {
                 results.add(toKilometersPerHour(mps, roundingLength));
                 results.add(toMilesPerHour(mps, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 4);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 4);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -67,7 +89,7 @@ public class MetersPerSecond extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -84,7 +106,7 @@ public class MetersPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toFeetPerSecond(String mps, int decimalPlaces)
+    public String toFeetPerSecond(String mps, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (mps == null) {
             return null;
@@ -120,7 +142,7 @@ public class MetersPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKnots(String mps, int decimalPlaces)
+    public String toKnots(String mps, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (mps == null) {
             return null;
@@ -157,7 +179,7 @@ public class MetersPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilometersPerHour(String mps, int decimalPlaces)
+    public String toKilometersPerHour(String mps, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (mps == null) {
             return null;
@@ -193,7 +215,7 @@ public class MetersPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMilesPerHour(String mps, int decimalPlaces)
+    public String toMilesPerHour(String mps, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (mps == null) {
             return null;

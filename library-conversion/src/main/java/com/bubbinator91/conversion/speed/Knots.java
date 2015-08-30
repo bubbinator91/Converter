@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.speed;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,31 @@ import java.util.List;
  * Handles the conversion from knots to other units of speed
  */
 public class Knots extends Unit {
-    private static final String TAG = Knots.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private Knots() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link Knots} class. Private so that only the Knots class can use
+     * it, and static so that it can carry a static instance of the Knots class.
+     */
+    private static class KnotsInstance {
+        private static final Knots INSTANCE = new Knots();
+    }
+
+    /**
+     * Gets the instance of the {@link Knots} class from the KnotsInstance class. Protected so that
+     * only members of the same package can use this method, such as {@link Speed}.
+     *
+     * @return  An instance of the {@link Knots} class.
+     */
+    protected static Knots getInstance() {
+        return KnotsInstance.INSTANCE;
+    }
+
+    // endregion
 
     // region Public methods
 
@@ -27,13 +49,13 @@ public class Knots extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          feet per second, kilometers per hour, meters per second, and miles per hour values
      *          (in that order; they will be empty {@link String}s if there is an error), and the
      *          second item is one of the error codes found in {@link ConversionErrorCodes} as an
      *          {@link Integer} object, or null if the <code>knots</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String knots, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String knots, int decimalPlaces) {
         if (knots == null) {
             return null;
         }
@@ -49,12 +71,10 @@ public class Knots extends Unit {
                 results.add(toMetersPerSecond(knots, roundingLength));
                 results.add(toMilesPerHour(knots, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 4);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 4);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -67,7 +87,7 @@ public class Knots extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -84,7 +104,7 @@ public class Knots extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toFeetPerSecond(String knots, int decimalPlaces)
+    public String toFeetPerSecond(String knots, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (knots == null) {
             return null;
@@ -120,7 +140,7 @@ public class Knots extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilometersPerHour(String knots, int decimalPlaces)
+    public String toKilometersPerHour(String knots, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (knots == null) {
             return null;
@@ -156,7 +176,7 @@ public class Knots extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMetersPerSecond(String knots, int decimalPlaces)
+    public String toMetersPerSecond(String knots, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (knots == null) {
             return null;
@@ -192,7 +212,7 @@ public class Knots extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMilesPerHour(String knots, int decimalPlaces)
+    public String toMilesPerHour(String knots, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (knots == null) {
             return null;

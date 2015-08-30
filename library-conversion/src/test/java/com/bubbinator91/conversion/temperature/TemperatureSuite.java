@@ -10,7 +10,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         CelsiusTest.class,
         FahrenheitTest.class,
-        KelvinTest.class
+        KelvinTest.class,
+        TemperatureTest.class
 })
 public class TemperatureSuite {
 }

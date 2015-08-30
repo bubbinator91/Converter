@@ -22,10 +22,12 @@ public class AccelerationPresenterImpl implements AccelerationPresenter {
         this.acceleration = acceleration;
     }
 
+    @Override
     public void registerView(AccelerationView activity) {
         mAccelerationView = activity;
     }
 
+    @Override
     public void getConversionFromCentimetersPerSecondSquaredResults(String cmpss, int decimalPlaces) {
         Observable.just(acceleration.centimetersPerSecondSquared().toAll(cmpss, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
@@ -41,6 +43,7 @@ public class AccelerationPresenterImpl implements AccelerationPresenter {
                 });
     }
 
+    @Override
     public void getConversionFromFeetPerSecondSquaredResults(String fpss, int decimalPlaces) {
         Observable.just(acceleration.feetPerSecondSquared().toAll(fpss, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
@@ -56,6 +59,7 @@ public class AccelerationPresenterImpl implements AccelerationPresenter {
                 });
     }
 
+    @Override
     public void getConversionFromMetersPerSecondSquaredResults(String mpss, int decimalPlaces) {
         Observable.just(acceleration.metersPerSecondSquared().toAll(mpss, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
@@ -71,6 +75,7 @@ public class AccelerationPresenterImpl implements AccelerationPresenter {
                 });
     }
 
+    @Override
     public void getConversionFromStandardGravity(String sg, int decimalPlaces) {
         Observable.just(acceleration.standardGravity().toAll(sg, decimalPlaces))
                 .subscribeOn(Schedulers.computation())

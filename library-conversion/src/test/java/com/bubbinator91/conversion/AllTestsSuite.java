@@ -1,6 +1,7 @@
 package com.bubbinator91.conversion;
 
 import com.bubbinator91.conversion.acceleration.AccelerationSuite;
+import com.bubbinator91.conversion.speed.SpeedSuite;
 import com.bubbinator91.conversion.temperature.TemperatureSuite;
 
 import org.junit.runner.RunWith;
@@ -14,7 +15,7 @@ import org.junit.runners.Suite;
         AccelerationSuite.class,
         //DataTransferSpeedSuite.class,
         //LengthTestSuite.class,
-        //SpeedTestSuite.class,
+        SpeedSuite.class,
         TemperatureSuite.class
 })
 public class AllTestsSuite {

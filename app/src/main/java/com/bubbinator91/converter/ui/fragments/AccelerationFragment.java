@@ -230,6 +230,7 @@ public class AccelerationFragment
 
     // region Overridden AccelerationView methods
 
+    @Override
     public void displayConversionFromCentimetersPerSecondSquared(List<String> results, int errorCode) {
         Timber.tag(TAG + ".displayConversionFromCentimetersPerSecondSquared").i("Entered");
 
@@ -271,6 +272,7 @@ public class AccelerationFragment
         }
     }
 
+    @Override
     public void displayConversionFromFeetPerSecondSquared(List<String> results, int errorCode) {
         Timber.tag(TAG + ".displayConversionFromFeetPerSecondSquared").i("Entered");
 
@@ -312,6 +314,7 @@ public class AccelerationFragment
         }
     }
 
+    @Override
     public void displayConversionFromMetersPerSecondSquared(List<String> results, int errorCode) {
         Timber.tag(TAG + ".displayConversionFromMetersPerSecondSquared").i("Entered");
 
@@ -353,6 +356,7 @@ public class AccelerationFragment
         }
     }
 
+    @Override
     public void displayConversionFromStandardGravity(List<String> results, int errorCode) {
         Timber.tag(TAG + ".displayConversionFromStandardGravity").i("Entered");
 
@@ -398,6 +402,7 @@ public class AccelerationFragment
 
     // region Overridden ConverterView methods
 
+    @Override
     public void addTextChangedListeners(String callingClassName) {
         if (callingClassName != null) {
             Timber.tag(TAG + "." + callingClassName + ".addTextChangedListeners").i("Entered");
@@ -411,6 +416,7 @@ public class AccelerationFragment
         mEditTextSg.addTextChangedListener(mTextWatcherSg);
     }
 
+    @Override
     public void removeTextChangedListeners(String callingClassName) {
         if (callingClassName != null) {
             Timber.tag(TAG + "." + callingClassName + ".removeTextChangedListeners").i("Entered");

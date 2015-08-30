@@ -22,10 +22,12 @@ public class TemperaturePresenterImpl implements TemperaturePresenter {
         this.temperature = temperature;
     }
 
+    @Override
     public void registerView(TemperatureView activity) {
         mTemperatureView = activity;
     }
 
+    @Override
     public void getConversionFromCelsiusResults(String celsius, int decimalPlaces) {
         Observable.just(temperature.celsius().toAll(celsius, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
@@ -41,6 +43,7 @@ public class TemperaturePresenterImpl implements TemperaturePresenter {
                 });
     }
 
+    @Override
     public void getConversionFromFahrenheitResults(String fahrenheit, int decimalPlaces) {
         Observable.just(temperature.fahrenheit().toAll(fahrenheit, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
@@ -56,6 +59,7 @@ public class TemperaturePresenterImpl implements TemperaturePresenter {
                 });
     }
 
+    @Override
     public void getConversionFromKelvinResults(String kelvin, int decimalPlaces) {
         Observable.just(temperature.kelvin().toAll(kelvin, decimalPlaces))
                 .subscribeOn(Schedulers.computation())

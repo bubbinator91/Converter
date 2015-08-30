@@ -16,6 +16,5 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         DataTransferSpeedSuite.class,
         LengthTestSuite.class,
-        SpeedTestSuite.class,
 })
 public class AllTestSuite {}

@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.speed;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,33 @@ import java.util.List;
  * Handles the conversion from feet per second to other units of speed
  */
 public class FeetPerSecond extends Unit {
-    private static final String TAG = FeetPerSecond.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private FeetPerSecond() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link FeetPerSecond} class. Private so that only the FeetPerSecond
+     * class can use it, and static so that it can carry a static instance of the FeetPerSecond
+     * class.
+     */
+    private static class FeetPerSecondInstance {
+        private static final FeetPerSecond INSTANCE = new FeetPerSecond();
+    }
+
+    /**
+     * Gets the instance of the {@link FeetPerSecond} class from the FeetPerSecondInstance class.
+     * Protected so that only members of the same package can use this method, such as
+     * {@link Speed}.
+     *
+     * @return  An instance of the {@link FeetPerSecond} class.
+     */
+    protected static FeetPerSecond getInstance() {
+        return FeetPerSecondInstance.INSTANCE;
+    }
+
+    // endregion
 
     // region Public methods
 
@@ -27,13 +51,13 @@ public class FeetPerSecond extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          knots, kilometers per hour, meters per second, and miles per hour values (in that
      *          order; they will be empty {@link String}s if there is an error), and the second item
      *          is one of the error codes found in {@link ConversionErrorCodes} as an
      *          {@link Integer} object, or null if the <code>fps</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String fps, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String fps, int decimalPlaces) {
         if (fps == null) {
             return null;
         }
@@ -49,12 +73,10 @@ public class FeetPerSecond extends Unit {
                 results.add(toMetersPerSecond(fps, roundingLength));
                 results.add(toMilesPerHour(fps, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 4);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 4);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -67,7 +89,7 @@ public class FeetPerSecond extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -84,7 +106,7 @@ public class FeetPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKnots(String fps, int decimalPlaces)
+    public String toKnots(String fps, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (fps == null) {
             return null;
@@ -120,7 +142,7 @@ public class FeetPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilometersPerHour(String fps, int decimalPlaces)
+    public String toKilometersPerHour(String fps, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (fps == null) {
             return null;
@@ -156,7 +178,7 @@ public class FeetPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMetersPerSecond(String fps, int decimalPlaces)
+    public String toMetersPerSecond(String fps, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (fps == null) {
             return null;
@@ -192,7 +214,7 @@ public class FeetPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMilesPerHour(String fps, int decimalPlaces)
+    public String toMilesPerHour(String fps, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (fps == null) {
             return null;
