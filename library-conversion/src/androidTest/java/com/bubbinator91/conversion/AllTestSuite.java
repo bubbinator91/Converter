@@ -14,10 +14,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        AccelerationSuite.class,
         DataTransferSpeedSuite.class,
         LengthTestSuite.class,
         SpeedTestSuite.class,
-        TemperatureTestSuite.class
 })
 public class AllTestSuite {}

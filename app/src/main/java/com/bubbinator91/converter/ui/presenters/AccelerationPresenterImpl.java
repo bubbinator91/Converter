@@ -1,6 +1,6 @@
 package com.bubbinator91.converter.ui.presenters;
 
-import com.bubbinator91.conversion.Acceleration;
+import com.bubbinator91.conversion.acceleration.Acceleration;
 import com.bubbinator91.converter.ui.interfaces.acceleration.AccelerationPresenter;
 import com.bubbinator91.converter.ui.interfaces.acceleration.AccelerationView;
 
@@ -27,7 +27,7 @@ public class AccelerationPresenterImpl implements AccelerationPresenter {
     }
 
     public void getConversionFromCentimetersPerSecondSquaredResults(String cmpss, int decimalPlaces) {
-        Observable.just(acceleration.convertFromCentimetersPerSecondSquaredToAll(cmpss, decimalPlaces))
+        Observable.just(acceleration.centimetersPerSecondSquared().toAll(cmpss, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
@@ -42,7 +42,7 @@ public class AccelerationPresenterImpl implements AccelerationPresenter {
     }
 
     public void getConversionFromFeetPerSecondSquaredResults(String fpss, int decimalPlaces) {
-        Observable.just(acceleration.convertFromFeetPerSecondSquaredToAll(fpss, decimalPlaces))
+        Observable.just(acceleration.feetPerSecondSquared().toAll(fpss, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
@@ -57,7 +57,7 @@ public class AccelerationPresenterImpl implements AccelerationPresenter {
     }
 
     public void getConversionFromMetersPerSecondSquaredResults(String mpss, int decimalPlaces) {
-        Observable.just(acceleration.convertFromMetersPerSecondSquaredToAll(mpss, decimalPlaces))
+        Observable.just(acceleration.metersPerSecondSquared().toAll(mpss, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
@@ -72,7 +72,7 @@ public class AccelerationPresenterImpl implements AccelerationPresenter {
     }
 
     public void getConversionFromStandardGravity(String sg, int decimalPlaces) {
-        Observable.just(acceleration.convertFromStandardGravityToAll(sg, decimalPlaces))
+        Observable.just(acceleration.standardGravity().toAll(sg, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {

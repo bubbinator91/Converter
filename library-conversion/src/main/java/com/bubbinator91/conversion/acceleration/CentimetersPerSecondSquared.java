@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.acceleration;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -16,7 +14,35 @@ import java.util.List;
  * acceleration
  */
 public class CentimetersPerSecondSquared extends Unit {
-    private static final String TAG = CentimetersPerSecondSquared.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private CentimetersPerSecondSquared() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link CentimetersPerSecondSquared} class. Private so that only the
+     * CentimetersPerSecondSquared class can use it, and static so that it can carry a static
+     * instance of the CentimetersPerSecondSquared class.
+     */
+    private static class CentimetersPerSecondSquaredInstance {
+        private static final CentimetersPerSecondSquared INSTANCE = new CentimetersPerSecondSquared();
+    }
+
+    /**
+     * Gets the instance of the {@link CentimetersPerSecondSquared} class from the
+     * CentimetersPerSecondSquaredInstance class. Protected so that only members of the same package
+     * can use this method, such as {@link Acceleration}.
+     *
+     * @return  An instance of the {@link CentimetersPerSecondSquared} class.
+     */
+    protected static CentimetersPerSecondSquared getInstance() {
+        return CentimetersPerSecondSquaredInstance.INSTANCE;
+    }
+
+    // endregion
+
+    // region Public methods
 
     /**
      * Takes in the centimeters per second squared value as a {@link String} and converts it to
@@ -27,13 +53,13 @@ public class CentimetersPerSecondSquared extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          feet per second squared, meters per second squared, and standard gravity values (in
      *          that order; they will be empty {@link String}s if there is an error), and the second
      *          item is one of the error codes found in {@link ConversionErrorCodes}, or null if the
      *          <code>cmpss</code> parameter is null.
      */
-    public static Pair<List<String>, Integer> toAll(String cmpss, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String cmpss, int decimalPlaces) {
         if (cmpss == null) {
             return null;
         }
@@ -48,12 +74,10 @@ public class CentimetersPerSecondSquared extends Unit {
                 results.add(toMetersPerSecondSquared(cmpss, roundingLength));
                 results.add(toStandardGravity(cmpss, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 3);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 3);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -66,7 +90,7 @@ public class CentimetersPerSecondSquared extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -86,7 +110,7 @@ public class CentimetersPerSecondSquared extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toFeetPerSecondSquared(String cmpss, int decimalPlaces)
+    public String toFeetPerSecondSquared(String cmpss, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (cmpss == null) {
             return null;
@@ -125,7 +149,7 @@ public class CentimetersPerSecondSquared extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toMetersPerSecondSquared(String cmpss, int decimalPlaces)
+    public String toMetersPerSecondSquared(String cmpss, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (cmpss == null) {
             return null;
@@ -164,7 +188,7 @@ public class CentimetersPerSecondSquared extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toStandardGravity(String cmpss, int decimalPlaces)
+    public String toStandardGravity(String cmpss, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (cmpss == null) {
             return null;
@@ -185,4 +209,6 @@ public class CentimetersPerSecondSquared extends Unit {
             throw new ValueBelowZeroException("Acceleration cannot be below zero");
         }
     }
+
+    // endregion
 }

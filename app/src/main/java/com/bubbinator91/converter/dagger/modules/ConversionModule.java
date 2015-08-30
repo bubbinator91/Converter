@@ -1,6 +1,7 @@
 package com.bubbinator91.converter.dagger.modules;
 
-import com.bubbinator91.conversion.Acceleration;
+import com.bubbinator91.conversion.acceleration.Acceleration;
+import com.bubbinator91.conversion.temperature.Temperature;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
 
 import dagger.Module;
@@ -16,5 +17,11 @@ public class ConversionModule {
     @ActivityScope
     protected Acceleration providesAcceleration() {
         return new Acceleration();
+    }
+
+    @Provides
+    @ActivityScope
+    protected Temperature providesTemperature() {
+        return new Temperature();
     }
 }

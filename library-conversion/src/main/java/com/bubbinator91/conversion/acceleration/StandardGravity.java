@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.acceleration;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,35 @@ import java.util.List;
  * Handles the conversion from standard gravity (g sub n) to other units of acceleration
  */
 public class StandardGravity extends Unit {
-    private static final String TAG = StandardGravity.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private StandardGravity() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link StandardGravity} class. Private so that only the
+     * StandardGravity class can use it, and static so that it can carry a static instance of the
+     * StandardGravity class.
+     */
+    private static class StandardGravityInstance {
+        private static final StandardGravity INSTANCE = new StandardGravity();
+    }
+
+    /**
+     * Gets the instance of the {@link StandardGravity} class from the StandardGravityInstance
+     * class. Protected so that only members of the same package can use this method, such as
+     * {@link Acceleration}.
+     *
+     * @return  An instance of the {@link StandardGravity} class.
+     */
+    protected static StandardGravity getInstance() {
+        return StandardGravityInstance.INSTANCE;
+    }
+
+    // endregion
+
+    // region Public methods
 
     /**
      * Takes in the standard gravity value as a {@link String} and converts it to centimeters per
@@ -25,13 +51,13 @@ public class StandardGravity extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          centimeters per second squared, feet per second squared, and meters per second
      *          squared values (in that order; they will be empty {@link String}s if there is an
      *          error), and the second item is one of the error codes found in
      *          {@link ConversionErrorCodes}, or null if the <code>sg</code> parameter is null.
      */
-    public static Pair<List<String>, Integer> toAll(String sg, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String sg, int decimalPlaces) {
         if (sg == null) {
             return null;
         }
@@ -46,12 +72,10 @@ public class StandardGravity extends Unit {
                 results.add(toFeetPerSecondSquared(sg, roundingLength));
                 results.add(toMetersPerSecondSquared(sg, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 3);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 3);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -64,7 +88,7 @@ public class StandardGravity extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -83,7 +107,7 @@ public class StandardGravity extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toCentimetersPerSecondSquared(String sg, int decimalPlaces)
+    public String toCentimetersPerSecondSquared(String sg, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (sg == null) {
             return null;
@@ -121,7 +145,7 @@ public class StandardGravity extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toFeetPerSecondSquared(String sg, int decimalPlaces)
+    public String toFeetPerSecondSquared(String sg, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (sg == null) {
             return null;
@@ -159,7 +183,7 @@ public class StandardGravity extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toMetersPerSecondSquared(String sg, int decimalPlaces)
+    public String toMetersPerSecondSquared(String sg, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (sg == null) {
             return null;
@@ -180,4 +204,6 @@ public class StandardGravity extends Unit {
             throw new ValueBelowZeroException("Acceleration cannot be below zero");
         }
     }
+
+    // endregion
 }

@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.temperature;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,21 @@ import java.util.List;
  * Handles the conversion from Kelvin to other temperatures
  */
 public class Kelvin extends Unit {
-    private static final String TAG = Kelvin.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private Kelvin() {}
+
+    // region Singleton items
+
+    private static class KelvinInstance {
+        private static final Kelvin INSTANCE = new Kelvin();
+    }
+
+    protected static Kelvin getInstance() {
+        return KelvinInstance.INSTANCE;
+    }
+
+    // endregion
 
     // region Public methods
 
@@ -26,13 +38,13 @@ public class Kelvin extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          celsius and fahrenheit values (in that order; they will be empty {@link String}s if
      *          there is an error), and the second item is one of the error codes found in
      *          {@link ConversionErrorCodes} as an {@link Integer} object, or null if the
      *          <code>kelvin</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String kelvin, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String kelvin, int decimalPlaces) {
         if (kelvin == null) {
             return null;
         }
@@ -46,12 +58,10 @@ public class Kelvin extends Unit {
                 results.add(toCelsius(kelvin, roundingLength));
                 results.add(toFahrenheit(kelvin, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 2);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 2);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -65,7 +75,7 @@ public class Kelvin extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -83,7 +93,7 @@ public class Kelvin extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toCelsius(String kelvin, int decimalPlaces)
+    public String toCelsius(String kelvin, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kelvin == null) {
             return null;
@@ -122,7 +132,7 @@ public class Kelvin extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toFahrenheit(String kelvin, int decimalPlaces)
+    public String toFahrenheit(String kelvin, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kelvin == null) {
             return null;

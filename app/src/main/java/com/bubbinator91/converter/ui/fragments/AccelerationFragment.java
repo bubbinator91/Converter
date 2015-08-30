@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
-import com.bubbinator91.converter.dagger.modules.PresenterModule;
 import com.bubbinator91.converter.ui.interfaces.acceleration.AccelerationPresenter;
 import com.bubbinator91.converter.ui.interfaces.acceleration.AccelerationView;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
@@ -448,9 +447,7 @@ public class AccelerationFragment
     protected AccelerationPresenter getPresenter() {
         if (mAccelerationPresenter == null) {
             DaggerFragmentInjectorComponent
-                    .builder()
-                    .presenterModule(new PresenterModule())
-                    .build()
+                    .create()
                     .inject(this);
         }
 

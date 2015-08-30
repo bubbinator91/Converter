@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.temperature;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,31 @@ import java.util.List;
  * Handles the conversion from Celsius to other temperatures
  */
 public class Celsius extends Unit {
-    private static final String TAG = Celsius.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private Celsius() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link Celsius} class. Private so that only the Celsius class can
+     * use it, and static so that it can carry a static instance of the Celsius class.
+     */
+    private static class CelsiusInstance {
+        private static final Celsius INSTANCE = new Celsius();
+    }
+
+    /**
+     * Gets the instance of the {@link Celsius} class from the CelsiusInstance class. Protected so
+     * that only members of the same package can use this method, such as {@link Temperature}.
+     *
+     * @return  An instance of the {@link Celsius} class.
+     */
+    protected static Celsius getInstance() {
+        return CelsiusInstance.INSTANCE;
+    }
+
+    // endregion
 
     // region Public methods
 
@@ -26,13 +48,13 @@ public class Celsius extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          fahrenheit and kelvin values (in that order; they will be empty {@link String}s if
      *          there is an error), and the second item is one of the error codes found in
      *          {@link ConversionErrorCodes} as an {@link Integer} object, or null if the
      *          <code>celsius</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String celsius, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String celsius, int decimalPlaces) {
         if (celsius == null) {
             return null;
         }
@@ -46,12 +68,10 @@ public class Celsius extends Unit {
                 results.add(toFahrenheit(celsius, roundingLength));
                 results.add(toKelvin(celsius, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 2);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 2);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -66,7 +86,7 @@ public class Celsius extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -84,7 +104,7 @@ public class Celsius extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toFahrenheit(String celsius, int decimalPlaces)
+    public String toFahrenheit(String celsius, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (celsius == null) {
             return null;
@@ -124,7 +144,7 @@ public class Celsius extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toKelvin(String celsius, int decimalPlaces)
+    public String toKelvin(String celsius, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (celsius == null) {
             return null;
