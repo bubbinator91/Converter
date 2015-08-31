@@ -3,8 +3,12 @@ package com.bubbinator91.converter.ui.presenters;
 import com.bubbinator91.conversion.speed.Speed;
 import com.bubbinator91.converter.ui.interfaces.speed.ISpeedPresenter;
 import com.bubbinator91.converter.ui.interfaces.speed.ISpeedView;
+import com.bubbinator91.converter.util.Globals;
+
+import javax.inject.Named;
 
 import rx.Observable;
+import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -14,11 +18,17 @@ import rx.schedulers.Schedulers;
  */
 public class SpeedPresenter implements ISpeedPresenter {
 
+    private final Speed speed;
+    private final Scheduler mainScheduler;
+    private final Scheduler computationScheduler;
+
     private ISpeedView mSpeedView;
 
-    private final Speed speed;
-
-    public SpeedPresenter(Speed speed) {
+    public SpeedPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+                          @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
+                          Speed speed) {
+        this.mainScheduler = mainScheduler;
+        this.computationScheduler = computationScheduler;
         this.speed = speed;
     }
 
@@ -30,8 +40,8 @@ public class SpeedPresenter implements ISpeedPresenter {
     @Override
     public void getConversionFromFeetPerSecondResults(String fps, int decimalPlaces) {
         Observable.just(speed.FeetPerSecond().toAll(fps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mSpeedView
@@ -46,8 +56,8 @@ public class SpeedPresenter implements ISpeedPresenter {
     @Override
     public void getConversionFromKilometersPerHourResults(String kph, int decimalPlaces) {
         Observable.just(speed.KilometersPerHour().toAll(kph, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mSpeedView
@@ -62,8 +72,8 @@ public class SpeedPresenter implements ISpeedPresenter {
     @Override
     public void getConversionFromKnotsResults(String knots, int decimalPlaces) {
         Observable.just(speed.Knots().toAll(knots, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mSpeedView
@@ -78,8 +88,8 @@ public class SpeedPresenter implements ISpeedPresenter {
     @Override
     public void getConversionFromMetersPerSecondResults(String mps, int decimalPlaces) {
         Observable.just(speed.MetersPerSecond().toAll(mps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mSpeedView
@@ -94,8 +104,8 @@ public class SpeedPresenter implements ISpeedPresenter {
     @Override
     public void getConversionFromMilesPerHourResults(String mph, int decimalPlaces) {
         Observable.just(speed.MilesPerHour().toAll(mph, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mSpeedView

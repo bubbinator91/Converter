@@ -3,8 +3,12 @@ package com.bubbinator91.converter.ui.presenters;
 import com.bubbinator91.conversion.length.Length;
 import com.bubbinator91.converter.ui.interfaces.length.ILengthPresenter;
 import com.bubbinator91.converter.ui.interfaces.length.ILengthView;
+import com.bubbinator91.converter.util.Globals;
+
+import javax.inject.Named;
 
 import rx.Observable;
+import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -14,11 +18,17 @@ import rx.schedulers.Schedulers;
  */
 public class LengthPresenter implements ILengthPresenter {
 
+    private final Length length;
+    private final Scheduler mainScheduler;
+    private final Scheduler computationScheduler;
+
     private ILengthView mLengthView;
 
-    private final Length length;
-
-    public LengthPresenter(Length length) {
+    public LengthPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+                           @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
+                           Length length) {
+        this.mainScheduler = mainScheduler;
+        this.computationScheduler = computationScheduler;
         this.length = length;
     }
 
@@ -30,8 +40,8 @@ public class LengthPresenter implements ILengthPresenter {
     @Override
     public void getConversionFromCentimetersResults(String centimeters, int decimalPlaces) {
         Observable.just(length.Centimeters().toAll(centimeters, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mLengthView
@@ -46,8 +56,8 @@ public class LengthPresenter implements ILengthPresenter {
     @Override
     public void getConversionFromFeetResults(String feet, int decimalPlaces) {
         Observable.just(length.Feet().toAll(feet, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mLengthView
@@ -62,8 +72,8 @@ public class LengthPresenter implements ILengthPresenter {
     @Override
     public void getConversionFromInchesResults(String inches, int decimalPlaces) {
         Observable.just(length.Inches().toAll(inches, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mLengthView
@@ -78,8 +88,8 @@ public class LengthPresenter implements ILengthPresenter {
     @Override
     public void getConversionFromKilometersResults(String kilometers, int decimalPlaces) {
         Observable.just(length.Kilometers().toAll(kilometers, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mLengthView
@@ -94,8 +104,8 @@ public class LengthPresenter implements ILengthPresenter {
     @Override
     public void getConversionFromMetersResults(String meters, int decimalPlaces) {
         Observable.just(length.Meters().toAll(meters, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mLengthView
@@ -110,8 +120,8 @@ public class LengthPresenter implements ILengthPresenter {
     @Override
     public void getConversionFromMilesResults(String miles, int decimalPlaces) {
         Observable.just(length.Miles().toAll(miles, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mLengthView
@@ -126,8 +136,8 @@ public class LengthPresenter implements ILengthPresenter {
     @Override
     public void getConversionFromMillimetersResults(String millimeters, int decimalPlaces) {
         Observable.just(length.Millimeters().toAll(millimeters, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mLengthView
@@ -142,8 +152,8 @@ public class LengthPresenter implements ILengthPresenter {
     @Override
     public void getConversionFromYardsResults(String yards, int decimalPlaces) {
         Observable.just(length.Yards().toAll(yards, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mLengthView

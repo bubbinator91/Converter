@@ -9,8 +9,6 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -27,14 +25,9 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
-    lintOptions {
-        disable 'InvalidPackage'
-    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test:runner:0.3'
-    androidTestCompile 'com.android.support.test:rules:0.3'
 }

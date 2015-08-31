@@ -3,10 +3,12 @@ package com.bubbinator91.converter.ui.presenters;
 import com.bubbinator91.conversion.temperature.Temperature;
 import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
 import com.bubbinator91.converter.ui.interfaces.temperature.ITemperatureView;
+import com.bubbinator91.converter.util.Globals;
+
+import javax.inject.Named;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import rx.Scheduler;
 
 /**
  * Implementation of the {@link ITemperaturePresenter} interface for the
@@ -14,11 +16,17 @@ import rx.schedulers.Schedulers;
  */
 public class TemperaturePresenter implements ITemperaturePresenter {
 
+    private final Temperature temperature;
+    private final Scheduler mainScheduler;
+    private final Scheduler computationScheduler;
+
     private ITemperatureView mTemperatureView;
 
-    private final Temperature temperature;
-
-    public TemperaturePresenter(Temperature temperature) {
+    public TemperaturePresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+                                @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
+                                Temperature temperature) {
+        this.mainScheduler = mainScheduler;
+        this.computationScheduler = computationScheduler;
         this.temperature = temperature;
     }
 
@@ -30,8 +38,8 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     @Override
     public void getConversionFromCelsiusResults(String celsius, int decimalPlaces) {
         Observable.just(temperature.Celsius().toAll(celsius, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mTemperatureView
@@ -46,8 +54,8 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     @Override
     public void getConversionFromFahrenheitResults(String fahrenheit, int decimalPlaces) {
         Observable.just(temperature.Fahrenheit().toAll(fahrenheit, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mTemperatureView
@@ -62,8 +70,8 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     @Override
     public void getConversionFromKelvinResults(String kelvin, int decimalPlaces) {
         Observable.just(temperature.Kelvin().toAll(kelvin, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mTemperatureView

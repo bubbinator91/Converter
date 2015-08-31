@@ -3,8 +3,12 @@ package com.bubbinator91.converter.ui.presenters;
 import com.bubbinator91.conversion.datatransferspeed.DataTransferSpeed;
 import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedPresenter;
 import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedView;
+import com.bubbinator91.converter.util.Globals;
+
+import javax.inject.Named;
 
 import rx.Observable;
+import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -14,11 +18,17 @@ import rx.schedulers.Schedulers;
  */
 public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
 
+    private final DataTransferSpeed dataTransferSpeed;
+    private final Scheduler mainScheduler;
+    private final Scheduler computationScheduler;
+
     private IDataTransferSpeedView mDataTransferSpeedView;
 
-    private final DataTransferSpeed dataTransferSpeed;
-
-    public DataTransferSpeedPresenter(DataTransferSpeed dataTransferSpeed) {
+    public DataTransferSpeedPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+                                      @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
+                                      DataTransferSpeed dataTransferSpeed) {
+        this.mainScheduler = mainScheduler;
+        this.computationScheduler = computationScheduler;
         this.dataTransferSpeed = dataTransferSpeed;
     }
 
@@ -30,8 +40,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void getConversionFromBitsPerSecondResults(String bps, int decimalPlaces) {
         Observable.just(dataTransferSpeed.BitsPerSecond().toAll(bps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mDataTransferSpeedView
@@ -46,8 +56,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void getConversionFromBytesPerSecondResults(String byps, int decimalPlaces) {
         Observable.just(dataTransferSpeed.BytesPerSecond().toAll(byps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mDataTransferSpeedView
@@ -62,8 +72,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void getConversionFromKilobitsPerSecondResults(String kbps, int decimalPlaces) {
         Observable.just(dataTransferSpeed.KilobitsPerSecond().toAll(kbps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mDataTransferSpeedView
@@ -78,8 +88,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void getConversionFromKilobytesPerSecondResults(String kbyps, int decimalPlaces) {
         Observable.just(dataTransferSpeed.KilobytesPerSecond().toAll(kbyps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mDataTransferSpeedView
@@ -94,8 +104,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void getConversionFromMegabitsPerSecondResults(String mbps, int decimalPlaces) {
         Observable.just(dataTransferSpeed.MegabitsPerSecond().toAll(mbps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mDataTransferSpeedView
@@ -110,8 +120,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void getConversionFromMegabytesPerSecondResults(String mbyps, int decimalPlaces) {
         Observable.just(dataTransferSpeed.MegabytesPerSecond().toAll(mbyps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mDataTransferSpeedView
@@ -126,8 +136,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void getConversionFromGigabitsPerSecondResults(String gbps, int decimalPlaces) {
         Observable.just(dataTransferSpeed.GigabitsPerSecond().toAll(gbps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mDataTransferSpeedView
@@ -142,8 +152,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void getConversionFromGigabytesPerSecondResults(String gbyps, int decimalPlaces) {
         Observable.just(dataTransferSpeed.GigabytesPerSecond().toAll(gbyps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mDataTransferSpeedView
@@ -158,8 +168,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void getConversionFromTerabitsPerSecondResults(String tbps, int decimalPlaces) {
         Observable.just(dataTransferSpeed.TerabitsPerSecond().toAll(tbps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mDataTransferSpeedView
@@ -174,8 +184,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void getConversionFromTerabytesPerSecondResults(String tbyps, int decimalPlaces) {
         Observable.just(dataTransferSpeed.TerabytesPerSecond().toAll(tbyps, decimalPlaces))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(computationScheduler)
+                .observeOn(mainScheduler)
                 .subscribe(conversionResults -> {
                     if (conversionResults != null) {
                         mDataTransferSpeedView

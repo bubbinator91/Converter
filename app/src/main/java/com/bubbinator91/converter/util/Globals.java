@@ -11,4 +11,7 @@ public class Globals {
 	public static final String PREFERENCE_DECIMAL_PLACES = "decimal_places";
 	public static final String PREFERENCE_LOGCAT = "is_logcat_enabled";
 	public static final String PREFERENCE_FIRSTRUN = "is_first_run";
+
+	public static final String DAGGER_MAIN_THREAD = "DAGGER_MAIN_THREAD";
+	public static final String DAGGER_COMPUTATION_THREAD = "DAGGER_COMP_THREAD";
 }

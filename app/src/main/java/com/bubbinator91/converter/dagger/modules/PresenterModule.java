@@ -19,9 +19,13 @@ import com.bubbinator91.converter.ui.presenters.FuelConsumptionPresenter;
 import com.bubbinator91.converter.ui.presenters.LengthPresenter;
 import com.bubbinator91.converter.ui.presenters.SpeedPresenter;
 import com.bubbinator91.converter.ui.presenters.TemperaturePresenter;
+import com.bubbinator91.converter.util.Globals;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
+import rx.Scheduler;
 
 /**
  * A dagger {@link Module} that provides the specific implementation of
@@ -31,37 +35,49 @@ import dagger.Provides;
 public class PresenterModule {
     @Provides
     @ActivityScope
-    IAccelerationPresenter providesAccelerationPresenter(Acceleration acceleration) {
-        return new AccelerationPresenter(acceleration);
+    IAccelerationPresenter providesAccelerationPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+                                                         @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
+                                                         Acceleration acceleration) {
+        return new AccelerationPresenter(mainScheduler, computationScheduler, acceleration);
     }
 
     @Provides
     @ActivityScope
-    IDataTransferSpeedPresenter providesDataTransferSpeedPresenter(DataTransferSpeed dataTransferSpeed) {
-        return new DataTransferSpeedPresenter(dataTransferSpeed);
+    IDataTransferSpeedPresenter providesDataTransferSpeedPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+                                                                   @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
+                                                                   DataTransferSpeed dataTransferSpeed) {
+        return new DataTransferSpeedPresenter(mainScheduler, computationScheduler, dataTransferSpeed);
     }
 
     @Provides
     @ActivityScope
-    IFuelConsumptionPresenter providesFuelConsumptionPresenter(FuelConsumption fuelConsumption) {
-        return new FuelConsumptionPresenter(fuelConsumption);
+    IFuelConsumptionPresenter providesFuelConsumptionPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+                                                               @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
+                                                               FuelConsumption fuelConsumption) {
+        return new FuelConsumptionPresenter(mainScheduler, computationScheduler, fuelConsumption);
     }
 
     @Provides
     @ActivityScope
-    ILengthPresenter providesLengthPresenter(Length length) {
-        return new LengthPresenter(length);
+    ILengthPresenter providesLengthPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+                                             @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
+                                             Length length) {
+        return new LengthPresenter(mainScheduler, computationScheduler, length);
     }
 
     @Provides
     @ActivityScope
-    ISpeedPresenter providesSpeedPresenter(Speed speed) {
-        return new SpeedPresenter(speed);
+    ISpeedPresenter providesSpeedPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+                                           @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
+                                           Speed speed) {
+        return new SpeedPresenter(mainScheduler, computationScheduler, speed);
     }
 
     @Provides
     @ActivityScope
-    ITemperaturePresenter providesTemperaturePresenter(Temperature temperature) {
-        return new TemperaturePresenter(temperature);
+    ITemperaturePresenter providesTemperaturePresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+                                                       @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
+                                                       Temperature temperature) {
+        return new TemperaturePresenter(mainScheduler, computationScheduler, temperature);
     }
 }
