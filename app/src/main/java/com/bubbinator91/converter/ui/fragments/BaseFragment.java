@@ -15,7 +15,7 @@ import android.widget.ScrollView;
 
 import com.bubbinator91.converter.BuildConfig;
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.ui.interfaces.base.ConverterPresenter;
+import com.bubbinator91.converter.ui.interfaces.base.IConverterPresenter;
 import com.bubbinator91.converter.util.Globals;
 
 import timber.log.Timber;
@@ -25,7 +25,7 @@ import timber.log.Timber;
  * The purpose of this fragment to help reduce the amount of
  * duplicated code.
  */
-public abstract class BaseFragment<T extends ConverterPresenter>
+public abstract class BaseFragment<T extends IConverterPresenter>
         extends Fragment
         implements ViewTreeObserver.OnScrollChangedListener {
     private final String TAG = BaseFragment.class.getSimpleName();

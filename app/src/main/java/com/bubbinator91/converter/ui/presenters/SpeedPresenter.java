@@ -1,8 +1,8 @@
 package com.bubbinator91.converter.ui.presenters;
 
 import com.bubbinator91.conversion.speed.Speed;
-import com.bubbinator91.converter.ui.interfaces.speed.SpeedPresenter;
-import com.bubbinator91.converter.ui.interfaces.speed.SpeedView;
+import com.bubbinator91.converter.ui.interfaces.speed.ISpeedPresenter;
+import com.bubbinator91.converter.ui.interfaces.speed.ISpeedView;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -12,18 +12,18 @@ import rx.schedulers.Schedulers;
  * Implementation of the {@link SpeedPresenter} interface for the
  * {@link com.bubbinator91.converter.ui.fragments.SpeedFragment}
  */
-public class SpeedPresenterImpl implements SpeedPresenter {
+public class SpeedPresenter implements ISpeedPresenter {
 
-    private SpeedView mSpeedView;
+    private ISpeedView mSpeedView;
 
     private final Speed speed;
 
-    public SpeedPresenterImpl(Speed speed) {
+    public SpeedPresenter(Speed speed) {
         this.speed = speed;
     }
 
     @Override
-    public void registerView(SpeedView activity) {
+    public void registerView(ISpeedView activity) {
         mSpeedView = activity;
     }
 

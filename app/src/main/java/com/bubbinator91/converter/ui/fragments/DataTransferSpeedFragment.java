@@ -22,7 +22,7 @@ import com.bubbinator91.converter.tasks.datatransferspeed.FromMegabitsPerSecondT
 import com.bubbinator91.converter.tasks.datatransferspeed.FromMegabytesPerSecondTask;
 import com.bubbinator91.converter.tasks.datatransferspeed.FromTerabitsPerSecondTask;
 import com.bubbinator91.converter.tasks.datatransferspeed.FromTerabytesPerSecondTask;
-import com.bubbinator91.converter.ui.interfaces.temperature.TemperaturePresenter;
+import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
@@ -32,7 +32,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public class DataTransferSpeedFragment extends BaseFragment<TemperaturePresenter> {
+public class DataTransferSpeedFragment extends BaseFragment<ITemperaturePresenter> {
     private static final String TAG = DataTransferSpeedFragment.class.getSimpleName();
 
     private static final int LAST_EDIT_TEXT_FOCUSED_BPS = 0;
@@ -1095,7 +1095,7 @@ public class DataTransferSpeedFragment extends BaseFragment<TemperaturePresenter
     protected int getScrollViewResource() { return  R.id.fragment_dts; }
 
     @Override
-    protected TemperaturePresenter getPresenter() { return null; }
+    protected ITemperaturePresenter getPresenter() { return null; }
 
     @Override
     protected void registerViewWithPresenter() {}

@@ -1,8 +1,8 @@
 package com.bubbinator91.converter.ui.presenters;
 
 import com.bubbinator91.conversion.temperature.Temperature;
-import com.bubbinator91.converter.ui.interfaces.temperature.TemperaturePresenter;
-import com.bubbinator91.converter.ui.interfaces.temperature.TemperatureView;
+import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
+import com.bubbinator91.converter.ui.interfaces.temperature.ITemperatureView;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -12,18 +12,18 @@ import rx.schedulers.Schedulers;
  * Implementation of the {@link TemperaturePresenter} interface for the
  * {@link com.bubbinator91.converter.ui.fragments.TemperatureFragment}
  */
-public class TemperaturePresenterImpl implements TemperaturePresenter {
+public class TemperaturePresenter implements ITemperaturePresenter {
 
-    private TemperatureView mTemperatureView;
+    private ITemperatureView mTemperatureView;
 
     private final Temperature temperature;
 
-    public TemperaturePresenterImpl(Temperature temperature) {
+    public TemperaturePresenter(Temperature temperature) {
         this.temperature = temperature;
     }
 
     @Override
-    public void registerView(TemperatureView activity) {
+    public void registerView(ITemperatureView activity) {
         mTemperatureView = activity;
     }
 

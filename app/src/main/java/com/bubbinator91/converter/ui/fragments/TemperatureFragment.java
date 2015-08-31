@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
-import com.bubbinator91.converter.ui.interfaces.temperature.TemperaturePresenter;
-import com.bubbinator91.converter.ui.interfaces.temperature.TemperatureView;
+import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
+import com.bubbinator91.converter.ui.interfaces.temperature.ITemperatureView;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
@@ -29,8 +29,8 @@ import timber.log.Timber;
  * Celsius, Fahrenheit, Kelvin
  */
 public class TemperatureFragment
-        extends BaseFragment<TemperaturePresenter>
-        implements TemperatureView {
+        extends BaseFragment<ITemperaturePresenter>
+        implements ITemperatureView {
     private final String TAG = TemperatureFragment.class.getSimpleName();
 
     private static final int LAST_EDIT_TEXT_FOCUSED_CELSIUS = 0;
@@ -46,7 +46,7 @@ public class TemperatureFragment
 
     private int mLastEditTextFocused;
 
-    @Inject TemperaturePresenter mTemperaturePresenter;
+    @Inject ITemperaturePresenter mTemperaturePresenter;
 
     @Bind(R.id.editText_temperature_celsius)    AppCompatEditText mEditTextCelsius;
     @Bind(R.id.editText_temperature_fahrenheit) AppCompatEditText mEditTextFahrenheit;
@@ -361,7 +361,7 @@ public class TemperatureFragment
     }
 
     @Override
-    protected TemperaturePresenter getPresenter() {
+    protected ITemperaturePresenter getPresenter() {
         if (mTemperaturePresenter == null) {
             DaggerFragmentInjectorComponent
                     .create()

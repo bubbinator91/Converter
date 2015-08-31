@@ -3,7 +3,7 @@ package com.bubbinator91.converter.ui.interfaces.base;
 /**
  * View interface for any fragment that does conversion
  */
-public interface ConverterView extends PView {
+public interface IConverterView extends IView {
     void addTextChangedListeners(String callingClassName);
 
     void removeTextChangedListeners(String callingClassName);

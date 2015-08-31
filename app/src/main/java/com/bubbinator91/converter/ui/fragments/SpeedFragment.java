@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
-import com.bubbinator91.converter.ui.interfaces.speed.SpeedPresenter;
-import com.bubbinator91.converter.ui.interfaces.speed.SpeedView;
+import com.bubbinator91.converter.ui.interfaces.speed.ISpeedPresenter;
+import com.bubbinator91.converter.ui.interfaces.speed.ISpeedView;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
@@ -30,8 +30,8 @@ import timber.log.Timber;
  * Conversions comply with the conversions through Google.com
  */
 public class SpeedFragment
-        extends BaseFragment<SpeedPresenter>
-        implements SpeedView {
+        extends BaseFragment<ISpeedPresenter>
+        implements ISpeedView {
     private final String TAG = SpeedFragment.class.getSimpleName();
 
     private static final int LAST_EDIT_TEXT_FOCUSED_FPS = 0;
@@ -52,7 +52,7 @@ public class SpeedFragment
 
     private int mLastEditTextFocused;
 
-    @Inject SpeedPresenter mSpeedPresenter;
+    @Inject ISpeedPresenter mSpeedPresenter;
 
     @Bind(R.id.editText_speed_fps)  AppCompatEditText mEditTextFps;
     @Bind(R.id.editText_speed_knot) AppCompatEditText mEditTextKnot;
@@ -542,7 +542,7 @@ public class SpeedFragment
     }
 
     @Override
-    protected SpeedPresenter getPresenter() {
+    protected ISpeedPresenter getPresenter() {
         if (mSpeedPresenter == null) {
             DaggerFragmentInjectorComponent
                     .create()

@@ -1,12 +1,12 @@
 package com.bubbinator91.converter.ui.interfaces.acceleration;
 
-import com.bubbinator91.converter.ui.interfaces.base.ConverterPresenter;
+import com.bubbinator91.converter.ui.interfaces.base.IConverterPresenter;
 
 /**
  * Presenter interface for the presenter of
  * {@link com.bubbinator91.converter.ui.fragments.AccelerationFragment}
  */
-public interface AccelerationPresenter extends ConverterPresenter<AccelerationView> {
+public interface IAccelerationPresenter extends IConverterPresenter<IAccelerationView> {
     void getConversionFromCentimetersPerSecondSquaredResults(String cmpss, int decimalPlaces);
 
     void getConversionFromFeetPerSecondSquaredResults(String fpss, int decimalPlaces);

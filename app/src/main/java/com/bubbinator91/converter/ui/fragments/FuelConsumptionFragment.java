@@ -16,7 +16,7 @@ import com.bubbinator91.converter.tasks.fuelconsumption.FromKilometersPerLiterTa
 import com.bubbinator91.converter.tasks.fuelconsumption.FromLitersPer100KilometersTask;
 import com.bubbinator91.converter.tasks.fuelconsumption.FromUKMilesPerGallonTask;
 import com.bubbinator91.converter.tasks.fuelconsumption.FromUSMilesPerGallonTask;
-import com.bubbinator91.converter.ui.interfaces.temperature.TemperaturePresenter;
+import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
@@ -26,7 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public class FuelConsumptionFragment extends BaseFragment<TemperaturePresenter> {
+public class FuelConsumptionFragment extends BaseFragment<ITemperaturePresenter> {
     private final String TAG = FuelConsumptionFragment.class.getSimpleName();
 
     private static final int LAST_EDIT_TEXT_FOCUSED_USMPG = 0;
@@ -440,7 +440,7 @@ public class FuelConsumptionFragment extends BaseFragment<TemperaturePresenter> 
     protected int getScrollViewResource() { return R.id.fragment_fuel_consumption; }
 
     @Override
-    protected TemperaturePresenter getPresenter() { return null; }
+    protected ITemperaturePresenter getPresenter() { return null; }
 
     @Override
     protected void registerViewWithPresenter() {}

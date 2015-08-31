@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
-import com.bubbinator91.converter.ui.interfaces.acceleration.AccelerationPresenter;
-import com.bubbinator91.converter.ui.interfaces.acceleration.AccelerationView;
+import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationPresenter;
+import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationView;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
@@ -30,8 +30,8 @@ import timber.log.Timber;
  * Squared (m/s^2), and Standard Gravity
  */
 public class AccelerationFragment
-        extends BaseFragment<AccelerationPresenter>
-        implements AccelerationView {
+        extends BaseFragment<IAccelerationPresenter>
+        implements IAccelerationView {
     private static final String TAG = AccelerationFragment.class.getSimpleName();
 
     private static final int LAST_EDIT_TEXT_FOCUSED_CMPSS = 0;
@@ -49,7 +49,7 @@ public class AccelerationFragment
 
     private int mLastEditTextFocused;
 
-    @Inject AccelerationPresenter mAccelerationPresenter;
+    @Inject IAccelerationPresenter mAccelerationPresenter;
 
     @Bind(R.id.editText_acceleration_cmpss) AppCompatEditText mEditTextCmpss;
     @Bind(R.id.editText_acceleration_fpss)  AppCompatEditText mEditTextFpss;
@@ -450,7 +450,7 @@ public class AccelerationFragment
     }
 
     @Override
-    protected AccelerationPresenter getPresenter() {
+    protected IAccelerationPresenter getPresenter() {
         if (mAccelerationPresenter == null) {
             DaggerFragmentInjectorComponent
                     .create()

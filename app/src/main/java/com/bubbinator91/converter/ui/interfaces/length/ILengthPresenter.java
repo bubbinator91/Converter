@@ -1,12 +1,12 @@
 package com.bubbinator91.converter.ui.interfaces.length;
 
-import com.bubbinator91.converter.ui.interfaces.base.ConverterPresenter;
+import com.bubbinator91.converter.ui.interfaces.base.IConverterPresenter;
 
 /**
  * Presenter interface for the presenter of
  * {@link com.bubbinator91.converter.ui.fragments.LengthFragment}
  */
-public interface ILengthPresenter extends ConverterPresenter<ILengthView> {
+public interface ILengthPresenter extends IConverterPresenter<ILengthView> {
     void getConversionFromCentimetersResults(String centimeters, int decimalPlaces);
 
     void getConversionFromFeetResults(String feet, int decimalPlaces);

@@ -5,28 +5,28 @@ import com.bubbinator91.conversion.length.Length;
 import com.bubbinator91.conversion.speed.Speed;
 import com.bubbinator91.conversion.temperature.Temperature;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
-import com.bubbinator91.converter.ui.interfaces.acceleration.AccelerationPresenter;
+import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationPresenter;
 import com.bubbinator91.converter.ui.interfaces.length.ILengthPresenter;
-import com.bubbinator91.converter.ui.interfaces.speed.SpeedPresenter;
-import com.bubbinator91.converter.ui.interfaces.temperature.TemperaturePresenter;
-import com.bubbinator91.converter.ui.presenters.AccelerationPresenterImpl;
+import com.bubbinator91.converter.ui.interfaces.speed.ISpeedPresenter;
+import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
+import com.bubbinator91.converter.ui.presenters.AccelerationPresenter;
 import com.bubbinator91.converter.ui.presenters.LengthPresenter;
-import com.bubbinator91.converter.ui.presenters.SpeedPresenterImpl;
-import com.bubbinator91.converter.ui.presenters.TemperaturePresenterImpl;
+import com.bubbinator91.converter.ui.presenters.SpeedPresenter;
+import com.bubbinator91.converter.ui.presenters.TemperaturePresenter;
 
 import dagger.Module;
 import dagger.Provides;
 
 /**
  * A dagger {@link Module} that provides the specific implementation of
- * {@link com.bubbinator91.converter.ui.interfaces.base.Presenter} to each specific fragment.
+ * {@link com.bubbinator91.converter.ui.interfaces.base.IPresenter} to each specific fragment.
  */
 @Module
 public class PresenterModule {
     @Provides
     @ActivityScope
-    AccelerationPresenter providesAccelerationPresenter(Acceleration acceleration) {
-        return new AccelerationPresenterImpl(acceleration);
+    IAccelerationPresenter providesAccelerationPresenter(Acceleration acceleration) {
+        return new AccelerationPresenter(acceleration);
     }
 
     @Provides
@@ -37,13 +37,13 @@ public class PresenterModule {
 
     @Provides
     @ActivityScope
-    SpeedPresenter providesSpeedPresenter(Speed speed) {
-        return new SpeedPresenterImpl(speed);
+    ISpeedPresenter providesSpeedPresenter(Speed speed) {
+        return new SpeedPresenter(speed);
     }
 
     @Provides
     @ActivityScope
-    TemperaturePresenter providesTemperaturePresenter(Temperature temperature) {
-        return new TemperaturePresenterImpl(temperature);
+    ITemperaturePresenter providesTemperaturePresenter(Temperature temperature) {
+        return new TemperaturePresenter(temperature);
     }
 }
