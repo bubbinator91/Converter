@@ -9,7 +9,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Implementation of the {@link SpeedPresenter} interface for the
+ * Implementation of the {@link ISpeedPresenter} interface for the
  * {@link com.bubbinator91.converter.ui.fragments.SpeedFragment}
  */
 public class SpeedPresenter implements ISpeedPresenter {
@@ -29,7 +29,7 @@ public class SpeedPresenter implements ISpeedPresenter {
 
     @Override
     public void getConversionFromFeetPerSecondResults(String fps, int decimalPlaces) {
-        Observable.just(speed.feetPerSecond().toAll(fps, decimalPlaces))
+        Observable.just(speed.FeetPerSecond().toAll(fps, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
@@ -45,7 +45,7 @@ public class SpeedPresenter implements ISpeedPresenter {
 
     @Override
     public void getConversionFromKilometersPerHourResults(String kph, int decimalPlaces) {
-        Observable.just(speed.kilometersPerHour().toAll(kph, decimalPlaces))
+        Observable.just(speed.KilometersPerHour().toAll(kph, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
@@ -61,7 +61,7 @@ public class SpeedPresenter implements ISpeedPresenter {
 
     @Override
     public void getConversionFromKnotsResults(String knots, int decimalPlaces) {
-        Observable.just(speed.knots().toAll(knots, decimalPlaces))
+        Observable.just(speed.Knots().toAll(knots, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
@@ -77,7 +77,7 @@ public class SpeedPresenter implements ISpeedPresenter {
 
     @Override
     public void getConversionFromMetersPerSecondResults(String mps, int decimalPlaces) {
-        Observable.just(speed.metersPerSecond().toAll(mps, decimalPlaces))
+        Observable.just(speed.MetersPerSecond().toAll(mps, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
@@ -93,7 +93,7 @@ public class SpeedPresenter implements ISpeedPresenter {
 
     @Override
     public void getConversionFromMilesPerHourResults(String mph, int decimalPlaces) {
-        Observable.just(speed.milesPerHour().toAll(mph, decimalPlaces))
+        Observable.just(speed.MilesPerHour().toAll(mph, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {

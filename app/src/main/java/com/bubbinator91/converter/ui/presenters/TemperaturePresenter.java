@@ -9,7 +9,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Implementation of the {@link TemperaturePresenter} interface for the
+ * Implementation of the {@link ITemperaturePresenter} interface for the
  * {@link com.bubbinator91.converter.ui.fragments.TemperatureFragment}
  */
 public class TemperaturePresenter implements ITemperaturePresenter {
@@ -29,7 +29,7 @@ public class TemperaturePresenter implements ITemperaturePresenter {
 
     @Override
     public void getConversionFromCelsiusResults(String celsius, int decimalPlaces) {
-        Observable.just(temperature.celsius().toAll(celsius, decimalPlaces))
+        Observable.just(temperature.Celsius().toAll(celsius, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
@@ -45,7 +45,7 @@ public class TemperaturePresenter implements ITemperaturePresenter {
 
     @Override
     public void getConversionFromFahrenheitResults(String fahrenheit, int decimalPlaces) {
-        Observable.just(temperature.fahrenheit().toAll(fahrenheit, decimalPlaces))
+        Observable.just(temperature.Fahrenheit().toAll(fahrenheit, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {
@@ -61,7 +61,7 @@ public class TemperaturePresenter implements ITemperaturePresenter {
 
     @Override
     public void getConversionFromKelvinResults(String kelvin, int decimalPlaces) {
-        Observable.just(temperature.kelvin().toAll(kelvin, decimalPlaces))
+        Observable.just(temperature.Kelvin().toAll(kelvin, decimalPlaces))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(conversionResults -> {

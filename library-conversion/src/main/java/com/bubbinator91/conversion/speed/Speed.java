@@ -6,23 +6,23 @@ package com.bubbinator91.conversion.speed;
 public class Speed {
     public Speed() {}
 
-    public FeetPerSecond feetPerSecond() {
+    public FeetPerSecond FeetPerSecond() {
         return FeetPerSecond.getInstance();
     }
 
-    public KilometersPerHour kilometersPerHour() {
+    public KilometersPerHour KilometersPerHour() {
         return KilometersPerHour.getInstance();
     }
 
-    public Knots knots() {
+    public Knots Knots() {
         return Knots.getInstance();
     }
 
-    public MetersPerSecond metersPerSecond() {
+    public MetersPerSecond MetersPerSecond() {
         return MetersPerSecond.getInstance();
     }
 
-    public MilesPerHour milesPerHour() {
+    public MilesPerHour MilesPerHour() {
         return MilesPerHour.getInstance();
     }
 }

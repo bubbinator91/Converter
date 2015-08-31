@@ -15,5 +15,4 @@ import org.junit.runners.Suite;
         MilesPerHourTest.class,
         SpeedTest.class
 })
-public class SpeedSuite {
-}
+public class SpeedSuite {}

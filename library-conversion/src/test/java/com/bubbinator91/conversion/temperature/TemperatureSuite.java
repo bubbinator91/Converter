@@ -13,5 +13,4 @@ import org.junit.runners.Suite;
         KelvinTest.class,
         TemperatureTest.class
 })
-public class TemperatureSuite {
-}
+public class TemperatureSuite {}

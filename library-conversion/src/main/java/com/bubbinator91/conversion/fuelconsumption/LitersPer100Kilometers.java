@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.fuelconsumption;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -16,7 +14,35 @@ import java.util.List;
  * consumption
  */
 public class LitersPer100Kilometers extends Unit {
-    private static final String TAG = LitersPer100Kilometers.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private LitersPer100Kilometers() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link LitersPer100Kilometers} class. Private so that only the
+     * LitersPer100Kilometers class can use it, and static so that it can carry a static instance of
+     * the LitersPer100Kilometers class.
+     */
+    private static class LitersPer100KilometersInstance {
+        private static final LitersPer100Kilometers INSTANCE = new LitersPer100Kilometers();
+    }
+
+    /**
+     * Gets the instance of the {@link LitersPer100Kilometers} class from the
+     * LitersPer100KilometersInstance class. Protected so that only members of the same package can
+     * use this method, such as {@link FuelConsumption}.
+     *
+     * @return  An instance of the {@link LitersPer100Kilometers} class.
+     */
+    protected static LitersPer100Kilometers getInstance() {
+        return LitersPer100KilometersInstance.INSTANCE;
+    }
+
+    // endregion
+
+    // region Public methods
 
     /**
      * Takes in the liters per 100 kilometers value as a {@link String} and converts it to US miles
@@ -27,13 +53,13 @@ public class LitersPer100Kilometers extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          US miles per gallon, UK miles per gallon, and kilometers per liter values (in that
      *          order; they will be empty {@link String}s if there is an error), and the second item
      *          is one of the error codes found in {@link ConversionErrorCodes} as an
      *          {@link Integer} object, or null if the <code>l100km</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String l100km, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String l100km, int decimalPlaces) {
         if (l100km == null) {
             return null;
         }
@@ -48,12 +74,10 @@ public class LitersPer100Kilometers extends Unit {
                 results.add(toUKMilesPerGallon(l100km, roundingLength));
                 results.add(toKilometersPerLiter(l100km, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 3);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 3);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -66,7 +90,7 @@ public class LitersPer100Kilometers extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -86,7 +110,7 @@ public class LitersPer100Kilometers extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toUSMilesPerGallon(String l100km, int decimalPlaces)
+    public String toUSMilesPerGallon(String l100km, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (l100km == null) {
             return null;
@@ -126,7 +150,7 @@ public class LitersPer100Kilometers extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toUKMilesPerGallon(String l100km, int decimalPlaces)
+    public String toUKMilesPerGallon(String l100km, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (l100km == null) {
             return null;
@@ -166,7 +190,7 @@ public class LitersPer100Kilometers extends Unit {
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
      *                                      zero.
      */
-    public static String toKilometersPerLiter(String l100km, int decimalPlaces)
+    public String toKilometersPerLiter(String l100km, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (l100km == null) {
             return null;
@@ -188,4 +212,6 @@ public class LitersPer100Kilometers extends Unit {
             throw new ValueBelowZeroException("Fuel consumption cannot be below zero");
         }
     }
+
+    // endregion
 }

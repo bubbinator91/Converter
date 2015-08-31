@@ -6,19 +6,19 @@ package com.bubbinator91.conversion.acceleration;
 public class Acceleration {
     public Acceleration() {}
 
-    public CentimetersPerSecondSquared centimetersPerSecondSquared() {
+    public CentimetersPerSecondSquared CentimetersPerSecondSquared() {
         return CentimetersPerSecondSquared.getInstance();
     }
 
-    public FeetPerSecondSquared feetPerSecondSquared() {
+    public FeetPerSecondSquared FeetPerSecondSquared() {
         return FeetPerSecondSquared.getInstance();
     }
 
-    public MetersPerSecondSquared metersPerSecondSquared() {
+    public MetersPerSecondSquared MetersPerSecondSquared() {
         return MetersPerSecondSquared.getInstance();
     }
 
-    public StandardGravity standardGravity() {
+    public StandardGravity StandardGravity() {
         return StandardGravity.getInstance();
     }
 }
