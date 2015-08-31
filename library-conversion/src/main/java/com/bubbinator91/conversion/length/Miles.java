@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.length;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,33 @@ import java.util.List;
  * Handles the conversion from miles to other units of length
  */
 public class Miles extends Unit {
-    private static final String TAG = Miles.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private Miles() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link Miles} class. Private so that only the Miles class can use
+     * it, and static so that it can carry a static instance of the Miles class.
+     */
+    private static class MilesInstance {
+        private static final Miles INSTANCE = new Miles();
+    }
+
+    /**
+     * Gets the instance of the {@link Miles} class from the MilesInstance class. Protected so that
+     * only members of the same package can use this method, such as {@link Length}.
+     *
+     * @return  An instance of the {@link Miles} class.
+     */
+    protected static Miles getInstance() {
+        return MilesInstance.INSTANCE;
+    }
+
+    // endregion
+
+    // region Public methods
 
     /**
      * Takes in the miles value as a {@link String} and converts it to inches, feet, yards,
@@ -25,13 +49,13 @@ public class Miles extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          inches, feet, yards, millimeters, centimeters, meters, and kilometers values (in
      *          that order; they will be empty {@link String}s if there is an error), and the second
      *          item is one of the error codes found in {@link ConversionErrorCodes} as an
      *          {@link Integer} object, or null if the <code>miles</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String miles, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String miles, int decimalPlaces) {
         if (miles == null) {
             return null;
         }
@@ -50,12 +74,10 @@ public class Miles extends Unit {
                 results.add(toMeters(miles, roundingLength));
                 results.add(toKilometers(miles, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 7);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 7);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -68,7 +90,7 @@ public class Miles extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -85,7 +107,7 @@ public class Miles extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toInches(String miles, int decimalPlaces)
+    public String toInches(String miles, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (miles == null) {
             return null;
@@ -121,7 +143,7 @@ public class Miles extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toFeet(String miles, int decimalPlaces)
+    public String toFeet(String miles, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (miles == null) {
             return null;
@@ -157,7 +179,7 @@ public class Miles extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toYards(String miles, int decimalPlaces)
+    public String toYards(String miles, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (miles == null) {
             return null;
@@ -193,7 +215,7 @@ public class Miles extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMillimeters(String miles, int decimalPlaces)
+    public String toMillimeters(String miles, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (miles == null) {
             return null;
@@ -229,7 +251,7 @@ public class Miles extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toCentimeters(String miles, int decimalPlaces)
+    public String toCentimeters(String miles, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (miles == null) {
             return null;
@@ -265,7 +287,7 @@ public class Miles extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMeters(String miles, int decimalPlaces)
+    public String toMeters(String miles, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (miles == null) {
             return null;
@@ -301,7 +323,7 @@ public class Miles extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilometers(String miles, int decimalPlaces)
+    public String toKilometers(String miles, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (miles == null) {
             return null;
@@ -322,4 +344,6 @@ public class Miles extends Unit {
             throw new ValueBelowZeroException("Length cannot be below zero");
         }
     }
+
+    // endregion
 }

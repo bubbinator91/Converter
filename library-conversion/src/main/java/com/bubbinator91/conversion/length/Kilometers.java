@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.length;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,8 +13,35 @@ import java.util.List;
  * Handles the conversion from meters to other units of length
  */
 public class Kilometers extends Unit {
-    private static final String TAG = Kilometers.class.getSimpleName();
 
+    // Prevents class from being instantiated directly
+    private Kilometers() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link Kilometers} class. Private so that only the Kilometers
+     * class can use it, and static so that it can carry a static instance of the Kilometers class.
+     */
+    private static class KilometersInstance {
+        private static final Kilometers INSTANCE = new Kilometers();
+    }
+
+    /**
+     * Gets the instance of the {@link Kilometers} class from the KilometersInstance class.
+     * Protected so that only members of the same package can use this method, such as
+     * {@link Length}.
+     *
+     * @return  An instance of the {@link Kilometers} class.
+     */
+    protected static Kilometers getInstance() {
+        return KilometersInstance.INSTANCE;
+    }
+
+    // endregion
+
+    // region Public methods
+    
     /**
      * Takes in the kilometers value as a {@link String} and converts it to inches, feet, yards,
      * miles, millimeters, centimeters, and meters.
@@ -25,13 +50,13 @@ public class Kilometers extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          inches, feet, yards, miles, millimeters, centimeters, and meters values (in that
      *          order; they will be empty {@link String}s if there is an error), and the second item
      *          is one of the error codes found in {@link ConversionErrorCodes} as an
      *          {@link Integer} object, or null if the <code>kilometers</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String kilometers,
+    public Tuple<List<String>, Integer> toAll(String kilometers,
                                                                   int decimalPlaces) {
         if (kilometers == null) {
             return null;
@@ -51,12 +76,10 @@ public class Kilometers extends Unit {
                 results.add(toCentimeters(kilometers, roundingLength));
                 results.add(toMeters(kilometers, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 7);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 7);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -69,7 +92,7 @@ public class Kilometers extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -86,7 +109,7 @@ public class Kilometers extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toInches(String kilometers, int decimalPlaces)
+    public String toInches(String kilometers, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kilometers == null) {
             return null;
@@ -122,7 +145,7 @@ public class Kilometers extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toFeet(String kilometers, int decimalPlaces)
+    public String toFeet(String kilometers, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kilometers == null) {
             return null;
@@ -158,7 +181,7 @@ public class Kilometers extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toYards(String kilometers, int decimalPlaces)
+    public String toYards(String kilometers, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kilometers == null) {
             return null;
@@ -194,7 +217,7 @@ public class Kilometers extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMiles(String kilometers, int decimalPlaces)
+    public String toMiles(String kilometers, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kilometers == null) {
             return null;
@@ -230,7 +253,7 @@ public class Kilometers extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMillimeters(String kilometers, int decimalPlaces)
+    public String toMillimeters(String kilometers, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kilometers == null) {
             return null;
@@ -266,7 +289,7 @@ public class Kilometers extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toCentimeters(String kilometers, int decimalPlaces)
+    public String toCentimeters(String kilometers, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kilometers == null) {
             return null;
@@ -302,7 +325,7 @@ public class Kilometers extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMeters(String kilometers, int decimalPlaces)
+    public String toMeters(String kilometers, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (kilometers == null) {
             return null;
@@ -323,4 +346,6 @@ public class Kilometers extends Unit {
             throw new ValueBelowZeroException("Length cannot be below zero");
         }
     }
+    
+    // endregion
 }

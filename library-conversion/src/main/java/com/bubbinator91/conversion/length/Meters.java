@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.length;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,33 @@ import java.util.List;
  * Handles the conversion from meters to other units of length
  */
 public class Meters extends Unit {
-    private static final String TAG = Meters.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private Meters() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link Meters} class. Private so that only the Meters class can
+     * use it, and static so that it can carry a static instance of the Meters class.
+     */
+    private static class MetersInstance {
+        private static final Meters INSTANCE = new Meters();
+    }
+
+    /**
+     * Gets the instance of the {@link Meters} class from the MetersInstance class. Protected so
+     * that only members of the same package can use this method, such as {@link Length}.
+     *
+     * @return  An instance of the {@link Meters} class.
+     */
+    protected static Meters getInstance() {
+        return MetersInstance.INSTANCE;
+    }
+
+    // endregion
+
+    // region Public methods
 
     /**
      * Takes in the meters value as a {@link String} and converts it to inches, feet, yards, miles,
@@ -25,13 +49,13 @@ public class Meters extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          inches, feet, yards, miles, millimeters, centimeters, and kilometers values (in that
      *          order; they will be empty {@link String}s if there is an error), and the second item
      *          is one of the error codes found in {@link ConversionErrorCodes} as an
      *          {@link Integer} object, or null if the <code>meters</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String meters, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String meters, int decimalPlaces) {
         if (meters == null) {
             return null;
         }
@@ -50,12 +74,10 @@ public class Meters extends Unit {
                 results.add(toCentimeters(meters, roundingLength));
                 results.add(toKilometers(meters, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 7);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 7);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -68,7 +90,7 @@ public class Meters extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -85,7 +107,7 @@ public class Meters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toInches(String meters, int decimalPlaces)
+    public String toInches(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -121,7 +143,7 @@ public class Meters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toFeet(String meters, int decimalPlaces)
+    public String toFeet(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -157,7 +179,7 @@ public class Meters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toYards(String meters, int decimalPlaces)
+    public String toYards(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -193,7 +215,7 @@ public class Meters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMiles(String meters, int decimalPlaces)
+    public String toMiles(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -229,7 +251,7 @@ public class Meters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMillimeters(String meters, int decimalPlaces)
+    public String toMillimeters(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -265,7 +287,7 @@ public class Meters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toCentimeters(String meters, int decimalPlaces)
+    public String toCentimeters(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -301,7 +323,7 @@ public class Meters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilometers(String meters, int decimalPlaces)
+    public String toKilometers(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -321,4 +343,6 @@ public class Meters extends Unit {
             throw new ValueBelowZeroException("Length cannot be below zero");
         }
     }
+
+    // endregion
 }

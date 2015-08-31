@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.length;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,34 @@ import java.util.List;
  * Handles the conversion from centimeters to other units of length
  */
 public class Centimeters extends Unit {
-    private static final String TAG = Centimeters.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private Centimeters() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link Centimeters} class. Private so that only the Centimeters
+     * class can use it, and static so that it can carry a static instance of the Centimeters class.
+     */
+    private static class CentimetersInstance {
+        private static final Centimeters INSTANCE = new Centimeters();
+    }
+
+    /**
+     * Gets the instance of the {@link Centimeters} class from the CentimetersInstance class.
+     * Protected so that only members of the same package can use this method, such as
+     * {@link Length}.
+     *
+     * @return  An instance of the {@link Centimeters} class.
+     */
+    protected static Centimeters getInstance() {
+        return CentimetersInstance.INSTANCE;
+    }
+
+    // endregion
+
+    // region Public methods
 
     /**
      * Takes in the centimeters value as a {@link String} and converts it to inches, feet, yards,
@@ -25,13 +50,13 @@ public class Centimeters extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          inches, feet, yards, miles, millimeters, meters, and kilometers values (in that
      *          order; they will be empty {@link String}s if there is an error), and the second item
      *          is one of the error codes found in {@link ConversionErrorCodes} as an
      *          {@link Integer} object, or null if the <code>centimeters</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String centimeters,
+    public Tuple<List<String>, Integer> toAll(String centimeters,
                                                                   int decimalPlaces) {
         if (centimeters == null) {
             return null;
@@ -51,12 +76,10 @@ public class Centimeters extends Unit {
                 results.add(toMeters(centimeters, roundingLength));
                 results.add(toKilometers(centimeters, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 7);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 7);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -69,7 +92,7 @@ public class Centimeters extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -86,7 +109,7 @@ public class Centimeters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toInches(String centimeters, int decimalPlaces)
+    public String toInches(String centimeters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (centimeters == null) {
             return null;
@@ -122,7 +145,7 @@ public class Centimeters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toFeet(String centimeters, int decimalPlaces)
+    public String toFeet(String centimeters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (centimeters == null) {
             return null;
@@ -158,7 +181,7 @@ public class Centimeters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toYards(String centimeters, int decimalPlaces)
+    public String toYards(String centimeters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (centimeters == null) {
             return null;
@@ -194,7 +217,7 @@ public class Centimeters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMiles(String centimeters, int decimalPlaces)
+    public String toMiles(String centimeters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (centimeters == null) {
             return null;
@@ -230,7 +253,7 @@ public class Centimeters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMillimeters(String centimeters, int decimalPlaces)
+    public String toMillimeters(String centimeters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (centimeters == null) {
             return null;
@@ -266,7 +289,7 @@ public class Centimeters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMeters(String centimeters, int decimalPlaces)
+    public String toMeters(String centimeters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (centimeters == null) {
             return null;
@@ -301,7 +324,7 @@ public class Centimeters extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilometers(String centimeters, int decimalPlaces)
+    public String toKilometers(String centimeters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (centimeters == null) {
             return null;
@@ -321,4 +344,6 @@ public class Centimeters extends Unit {
             throw new ValueBelowZeroException("Length cannot be below zero");
         }
     }
+
+    // endregion
 }

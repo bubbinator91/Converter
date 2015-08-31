@@ -17,4 +17,4 @@ import org.junit.runners.Suite;
         MillimetersTest.class,
         YardsTest.class
 })
-public class LengthTestSuite {}
+public class LengthSuite {}

@@ -1,7 +1,7 @@
 package com.bubbinator91.conversion.acceleration;
 
 /**
- * Coordinates getting an instance of the specific conversion class to convert from.
+ * Coordinates getting an instance of the specific acceleration conversion class to convert from.
  */
 public class Acceleration {
     public Acceleration() {}

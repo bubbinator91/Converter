@@ -1,7 +1,7 @@
 package com.bubbinator91.conversion.speed;
 
 /**
- * Coordinates getting an instance of the specific conversion class to convert from.
+ * Coordinates getting an instance of the specific speed conversion class to convert from.
  */
 public class Speed {
     public Speed() {}
