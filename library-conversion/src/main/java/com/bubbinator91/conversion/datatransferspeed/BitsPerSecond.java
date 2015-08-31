@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.datatransferspeed;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,35 @@ import java.util.List;
  * Handles the conversion from bits per second to other units of data transfer speed
  */
 public class BitsPerSecond extends Unit {
-    private static final String TAG = BitsPerSecond.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private BitsPerSecond() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link BitsPerSecond} class. Private so that only the
+     * BitsPerSecond class can use it, and static so that it can carry a static instance of the
+     * BitsPerSecond class.
+     */
+    private static class BitsPerSecondInstance {
+        private static final BitsPerSecond INSTANCE = new BitsPerSecond();
+    }
+
+    /**
+     * Gets the instance of the {@link BitsPerSecond} class from the BitsPerSecondInstance class.
+     * Protected so that only members of the same package can use this method, such as
+     * {@link DataTransferSpeed}.
+     *
+     * @return  An instance of the {@link BitsPerSecond} class.
+     */
+    protected static BitsPerSecond getInstance() {
+        return BitsPerSecondInstance.INSTANCE;
+    }
+
+    // endregion
+
+    // region Public methods
 
     /**
      * Takes in the bits per second value as a {@link String} and converts it to bytes per second,
@@ -26,7 +52,7 @@ public class BitsPerSecond extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          bytes per second, kilobits per second, kilobytes per second, megabits per second,
      *          megabytes per second, gigabits per second, gigabytes per second, terabits per
      *          second, and terabytes per second values (in that order; they will be empty
@@ -34,7 +60,7 @@ public class BitsPerSecond extends Unit {
      *          found in {@link ConversionErrorCodes} as an {@link Integer} object, or null if the
      *          <code>bps</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String bps, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String bps, int decimalPlaces) {
         if (bps == null) {
             return null;
         }
@@ -55,12 +81,10 @@ public class BitsPerSecond extends Unit {
                 results.add(toTerabitsPerSecond(bps, roundingLength));
                 results.add(toTerabytesPerSecond(bps, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 9);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 9);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -73,7 +97,7 @@ public class BitsPerSecond extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -90,7 +114,7 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toBytesPerSecond(String bps, int decimalPlaces) throws
+    public String toBytesPerSecond(String bps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (bps == null) {
             return null;
@@ -127,7 +151,7 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilobitsPerSecond(String bps, int decimalPlaces) throws
+    public String toKilobitsPerSecond(String bps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (bps == null) {
             return null;
@@ -164,7 +188,7 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilobytesPerSecond(String bps, int decimalPlaces) throws
+    public String toKilobytesPerSecond(String bps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (bps == null) {
             return null;
@@ -201,7 +225,7 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMegabitsPerSecond(String bps, int decimalPlaces) throws
+    public String toMegabitsPerSecond(String bps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (bps == null) {
             return null;
@@ -238,7 +262,7 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMegabytesPerSecond(String bps, int decimalPlaces) throws
+    public String toMegabytesPerSecond(String bps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (bps == null) {
             return null;
@@ -275,7 +299,7 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toGigabitsPerSecond(String bps, int decimalPlaces) throws
+    public String toGigabitsPerSecond(String bps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (bps == null) {
             return null;
@@ -312,7 +336,7 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toGigabytesPerSecond(String bps, int decimalPlaces) throws
+    public String toGigabytesPerSecond(String bps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (bps == null) {
             return null;
@@ -349,7 +373,7 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toTerabitsPerSecond(String bps, int decimalPlaces) throws
+    public String toTerabitsPerSecond(String bps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (bps == null) {
             return null;
@@ -386,7 +410,7 @@ public class BitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toTerabytesPerSecond(String bps, int decimalPlaces) throws
+    public String toTerabytesPerSecond(String bps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (bps == null) {
             return null;
@@ -407,4 +431,6 @@ public class BitsPerSecond extends Unit {
             throw new ValueBelowZeroException("Transfer speed cannot be below zero");
         }
     }
+
+    // endregion
 }

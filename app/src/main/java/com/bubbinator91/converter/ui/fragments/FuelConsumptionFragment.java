@@ -225,7 +225,7 @@ public class FuelConsumptionFragment
 
     // endregion
 
-    // region Overridden FuelConsumptionView methods
+    // region Overridden IFuelConsumptionView methods
 
 
     @Override
@@ -233,7 +233,7 @@ public class FuelConsumptionFragment
         Timber.tag(TAG + ".displayConversionFromKilometersPerLiterResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromKilometersPerLiterResults");
+            removeTextChangedListeners(".displayConversionFromKilometersPerLiterResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -266,7 +266,7 @@ public class FuelConsumptionFragment
             mEditTextL100k.setText(results.get(2),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromKilometersPerLiterResults");
+            addTextChangedListeners(".displayConversionFromKilometersPerLiterResults");
         }
     }
 
@@ -275,7 +275,7 @@ public class FuelConsumptionFragment
         Timber.tag(TAG + ".displayConversionFromLitersPer100KilometersResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromLitersPer100KilometersResults");
+            removeTextChangedListeners(".displayConversionFromLitersPer100KilometersResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -308,7 +308,7 @@ public class FuelConsumptionFragment
             mEditTextKpl.setText(results.get(2),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromLitersPer100KilometersResults");
+            addTextChangedListeners(".displayConversionFromLitersPer100KilometersResults");
         }
     }
 
@@ -317,7 +317,7 @@ public class FuelConsumptionFragment
         Timber.tag(TAG + ".displayConversionFromUKMilesPerGallonResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromUKMilesPerGallonResults");
+            removeTextChangedListeners(".displayConversionFromUKMilesPerGallonResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -350,7 +350,7 @@ public class FuelConsumptionFragment
             mEditTextL100k.setText(results.get(2),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromUKMilesPerGallonResults");
+            addTextChangedListeners(".displayConversionFromUKMilesPerGallonResults");
         }
     }
 
@@ -359,7 +359,7 @@ public class FuelConsumptionFragment
         Timber.tag(TAG + ".displayConversionFromUSMilesPerGallonResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromUSMilesPerGallonResults");
+            removeTextChangedListeners(".displayConversionFromUSMilesPerGallonResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -392,13 +392,13 @@ public class FuelConsumptionFragment
             mEditTextL100k.setText(results.get(2),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromUSMilesPerGallonResults");
+            addTextChangedListeners(".displayConversionFromUSMilesPerGallonResults");
         }
     }
 
     // endregion
 
-    // region Overridden ConverterView methods
+    // region Overridden IConverterView methods
 
     @Override
     public void addTextChangedListeners(String callingClassName) {

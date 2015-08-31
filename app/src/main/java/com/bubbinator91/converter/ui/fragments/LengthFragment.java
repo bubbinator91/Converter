@@ -366,7 +366,7 @@ public class LengthFragment
         Timber.tag(TAG + ".displayConversionFromCentimetersResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromCentimetersResults");
+            removeTextChangedListeners(".displayConversionFromCentimetersResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -411,7 +411,7 @@ public class LengthFragment
             mEditTextKilometer.setText(results.get(6),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromCentimetersResults");
+            addTextChangedListeners(".displayConversionFromCentimetersResults");
         }
     }
 
@@ -420,7 +420,7 @@ public class LengthFragment
         Timber.tag(TAG + ".displayConversionFromFeetResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromFeetResults");
+            removeTextChangedListeners(".displayConversionFromFeetResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -465,7 +465,7 @@ public class LengthFragment
             mEditTextKilometer.setText(results.get(6),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromFeetResults");
+            addTextChangedListeners(".displayConversionFromFeetResults");
         }
     }
 
@@ -474,7 +474,7 @@ public class LengthFragment
         Timber.tag(TAG + ".displayConversionFromInchesResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromInchesResults");
+            removeTextChangedListeners(".displayConversionFromInchesResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -519,7 +519,7 @@ public class LengthFragment
             mEditTextKilometer.setText(results.get(6),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromInchesResults");
+            addTextChangedListeners(".displayConversionFromInchesResults");
         }
     }
 
@@ -528,7 +528,7 @@ public class LengthFragment
         Timber.tag(TAG + ".displayConversionFromKilometersResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromKilometersResults");
+            removeTextChangedListeners(".displayConversionFromKilometersResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -573,7 +573,7 @@ public class LengthFragment
             mEditTextMeter.setText(results.get(6),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromKilometersResults");
+            addTextChangedListeners(".displayConversionFromKilometersResults");
         }
     }
 
@@ -582,7 +582,7 @@ public class LengthFragment
         Timber.tag(TAG + ".displayConversionFromMetersResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromMetersResults");
+            removeTextChangedListeners(".displayConversionFromMetersResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -627,7 +627,7 @@ public class LengthFragment
             mEditTextKilometer.setText(results.get(6),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromMetersResults");
+            addTextChangedListeners(".displayConversionFromMetersResults");
         }
     }
 
@@ -636,7 +636,7 @@ public class LengthFragment
         Timber.tag(TAG + ".displayConversionFromMilesResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromMilesResults");
+            removeTextChangedListeners(".displayConversionFromMilesResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -681,7 +681,7 @@ public class LengthFragment
             mEditTextKilometer.setText(results.get(6),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromMilesResults");
+            addTextChangedListeners(".displayConversionFromMilesResults");
         }
     }
 
@@ -690,7 +690,7 @@ public class LengthFragment
         Timber.tag(TAG + ".displayConversionFromMillimetersResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromMillimetersResults");
+            removeTextChangedListeners(".displayConversionFromMillimetersResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -735,7 +735,7 @@ public class LengthFragment
             mEditTextKilometer.setText(results.get(6),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".onPostExecute");
+            addTextChangedListeners(".displayConversionFromMillimetersResults");
         }
     }
 
@@ -744,7 +744,7 @@ public class LengthFragment
         Timber.tag(TAG + ".displayConversionFromYardsResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromYardsResults");
+            removeTextChangedListeners(".displayConversionFromYardsResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -789,7 +789,7 @@ public class LengthFragment
             mEditTextKilometer.setText(results.get(6),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromYardsResults");
+            addTextChangedListeners(".displayConversionFromYardsResults");
         }
     }
 

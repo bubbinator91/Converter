@@ -192,14 +192,14 @@ public class TemperatureFragment
 
     // endregion
 
-    // region Overridden TemperatureView methods
+    // region Overridden ITemperatureView methods
 
     @Override
     public void displayConversionFromCelsiusResults(List<String> results, int errorCode) {
         Timber.tag(TAG + ".displayConversionFromCelsiusResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromCelsiusResults");
+            removeTextChangedListeners(".displayConversionFromCelsiusResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -229,7 +229,7 @@ public class TemperatureFragment
             mEditTextKelvin.setText(results.get(1),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromCelsiusResults");
+            addTextChangedListeners(".displayConversionFromCelsiusResults");
         }
     }
 
@@ -238,7 +238,7 @@ public class TemperatureFragment
         Timber.tag(TAG + ".displayConversionFromFahrenheitResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromFahrenheitResults");
+            removeTextChangedListeners(".displayConversionFromFahrenheitResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -268,7 +268,7 @@ public class TemperatureFragment
             mEditTextKelvin.setText(results.get(1),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromFahrenheitResults");
+            addTextChangedListeners(".displayConversionFromFahrenheitResults");
         }
     }
 
@@ -277,7 +277,7 @@ public class TemperatureFragment
         Timber.tag(TAG + ".displayConversionFromKelvinResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".onPostExecute");
+            removeTextChangedListeners(".onPostExecute");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -307,13 +307,13 @@ public class TemperatureFragment
             mEditTextFahrenheit.setText(results.get(1),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".onPostExecute");
+            addTextChangedListeners(".onPostExecute");
         }
     }
 
     // endregion
 
-    // region Overridden ConverterView methods
+    // region Overridden IConverterView methods
 
     @Override
     public void addTextChangedListeners(String callingClassName) {

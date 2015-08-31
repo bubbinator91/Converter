@@ -228,14 +228,14 @@ public class AccelerationFragment
 
     // endregion
 
-    // region Overridden AccelerationView methods
+    // region Overridden IAccelerationView methods
 
     @Override
     public void displayConversionFromCentimetersPerSecondSquared(List<String> results, int errorCode) {
         Timber.tag(TAG + ".displayConversionFromCentimetersPerSecondSquared").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromCentimetersPerSecondSquared");
+            removeTextChangedListeners(".displayConversionFromCentimetersPerSecondSquared");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -268,7 +268,7 @@ public class AccelerationFragment
             mEditTextSg.setText(results.get(2),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromCentimetersPerSecondSquared");
+            addTextChangedListeners(".displayConversionFromCentimetersPerSecondSquared");
         }
     }
 
@@ -277,7 +277,7 @@ public class AccelerationFragment
         Timber.tag(TAG + ".displayConversionFromFeetPerSecondSquared").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromFeetPerSecondSquared");
+            removeTextChangedListeners(".displayConversionFromFeetPerSecondSquared");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -310,7 +310,7 @@ public class AccelerationFragment
             mEditTextSg.setText(results.get(2),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromFeetPerSecondSquared");
+            addTextChangedListeners(".displayConversionFromFeetPerSecondSquared");
         }
     }
 
@@ -319,7 +319,7 @@ public class AccelerationFragment
         Timber.tag(TAG + ".displayConversionFromMetersPerSecondSquared").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromMetersPerSecondSquared");
+            removeTextChangedListeners(".displayConversionFromMetersPerSecondSquared");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -352,7 +352,7 @@ public class AccelerationFragment
             mEditTextSg.setText(results.get(2),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromMetersPerSecondSquared");
+            addTextChangedListeners(".displayConversionFromMetersPerSecondSquared");
         }
     }
 
@@ -361,7 +361,7 @@ public class AccelerationFragment
         Timber.tag(TAG + ".displayConversionFromStandardGravity").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromStandardGravity");
+            removeTextChangedListeners(".displayConversionFromStandardGravity");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -394,13 +394,13 @@ public class AccelerationFragment
             mEditTextMpss.setText(results.get(2),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromStandardGravity");
+            addTextChangedListeners(".displayConversionFromStandardGravity");
         }
     }
 
     // endregion
 
-    // region Overridden ConverterView methods
+    // region Overridden IConverterView methods
 
     @Override
     public void addTextChangedListeners(String callingClassName) {

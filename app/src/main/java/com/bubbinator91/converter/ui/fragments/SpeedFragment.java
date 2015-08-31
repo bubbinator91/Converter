@@ -261,14 +261,14 @@ public class SpeedFragment
 
     // endregion
 
-    // region Overridden SpeedView methods
+    // region Overridden ISpeedView methods
 
     @Override
     public void displayConversionFromFeetPerSecondResults(List<String> results, int errorCode) {
         Timber.tag(TAG + ".displayConversionFromFeetPerSecondResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromFeetPerSecondResults");
+            removeTextChangedListeners(".displayConversionFromFeetPerSecondResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -304,7 +304,7 @@ public class SpeedFragment
             mEditTextMph.setText(results.get(3),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromFeetPerSecondResults");
+            addTextChangedListeners(".displayConversionFromFeetPerSecondResults");
         }
     }
 
@@ -313,7 +313,7 @@ public class SpeedFragment
         Timber.tag(TAG + ".displayConversionFromKilometersPerHourResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromKilometersPerHourResults");
+            removeTextChangedListeners(".displayConversionFromKilometersPerHourResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -349,7 +349,7 @@ public class SpeedFragment
             mEditTextMph.setText(results.get(3),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromKilometersPerHourResults");
+            addTextChangedListeners(".displayConversionFromKilometersPerHourResults");
         }
     }
 
@@ -358,7 +358,7 @@ public class SpeedFragment
         Timber.tag(TAG + ".displayConversionFromKnotsResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromKnotsResults");
+            removeTextChangedListeners(".displayConversionFromKnotsResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -394,7 +394,7 @@ public class SpeedFragment
             mEditTextMph.setText(results.get(3),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromKnotsResults");
+            addTextChangedListeners(".displayConversionFromKnotsResults");
         }
     }
 
@@ -403,7 +403,7 @@ public class SpeedFragment
         Timber.tag(TAG + ".displayConversionFromMetersPerSecondResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromMetersPerSecondResults");
+            removeTextChangedListeners(".displayConversionFromMetersPerSecondResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -439,7 +439,7 @@ public class SpeedFragment
             mEditTextMph.setText(results.get(3),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromMetersPerSecondResults");
+            addTextChangedListeners(".displayConversionFromMetersPerSecondResults");
         }
     }
 
@@ -448,7 +448,7 @@ public class SpeedFragment
         Timber.tag(TAG + ".displayConversionFromMilesPerHourResults").i("Entered");
 
         if (results != null) {
-            removeTextChangedListeners(TAG + ".displayConversionFromMilesPerHourResults");
+            removeTextChangedListeners(".displayConversionFromMilesPerHourResults");
 
             switch (errorCode) {
                 case ConversionErrorCodes.ERROR_BELOW_ZERO:
@@ -484,13 +484,13 @@ public class SpeedFragment
             mEditTextMps.setText(results.get(3),
                     AppCompatTextView.BufferType.EDITABLE);
 
-            addTextChangedListeners(TAG + ".displayConversionFromMilesPerHourResults");
+            addTextChangedListeners(".displayConversionFromMilesPerHourResults");
         }
     }
 
     // endregion
 
-    // region Overridden ConverterView methods
+    // region Overridden IConverterView methods
 
     @Override
     public void addTextChangedListeners(String callingClassName) {

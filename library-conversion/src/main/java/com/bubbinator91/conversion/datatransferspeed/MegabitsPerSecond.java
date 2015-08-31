@@ -1,9 +1,7 @@
 package com.bubbinator91.conversion.datatransferspeed;
 
-import android.util.Log;
-import android.util.Pair;
-
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -15,7 +13,35 @@ import java.util.List;
  * Handles the conversion from megabits per second to other units of data transfer speed
  */
 public class MegabitsPerSecond extends Unit {
-    private static final String TAG = MegabitsPerSecond.class.getSimpleName();
+
+    // Prevents class from being instantiated directly
+    private MegabitsPerSecond() {}
+
+    // region Singleton items
+
+    /**
+     * Holds the instance of the {@link MegabitsPerSecond} class. Private so that only the
+     * MegabitsPerSecond class can use it, and static so that it can carry a static instance of the
+     * MegabitsPerSecond class.
+     */
+    private static class MegabitsPerSecondInstance {
+        private static final MegabitsPerSecond INSTANCE = new MegabitsPerSecond();
+    }
+
+    /**
+     * Gets the instance of the {@link MegabitsPerSecond} class from the MegabitsPerSecondInstance
+     * class. Protected so that only members of the same package can use this method, such as
+     * {@link DataTransferSpeed}.
+     *
+     * @return  An instance of the {@link MegabitsPerSecond} class.
+     */
+    protected static MegabitsPerSecond getInstance() {
+        return MegabitsPerSecondInstance.INSTANCE;
+    }
+
+    // endregion
+
+    // region Public methods
 
     /**
      * Takes in the megabits per second value as a {@link String} and converts it to bits per
@@ -27,7 +53,7 @@ public class MegabitsPerSecond extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Pair}, where the first item is a {@link List} containing the equivalent
+     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
      *          bits per second, bytes per second, kilobits per second, kilobytes per second,
      *          megabytes per second, gigabits per second, gigabytes per second, terabits per
      *          second, and terabytes per second values (in that order; they will be empty
@@ -35,7 +61,7 @@ public class MegabitsPerSecond extends Unit {
      *          found in {@link ConversionErrorCodes} as an {@link Integer} object, or null if the
      *          <code>mbps</code> parameter is null;
      */
-    public static Pair<List<String>, Integer> toAll(String mbps, int decimalPlaces) {
+    public Tuple<List<String>, Integer> toAll(String mbps, int decimalPlaces) {
         if (mbps == null) {
             return null;
         }
@@ -56,12 +82,10 @@ public class MegabitsPerSecond extends Unit {
                 results.add(toTerabitsPerSecond(mbps, roundingLength));
                 results.add(toTerabytesPerSecond(mbps, roundingLength));
             } catch (NumberFormatException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 9);
                 error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
             } catch (ValueBelowZeroException e) {
-                Log.e(TAG + ".toAll", e.getLocalizedMessage());
                 results.clear();
                 addEmptyItems(results, 9);
                 error = ConversionErrorCodes.ERROR_BELOW_ZERO;
@@ -74,7 +98,7 @@ public class MegabitsPerSecond extends Unit {
             error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
         }
 
-        return new Pair<>(results, error);
+        return new Tuple<>(results, error);
     }
 
     /**
@@ -93,7 +117,7 @@ public class MegabitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toBitsPerSecond(String mbps, int decimalPlaces) throws
+    public String toBitsPerSecond(String mbps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (mbps == null) {
             return null;
@@ -131,7 +155,7 @@ public class MegabitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toBytesPerSecond(String mbps, int decimalPlaces) throws
+    public String toBytesPerSecond(String mbps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (mbps == null) {
             return null;
@@ -169,7 +193,7 @@ public class MegabitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilobitsPerSecond(String mbps, int decimalPlaces) throws
+    public String toKilobitsPerSecond(String mbps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (mbps == null) {
             return null;
@@ -207,7 +231,7 @@ public class MegabitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toKilobytesPerSecond(String mbps, int decimalPlaces) throws
+    public String toKilobytesPerSecond(String mbps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (mbps == null) {
             return null;
@@ -245,7 +269,7 @@ public class MegabitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toMegabytesPerSecond(String mbps, int decimalPlaces) throws
+    public String toMegabytesPerSecond(String mbps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (mbps == null) {
             return null;
@@ -283,7 +307,7 @@ public class MegabitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toGigabitsPerSecond(String mbps, int decimalPlaces) throws
+    public String toGigabitsPerSecond(String mbps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (mbps == null) {
             return null;
@@ -321,7 +345,7 @@ public class MegabitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toGigabytesPerSecond(String mbps, int decimalPlaces) throws
+    public String toGigabytesPerSecond(String mbps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (mbps == null) {
             return null;
@@ -359,7 +383,7 @@ public class MegabitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toTerabitsPerSecond(String mbps, int decimalPlaces) throws
+    public String toTerabitsPerSecond(String mbps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (mbps == null) {
             return null;
@@ -397,7 +421,7 @@ public class MegabitsPerSecond extends Unit {
      *                                      number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public static String toTerabytesPerSecond(String mbps, int decimalPlaces) throws
+    public String toTerabytesPerSecond(String mbps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (mbps == null) {
             return null;
@@ -418,4 +442,6 @@ public class MegabitsPerSecond extends Unit {
             throw new ValueBelowZeroException("Transfer speed cannot be below zero");
         }
     }
+
+    // endregion
 }
