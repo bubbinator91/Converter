@@ -13,6 +13,10 @@ import javax.inject.Inject;
 
 import static org.junit.Assert.*;
 
+/**
+ * A collection of JUnit tests that test the temperature presenter's interaction with a mock of the
+ * temperature view.
+ */
 @RunWith(JUnit4.class)
 public class TemperatureTest {
 
