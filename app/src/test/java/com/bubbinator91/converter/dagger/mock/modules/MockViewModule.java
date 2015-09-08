@@ -3,11 +3,13 @@ package com.bubbinator91.converter.dagger.mock.modules;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
 import com.bubbinator91.converter.mock.views.MockAccelerationView;
 import com.bubbinator91.converter.mock.views.MockDataTransferSpeedView;
+import com.bubbinator91.converter.mock.views.MockFuelConsumptionView;
 import com.bubbinator91.converter.mock.views.MockLengthView;
 import com.bubbinator91.converter.mock.views.MockSpeedView;
 import com.bubbinator91.converter.mock.views.MockTemperatureView;
 import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationPresenter;
 import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedPresenter;
+import com.bubbinator91.converter.ui.interfaces.fuelconsumption.IFuelConsumptionPresenter;
 import com.bubbinator91.converter.ui.interfaces.length.ILengthPresenter;
 import com.bubbinator91.converter.ui.interfaces.speed.ISpeedPresenter;
 import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
@@ -31,6 +33,14 @@ public class MockViewModule {
         MockDataTransferSpeedView mockDataTransferSpeedView = new MockDataTransferSpeedView();
         presenter.registerView(mockDataTransferSpeedView);
         return mockDataTransferSpeedView;
+    }
+
+    @Provides
+    @ActivityScope
+    MockFuelConsumptionView providesMockFuelConsumptionView(IFuelConsumptionPresenter presenter) {
+        MockFuelConsumptionView mockFuelConsumptionView = new MockFuelConsumptionView();
+        presenter.registerView(mockFuelConsumptionView);
+        return mockFuelConsumptionView;
     }
 
     @Provides

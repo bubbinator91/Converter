@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         AccelerationTest.class,
         DataTransferSpeedTest.class,
-        //FuelConsumptionTest.class,
+        FuelConsumptionTest.class,
         LengthTest.class,
         SpeedTest.class,
         TemperatureTest.class
