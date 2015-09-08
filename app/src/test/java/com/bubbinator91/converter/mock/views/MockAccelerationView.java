@@ -77,4 +77,16 @@ public class MockAccelerationView implements IAccelerationView {
     public void removeTextChangedListeners(String callingClassName) {
         // No relevant implementation for testing
     }
+
+    public void resetValues() {
+        mCmpssValue = null;
+        mFpssValue = null;
+        mMpssValue = null;
+        mSgValue = null;
+
+        mCmpssError = -1;
+        mFpssError = -1;
+        mMpssError = -1;
+        mSgError = -1;
+    }
 }

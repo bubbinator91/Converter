@@ -57,4 +57,14 @@ public class MockTemperatureView implements ITemperatureView {
     public void removeTextChangedListeners(String callingClassName) {
         // No relevant implementation for testing
     }
+
+    public void resetValues() {
+        mCelsiusValue = null;
+        mFahrenheitValue = null;
+        mKelvinValue = null;
+
+        mCelsiusError = -1;
+        mFahrenheitError = -1;
+        mKelvinError = -1;
+    }
 }

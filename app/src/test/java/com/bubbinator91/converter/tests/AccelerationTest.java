@@ -39,9 +39,9 @@ public class AccelerationTest {
         mAccelerationPresenter
                 .getConversionFromCentimetersPerSecondSquaredResults("8.0235641526359876", 10);
         TestHelper.waitFor(() ->
-                ((mAccelerationView.mFpssValue != null)
-                        && (mAccelerationView.mMpssValue != null)
-                        && (mAccelerationView.mSgValue != null))
+                        ((mAccelerationView.mFpssValue != null)
+                                && (mAccelerationView.mMpssValue != null)
+                                && (mAccelerationView.mSgValue != null))
         );
 
         assertEquals(0, mAccelerationView.mCmpssError);
@@ -61,6 +61,8 @@ public class AccelerationTest {
         assertEquals("0.26324", mAccelerationView.mFpssValue);
         assertEquals("0.08024", mAccelerationView.mMpssValue);
         assertEquals("0.00818", mAccelerationView.mSgValue);
+
+        mAccelerationView.resetValues();
     }
 
     @Test
@@ -90,6 +92,8 @@ public class AccelerationTest {
         assertEquals("76.39604", mAccelerationView.mCmpssValue);
         assertEquals("0.76396", mAccelerationView.mMpssValue);
         assertEquals("0.0779", mAccelerationView.mSgValue);
+
+        mAccelerationView.resetValues();
     }
 
     @Test
@@ -119,6 +123,8 @@ public class AccelerationTest {
         assertEquals("156.89465", mAccelerationView.mCmpssValue);
         assertEquals("5.14746", mAccelerationView.mFpssValue);
         assertEquals("0.15999", mAccelerationView.mSgValue);
+
+        mAccelerationView.resetValues();
     }
 
     @Test
@@ -148,5 +154,7 @@ public class AccelerationTest {
         assertEquals("553.9382", mAccelerationView.mCmpssValue);
         assertEquals("18.17383", mAccelerationView.mFpssValue);
         assertEquals("5.53938", mAccelerationView.mMpssValue);
+
+        mAccelerationView.resetValues();
     }
 }
