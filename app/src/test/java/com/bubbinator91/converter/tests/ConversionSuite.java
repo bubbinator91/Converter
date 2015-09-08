@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
         AccelerationTest.class,
         DataTransferSpeedTest.class,
         //FuelConsumptionTest.class,
-        //LengthTest.class,
+        LengthTest.class,
         //SpeedTest.class,
         TemperatureTest.class
 })
