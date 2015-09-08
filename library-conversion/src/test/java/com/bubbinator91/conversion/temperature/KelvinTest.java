@@ -23,13 +23,13 @@ public class KelvinTest {
 
     @Test
     public void testToAll() throws Exception {
-        List<String> results = Kelvin.getInstance().toAll("310.9764326946", 10).getFirst();
+        List<String> results = Kelvin.getInstance().toAll("310.9764326946", 10);
 
         assertNotNull(results);
         assertEquals("37.8264326946", results.get(0));
         assertEquals("100.0875788503", results.get(1));
 
-        results = Kelvin.getInstance().toAll("310.9764326946", 5).getFirst();
+        results = Kelvin.getInstance().toAll("310.9764326946", 5);
 
         assertNotNull(results);
         assertEquals("37.82643", results.get(0));

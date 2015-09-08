@@ -8,9 +8,15 @@ import java.util.List;
  * View interface for the {@link com.bubbinator91.converter.ui.fragments.TemperatureFragment}
  */
 public interface ITemperatureView extends IConverterView {
-    void displayConversionFromCelsiusResults(List<String> results, int errorCode);
+    void displayConversionFromCelsiusResults(List<String> results);
 
-    void displayConversionFromFahrenheitResults(List<String> results, int errorCode);
+    void displayConversionFromCelsiusError(Throwable error);
 
-    void displayConversionFromKelvinResults(List<String> results, int errorCode);
+    void displayConversionFromFahrenheitResults(List<String> results);
+
+    void displayConversionFromFahrenheitError(Throwable error);
+
+    void displayConversionFromKelvinResults(List<String> results);
+
+    void displayConversionFromKelvinError(Throwable error);
 }

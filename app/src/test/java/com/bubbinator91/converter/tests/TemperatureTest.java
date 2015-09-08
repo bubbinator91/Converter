@@ -40,7 +40,7 @@ public class TemperatureTest {
         TestHelper.waitFor(() -> ((mTemperatureView.mFahrenheitValue != null)
                 && (mTemperatureView.mKelvinValue != null)));
 
-        assertEquals(0, mTemperatureView.mCelsiusError);
+        assertEquals(false, mTemperatureView.mCelsiusError);
         assertEquals("69.7576921225", mTemperatureView.mFahrenheitValue);
         assertEquals("294.1264956236", mTemperatureView.mKelvinValue);
 
@@ -48,7 +48,7 @@ public class TemperatureTest {
         TestHelper.waitFor(() -> ((mTemperatureView.mFahrenheitValue != null)
                 && (mTemperatureView.mKelvinValue != null)));
 
-        assertEquals(0, mTemperatureView.mCelsiusError);
+        assertEquals(false, mTemperatureView.mCelsiusError);
         assertEquals("69.75769", mTemperatureView.mFahrenheitValue);
         assertEquals("294.1265", mTemperatureView.mKelvinValue);
 
@@ -61,7 +61,7 @@ public class TemperatureTest {
         TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
                 && (mTemperatureView.mKelvinValue != null)));
 
-        assertEquals(0, mTemperatureView.mFahrenheitError);
+        assertEquals(false, mTemperatureView.mFahrenheitError);
         assertEquals("27.1926286997", mTemperatureView.mCelsiusValue);
         assertEquals("300.3426286997", mTemperatureView.mKelvinValue);
 
@@ -69,7 +69,7 @@ public class TemperatureTest {
         TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
                 && (mTemperatureView.mKelvinValue != null)));
 
-        assertEquals(0, mTemperatureView.mFahrenheitError);
+        assertEquals(false, mTemperatureView.mFahrenheitError);
         assertEquals("27.19263", mTemperatureView.mCelsiusValue);
         assertEquals("300.34263", mTemperatureView.mKelvinValue);
 
@@ -82,7 +82,7 @@ public class TemperatureTest {
         TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
                 && (mTemperatureView.mFahrenheitValue != null)));
 
-        assertEquals(0, mTemperatureView.mKelvinError);
+        assertEquals(false, mTemperatureView.mKelvinError);
         assertEquals("37.8264326946", mTemperatureView.mCelsiusValue);
         assertEquals("100.0875788503", mTemperatureView.mFahrenheitValue);
 
@@ -90,7 +90,7 @@ public class TemperatureTest {
         TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
                 && (mTemperatureView.mFahrenheitValue != null)));
 
-        assertEquals(0, mTemperatureView.mKelvinError);
+        assertEquals(false, mTemperatureView.mKelvinError);
         assertEquals("37.82643", mTemperatureView.mCelsiusValue);
         assertEquals("100.08758", mTemperatureView.mFahrenheitValue);
 

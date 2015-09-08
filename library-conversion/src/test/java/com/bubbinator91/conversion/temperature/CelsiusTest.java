@@ -23,13 +23,13 @@ public class CelsiusTest {
 
     @Test
     public void testToAll() throws Exception {
-        List<String> results = Celsius.getInstance().toAll("20.9764956236", 10).getFirst();
+        List<String> results = Celsius.getInstance().toAll("20.9764956236", 10);
 
         assertNotNull(results);
         assertEquals("69.7576921225", results.get(0));
         assertEquals("294.1264956236", results.get(1));
 
-        results = Celsius.getInstance().toAll("20.9764956236", 5).getFirst();
+        results = Celsius.getInstance().toAll("20.9764956236", 5);
 
         assertNotNull(results);
         assertEquals("69.75769", results.get(0));

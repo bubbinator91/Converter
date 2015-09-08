@@ -1,9 +1,12 @@
 package com.bubbinator91.converter.ui.presenters;
 
 import com.bubbinator91.conversion.temperature.Temperature;
+import com.bubbinator91.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
 import com.bubbinator91.converter.ui.interfaces.temperature.ITemperatureView;
 import com.bubbinator91.converter.util.Globals;
+
+import java.util.List;
 
 import javax.inject.Named;
 
@@ -37,49 +40,55 @@ public class TemperaturePresenter implements ITemperaturePresenter {
 
     @Override
     public void getConversionFromCelsiusResults(String celsius, int decimalPlaces) {
-        Observable.just(temperature.Celsius().toAll(celsius, decimalPlaces))
+        Observable.<List<String>>create(subscriber -> {
+            try {
+                subscriber.onNext(temperature.Celsius().toAll(celsius, decimalPlaces));
+            } catch (NumberFormatException | ValueBelowZeroException e) {
+                subscriber.onError(e);
+            }
+        })
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mTemperatureView
-                                .displayConversionFromCelsiusResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .filter(conversionResults -> conversionResults != null)
+                .subscribe(
+                        mTemperatureView::displayConversionFromCelsiusResults,
+                        mTemperatureView::displayConversionFromCelsiusError
+                );
     }
 
     @Override
     public void getConversionFromFahrenheitResults(String fahrenheit, int decimalPlaces) {
-        Observable.just(temperature.Fahrenheit().toAll(fahrenheit, decimalPlaces))
+        Observable.<List<String>>create(subscriber -> {
+            try {
+                subscriber.onNext(temperature.Fahrenheit().toAll(fahrenheit, decimalPlaces));
+            } catch (NumberFormatException | ValueBelowZeroException e) {
+                subscriber.onError(e);
+            }
+        })
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mTemperatureView
-                                .displayConversionFromFahrenheitResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .filter(conversionResults -> conversionResults != null)
+                .subscribe(
+                        mTemperatureView::displayConversionFromFahrenheitResults,
+                        mTemperatureView::displayConversionFromFahrenheitError
+                );
     }
 
     @Override
     public void getConversionFromKelvinResults(String kelvin, int decimalPlaces) {
-        Observable.just(temperature.Kelvin().toAll(kelvin, decimalPlaces))
+        Observable.<List<String>>create(subscriber -> {
+            try {
+                subscriber.onNext(temperature.Kelvin().toAll(kelvin, decimalPlaces));
+            } catch (NumberFormatException | ValueBelowZeroException e) {
+                subscriber.onError(e);
+            }
+        })
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mTemperatureView
-                                .displayConversionFromKelvinResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .filter(conversionResults -> conversionResults != null)
+                .subscribe(
+                        mTemperatureView::displayConversionFromKelvinResults,
+                        mTemperatureView::displayConversionFromKelvinError
+                );
     }
 }

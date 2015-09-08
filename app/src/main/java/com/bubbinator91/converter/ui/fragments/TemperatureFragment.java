@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
@@ -195,120 +195,114 @@ public class TemperatureFragment
     // region Overridden ITemperatureView methods
 
     @Override
-    public void displayConversionFromCelsiusResults(List<String> results, int errorCode) {
+    public void displayConversionFromCelsiusResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromCelsiusResults").i("Entered");
+        removeTextChangedListeners(".displayConversionFromCelsiusResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromCelsiusResults");
+        mTextInputLayoutCelsius.setErrorEnabled(false);
+        mTextInputLayoutFahrenheit.setErrorEnabled(false);
+        mTextInputLayoutKelvin.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutCelsius.setError(getString(
-                            R.string.conversion_temperature_error_below_absolute_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutCelsius.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutCelsius.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutCelsius.setErrorEnabled(false);
-                    mTextInputLayoutFahrenheit.setErrorEnabled(false);
-                    mTextInputLayoutKelvin.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextFahrenheit.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKelvin.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextFahrenheit.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKelvin.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromCelsiusResults");
-        }
+        addTextChangedListeners(".displayConversionFromCelsiusResults");
     }
 
     @Override
-    public void displayConversionFromFahrenheitResults(List<String> results, int errorCode) {
+    public void displayConversionFromCelsiusError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutCelsius.setError(getString(
+                    R.string.conversion_error_input_not_numeric
+            ));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutCelsius.setError(getString(
+                    R.string.conversion_temperature_error_below_absolute_zero
+            ));
+        } else {
+            mTextInputLayoutCelsius.setError(getString(
+                    R.string.conversion_error_conversion_error
+            ));
+        }
+
+        removeTextChangedListeners(".displayConversionFromCelsiusResults");
+        mEditTextFahrenheit.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKelvin.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromCelsiusResults");
+    }
+
+    @Override
+    public void displayConversionFromFahrenheitResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromFahrenheitResults").i("Entered");
+        removeTextChangedListeners(".displayConversionFromFahrenheitResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromFahrenheitResults");
+        mTextInputLayoutCelsius.setErrorEnabled(false);
+        mTextInputLayoutFahrenheit.setErrorEnabled(false);
+        mTextInputLayoutKelvin.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutFahrenheit.setError(getString(
-                            R.string.conversion_temperature_error_below_absolute_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutFahrenheit.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutFahrenheit.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutCelsius.setErrorEnabled(false);
-                    mTextInputLayoutFahrenheit.setErrorEnabled(false);
-                    mTextInputLayoutKelvin.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextCelsius.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKelvin.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextCelsius.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKelvin.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromFahrenheitResults");
-        }
+        addTextChangedListeners(".displayConversionFromFahrenheitResults");
     }
 
     @Override
-    public void displayConversionFromKelvinResults(List<String> results, int errorCode) {
-        Timber.tag(TAG + ".displayConversionFromKelvinResults").i("Entered");
-
-        if (results != null) {
-            removeTextChangedListeners(".onPostExecute");
-
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutKelvin.setError(getString(
-                            R.string.conversion_temperature_error_below_absolute_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutKelvin.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutKelvin.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutCelsius.setErrorEnabled(false);
-                    mTextInputLayoutFahrenheit.setErrorEnabled(false);
-                    mTextInputLayoutKelvin.setErrorEnabled(false);
-                    break;
-            }
-
-            mEditTextCelsius.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextFahrenheit.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".onPostExecute");
+    public void displayConversionFromFahrenheitError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutFahrenheit.setError(getString(
+                    R.string.conversion_error_input_not_numeric
+            ));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutFahrenheit.setError(getString(
+                    R.string.conversion_temperature_error_below_absolute_zero
+            ));
+        } else {
+            mTextInputLayoutFahrenheit.setError(getString(
+                    R.string.conversion_error_conversion_error
+            ));
         }
+
+        removeTextChangedListeners(".displayConversionFromCelsiusResults");
+        mEditTextCelsius.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKelvin.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromCelsiusResults");
+    }
+
+    @Override
+    public void displayConversionFromKelvinResults(List<String> results) {
+        Timber.tag(TAG + ".displayConversionFromKelvinResults").i("Entered");
+        removeTextChangedListeners(".onPostExecute");
+
+        mTextInputLayoutCelsius.setErrorEnabled(false);
+        mTextInputLayoutFahrenheit.setErrorEnabled(false);
+        mTextInputLayoutKelvin.setErrorEnabled(false);
+
+        mEditTextCelsius.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextFahrenheit.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+
+        addTextChangedListeners(".onPostExecute");
+    }
+
+    @Override
+    public void displayConversionFromKelvinError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutKelvin.setError(getString(
+                    R.string.conversion_error_input_not_numeric
+            ));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutKelvin.setError(getString(
+                    R.string.conversion_temperature_error_below_absolute_zero
+            ));
+        } else {
+            mTextInputLayoutKelvin.setError(getString(
+                    R.string.conversion_error_conversion_error
+            ));
+        }
+
+        removeTextChangedListeners(".displayConversionFromCelsiusResults");
+        mEditTextCelsius.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextFahrenheit.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromCelsiusResults");
     }
 
     // endregion

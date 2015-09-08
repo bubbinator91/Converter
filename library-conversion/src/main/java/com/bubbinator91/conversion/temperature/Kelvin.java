@@ -1,7 +1,5 @@
 package com.bubbinator91.conversion.temperature;
 
-import com.bubbinator91.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -38,44 +36,37 @@ public class Kelvin extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
-     *          celsius and fahrenheit values (in that order; they will be empty {@link String}s if
-     *          there is an error), and the second item is one of the error codes found in
-     *          {@link ConversionErrorCodes} as an {@link Integer} object, or null if the
-     *          <code>kelvin</code> parameter is null;
+     * @return  A {@link List} containing the equivalent celsius and fahrenheit values (in that
+     *          order; they will be empty {@link String}s if there is valid, non-numerical input,
+     *          such as a leading decimal point), or null if the <code>celsius</code> parameter is
+     *          null;
+     *
+     * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
+     *                                      number.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
+     *                                      zero.
      */
-    public Tuple<List<String>, Integer> toAll(String kelvin, int decimalPlaces) {
+    public List<String> toAll(String kelvin, int decimalPlaces)
+            throws NumberFormatException, ValueBelowZeroException {
         if (kelvin == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
         List<String> results = new LinkedList<>();
-        int error = ConversionErrorCodes.ERROR_NONE;
 
         if (isNumeric(kelvin)) {
-            try {
-                results.add(toCelsius(kelvin, roundingLength));
-                results.add(toFahrenheit(kelvin, roundingLength));
-            } catch (NumberFormatException e) {
-                results.clear();
-                addEmptyItems(results, 2);
-                error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
-            } catch (ValueBelowZeroException e) {
-                results.clear();
-                addEmptyItems(results, 2);
-                error = ConversionErrorCodes.ERROR_BELOW_ZERO;
-            }
+            results.add(toCelsius(kelvin, roundingLength));
+            results.add(toFahrenheit(kelvin, roundingLength));
         } else if (kelvin.equals("-") || kelvin.equals(".")
                 || kelvin.equals("") || kelvin.equals("-.")) {
-            addEmptyItems(results, 2);
-        } else {
             results.clear();
             addEmptyItems(results, 2);
-            error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
+        } else {
+            throw new NumberFormatException("Input was not numeric.");
         }
 
-        return new Tuple<>(results, error);
+        return results;
     }
 
     /**

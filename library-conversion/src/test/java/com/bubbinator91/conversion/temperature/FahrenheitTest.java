@@ -23,13 +23,13 @@ public class FahrenheitTest {
 
     @Test
     public void testToAll() throws Exception {
-        List<String> results = Fahrenheit.getInstance().toAll("80.9467316594316", 10).getFirst();
+        List<String> results = Fahrenheit.getInstance().toAll("80.9467316594316", 10);
 
         assertNotNull(results);
         assertEquals("27.1926286997", results.get(0));
         assertEquals("300.3426286997", results.get(1));
 
-        results = Fahrenheit.getInstance().toAll("80.9467316594316", 5).getFirst();
+        results = Fahrenheit.getInstance().toAll("80.9467316594316", 5);
 
         assertNotNull(results);
         assertEquals("27.19263", results.get(0));
