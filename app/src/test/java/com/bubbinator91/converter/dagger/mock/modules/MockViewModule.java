@@ -4,10 +4,12 @@ import com.bubbinator91.converter.dagger.scopes.ActivityScope;
 import com.bubbinator91.converter.mock.views.MockAccelerationView;
 import com.bubbinator91.converter.mock.views.MockDataTransferSpeedView;
 import com.bubbinator91.converter.mock.views.MockLengthView;
+import com.bubbinator91.converter.mock.views.MockSpeedView;
 import com.bubbinator91.converter.mock.views.MockTemperatureView;
 import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationPresenter;
 import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedPresenter;
 import com.bubbinator91.converter.ui.interfaces.length.ILengthPresenter;
+import com.bubbinator91.converter.ui.interfaces.speed.ISpeedPresenter;
 import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
 
 import dagger.Module;
@@ -37,6 +39,14 @@ public class MockViewModule {
         MockLengthView mockLengthView = new MockLengthView();
         presenter.registerView(mockLengthView);
         return mockLengthView;
+    }
+
+    @Provides
+    @ActivityScope
+    MockSpeedView providesMockSpeedView(ISpeedPresenter presenter) {
+        MockSpeedView mockSpeedView = new MockSpeedView();
+        presenter.registerView(mockSpeedView);
+        return mockSpeedView;
     }
 
     @Provides

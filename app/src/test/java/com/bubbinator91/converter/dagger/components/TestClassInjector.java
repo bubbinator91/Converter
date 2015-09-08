@@ -8,6 +8,7 @@ import com.bubbinator91.converter.dagger.scopes.ActivityScope;
 import com.bubbinator91.converter.tests.AccelerationTest;
 import com.bubbinator91.converter.tests.DataTransferSpeedTest;
 import com.bubbinator91.converter.tests.LengthTest;
+import com.bubbinator91.converter.tests.SpeedTest;
 import com.bubbinator91.converter.tests.TemperatureTest;
 
 import dagger.Component;
@@ -20,6 +21,8 @@ public interface TestClassInjector {
     void inject(DataTransferSpeedTest dataTransferSpeedTest);
 
     void inject(LengthTest lengthTest);
+
+    void inject(SpeedTest speedTest);
 
     void inject(TemperatureTest temperatureTest);
 }

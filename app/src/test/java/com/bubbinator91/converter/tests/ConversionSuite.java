@@ -12,7 +12,7 @@ import org.junit.runners.Suite;
         DataTransferSpeedTest.class,
         //FuelConsumptionTest.class,
         LengthTest.class,
-        //SpeedTest.class,
+        SpeedTest.class,
         TemperatureTest.class
 })
 public class ConversionSuite {}
