@@ -12,8 +12,6 @@ import javax.inject.Named;
 
 import rx.Observable;
 import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Implementation of the {@link IAccelerationPresenter} interface for the

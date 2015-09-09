@@ -1,16 +1,17 @@
 package com.bubbinator91.converter.ui.presenters;
 
 import com.bubbinator91.conversion.fuelconsumption.FuelConsumption;
+import com.bubbinator91.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.ui.interfaces.fuelconsumption.IFuelConsumptionPresenter;
 import com.bubbinator91.converter.ui.interfaces.fuelconsumption.IFuelConsumptionView;
 import com.bubbinator91.converter.util.Globals;
+
+import java.util.List;
 
 import javax.inject.Named;
 
 import rx.Observable;
 import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Implementation of the {@link IFuelConsumptionPresenter} interface for the
@@ -40,65 +41,73 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
 
     @Override
     public void getConversionFromKilometersPerLiterResults(String kpl, int decimalPlaces) {
-        Observable.just(fuelConsumption.KilometersPerLiter().toAll(kpl, decimalPlaces))
+        Observable.<List<String>>create(subscriber -> {
+            try {
+                subscriber.onNext(fuelConsumption.KilometersPerLiter().toAll(kpl, decimalPlaces));
+            } catch (NumberFormatException | ValueBelowZeroException e) {
+                subscriber.onError(e);
+            }
+        })
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mFuelConsumptionView
-                                .displayConversionFromKilometersPerLiterResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .filter(conversionResults -> conversionResults != null)
+                .subscribe(
+                        mFuelConsumptionView::displayConversionFromKilometersPerLiterResults,
+                        mFuelConsumptionView::displayConversionFromKilometersPerLiterError
+                );
     }
 
     @Override
     public void getConversionFromLitersPer100KilometersResults(String l100k, int decimalPlaces) {
-        Observable.just(fuelConsumption.LitersPer100Kilometers().toAll(l100k, decimalPlaces))
+        Observable.<List<String>>create(subscriber -> {
+            try {
+                subscriber.onNext(fuelConsumption.LitersPer100Kilometers().toAll(l100k, decimalPlaces));
+            } catch (NumberFormatException | ValueBelowZeroException e) {
+                subscriber.onError(e);
+            }
+        })
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mFuelConsumptionView
-                                .displayConversionFromLitersPer100KilometersResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .filter(conversionResults -> conversionResults != null)
+                .subscribe(
+                        mFuelConsumptionView::displayConversionFromLitersPer100KilometersResults,
+                        mFuelConsumptionView::displayConversionFromLitersPer100KilometersError
+                );
     }
 
     @Override
     public void getConversionFromUKMilesPerGallonResults(String ukmpg, int decimalPlaces) {
-        Observable.just(fuelConsumption.UKMilesPerGallon().toAll(ukmpg, decimalPlaces))
+        Observable.<List<String>>create(subscriber -> {
+            try {
+                subscriber.onNext(fuelConsumption.UKMilesPerGallon().toAll(ukmpg, decimalPlaces));
+            } catch (NumberFormatException | ValueBelowZeroException e) {
+                subscriber.onError(e);
+            }
+        })
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mFuelConsumptionView
-                                .displayConversionFromUKMilesPerGallonResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .filter(conversionResults -> conversionResults != null)
+                .subscribe(
+                        mFuelConsumptionView::displayConversionFromUKMilesPerGallonResults,
+                        mFuelConsumptionView::displayConversionFromUKMilesPerGallonError
+                );
     }
 
     @Override
     public void getConversionFromUSMilesPerGallonResults(String usmpg, int decimalPlaces) {
-        Observable.just(fuelConsumption.USMilesPerGallon().toAll(usmpg, decimalPlaces))
+        Observable.<List<String>>create(subscriber -> {
+            try {
+                subscriber.onNext(fuelConsumption.USMilesPerGallon().toAll(usmpg, decimalPlaces));
+            } catch (NumberFormatException | ValueBelowZeroException e) {
+                subscriber.onError(e);
+            }
+        })
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mFuelConsumptionView
-                                .displayConversionFromUSMilesPerGallonResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .filter(conversionResults -> conversionResults != null)
+                .subscribe(
+                        mFuelConsumptionView::displayConversionFromUSMilesPerGallonResults,
+                        mFuelConsumptionView::displayConversionFromUSMilesPerGallonError
+                );
     }
 }

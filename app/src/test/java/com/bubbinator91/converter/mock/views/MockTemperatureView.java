@@ -11,70 +11,43 @@ public class MockTemperatureView implements ITemperatureView {
 
     @Override
     public void displayConversionFromCelsiusResults(List<String> results) {
-        if (results != null) {
-            mFahrenheitValue = results.get(0);
-            mKelvinValue = results.get(1);
-
-            mCelsiusError = false;
-        } else {
-            mFahrenheitValue = null;
-            mKelvinValue = null;
-
-            mCelsiusError = true;
-        }
+        mFahrenheitValue = results.get(0);
+        mKelvinValue = results.get(1);
+        mCelsiusError = false;
     }
 
     @Override
     public void displayConversionFromCelsiusError(Throwable error) {
         mFahrenheitValue = null;
         mKelvinValue = null;
-
         mCelsiusError = true;
     }
 
     @Override
     public void displayConversionFromFahrenheitResults(List<String> results) {
-        if (results != null) {
-            mCelsiusValue = results.get(0);
-            mKelvinValue = results.get(1);
-
-            mFahrenheitError = false;
-        } else {
-            mCelsiusValue = null;
-            mKelvinValue = null;
-
-            mFahrenheitError = true;
-        }
+        mCelsiusValue = results.get(0);
+        mKelvinValue = results.get(1);
+        mFahrenheitError = false;
     }
 
     @Override
     public void displayConversionFromFahrenheitError(Throwable error) {
         mCelsiusValue = null;
         mKelvinValue = null;
-
         mFahrenheitError = true;
     }
 
     @Override
     public void displayConversionFromKelvinResults(List<String> results) {
-        if (results != null) {
-            mCelsiusValue = results.get(0);
-            mFahrenheitValue = results.get(1);
-
-            mKelvinError = false;
-        } else {
-            mCelsiusValue = null;
-            mFahrenheitValue = null;
-
-            mKelvinError = true;
-        }
+        mCelsiusValue = results.get(0);
+        mFahrenheitValue = results.get(1);
+        mKelvinError = false;
     }
 
     @Override
     public void displayConversionFromKelvinError(Throwable error) {
         mCelsiusValue = null;
         mFahrenheitValue = null;
-
         mKelvinError = true;
     }
 

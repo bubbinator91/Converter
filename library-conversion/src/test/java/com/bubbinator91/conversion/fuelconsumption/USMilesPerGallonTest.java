@@ -23,16 +23,14 @@ public class USMilesPerGallonTest {
 
     @Test
     public void testToAll() throws Exception {
-        List<String> results =
-                USMilesPerGallon.getInstance().toAll("2.15235645123659", 10).getFirst();
+        List<String> results = USMilesPerGallon.getInstance().toAll("2.15235645123659", 10);
 
         assertNotNull(results);
         assertEquals("2.5848723198", results.get(0));
         assertEquals("0.9150608015", results.get(1));
         assertEquals("109.2823557168", results.get(2));
 
-        results =
-                USMilesPerGallon.getInstance().toAll("2.15235645123659", 5).getFirst();
+        results = USMilesPerGallon.getInstance().toAll("2.15235645123659", 5);
 
         assertNotNull(results);
         assertEquals("2.58487", results.get(0));

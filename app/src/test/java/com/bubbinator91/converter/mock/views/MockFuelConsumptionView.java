@@ -7,66 +7,70 @@ import java.util.List;
 public class MockFuelConsumptionView implements IFuelConsumptionView {
 
     public String mUsmpgValue = null, mUkmpgValue = null, mKplValue = null, mL100kValue = null;
-    public int mUsmpgError = -1, mUkmpgError = -1, mKplError = -1, mL100kError = -1;
+    public boolean mUsmpgError = false, mUkmpgError = false, mKplError = false, mL100kError = false;
 
     @Override
-    public void displayConversionFromUSMilesPerGallonResults(List<String> results, int errorCode) {
-        if (results != null) {
-            mUkmpgValue = results.get(0);
-            mKplValue = results.get(1);
-            mL100kValue = results.get(2);
-        } else {
-            mUkmpgValue = null;
-            mKplValue = null;
-            mL100kValue = null;
-        }
-
-        mUsmpgError = errorCode;
+    public void displayConversionFromUSMilesPerGallonResults(List<String> results) {
+        mUkmpgValue = results.get(0);
+        mKplValue = results.get(1);
+        mL100kValue = results.get(2);
+        mUsmpgError = false;
     }
 
     @Override
-    public void displayConversionFromUKMilesPerGallonResults(List<String> results, int errorCode) {
-        if (results != null) {
-            mUsmpgValue = results.get(0);
-            mKplValue = results.get(1);
-            mL100kValue = results.get(2);
-        } else {
-            mUsmpgValue = null;
-            mKplValue = null;
-            mL100kValue = null;
-        }
-
-        mUkmpgError = errorCode;
+    public void displayConversionFromUSMilesPerGallonError(Throwable error) {
+        mUkmpgValue = null;
+        mKplValue = null;
+        mL100kValue = null;
+        mUsmpgError = true;
     }
 
     @Override
-    public void displayConversionFromKilometersPerLiterResults(List<String> results, int errorCode) {
-        if (results != null) {
-            mUsmpgValue = results.get(0);
-            mUkmpgValue = results.get(1);
-            mL100kValue = results.get(2);
-        } else {
-            mUsmpgValue = null;
-            mUkmpgValue = null;
-            mL100kValue = null;
-        }
-
-        mKplError = errorCode;
+    public void displayConversionFromUKMilesPerGallonResults(List<String> results) {
+        mUsmpgValue = results.get(0);
+        mKplValue = results.get(1);
+        mL100kValue = results.get(2);
+        mUkmpgError = false;
     }
 
     @Override
-    public void displayConversionFromLitersPer100KilometersResults(List<String> results, int errorCode) {
-        if (results != null) {
-            mUsmpgValue = results.get(0);
-            mUkmpgValue = results.get(1);
-            mKplValue = results.get(2);
-        } else {
-            mUsmpgValue = null;
-            mUkmpgValue = null;
-            mKplValue = null;
-        }
+    public void displayConversionFromUKMilesPerGallonError(Throwable error) {
+        mUsmpgValue = null;
+        mKplValue = null;
+        mL100kValue = null;
+        mUkmpgError = true;
+    }
 
-        mL100kError = errorCode;
+    @Override
+    public void displayConversionFromKilometersPerLiterResults(List<String> results) {
+        mUsmpgValue = results.get(0);
+        mUkmpgValue = results.get(1);
+        mL100kValue = results.get(2);
+        mKplError = false;
+    }
+
+    @Override
+    public void displayConversionFromKilometersPerLiterError(Throwable error) {
+        mUsmpgValue = null;
+        mUkmpgValue = null;
+        mL100kValue = null;
+        mKplError = true;
+    }
+
+    @Override
+    public void displayConversionFromLitersPer100KilometersResults(List<String> results) {
+        mUsmpgValue = results.get(0);
+        mUkmpgValue = results.get(1);
+        mKplValue = results.get(2);
+        mL100kError = false;
+    }
+
+    @Override
+    public void displayConversionFromLitersPer100KilometersError(Throwable error) {
+        mUsmpgValue = null;
+        mUkmpgValue = null;
+        mKplValue = null;
+        mL100kError = true;
     }
 
     @Override
@@ -85,9 +89,9 @@ public class MockFuelConsumptionView implements IFuelConsumptionView {
         mKplValue = null;
         mL100kValue = null;
 
-        mUsmpgError = -1;
-        mUkmpgError = -1;
-        mKplError = -1;
-        mL100kError = -1;
+        mUsmpgError = false;
+        mUkmpgError = false;
+        mKplError = false;
+        mL100kError = false;
     }
 }

@@ -1,7 +1,5 @@
 package com.bubbinator91.conversion.fuelconsumption;
 
-import com.bubbinator91.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -53,44 +51,36 @@ public class LitersPer100Kilometers extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
-     *          US miles per gallon, UK miles per gallon, and kilometers per liter values (in that
-     *          order; they will be empty {@link String}s if there is an error), and the second item
-     *          is one of the error codes found in {@link ConversionErrorCodes} as an
-     *          {@link Integer} object, or null if the <code>l100km</code> parameter is null;
+     * @return  A {@link List} containing the equivalent US miles per gallon, UK miles per gallon,
+     *          and kilometers per liter values (in that order; they will be empty {@link String}s
+     *          if there is valid, non-numerical input, such as a leading decimal point), or null if
+     *          the <code>l100km</code> parameter is null;
+     *
+     * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
+     *                                      number.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public Tuple<List<String>, Integer> toAll(String l100km, int decimalPlaces) {
+    public List<String> toAll(String l100km, int decimalPlaces)
+            throws NumberFormatException, ValueBelowZeroException {
         if (l100km == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
         List<String> results = new LinkedList<>();
-        int error = ConversionErrorCodes.ERROR_NONE;
 
         if (isNumeric(l100km)) {
-            try {
-                results.add(toUSMilesPerGallon(l100km, roundingLength));
-                results.add(toUKMilesPerGallon(l100km, roundingLength));
-                results.add(toKilometersPerLiter(l100km, roundingLength));
-            } catch (NumberFormatException e) {
-                results.clear();
-                addEmptyItems(results, 3);
-                error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
-            } catch (ValueBelowZeroException e) {
-                results.clear();
-                addEmptyItems(results, 3);
-                error = ConversionErrorCodes.ERROR_BELOW_ZERO;
-            }
+            results.add(toUSMilesPerGallon(l100km, roundingLength));
+            results.add(toUKMilesPerGallon(l100km, roundingLength));
+            results.add(toKilometersPerLiter(l100km, roundingLength));
         } else if (l100km.equals(".") || l100km.equals("")) {
             results.clear();
             addEmptyItems(results, 3);
         } else {
-            addEmptyItems(results, 3);
-            error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
+            throw new NumberFormatException("Input was not numeric.");
         }
 
-        return new Tuple<>(results, error);
+        return results;
     }
 
     /**
@@ -107,8 +97,7 @@ public class LitersPer100Kilometers extends Unit {
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
     public String toUSMilesPerGallon(String l100km, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
@@ -147,8 +136,7 @@ public class LitersPer100Kilometers extends Unit {
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
     public String toUKMilesPerGallon(String l100km, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
@@ -187,8 +175,7 @@ public class LitersPer100Kilometers extends Unit {
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
     public String toKilometersPerLiter(String l100km, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {

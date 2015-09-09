@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.ui.interfaces.fuelconsumption.IFuelConsumptionPresenter;
@@ -227,173 +227,140 @@ public class FuelConsumptionFragment
 
     // region Overridden IFuelConsumptionView methods
 
-
     @Override
-    public void displayConversionFromKilometersPerLiterResults(List<String> results, int errorCode) {
+    public void displayConversionFromKilometersPerLiterResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromKilometersPerLiterResults").i("Entered");
+        removeTextChangedListeners(".displayConversionFromKilometersPerLiterResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromKilometersPerLiterResults");
+        mTextInputLayoutUsmpg.setErrorEnabled(false);
+        mTextInputLayoutUkmpg.setErrorEnabled(false);
+        mTextInputLayoutKpl.setErrorEnabled(false);
+        mTextInputLayoutL100k.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutKpl.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutKpl.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutKpl.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutUsmpg.setErrorEnabled(false);
-                    mTextInputLayoutUkmpg.setErrorEnabled(false);
-                    mTextInputLayoutKpl.setErrorEnabled(false);
-                    mTextInputLayoutL100k.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextUsmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextUkmpg.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextL100k.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextUsmpg.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextUkmpg.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextL100k.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromKilometersPerLiterResults");
-        }
+        addTextChangedListeners(".displayConversionFromKilometersPerLiterResults");
     }
 
     @Override
-    public void displayConversionFromLitersPer100KilometersResults(List<String> results, int errorCode) {
+    public void displayConversionFromKilometersPerLiterError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutKpl.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutKpl.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutKpl.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners(".displayConversionFromKilometersPerLiterError");
+        mEditTextUsmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextUkmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextL100k.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromKilometersPerLiterError");
+    }
+
+    @Override
+    public void displayConversionFromLitersPer100KilometersResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromLitersPer100KilometersResults").i("Entered");
+        removeTextChangedListeners(".displayConversionFromLitersPer100KilometersResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromLitersPer100KilometersResults");
+        mTextInputLayoutUsmpg.setErrorEnabled(false);
+        mTextInputLayoutUkmpg.setErrorEnabled(false);
+        mTextInputLayoutKpl.setErrorEnabled(false);
+        mTextInputLayoutL100k.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutL100k.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutL100k.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutL100k.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutUsmpg.setErrorEnabled(false);
-                    mTextInputLayoutUkmpg.setErrorEnabled(false);
-                    mTextInputLayoutKpl.setErrorEnabled(false);
-                    mTextInputLayoutL100k.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextUsmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextUkmpg.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKpl.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextUsmpg.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextUkmpg.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKpl.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromLitersPer100KilometersResults");
-        }
+        addTextChangedListeners(".displayConversionFromLitersPer100KilometersResults");
     }
 
     @Override
-    public void displayConversionFromUKMilesPerGallonResults(List<String> results, int errorCode) {
+    public void displayConversionFromLitersPer100KilometersError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutL100k.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutL100k.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutL100k.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners(".displayConversionFromLitersPer100KilometersError");
+        mEditTextUsmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextUkmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKpl.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromLitersPer100KilometersError");
+    }
+
+    @Override
+    public void displayConversionFromUKMilesPerGallonResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromUKMilesPerGallonResults").i("Entered");
+        removeTextChangedListeners(".displayConversionFromUKMilesPerGallonResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromUKMilesPerGallonResults");
+        mTextInputLayoutUsmpg.setErrorEnabled(false);
+        mTextInputLayoutUkmpg.setErrorEnabled(false);
+        mTextInputLayoutKpl.setErrorEnabled(false);
+        mTextInputLayoutL100k.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutUkmpg.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutUkmpg.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutUkmpg.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutUsmpg.setErrorEnabled(false);
-                    mTextInputLayoutUkmpg.setErrorEnabled(false);
-                    mTextInputLayoutKpl.setErrorEnabled(false);
-                    mTextInputLayoutL100k.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextUsmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKpl.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextL100k.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextUsmpg.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKpl.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextL100k.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromUKMilesPerGallonResults");
-        }
+        addTextChangedListeners(".displayConversionFromUKMilesPerGallonResults");
     }
 
     @Override
-    public void displayConversionFromUSMilesPerGallonResults(List<String> results, int errorCode) {
-        Timber.tag(TAG + ".displayConversionFromUSMilesPerGallonResults").i("Entered");
-
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromUSMilesPerGallonResults");
-
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutUsmpg.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutUsmpg.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutUsmpg.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutUsmpg.setErrorEnabled(false);
-                    mTextInputLayoutUkmpg.setErrorEnabled(false);
-                    mTextInputLayoutKpl.setErrorEnabled(false);
-                    mTextInputLayoutL100k.setErrorEnabled(false);
-                    break;
-            }
-
-            mEditTextUkmpg.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKpl.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextL100k.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromUSMilesPerGallonResults");
+    public void displayConversionFromUKMilesPerGallonError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutUkmpg.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutUkmpg.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutUkmpg.setError(getString(R.string.conversion_error_conversion_error));
         }
+
+        removeTextChangedListeners(".displayConversionFromUKMilesPerGallonError");
+        mEditTextUsmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKpl.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextL100k.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromUKMilesPerGallonError");
+    }
+
+    @Override
+    public void displayConversionFromUSMilesPerGallonResults(List<String> results) {
+        Timber.tag(TAG + ".displayConversionFromUSMilesPerGallonResults").i("Entered");
+        removeTextChangedListeners(".displayConversionFromUSMilesPerGallonResults");
+
+        mTextInputLayoutUsmpg.setErrorEnabled(false);
+        mTextInputLayoutUkmpg.setErrorEnabled(false);
+        mTextInputLayoutKpl.setErrorEnabled(false);
+        mTextInputLayoutL100k.setErrorEnabled(false);
+
+        mEditTextUkmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKpl.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextL100k.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+
+        addTextChangedListeners(".displayConversionFromUSMilesPerGallonResults");
+    }
+
+    @Override
+    public void displayConversionFromUSMilesPerGallonError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutUsmpg.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutUsmpg.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutUsmpg.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners(".displayConversionFromUSMilesPerGallonError");
+        mEditTextUkmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKpl.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextL100k.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromUSMilesPerGallonError");
     }
 
     // endregion

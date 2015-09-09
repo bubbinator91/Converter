@@ -42,7 +42,7 @@ public class FuelConsumptionTest {
                 && (mFuelConsumptionView.mKplValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
 
-        assertEquals(0, mFuelConsumptionView.mUsmpgError);
+        assertEquals(false, mFuelConsumptionView.mUsmpgError);
         assertEquals("2.5848723198", mFuelConsumptionView.mUkmpgValue);
         assertEquals("0.9150608015", mFuelConsumptionView.mKplValue);
         assertEquals("109.2823557168", mFuelConsumptionView.mL100kValue);
@@ -53,7 +53,7 @@ public class FuelConsumptionTest {
                 && (mFuelConsumptionView.mKplValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
 
-        assertEquals(0, mFuelConsumptionView.mUsmpgError);
+        assertEquals(false, mFuelConsumptionView.mUsmpgError);
         assertEquals("2.58487", mFuelConsumptionView.mUkmpgValue);
         assertEquals("0.91506", mFuelConsumptionView.mKplValue);
         assertEquals("109.28236", mFuelConsumptionView.mL100kValue);
@@ -69,7 +69,7 @@ public class FuelConsumptionTest {
                 && (mFuelConsumptionView.mKplValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
 
-        assertEquals(0, mFuelConsumptionView.mUkmpgError);
+        assertEquals(false, mFuelConsumptionView.mUkmpgError);
         assertEquals("3.0467096187", mFuelConsumptionView.mUsmpgValue);
         assertEquals("1.295289423", mFuelConsumptionView.mKplValue);
         assertEquals("77.2028229669", mFuelConsumptionView.mL100kValue);
@@ -80,7 +80,7 @@ public class FuelConsumptionTest {
                 && (mFuelConsumptionView.mKplValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
 
-        assertEquals(0, mFuelConsumptionView.mUkmpgError);
+        assertEquals(false, mFuelConsumptionView.mUkmpgError);
         assertEquals("3.04671", mFuelConsumptionView.mUsmpgValue);
         assertEquals("1.29529", mFuelConsumptionView.mKplValue);
         assertEquals("77.20282", mFuelConsumptionView.mL100kValue);
@@ -96,7 +96,7 @@ public class FuelConsumptionTest {
                 && (mFuelConsumptionView.mUkmpgValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
 
-        assertEquals(0, mFuelConsumptionView.mKplError);
+        assertEquals(false, mFuelConsumptionView.mKplError);
         assertEquals("10.7289036498", mFuelConsumptionView.mUsmpgValue);
         assertEquals("12.8848760393", mFuelConsumptionView.mUkmpgValue);
         assertEquals("21.923450054", mFuelConsumptionView.mL100kValue);
@@ -107,7 +107,7 @@ public class FuelConsumptionTest {
                 && (mFuelConsumptionView.mUkmpgValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
 
-        assertEquals(0, mFuelConsumptionView.mKplError);
+        assertEquals(false, mFuelConsumptionView.mKplError);
         assertEquals("10.7289", mFuelConsumptionView.mUsmpgValue);
         assertEquals("12.88488", mFuelConsumptionView.mUkmpgValue);
         assertEquals("21.92345", mFuelConsumptionView.mL100kValue);
@@ -123,7 +123,7 @@ public class FuelConsumptionTest {
                 && (mFuelConsumptionView.mUkmpgValue != null)
                 && (mFuelConsumptionView.mKplValue != null)));
 
-        assertEquals(0, mFuelConsumptionView.mL100kError);
+        assertEquals(false, mFuelConsumptionView.mL100kError);
         assertEquals("27.4623411104", mFuelConsumptionView.mUsmpgValue);
         assertEquals("32.9808965107", mFuelConsumptionView.mUkmpgValue);
         assertEquals("11.6754415144", mFuelConsumptionView.mKplValue);
@@ -134,7 +134,7 @@ public class FuelConsumptionTest {
                 && (mFuelConsumptionView.mUkmpgValue != null)
                 && (mFuelConsumptionView.mKplValue != null)));
 
-        assertEquals(0, mFuelConsumptionView.mL100kError);
+        assertEquals(false, mFuelConsumptionView.mL100kError);
         assertEquals("27.46234", mFuelConsumptionView.mUsmpgValue);
         assertEquals("32.9809", mFuelConsumptionView.mUkmpgValue);
         assertEquals("11.67544", mFuelConsumptionView.mKplValue);

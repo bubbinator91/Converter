@@ -23,16 +23,14 @@ public class KilometersPerLiterTest {
 
     @Test
     public void testToAll() throws Exception {
-        List<String> results =
-                KilometersPerLiter.getInstance().toAll("4.5613258749654", 10).getFirst();
+        List<String> results = KilometersPerLiter.getInstance().toAll("4.5613258749654", 10);
 
         assertNotNull(results);
         assertEquals("10.7289036498", results.get(0));
         assertEquals("12.8848760393", results.get(1));
         assertEquals("21.923450054", results.get(2));
 
-        results =
-                KilometersPerLiter.getInstance().toAll("4.5613258749654", 5).getFirst();
+        results = KilometersPerLiter.getInstance().toAll("4.5613258749654", 5);
 
         assertNotNull(results);
         assertEquals("10.7289", results.get(0));

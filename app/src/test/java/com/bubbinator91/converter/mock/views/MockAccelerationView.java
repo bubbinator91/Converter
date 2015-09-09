@@ -11,19 +11,10 @@ public class MockAccelerationView implements IAccelerationView {
 
     @Override
     public void displayConversionFromCentimetersPerSecondSquaredResults(List<String> results) {
-        if (results != null) {
-            mFpssValue = results.get(0);
-            mMpssValue = results.get(1);
-            mSgValue = results.get(2);
-
-            mCmpssError = false;
-        } else {
-            mFpssValue = null;
-            mMpssValue = null;
-            mSgValue = null;
-
-            mCmpssError = true;
-        }
+        mFpssValue = results.get(0);
+        mMpssValue = results.get(1);
+        mSgValue = results.get(2);
+        mCmpssError = false;
     }
 
     @Override
@@ -31,25 +22,15 @@ public class MockAccelerationView implements IAccelerationView {
         mFpssValue = null;
         mMpssValue = null;
         mSgValue = null;
-
         mCmpssError = true;
     }
 
     @Override
     public void displayConversionFromFeetPerSecondSquaredResults(List<String> results) {
-        if (results != null) {
-            mCmpssValue = results.get(0);
-            mMpssValue = results.get(1);
-            mSgValue = results.get(2);
-
-            mFpssError = false;
-        } else {
-            mCmpssValue = null;
-            mMpssValue = null;
-            mSgValue = null;
-
-            mFpssError = true;
-        }
+        mCmpssValue = results.get(0);
+        mMpssValue = results.get(1);
+        mSgValue = results.get(2);
+        mFpssError = false;
     }
 
     @Override
@@ -57,25 +38,15 @@ public class MockAccelerationView implements IAccelerationView {
         mCmpssValue = null;
         mMpssValue = null;
         mSgValue = null;
-
         mFpssError = true;
     }
 
     @Override
     public void displayConversionFromMetersPerSecondSquaredResults(List<String> results) {
-        if (results != null) {
-            mCmpssValue = results.get(0);
-            mFpssValue = results.get(1);
-            mSgValue = results.get(2);
-
-            mMpssError = false;
-        } else {
-            mCmpssValue = null;
-            mFpssValue = null;
-            mSgValue = null;
-
-            mMpssError = true;
-        }
+        mCmpssValue = results.get(0);
+        mFpssValue = results.get(1);
+        mSgValue = results.get(2);
+        mMpssError = false;
     }
 
     @Override
@@ -83,25 +54,15 @@ public class MockAccelerationView implements IAccelerationView {
         mCmpssValue = null;
         mFpssValue = null;
         mSgValue = null;
-
         mMpssError = true;
     }
 
     @Override
     public void displayConversionFromStandardGravityResults(List<String> results) {
-        if (results != null) {
-            mCmpssValue = results.get(0);
-            mFpssValue = results.get(1);
-            mMpssValue = results.get(2);
-
-            mSgError = false;
-        } else {
-            mCmpssValue = null;
-            mFpssValue = null;
-            mMpssValue = null;
-
-            mSgError = true;
-        }
+        mCmpssValue = results.get(0);
+        mFpssValue = results.get(1);
+        mMpssValue = results.get(2);
+        mSgError = false;
     }
 
     @Override
@@ -109,7 +70,6 @@ public class MockAccelerationView implements IAccelerationView {
         mCmpssValue = null;
         mFpssValue = null;
         mMpssValue = null;
-
         mSgError = true;
     }
 
