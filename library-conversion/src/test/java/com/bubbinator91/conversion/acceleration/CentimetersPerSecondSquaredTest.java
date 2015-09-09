@@ -25,8 +25,7 @@ public class CentimetersPerSecondSquaredTest {
     public void testToAll() throws Exception {
         List<String> results = CentimetersPerSecondSquared
                 .getInstance()
-                .toAll("8.0235641526359876", 10)
-                .getFirst();
+                .toAll("8.0235641526359876", 10);
 
         assertNotNull(results);
         assertEquals("0.2632402937", results.get(0));
@@ -35,8 +34,7 @@ public class CentimetersPerSecondSquaredTest {
 
         results = CentimetersPerSecondSquared
                 .getInstance()
-                .toAll("8.0235641526359876", 5)
-                .getFirst();
+                .toAll("8.0235641526359876", 5);
 
         assertNotNull(results);
         assertEquals("0.26324", results.get(0));

@@ -1,7 +1,5 @@
 package com.bubbinator91.conversion.acceleration;
 
-import com.bubbinator91.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.conversion.util.Tuple;
 import com.bubbinator91.conversion.util.Unit;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 
@@ -52,44 +50,36 @@ public class FeetPerSecondSquared extends Unit {
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
      *                          treated as if it was zero.
      *
-     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
-     *          centimeters per second squared, meters per second squared, and standard gravity
-     *          values (in that order; they will be empty {@link String}s if there is an error), and
-     *          the second item is one of the error codes found in {@link ConversionErrorCodes}, or
-     *          null if the <code>fpss</code> parameter is null.
+     * @return  A {@link List} containing the equivalent centimeters per second squared, meters per
+     *          second squared, and standard gravity values (in that order; they will be empty
+     *          {@link String}s if there is valid, non-numerical input, such as a leading decimal
+     *          point), or null if the <code>fpss</code> parameter is null.
+     *
+     * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
+     *                                      number.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public Tuple<List<String>, Integer> toAll(String fpss, int decimalPlaces) {
+    public List<String> toAll(String fpss, int decimalPlaces)
+            throws NumberFormatException, ValueBelowZeroException {
         if (fpss == null) {
             return null;
         }
 
         int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
         List<String> results = new LinkedList<>();
-        int error = ConversionErrorCodes.ERROR_NONE;
 
         if (isNumeric(fpss)) {
-            try {
-                results.add(toCentimetersPerSecondSquared(fpss, roundingLength));
-                results.add(toMetersPerSecondSquared(fpss, roundingLength));
-                results.add(toStandardGravity(fpss, roundingLength));
-            } catch (NumberFormatException e) {
-                results.clear();
-                addEmptyItems(results, 3);
-                error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
-            } catch (ValueBelowZeroException e) {
-                results.clear();
-                addEmptyItems(results, 3);
-                error = ConversionErrorCodes.ERROR_BELOW_ZERO;
-            }
+            results.add(toCentimetersPerSecondSquared(fpss, roundingLength));
+            results.add(toMetersPerSecondSquared(fpss, roundingLength));
+            results.add(toStandardGravity(fpss, roundingLength));
         } else if (fpss.equals(".") || fpss.equals("")) {
             results.clear();
             addEmptyItems(results, 3);
         } else {
-            addEmptyItems(results, 3);
-            error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
+            throw new NumberFormatException("Input was not numeric.");
         }
 
-        return new Tuple<>(results, error);
+        return results;
     }
 
     /**
@@ -106,8 +96,7 @@ public class FeetPerSecondSquared extends Unit {
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
     public String toCentimetersPerSecondSquared(String fpss, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
@@ -145,8 +134,7 @@ public class FeetPerSecondSquared extends Unit {
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
     public String toMetersPerSecondSquared(String fpss, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
@@ -184,8 +172,7 @@ public class FeetPerSecondSquared extends Unit {
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
      *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below absolute
-     *                                      zero.
+     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
     public String toStandardGravity(String fpss, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {

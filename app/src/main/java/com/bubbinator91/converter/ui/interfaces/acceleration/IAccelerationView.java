@@ -8,11 +8,19 @@ import java.util.List;
  * View interface for the {@link com.bubbinator91.converter.ui.fragments.AccelerationFragment}
  */
 public interface IAccelerationView extends IConverterView {
-    void displayConversionFromCentimetersPerSecondSquared(List<String> results, int errorCode);
+    void displayConversionFromCentimetersPerSecondSquaredResults(List<String> results);
 
-    void displayConversionFromFeetPerSecondSquared(List<String> results, int errorCode);
+    void displayConversionFromCentimetersPerSecondSquaredError(Throwable error);
 
-    void displayConversionFromMetersPerSecondSquared(List<String> results, int errorCode);
+    void displayConversionFromFeetPerSecondSquaredResults(List<String> results);
 
-    void displayConversionFromStandardGravity(List<String> results, int errorCode);
+    void displayConversionFromFeetPerSecondSquaredError(Throwable error);
+
+    void displayConversionFromMetersPerSecondSquaredResults(List<String> results);
+
+    void displayConversionFromMetersPerSecondSquaredError(Throwable error);
+
+    void displayConversionFromStandardGravityResults(List<String> results);
+
+    void displayConversionFromStandardGravityError(Throwable error);
 }

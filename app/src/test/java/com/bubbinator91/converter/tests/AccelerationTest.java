@@ -44,7 +44,7 @@ public class AccelerationTest {
                                 && (mAccelerationView.mSgValue != null))
         );
 
-        assertEquals(0, mAccelerationView.mCmpssError);
+        assertEquals(false, mAccelerationView.mCmpssError);
         assertEquals("0.2632402937", mAccelerationView.mFpssValue);
         assertEquals("0.0802356415", mAccelerationView.mMpssValue);
         assertEquals("0.0081817585", mAccelerationView.mSgValue);
@@ -57,7 +57,7 @@ public class AccelerationTest {
                                 && (mAccelerationView.mSgValue != null))
         );
 
-        assertEquals(0, mAccelerationView.mCmpssError);
+        assertEquals(false, mAccelerationView.mCmpssError);
         assertEquals("0.26324", mAccelerationView.mFpssValue);
         assertEquals("0.08024", mAccelerationView.mMpssValue);
         assertEquals("0.00818", mAccelerationView.mSgValue);
@@ -75,7 +75,7 @@ public class AccelerationTest {
                                 && (mAccelerationView.mSgValue != null))
         );
 
-        assertEquals(0, mAccelerationView.mFpssError);
+        assertEquals(false, mAccelerationView.mFpssError);
         assertEquals("76.3960442711", mAccelerationView.mCmpssValue);
         assertEquals("0.7639604427", mAccelerationView.mMpssValue);
         assertEquals("0.077902285", mAccelerationView.mSgValue);
@@ -88,7 +88,7 @@ public class AccelerationTest {
                                 && (mAccelerationView.mSgValue != null))
         );
 
-        assertEquals(0, mAccelerationView.mFpssError);
+        assertEquals(false, mAccelerationView.mFpssError);
         assertEquals("76.39604", mAccelerationView.mCmpssValue);
         assertEquals("0.76396", mAccelerationView.mMpssValue);
         assertEquals("0.0779", mAccelerationView.mSgValue);
@@ -106,7 +106,7 @@ public class AccelerationTest {
                                 && (mAccelerationView.mSgValue != null))
         );
 
-        assertEquals(0, mAccelerationView.mMpssError);
+        assertEquals(false, mAccelerationView.mMpssError);
         assertEquals("156.8946531647", mAccelerationView.mCmpssValue);
         assertEquals("5.1474623742", mAccelerationView.mFpssValue);
         assertEquals("0.1599880216", mAccelerationView.mSgValue);
@@ -119,7 +119,7 @@ public class AccelerationTest {
                                 && (mAccelerationView.mSgValue != null))
         );
 
-        assertEquals(0, mAccelerationView.mMpssError);
+        assertEquals(false, mAccelerationView.mMpssError);
         assertEquals("156.89465", mAccelerationView.mCmpssValue);
         assertEquals("5.14746", mAccelerationView.mFpssValue);
         assertEquals("0.15999", mAccelerationView.mSgValue);
@@ -137,7 +137,7 @@ public class AccelerationTest {
                                 && (mAccelerationView.mMpssValue != null))
         );
 
-        assertEquals(0, mAccelerationView.mSgError);
+        assertEquals(false, mAccelerationView.mSgError);
         assertEquals("553.9382012603", mAccelerationView.mCmpssValue);
         assertEquals("18.1738255006", mAccelerationView.mFpssValue);
         assertEquals("5.5393820126", mAccelerationView.mMpssValue);
@@ -150,7 +150,7 @@ public class AccelerationTest {
                                 && (mAccelerationView.mMpssValue != null))
         );
 
-        assertEquals(0, mAccelerationView.mSgError);
+        assertEquals(false, mAccelerationView.mSgError);
         assertEquals("553.9382", mAccelerationView.mCmpssValue);
         assertEquals("18.17383", mAccelerationView.mFpssValue);
         assertEquals("5.53938", mAccelerationView.mMpssValue);

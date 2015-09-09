@@ -225,10 +225,10 @@ public class TemperatureFragment
             ));
         }
 
-        removeTextChangedListeners(".displayConversionFromCelsiusResults");
+        removeTextChangedListeners(".displayConversionFromCelsiusError");
         mEditTextFahrenheit.setText("", AppCompatTextView.BufferType.EDITABLE);
         mEditTextKelvin.setText("", AppCompatTextView.BufferType.EDITABLE);
-        addTextChangedListeners(".displayConversionFromCelsiusResults");
+        addTextChangedListeners(".displayConversionFromCelsiusError");
     }
 
     @Override
@@ -262,10 +262,10 @@ public class TemperatureFragment
             ));
         }
 
-        removeTextChangedListeners(".displayConversionFromCelsiusResults");
+        removeTextChangedListeners(".displayConversionFromFahrenheitError");
         mEditTextCelsius.setText("", AppCompatTextView.BufferType.EDITABLE);
         mEditTextKelvin.setText("", AppCompatTextView.BufferType.EDITABLE);
-        addTextChangedListeners(".displayConversionFromCelsiusResults");
+        addTextChangedListeners(".displayConversionFromFahrenheitError");
     }
 
     @Override
@@ -299,10 +299,10 @@ public class TemperatureFragment
             ));
         }
 
-        removeTextChangedListeners(".displayConversionFromCelsiusResults");
+        removeTextChangedListeners(".displayConversionFromKelvinError");
         mEditTextCelsius.setText("", AppCompatTextView.BufferType.EDITABLE);
         mEditTextFahrenheit.setText("", AppCompatTextView.BufferType.EDITABLE);
-        addTextChangedListeners(".displayConversionFromCelsiusResults");
+        addTextChangedListeners(".displayConversionFromKelvinError");
     }
 
     // endregion

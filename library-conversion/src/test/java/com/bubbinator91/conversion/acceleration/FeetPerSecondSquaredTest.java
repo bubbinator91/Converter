@@ -25,8 +25,7 @@ public class FeetPerSecondSquaredTest {
     public void testToAll() throws Exception {
         List<String> results = FeetPerSecondSquared
                 .getInstance()
-                .toAll("2.5064318986478525", 10)
-                .getFirst();
+                .toAll("2.5064318986478525", 10);
 
         assertNotNull(results);
         assertEquals("76.3960442711", results.get(0));
@@ -35,8 +34,7 @@ public class FeetPerSecondSquaredTest {
 
         results = FeetPerSecondSquared
                 .getInstance()
-                .toAll("2.5064318986478525", 5)
-                .getFirst();
+                .toAll("2.5064318986478525", 5);
 
         assertNotNull(results);
         assertEquals("76.39604", results.get(0));

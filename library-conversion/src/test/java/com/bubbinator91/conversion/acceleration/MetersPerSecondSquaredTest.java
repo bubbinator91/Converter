@@ -25,8 +25,7 @@ public class MetersPerSecondSquaredTest {
     public void testToAll() throws Exception {
         List<String> results = MetersPerSecondSquared
                 .getInstance()
-                .toAll("1.568946531647201", 10)
-                .getFirst();
+                .toAll("1.568946531647201", 10);
 
         assertNotNull(results);
         assertEquals("156.8946531647", results.get(0));
@@ -35,8 +34,7 @@ public class MetersPerSecondSquaredTest {
 
         results = MetersPerSecondSquared
                 .getInstance()
-                .toAll("1.568946531647201", 5)
-                .getFirst();
+                .toAll("1.568946531647201", 5);
 
         assertNotNull(results);
         assertEquals("156.89465", results.get(0));

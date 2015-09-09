@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bubbinator91.conversion.util.ConversionErrorCodes;
+import com.bubbinator91.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationPresenter;
@@ -231,171 +231,139 @@ public class AccelerationFragment
     // region Overridden IAccelerationView methods
 
     @Override
-    public void displayConversionFromCentimetersPerSecondSquared(List<String> results, int errorCode) {
-        Timber.tag(TAG + ".displayConversionFromCentimetersPerSecondSquared").i("Entered");
+    public void displayConversionFromCentimetersPerSecondSquaredResults(List<String> results) {
+        Timber.tag(TAG + ".displayConversionFromCentimetersPerSecondSquaredResults").i("Entered");
+        removeTextChangedListeners(".displayConversionFromCentimetersPerSecondSquaredResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromCentimetersPerSecondSquared");
+        mTextInputLayoutCmpss.setErrorEnabled(false);
+        mTextInputLayoutFpss.setErrorEnabled(false);
+        mTextInputLayoutMpss.setErrorEnabled(false);
+        mTextInputLayoutSg.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutCmpss.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutCmpss.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutCmpss.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutCmpss.setErrorEnabled(false);
-                    mTextInputLayoutFpss.setErrorEnabled(false);
-                    mTextInputLayoutMpss.setErrorEnabled(false);
-                    mTextInputLayoutSg.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextFpss.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMpss.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextSg.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextFpss.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMpss.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextSg.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromCentimetersPerSecondSquared");
-        }
+        addTextChangedListeners(".displayConversionFromCentimetersPerSecondSquaredResults");
     }
 
     @Override
-    public void displayConversionFromFeetPerSecondSquared(List<String> results, int errorCode) {
-        Timber.tag(TAG + ".displayConversionFromFeetPerSecondSquared").i("Entered");
-
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromFeetPerSecondSquared");
-
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutFpss.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutFpss.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutFpss.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutCmpss.setErrorEnabled(false);
-                    mTextInputLayoutFpss.setErrorEnabled(false);
-                    mTextInputLayoutMpss.setErrorEnabled(false);
-                    mTextInputLayoutSg.setErrorEnabled(false);
-                    break;
-            }
-
-            mEditTextCmpss.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMpss.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextSg.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromFeetPerSecondSquared");
+    public void displayConversionFromCentimetersPerSecondSquaredError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutCmpss.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutCmpss.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutCmpss.setError(getString(R.string.conversion_error_conversion_error));
         }
+
+        removeTextChangedListeners(".displayConversionFromCentimetersPerSecondSquaredError");
+        mEditTextFpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextSg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromCentimetersPerSecondSquaredError");
     }
 
     @Override
-    public void displayConversionFromMetersPerSecondSquared(List<String> results, int errorCode) {
-        Timber.tag(TAG + ".displayConversionFromMetersPerSecondSquared").i("Entered");
+    public void displayConversionFromFeetPerSecondSquaredResults(List<String> results) {
+        Timber.tag(TAG + ".displayConversionFromFeetPerSecondSquaredResults").i("Entered");
+        removeTextChangedListeners(".displayConversionFromFeetPerSecondSquaredResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromMetersPerSecondSquared");
+        mTextInputLayoutCmpss.setErrorEnabled(false);
+        mTextInputLayoutFpss.setErrorEnabled(false);
+        mTextInputLayoutMpss.setErrorEnabled(false);
+        mTextInputLayoutSg.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutMpss.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutMpss.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutMpss.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutCmpss.setErrorEnabled(false);
-                    mTextInputLayoutFpss.setErrorEnabled(false);
-                    mTextInputLayoutMpss.setErrorEnabled(false);
-                    mTextInputLayoutSg.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextCmpss.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMpss.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextSg.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextCmpss.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextFpss.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextSg.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromMetersPerSecondSquared");
-        }
+        addTextChangedListeners(".displayConversionFromFeetPerSecondSquaredResults");
     }
 
     @Override
-    public void displayConversionFromStandardGravity(List<String> results, int errorCode) {
-        Timber.tag(TAG + ".displayConversionFromStandardGravity").i("Entered");
-
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromStandardGravity");
-
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutSg.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutSg.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutSg.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutCmpss.setErrorEnabled(false);
-                    mTextInputLayoutFpss.setErrorEnabled(false);
-                    mTextInputLayoutMpss.setErrorEnabled(false);
-                    mTextInputLayoutSg.setErrorEnabled(false);
-                    break;
-            }
-
-            mEditTextCmpss.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextFpss.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMpss.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromStandardGravity");
+    public void displayConversionFromFeetPerSecondSquaredError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutFpss.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutFpss.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutFpss.setError(getString(R.string.conversion_error_conversion_error));
         }
+
+        removeTextChangedListeners(".displayConversionFromFeetPerSecondSquaredError");
+        mEditTextCmpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextSg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromFeetPerSecondSquaredError");
+    }
+
+    @Override
+    public void displayConversionFromMetersPerSecondSquaredResults(List<String> results) {
+        Timber.tag(TAG + ".displayConversionFromMetersPerSecondSquaredResults").i("Entered");
+        removeTextChangedListeners(".displayConversionFromMetersPerSecondSquaredResults");
+
+        mTextInputLayoutCmpss.setErrorEnabled(false);
+        mTextInputLayoutFpss.setErrorEnabled(false);
+        mTextInputLayoutMpss.setErrorEnabled(false);
+        mTextInputLayoutSg.setErrorEnabled(false);
+
+        mEditTextCmpss.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextFpss.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextSg.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+
+        addTextChangedListeners(".displayConversionFromMetersPerSecondSquaredResults");
+    }
+
+    @Override
+    public void displayConversionFromMetersPerSecondSquaredError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutMpss.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutMpss.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutMpss.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners(".displayConversionFromMetersPerSecondSquaredError");
+        mEditTextCmpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextFpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextSg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromMetersPerSecondSquaredError");
+    }
+
+    @Override
+    public void displayConversionFromStandardGravityResults(List<String> results) {
+        Timber.tag(TAG + ".displayConversionFromStandardGravityResults").i("Entered");
+        removeTextChangedListeners(".displayConversionFromStandardGravityResults");
+
+        mTextInputLayoutCmpss.setErrorEnabled(false);
+        mTextInputLayoutFpss.setErrorEnabled(false);
+        mTextInputLayoutMpss.setErrorEnabled(false);
+        mTextInputLayoutSg.setErrorEnabled(false);
+
+        mEditTextCmpss.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextFpss.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMpss.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+
+        addTextChangedListeners(".displayConversionFromStandardGravityResults");
+    }
+
+    @Override
+    public void displayConversionFromStandardGravityError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutSg.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutSg.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutSg.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners(".displayConversionFromStandardGravityError");
+        mEditTextCmpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextFpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners(".displayConversionFromStandardGravityError");
     }
 
     // endregion

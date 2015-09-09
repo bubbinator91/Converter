@@ -25,8 +25,7 @@ public class StandardGravityTest {
     public void testToAll() throws Exception {
         List<String> results = StandardGravity
                 .getInstance()
-                .toAll("0.564859764825136", 10)
-                .getFirst();
+                .toAll("0.564859764825136", 10);
 
         assertNotNull(results);
         assertEquals("553.9382012603", results.get(0));
@@ -35,8 +34,7 @@ public class StandardGravityTest {
 
         results = StandardGravity
                 .getInstance()
-                .toAll("0.564859764825136", 5)
-                .getFirst();
+                .toAll("0.564859764825136", 5);
 
         assertNotNull(results);
         assertEquals("553.9382", results.get(0));
