@@ -1,6 +1,6 @@
 package com.bubbinator91.converter.mock.views;
 
-import com.bubbinator91.converter.ui.interfaces.fuelconsumption.IFuelConsumptionView;
+import com.bubbinator91.converter.interfaces.view.IFuelConsumptionView;
 
 import java.util.List;
 

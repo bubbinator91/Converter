@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.tests;
 
 import com.bubbinator91.converter.mock.views.MockDataTransferSpeedView;
-import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedPresenter;
+import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;
 import com.bubbinator91.converter.util.TestHelper;
 
 import org.junit.Before;

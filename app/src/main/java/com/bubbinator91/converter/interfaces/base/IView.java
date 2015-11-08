@@ -1,4 +1,4 @@
-package com.bubbinator91.converter.ui.interfaces.base;
+package com.bubbinator91.converter.interfaces.base;
 
 /**
  * Base view interface for MVP

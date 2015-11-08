@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.tests;
 
 import com.bubbinator91.converter.mock.views.MockFuelConsumptionView;
-import com.bubbinator91.converter.ui.interfaces.fuelconsumption.IFuelConsumptionPresenter;
+import com.bubbinator91.converter.interfaces.presenter.IFuelConsumptionPresenter;
 import com.bubbinator91.converter.util.TestHelper;
 
 import org.junit.Before;

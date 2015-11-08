@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.bubbinator91.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
-import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedPresenter;
-import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedView;
+import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;
+import com.bubbinator91.converter.interfaces.view.IDataTransferSpeedView;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 

@@ -1,6 +1,6 @@
 package com.bubbinator91.converter.mock.views;
 
-import com.bubbinator91.converter.ui.interfaces.length.ILengthView;
+import com.bubbinator91.converter.interfaces.view.ILengthView;
 
 import java.util.List;
 

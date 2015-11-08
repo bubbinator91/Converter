@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
-import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationPresenter;
-import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationView;
+import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
+import com.bubbinator91.converter.interfaces.view.IAccelerationView;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 

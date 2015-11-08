@@ -1,16 +1,14 @@
-package com.bubbinator91.converter.ui.presenters;
+package com.bubbinator91.converter.presenters;
 
 import com.bubbinator91.conversion.datatransferspeed.DataTransferSpeed;
-import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedPresenter;
-import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedView;
+import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;
+import com.bubbinator91.converter.interfaces.view.IDataTransferSpeedView;
 import com.bubbinator91.converter.util.Globals;
 
 import javax.inject.Named;
 
 import rx.Observable;
 import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Implementation of the {@link IDataTransferSpeedPresenter} interface for the

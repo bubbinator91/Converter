@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.tests;
 
 import com.bubbinator91.converter.mock.views.MockAccelerationView;
-import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationPresenter;
+import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
 import com.bubbinator91.converter.util.TestHelper;
 
 import org.junit.Before;

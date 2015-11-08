@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
-import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
-import com.bubbinator91.converter.ui.interfaces.temperature.ITemperatureView;
+import com.bubbinator91.converter.interfaces.presenter.ITemperaturePresenter;
+import com.bubbinator91.converter.interfaces.view.ITemperatureView;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 

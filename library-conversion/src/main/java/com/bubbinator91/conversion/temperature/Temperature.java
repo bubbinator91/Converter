@@ -6,15 +6,15 @@ package com.bubbinator91.conversion.temperature;
 public class Temperature {
     public Temperature() {}
 
-    public Celsius Celsius() {
+    public static Celsius celsius() {
         return Celsius.getInstance();
     }
 
-    public Fahrenheit Fahrenheit() {
+    public static Fahrenheit fahrenheit() {
         return Fahrenheit.getInstance();
     }
 
-    public Kelvin Kelvin() {
+    public static Kelvin kelvin() {
         return Kelvin.getInstance();
     }
 }

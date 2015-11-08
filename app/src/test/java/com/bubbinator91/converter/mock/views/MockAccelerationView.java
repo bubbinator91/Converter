@@ -1,6 +1,6 @@
 package com.bubbinator91.converter.mock.views;
 
-import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationView;
+import com.bubbinator91.converter.interfaces.view.IAccelerationView;
 
 import java.util.List;
 

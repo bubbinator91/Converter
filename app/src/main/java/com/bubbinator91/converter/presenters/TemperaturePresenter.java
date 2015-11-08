@@ -1,9 +1,9 @@
-package com.bubbinator91.converter.ui.presenters;
+package com.bubbinator91.converter.presenters;
 
 import com.bubbinator91.conversion.temperature.Temperature;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
-import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
-import com.bubbinator91.converter.ui.interfaces.temperature.ITemperatureView;
+import com.bubbinator91.converter.interfaces.presenter.ITemperaturePresenter;
+import com.bubbinator91.converter.interfaces.view.ITemperatureView;
 import com.bubbinator91.converter.util.Globals;
 
 import java.util.List;
@@ -18,19 +18,15 @@ import rx.Scheduler;
  * {@link com.bubbinator91.converter.ui.fragments.TemperatureFragment}
  */
 public class TemperaturePresenter implements ITemperaturePresenter {
-
-    private final Temperature temperature;
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
     private ITemperatureView mTemperatureView;
 
     public TemperaturePresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                                @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
-                                Temperature temperature) {
+                                @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         this.mainScheduler = mainScheduler;
         this.computationScheduler = computationScheduler;
-        this.temperature = temperature;
     }
 
     @Override
@@ -42,7 +38,7 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     public void getConversionFromCelsiusResults(String celsius, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(temperature.Celsius().toAll(celsius, decimalPlaces));
+                subscriber.onNext(Temperature.celsius().toAll(celsius, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }
@@ -60,7 +56,7 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     public void getConversionFromFahrenheitResults(String fahrenheit, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(temperature.Fahrenheit().toAll(fahrenheit, decimalPlaces));
+                subscriber.onNext(Temperature.fahrenheit().toAll(fahrenheit, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }
@@ -78,7 +74,7 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     public void getConversionFromKelvinResults(String kelvin, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(temperature.Kelvin().toAll(kelvin, decimalPlaces));
+                subscriber.onNext(Temperature.kelvin().toAll(kelvin, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }

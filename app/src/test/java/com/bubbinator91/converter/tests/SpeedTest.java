@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.tests;
 
 import com.bubbinator91.converter.mock.views.MockSpeedView;
-import com.bubbinator91.converter.ui.interfaces.speed.ISpeedPresenter;
+import com.bubbinator91.converter.interfaces.presenter.ISpeedPresenter;
 import com.bubbinator91.converter.util.TestHelper;
 
 import org.junit.Before;

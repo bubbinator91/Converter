@@ -1,16 +1,14 @@
-package com.bubbinator91.converter.ui.presenters;
+package com.bubbinator91.converter.presenters;
 
 import com.bubbinator91.conversion.speed.Speed;
-import com.bubbinator91.converter.ui.interfaces.speed.ISpeedPresenter;
-import com.bubbinator91.converter.ui.interfaces.speed.ISpeedView;
+import com.bubbinator91.converter.interfaces.presenter.ISpeedPresenter;
+import com.bubbinator91.converter.interfaces.view.ISpeedView;
 import com.bubbinator91.converter.util.Globals;
 
 import javax.inject.Named;
 
 import rx.Observable;
 import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Implementation of the {@link ISpeedPresenter} interface for the

@@ -1,6 +1,6 @@
 package com.bubbinator91.converter.mock.views;
 
-import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedView;
+import com.bubbinator91.converter.interfaces.view.IDataTransferSpeedView;
 
 import java.util.List;
 

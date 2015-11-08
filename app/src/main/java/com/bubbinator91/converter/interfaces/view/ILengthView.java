@@ -1,6 +1,6 @@
-package com.bubbinator91.converter.ui.interfaces.length;
+package com.bubbinator91.converter.interfaces.view;
 
-import com.bubbinator91.converter.ui.interfaces.base.IConverterView;
+import com.bubbinator91.converter.interfaces.base.IConverterView;
 
 import java.util.List;
 

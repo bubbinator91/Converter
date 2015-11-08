@@ -1,6 +1,7 @@
-package com.bubbinator91.converter.ui.interfaces.temperature;
+package com.bubbinator91.converter.interfaces.presenter;
 
-import com.bubbinator91.converter.ui.interfaces.base.IConverterPresenter;
+import com.bubbinator91.converter.interfaces.base.IConverterPresenter;
+import com.bubbinator91.converter.interfaces.view.ITemperatureView;
 
 /**
  * Presenter interface for the presenter of

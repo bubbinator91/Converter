@@ -1,9 +1,9 @@
-package com.bubbinator91.converter.ui.presenters;
+package com.bubbinator91.converter.presenters;
 
 import com.bubbinator91.conversion.fuelconsumption.FuelConsumption;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
-import com.bubbinator91.converter.ui.interfaces.fuelconsumption.IFuelConsumptionPresenter;
-import com.bubbinator91.converter.ui.interfaces.fuelconsumption.IFuelConsumptionView;
+import com.bubbinator91.converter.interfaces.presenter.IFuelConsumptionPresenter;
+import com.bubbinator91.converter.interfaces.view.IFuelConsumptionView;
 import com.bubbinator91.converter.util.Globals;
 
 import java.util.List;
@@ -18,8 +18,6 @@ import rx.Scheduler;
  * {@link com.bubbinator91.converter.ui.fragments.FuelConsumptionFragment}
  */
 public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
-
-    private final FuelConsumption fuelConsumption;
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
@@ -27,11 +25,9 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
 
 
     public FuelConsumptionPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                                    @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
-                                    FuelConsumption fuelConsumption) {
+                                    @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         this.mainScheduler = mainScheduler;
         this.computationScheduler = computationScheduler;
-        this.fuelConsumption = fuelConsumption;
     }
 
     @Override
@@ -43,7 +39,7 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
     public void getConversionFromKilometersPerLiterResults(String kpl, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(fuelConsumption.KilometersPerLiter().toAll(kpl, decimalPlaces));
+                subscriber.onNext(FuelConsumption.kilometersPerLiter().toAll(kpl, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }
@@ -61,7 +57,7 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
     public void getConversionFromLitersPer100KilometersResults(String l100k, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(fuelConsumption.LitersPer100Kilometers().toAll(l100k, decimalPlaces));
+                subscriber.onNext(FuelConsumption.litersPer100Kilometers().toAll(l100k, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }
@@ -79,7 +75,7 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
     public void getConversionFromUKMilesPerGallonResults(String ukmpg, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(fuelConsumption.UKMilesPerGallon().toAll(ukmpg, decimalPlaces));
+                subscriber.onNext(FuelConsumption.UKMilesPerGallon().toAll(ukmpg, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }
@@ -97,7 +93,7 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
     public void getConversionFromUSMilesPerGallonResults(String usmpg, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(fuelConsumption.USMilesPerGallon().toAll(usmpg, decimalPlaces));
+                subscriber.onNext(FuelConsumption.USMilesPerGallon().toAll(usmpg, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }

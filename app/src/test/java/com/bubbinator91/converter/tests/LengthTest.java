@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.tests;
 
 import com.bubbinator91.converter.mock.views.MockLengthView;
-import com.bubbinator91.converter.ui.interfaces.length.ILengthPresenter;
+import com.bubbinator91.converter.interfaces.presenter.ILengthPresenter;
 import com.bubbinator91.converter.util.TestHelper;
 
 import org.junit.Before;

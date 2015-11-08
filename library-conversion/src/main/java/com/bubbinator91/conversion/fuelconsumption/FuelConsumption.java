@@ -6,19 +6,19 @@ package com.bubbinator91.conversion.fuelconsumption;
 public class FuelConsumption {
     public FuelConsumption() {}
 
-    public KilometersPerLiter KilometersPerLiter() {
+    public static KilometersPerLiter kilometersPerLiter() {
         return KilometersPerLiter.getInstance();
     }
 
-    public LitersPer100Kilometers LitersPer100Kilometers() {
+    public static LitersPer100Kilometers litersPer100Kilometers() {
         return LitersPer100Kilometers.getInstance();
     }
 
-    public UKMilesPerGallon UKMilesPerGallon() {
+    public static UKMilesPerGallon UKMilesPerGallon() {
         return UKMilesPerGallon.getInstance();
     }
 
-    public USMilesPerGallon USMilesPerGallon() {
+    public static USMilesPerGallon USMilesPerGallon() {
         return USMilesPerGallon.getInstance();
     }
 }

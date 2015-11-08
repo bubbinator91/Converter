@@ -1,4 +1,4 @@
-package com.bubbinator91.converter.ui.interfaces.base;
+package com.bubbinator91.converter.interfaces.base;
 
 /**
  * Presenter interface for the presenter of any fragment that does conversion

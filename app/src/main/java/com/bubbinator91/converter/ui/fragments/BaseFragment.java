@@ -15,7 +15,7 @@ import android.widget.ScrollView;
 
 import com.bubbinator91.converter.BuildConfig;
 import com.bubbinator91.converter.R;
-import com.bubbinator91.converter.ui.interfaces.base.IConverterPresenter;
+import com.bubbinator91.converter.interfaces.base.IConverterPresenter;
 import com.bubbinator91.converter.util.Globals;
 
 import timber.log.Timber;

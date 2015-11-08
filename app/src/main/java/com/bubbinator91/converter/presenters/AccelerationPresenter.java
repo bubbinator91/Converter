@@ -1,9 +1,9 @@
-package com.bubbinator91.converter.ui.presenters;
+package com.bubbinator91.converter.presenters;
 
 import com.bubbinator91.conversion.acceleration.Acceleration;
 import com.bubbinator91.conversion.util.ValueBelowZeroException;
-import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationPresenter;
-import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationView;
+import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
+import com.bubbinator91.converter.interfaces.view.IAccelerationView;
 import com.bubbinator91.converter.util.Globals;
 
 import java.util.List;
@@ -18,19 +18,15 @@ import rx.Scheduler;
  * {@link com.bubbinator91.converter.ui.fragments.AccelerationFragment}
  */
 public class AccelerationPresenter implements IAccelerationPresenter {
-
-    private final Acceleration acceleration;
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
     private IAccelerationView mAccelerationView;
 
     public AccelerationPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                                 @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
-                                 Acceleration acceleration) {
+                                 @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         this.mainScheduler = mainScheduler;
         this.computationScheduler = computationScheduler;
-        this.acceleration = acceleration;
     }
 
     @Override
@@ -42,7 +38,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
     public void getConversionFromCentimetersPerSecondSquaredResults(String cmpss, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(acceleration.CentimetersPerSecondSquared().toAll(cmpss, decimalPlaces));
+                subscriber.onNext(Acceleration.centimetersPerSecondSquared().toAll(cmpss, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }
@@ -60,7 +56,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
     public void getConversionFromFeetPerSecondSquaredResults(String fpss, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(acceleration.FeetPerSecondSquared().toAll(fpss, decimalPlaces));
+                subscriber.onNext(Acceleration.feetPerSecondSquared().toAll(fpss, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }
@@ -78,7 +74,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
     public void getConversionFromMetersPerSecondSquaredResults(String mpss, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(acceleration.MetersPerSecondSquared().toAll(mpss, decimalPlaces));
+                subscriber.onNext(Acceleration.metersPerSecondSquared().toAll(mpss, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }
@@ -96,7 +92,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
     public void getConversionFromStandardGravity(String sg, int decimalPlaces) {
         Observable.<List<String>>create(subscriber -> {
             try {
-                subscriber.onNext(acceleration.StandardGravity().toAll(sg, decimalPlaces));
+                subscriber.onNext(Acceleration.standardGravity().toAll(sg, decimalPlaces));
             } catch (NumberFormatException | ValueBelowZeroException e) {
                 subscriber.onError(e);
             }

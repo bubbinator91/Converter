@@ -7,12 +7,12 @@ import com.bubbinator91.converter.mock.views.MockFuelConsumptionView;
 import com.bubbinator91.converter.mock.views.MockLengthView;
 import com.bubbinator91.converter.mock.views.MockSpeedView;
 import com.bubbinator91.converter.mock.views.MockTemperatureView;
-import com.bubbinator91.converter.ui.interfaces.acceleration.IAccelerationPresenter;
-import com.bubbinator91.converter.ui.interfaces.datatransferspeed.IDataTransferSpeedPresenter;
-import com.bubbinator91.converter.ui.interfaces.fuelconsumption.IFuelConsumptionPresenter;
-import com.bubbinator91.converter.ui.interfaces.length.ILengthPresenter;
-import com.bubbinator91.converter.ui.interfaces.speed.ISpeedPresenter;
-import com.bubbinator91.converter.ui.interfaces.temperature.ITemperaturePresenter;
+import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
+import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;
+import com.bubbinator91.converter.interfaces.presenter.IFuelConsumptionPresenter;
+import com.bubbinator91.converter.interfaces.presenter.ILengthPresenter;
+import com.bubbinator91.converter.interfaces.presenter.ISpeedPresenter;
+import com.bubbinator91.converter.interfaces.presenter.ITemperaturePresenter;
 
 import dagger.Module;
 import dagger.Provides;
