@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.trello.victor'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 
@@ -32,19 +31,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    sourceSets {
-        main {
-            svg.srcDir 'src/main/svg'
-        }
-    }
     lintOptions {
         disable 'InvalidPackage'
     }
-}
-
-victor {
-    svgDpi = 72
-    excludeDensities = ['ldpi']
 }
 
 dependencies {
@@ -57,9 +46,9 @@ dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':library-conversion')
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:cardview-v7:23.1.0'
-    compile 'com.android.support:design:23.1.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
     compile 'com.google.dagger:dagger:2.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.jakewharton.timber:timber:3.1.0'
