@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bubbinator91.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.interfaces.presenter.ITemperaturePresenter;
 import com.bubbinator91.converter.interfaces.view.ITemperatureView;
@@ -197,7 +197,7 @@ public class TemperatureFragment
     @Override
     public void displayConversionFromCelsiusResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromCelsiusResults").i("Entered");
-        removeTextChangedListeners(".displayConversionFromCelsiusResults");
+        removeTextChangedListeners("displayConversionFromCelsiusResults");
 
         mTextInputLayoutCelsius.setErrorEnabled(false);
         mTextInputLayoutFahrenheit.setErrorEnabled(false);
@@ -206,7 +206,7 @@ public class TemperatureFragment
         mEditTextFahrenheit.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
         mEditTextKelvin.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
 
-        addTextChangedListeners(".displayConversionFromCelsiusResults");
+        addTextChangedListeners("displayConversionFromCelsiusResults");
     }
 
     @Override
@@ -225,16 +225,16 @@ public class TemperatureFragment
             ));
         }
 
-        removeTextChangedListeners(".displayConversionFromCelsiusError");
+        removeTextChangedListeners("displayConversionFromCelsiusError");
         mEditTextFahrenheit.setText("", AppCompatTextView.BufferType.EDITABLE);
         mEditTextKelvin.setText("", AppCompatTextView.BufferType.EDITABLE);
-        addTextChangedListeners(".displayConversionFromCelsiusError");
+        addTextChangedListeners("displayConversionFromCelsiusError");
     }
 
     @Override
     public void displayConversionFromFahrenheitResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromFahrenheitResults").i("Entered");
-        removeTextChangedListeners(".displayConversionFromFahrenheitResults");
+        removeTextChangedListeners("displayConversionFromFahrenheitResults");
 
         mTextInputLayoutCelsius.setErrorEnabled(false);
         mTextInputLayoutFahrenheit.setErrorEnabled(false);
@@ -243,7 +243,7 @@ public class TemperatureFragment
         mEditTextCelsius.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
         mEditTextKelvin.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
 
-        addTextChangedListeners(".displayConversionFromFahrenheitResults");
+        addTextChangedListeners("displayConversionFromFahrenheitResults");
     }
 
     @Override
@@ -262,16 +262,16 @@ public class TemperatureFragment
             ));
         }
 
-        removeTextChangedListeners(".displayConversionFromFahrenheitError");
+        removeTextChangedListeners("displayConversionFromFahrenheitError");
         mEditTextCelsius.setText("", AppCompatTextView.BufferType.EDITABLE);
         mEditTextKelvin.setText("", AppCompatTextView.BufferType.EDITABLE);
-        addTextChangedListeners(".displayConversionFromFahrenheitError");
+        addTextChangedListeners("displayConversionFromFahrenheitError");
     }
 
     @Override
     public void displayConversionFromKelvinResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromKelvinResults").i("Entered");
-        removeTextChangedListeners(".onPostExecute");
+        removeTextChangedListeners("displayConversionFromKelvinResults");
 
         mTextInputLayoutCelsius.setErrorEnabled(false);
         mTextInputLayoutFahrenheit.setErrorEnabled(false);
@@ -280,7 +280,7 @@ public class TemperatureFragment
         mEditTextCelsius.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
         mEditTextFahrenheit.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
 
-        addTextChangedListeners(".onPostExecute");
+        addTextChangedListeners("displayConversionFromKelvinResults");
     }
 
     @Override
@@ -299,10 +299,10 @@ public class TemperatureFragment
             ));
         }
 
-        removeTextChangedListeners(".displayConversionFromKelvinError");
+        removeTextChangedListeners("displayConversionFromKelvinError");
         mEditTextCelsius.setText("", AppCompatTextView.BufferType.EDITABLE);
         mEditTextFahrenheit.setText("", AppCompatTextView.BufferType.EDITABLE);
-        addTextChangedListeners(".displayConversionFromKelvinError");
+        addTextChangedListeners("displayConversionFromKelvinError");
     }
 
     // endregion

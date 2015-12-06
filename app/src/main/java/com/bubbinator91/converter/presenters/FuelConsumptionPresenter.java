@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.presenters;
 
-import com.bubbinator91.conversion.fuelconsumption.FuelConsumption;
-import com.bubbinator91.conversion.util.ValueBelowZeroException;
+import com.bubbinator91.converter.conversion.fuelconsumption.FuelConsumption;
+import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.interfaces.presenter.IFuelConsumptionPresenter;
 import com.bubbinator91.converter.interfaces.view.IFuelConsumptionView;
 import com.bubbinator91.converter.util.Globals;

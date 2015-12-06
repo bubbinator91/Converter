@@ -1,6 +1,6 @@
 package com.bubbinator91.converter.presenters;
 
-import com.bubbinator91.conversion.speed.Speed;
+import com.bubbinator91.converter.conversion.speed.Speed;
 import com.bubbinator91.converter.interfaces.presenter.ISpeedPresenter;
 import com.bubbinator91.converter.interfaces.view.ISpeedView;
 import com.bubbinator91.converter.util.Globals;

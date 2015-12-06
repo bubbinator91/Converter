@@ -1,7 +1,7 @@
 package com.bubbinator91.converter.presenters;
 
-import com.bubbinator91.conversion.acceleration.Acceleration;
-import com.bubbinator91.conversion.util.ValueBelowZeroException;
+import com.bubbinator91.converter.conversion.acceleration.Acceleration;
+import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
 import com.bubbinator91.converter.interfaces.view.IAccelerationView;
 import com.bubbinator91.converter.util.Globals;

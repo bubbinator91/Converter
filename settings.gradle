@@ -1,1 +1,1 @@
-include ':app', ':library-conversion'
+include ':app'

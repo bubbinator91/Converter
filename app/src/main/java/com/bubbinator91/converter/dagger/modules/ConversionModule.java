@@ -1,11 +1,10 @@
 package com.bubbinator91.converter.dagger.modules;
 
-import com.bubbinator91.conversion.acceleration.Acceleration;
-import com.bubbinator91.conversion.datatransferspeed.DataTransferSpeed;
-import com.bubbinator91.conversion.fuelconsumption.FuelConsumption;
-import com.bubbinator91.conversion.length.Length;
-import com.bubbinator91.conversion.speed.Speed;
-import com.bubbinator91.conversion.temperature.Temperature;
+import com.bubbinator91.converter.conversion.acceleration.Acceleration;
+import com.bubbinator91.converter.conversion.datatransferspeed.DataTransferSpeed;
+import com.bubbinator91.converter.conversion.fuelconsumption.FuelConsumption;
+import com.bubbinator91.converter.conversion.length.Length;
+import com.bubbinator91.converter.conversion.speed.Speed;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
 
 import dagger.Module;
@@ -45,11 +44,5 @@ public class ConversionModule {
     @ActivityScope
     protected Speed providesSpeed() {
         return new Speed();
-    }
-
-    @Provides
-    @ActivityScope
-    protected Temperature providesTemperature() {
-        return new Temperature();
     }
 }

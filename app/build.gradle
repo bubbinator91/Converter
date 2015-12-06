@@ -37,26 +37,25 @@ android {
 }
 
 dependencies {
-    apt 'com.google.dagger:dagger-compiler:2.0'
-    testProvided 'com.google.dagger:dagger-compiler:2.0'
+    apt 'com.google.dagger:dagger-compiler:2.0.2'
+    testProvided 'com.google.dagger:dagger-compiler:2.0.2'
     // needed to resolve compilation errors, thanks to tutplus.org for finding the dependency
     // http://stackoverflow.com/questions/27036933/how-to-set-up-dagger-dependency-injection-from-scratch-in-android-project
     // test compiles
-    androidTestApt 'com.google.dagger:dagger-compiler:2.0'
+    androidTestApt 'com.google.dagger:dagger-compiler:2.0.2'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':library-conversion')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
-    compile 'com.google.dagger:dagger:2.0'
+    compile 'com.google.dagger:dagger:2.0.2'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.jakewharton.timber:timber:3.1.0'
-    compile 'io.reactivex:rxandroid:0.25.0'
+    compile 'com.jakewharton.timber:timber:4.1.0'
+    compile 'io.reactivex:rxandroid:1.0.1'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
-    androidTestCompile 'com.google.dagger:dagger:2.0'
-    testCompile 'com.google.dagger:dagger:2.0'
+    androidTestCompile 'com.google.dagger:dagger:2.0.2'
+    testCompile 'com.google.dagger:dagger:2.0.2'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'org.mockito:mockito-core:1.10.19'
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'

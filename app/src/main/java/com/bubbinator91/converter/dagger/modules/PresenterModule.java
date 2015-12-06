@@ -1,8 +1,8 @@
 package com.bubbinator91.converter.dagger.modules;
 
-import com.bubbinator91.conversion.datatransferspeed.DataTransferSpeed;
-import com.bubbinator91.conversion.length.Length;
-import com.bubbinator91.conversion.speed.Speed;
+import com.bubbinator91.converter.conversion.datatransferspeed.DataTransferSpeed;
+import com.bubbinator91.converter.conversion.length.Length;
+import com.bubbinator91.converter.conversion.speed.Speed;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
 import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
 import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;

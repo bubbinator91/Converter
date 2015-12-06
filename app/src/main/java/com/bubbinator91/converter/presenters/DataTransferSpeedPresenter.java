@@ -1,6 +1,6 @@
 package com.bubbinator91.converter.presenters;
 
-import com.bubbinator91.conversion.datatransferspeed.DataTransferSpeed;
+import com.bubbinator91.converter.conversion.datatransferspeed.DataTransferSpeed;
 import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;
 import com.bubbinator91.converter.interfaces.view.IDataTransferSpeedView;
 import com.bubbinator91.converter.util.Globals;
