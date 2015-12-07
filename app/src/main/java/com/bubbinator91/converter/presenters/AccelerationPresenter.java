@@ -1,16 +1,15 @@
 package com.bubbinator91.converter.presenters;
 
-import com.bubbinator91.converter.conversion.acceleration.Acceleration;
-import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
+import com.bubbinator91.converter.conversion.acceleration.CentimetersPerSecondSquared;
+import com.bubbinator91.converter.conversion.acceleration.FeetPerSecondSquared;
+import com.bubbinator91.converter.conversion.acceleration.MetersPerSecondSquared;
+import com.bubbinator91.converter.conversion.acceleration.StandardGravity;
 import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
 import com.bubbinator91.converter.interfaces.view.IAccelerationView;
 import com.bubbinator91.converter.util.Globals;
 
-import java.util.List;
-
 import javax.inject.Named;
 
-import rx.Observable;
 import rx.Scheduler;
 
 /**
@@ -36,13 +35,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
 
     @Override
     public void getConversionFromCentimetersPerSecondSquaredResults(String cmpss, int decimalPlaces) {
-        Observable.<List<String>>create(subscriber -> {
-            try {
-                subscriber.onNext(Acceleration.centimetersPerSecondSquared().toAll(cmpss, decimalPlaces));
-            } catch (NumberFormatException | ValueBelowZeroException e) {
-                subscriber.onError(e);
-            }
-        })
+        CentimetersPerSecondSquared.toAll(cmpss, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
@@ -54,13 +47,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
 
     @Override
     public void getConversionFromFeetPerSecondSquaredResults(String fpss, int decimalPlaces) {
-        Observable.<List<String>>create(subscriber -> {
-            try {
-                subscriber.onNext(Acceleration.feetPerSecondSquared().toAll(fpss, decimalPlaces));
-            } catch (NumberFormatException | ValueBelowZeroException e) {
-                subscriber.onError(e);
-            }
-        })
+        FeetPerSecondSquared.toAll(fpss, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
@@ -72,13 +59,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
 
     @Override
     public void getConversionFromMetersPerSecondSquaredResults(String mpss, int decimalPlaces) {
-        Observable.<List<String>>create(subscriber -> {
-            try {
-                subscriber.onNext(Acceleration.metersPerSecondSquared().toAll(mpss, decimalPlaces));
-            } catch (NumberFormatException | ValueBelowZeroException e) {
-                subscriber.onError(e);
-            }
-        })
+        MetersPerSecondSquared.toAll(mpss, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
@@ -90,13 +71,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
 
     @Override
     public void getConversionFromStandardGravity(String sg, int decimalPlaces) {
-        Observable.<List<String>>create(subscriber -> {
-            try {
-                subscriber.onNext(Acceleration.standardGravity().toAll(sg, decimalPlaces));
-            } catch (NumberFormatException | ValueBelowZeroException e) {
-                subscriber.onError(e);
-            }
-        })
+        StandardGravity.toAll(sg, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)

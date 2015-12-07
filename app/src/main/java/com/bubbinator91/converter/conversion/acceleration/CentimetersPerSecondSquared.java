@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
+import rx.Observable;
+
 /**
  * Handles the conversion from centimeters per second^2 (gal or cm/s^2) to other units of
  * acceleration
@@ -16,90 +18,70 @@ public class CentimetersPerSecondSquared extends Unit {
     // Prevents class from being instantiated directly
     private CentimetersPerSecondSquared() {}
 
-    // region Singleton items
-
-    /**
-     * Holds the instance of the {@link CentimetersPerSecondSquared} class. Private so that only the
-     * CentimetersPerSecondSquared class can use it, and static so that it can carry a static
-     * instance of the CentimetersPerSecondSquared class.
-     */
-    private static class CentimetersPerSecondSquaredInstance {
-        private static final CentimetersPerSecondSquared INSTANCE = new CentimetersPerSecondSquared();
-    }
-
-    /**
-     * Gets the instance of the {@link CentimetersPerSecondSquared} class from the
-     * CentimetersPerSecondSquaredInstance class. Protected so that only members of the same package
-     * can use this method, such as {@link Acceleration}.
-     *
-     * @return  An instance of the {@link CentimetersPerSecondSquared} class.
-     */
-    protected static CentimetersPerSecondSquared getInstance() {
-        return CentimetersPerSecondSquaredInstance.INSTANCE;
-    }
-
-    // endregion
-
     // region Public methods
 
     /**
      * Takes in the centimeters per second squared value as a {@link String} and converts it to
-     * feet per second squared, meters per second squared, and standard gravity.
+     * feet per second squared, meters per second squared, and standard gravity by emitting an
+     * {@link Observable}. When subscribing, make sure to also handle the onError() call.
      *
-     * @param cmpss             The centimeters per second squared value as a {@link String}. Should
-     *                          not be null.
+     * @param cmpss             The centimeters per second squared value as a {@link String}.
+     *                           Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
-     * @return  A {@link List} containing the equivalent feet per second squared, meters per
-     *          second squared, and standard gravity values (in that order; they will be empty
-     *          {@link String}s if there is valid, non-numerical input, such as a leading decimal
-     *          point), or null if the <code>cmpss</code> parameter is null.
-     *
-     * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
-     * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
+     * @return  An {@link Observable}, created with a call to defer(), that will either emit a
+     *           {@link List} containing the equivalent feet per second squared, meters per
+     *           second squared, and standard gravity values (in that order; they will be empty
+     *           {@link String}s if there is valid, non-numerical input, such as a leading decimal
+     *           point), a null value if the <code>cmpss</code> parameter is null, or an error if an
+     *           {@link Exception} was thrown.
      */
-    public List<String> toAll(String cmpss, int decimalPlaces)
-            throws NumberFormatException, ValueBelowZeroException {
-        if (cmpss == null) {
-            return null;
-        }
+    public static Observable<List<String>> toAll(final String cmpss, final int decimalPlaces) {
+        return Observable.defer(() -> {
+            try {
+                if (cmpss == null) {
+                    return Observable.just(null);
+                }
 
-        int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        List<String> results = new LinkedList<>();
+                int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
+                List<String> results = new LinkedList<>();
 
-        if (isNumeric(cmpss)) {
-            results.add(toFeetPerSecondSquared(cmpss, roundingLength));
-            results.add(toMetersPerSecondSquared(cmpss, roundingLength));
-            results.add(toStandardGravity(cmpss, roundingLength));
-        } else if (cmpss.equals(".") || cmpss.equals("")) {
-            results.clear();
-            addEmptyItems(results, 3);
-        } else {
-            throw new NumberFormatException("Input was not numeric.");
-        }
+                if (isNumeric(cmpss)) {
+                    results.add(toFeetPerSecondSquared(cmpss, roundingLength));
+                    results.add(toMetersPerSecondSquared(cmpss, roundingLength));
+                    results.add(toStandardGravity(cmpss, roundingLength));
+                } else if (cmpss.equals(".") || cmpss.equals("")) {
+                    results.clear();
+                    addEmptyItems(results, 3);
+                } else {
+                    throw new NumberFormatException("Input was not numeric.");
+                }
 
-        return results;
+                return Observable.just(results);
+            } catch (Exception e) {
+                return Observable.error(e);
+            }
+        });
     }
 
     /**
      * Takes in the centimeters per second squared value as a {@link String} and converts it to feet
      * per second squared.
      *
-     * @param cmpss             The centimeters per second squared value as a {@link String}. Should
-     *                          not be null.
+     * @param cmpss             The centimeters per second squared value as a {@link String}.
+     *                           Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent feet per second squared value as a {@link String}, or null if the
-     *          <code>cmpss</code> parameter is null.
+     *           <code>cmpss</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toFeetPerSecondSquared(String cmpss, int decimalPlaces)
+    public static String toFeetPerSecondSquared(String cmpss, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (cmpss == null) {
             return null;
@@ -125,19 +107,19 @@ public class CentimetersPerSecondSquared extends Unit {
      * Takes in the centimeters per second squared value as a {@link String} and converts it to
      * meters per second squared.
      *
-     * @param cmpss             The centimeters per second squared value as a {@link String}. Should
-     *                          not be null.
+     * @param cmpss             The centimeters per second squared value as a {@link String}.
+     *                           Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent meters per second squared value as a {@link String}, or null if the
-     *          <code>cmpss</code> parameter is null.
+     *           <code>cmpss</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toMetersPerSecondSquared(String cmpss, int decimalPlaces)
+    public static String toMetersPerSecondSquared(String cmpss, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (cmpss == null) {
             return null;
@@ -163,19 +145,19 @@ public class CentimetersPerSecondSquared extends Unit {
      * Takes in the centimeters per second squared value as a {@link String} and converts it to
      * standard gravity
      *
-     * @param cmpss             The centimeters per second squared value as a {@link String}. Should
-     *                          not be null.
+     * @param cmpss             The centimeters per second squared value as a {@link String}.
+     *                           Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent standard gravity value as a {@link String}, or null if the
-     *          <code>cmpss</code> parameter is null.
+     *           <code>cmpss</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toStandardGravity(String cmpss, int decimalPlaces)
+    public static String toStandardGravity(String cmpss, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (cmpss == null) {
             return null;

@@ -22,7 +22,7 @@ public class Kelvin extends Unit {
     /**
      * Takes in the kelvin value as a {@link String} and converts it to both celsius and fahrenheit
      * by emitting an {@link Observable}. When subscribing, make sure to also handle the onError()
-     * call if you're going to be handling errors.
+     * call.
      *
      * @param kelvin            The kelvin value as a {@link String}. Cannot be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be

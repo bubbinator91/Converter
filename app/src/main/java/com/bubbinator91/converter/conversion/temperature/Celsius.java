@@ -22,7 +22,7 @@ public class Celsius extends Unit {
     /**
      * Takes in the celsius value as a {@link String} and converts it to both fahrenheit and kelvin
      * by emitting an {@link Observable}. When subscribing, make sure to also handle the onError()
-     * call if you're going to be handling errors.
+     * call.
      *
      * @param celsius           The celsius value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be

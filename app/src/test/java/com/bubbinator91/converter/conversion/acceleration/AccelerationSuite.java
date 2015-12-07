@@ -8,7 +8,6 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        AccelerationTest.class,
         CentimetersPerSecondSquaredTest.class,
         FeetPerSecondSquaredTest.class,
         MetersPerSecondSquaredTest.class,
