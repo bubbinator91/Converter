@@ -88,14 +88,14 @@ public class Fahrenheit extends Unit {
         if (temperature.compareTo(new BigDecimal("-459.67")) > 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            BigDecimal celsius = temperature.subtract(new BigDecimal("32"))
+            temperature = temperature.subtract(new BigDecimal("32"))
                     .multiply((new BigDecimal("5"))
                     .divide(new BigDecimal("9"), 100, BigDecimal.ROUND_HALF_UP))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
-            if (celsius.compareTo(BigDecimal.ZERO) == 0) {
-                celsius = BigDecimal.ZERO;
+            if (temperature.compareTo(BigDecimal.ZERO) == 0) {
+                temperature = BigDecimal.ZERO;
             }
-            return celsius.stripTrailingZeros().toPlainString();
+            return temperature.stripTrailingZeros().toPlainString();
         } else if (temperature.compareTo(new BigDecimal("-459.67")) == 0) {
             return "-273.15";
         } else {
@@ -129,14 +129,14 @@ public class Fahrenheit extends Unit {
         if (temperature.compareTo(new BigDecimal("-459.67")) > 0) {
             // Work around for BigDecimal bug not returning exactly 0 when the answer is 0
             // This bug is fixed in Java 8, but Android still uses Java 7 if i'm not mistaken
-            BigDecimal kelvin = temperature.subtract(new BigDecimal("32"))
+            temperature = temperature.subtract(new BigDecimal("32"))
                     .multiply(new BigDecimal(5.0 / 9.0))
                     .add(new BigDecimal("273.15"))
                     .setScale(roundingLength, BigDecimal.ROUND_HALF_UP);
-            if (kelvin.compareTo(BigDecimal.ZERO) == 0) {
-                kelvin = BigDecimal.ZERO;
+            if (temperature.compareTo(BigDecimal.ZERO) == 0) {
+                temperature = BigDecimal.ZERO;
             }
-            return kelvin.stripTrailingZeros().toPlainString();
+            return temperature.stripTrailingZeros().toPlainString();
         } else if (temperature.compareTo(new BigDecimal("-459.67")) == 0) {
             return "0";
         } else {

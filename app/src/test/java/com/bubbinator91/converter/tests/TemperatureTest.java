@@ -36,7 +36,7 @@ public class TemperatureTest {
 
     @Test
     public void testCelsiusConversion() throws Exception {
-        mTemperaturePresenter.getConversionFromCelsiusResults("20.9764956236", 10);
+        mTemperaturePresenter.getConversionFromCelsius("20.9764956236", 10);
         TestHelper.waitFor(() -> ((mTemperatureView.mFahrenheitValue != null)
                 && (mTemperatureView.mKelvinValue != null)));
 
@@ -44,7 +44,7 @@ public class TemperatureTest {
         assertEquals("69.7576921225", mTemperatureView.mFahrenheitValue);
         assertEquals("294.1264956236", mTemperatureView.mKelvinValue);
 
-        mTemperaturePresenter.getConversionFromCelsiusResults("20.9764956236", 5);
+        mTemperaturePresenter.getConversionFromCelsius("20.9764956236", 5);
         TestHelper.waitFor(() -> ((mTemperatureView.mFahrenheitValue != null)
                 && (mTemperatureView.mKelvinValue != null)));
 
@@ -57,7 +57,7 @@ public class TemperatureTest {
 
     @Test
     public void testFahrenheitConversion() throws Exception {
-        mTemperaturePresenter.getConversionFromFahrenheitResults("80.9467316594316", 10);
+        mTemperaturePresenter.getConversionFromFahrenheit("80.9467316594316", 10);
         TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
                 && (mTemperatureView.mKelvinValue != null)));
 
@@ -65,7 +65,7 @@ public class TemperatureTest {
         assertEquals("27.1926286997", mTemperatureView.mCelsiusValue);
         assertEquals("300.3426286997", mTemperatureView.mKelvinValue);
 
-        mTemperaturePresenter.getConversionFromFahrenheitResults("80.9467316594316", 5);
+        mTemperaturePresenter.getConversionFromFahrenheit("80.9467316594316", 5);
         TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
                 && (mTemperatureView.mKelvinValue != null)));
 
@@ -78,7 +78,7 @@ public class TemperatureTest {
 
     @Test
     public void testKelvinConversion() throws Exception {
-        mTemperaturePresenter.getConversionFromKelvinResults("310.9764326946", 10);
+        mTemperaturePresenter.getConversionFromKelvin("310.9764326946", 10);
         TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
                 && (mTemperatureView.mFahrenheitValue != null)));
 
@@ -86,7 +86,7 @@ public class TemperatureTest {
         assertEquals("37.8264326946", mTemperatureView.mCelsiusValue);
         assertEquals("100.0875788503", mTemperatureView.mFahrenheitValue);
 
-        mTemperaturePresenter.getConversionFromKelvinResults("310.9764326946", 5);
+        mTemperaturePresenter.getConversionFromKelvin("310.9764326946", 5);
         TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
                 && (mTemperatureView.mFahrenheitValue != null)));
 

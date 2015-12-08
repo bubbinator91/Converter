@@ -37,7 +37,7 @@ public class AccelerationTest {
     @Test
     public void testCentimetersPerSecondSquaredConversion() throws Exception {
         mAccelerationPresenter
-                .getConversionFromCentimetersPerSecondSquaredResults("8.0235641526359876", 10);
+                .getConversionFromCentimetersPerSecondSquared("8.0235641526359876", 10);
         TestHelper.waitFor(() ->
                         ((mAccelerationView.mFpssValue != null)
                                 && (mAccelerationView.mMpssValue != null)
@@ -50,7 +50,7 @@ public class AccelerationTest {
         assertEquals("0.0081817585", mAccelerationView.mSgValue);
 
         mAccelerationPresenter
-                .getConversionFromCentimetersPerSecondSquaredResults("8.0235641526359876", 5);
+                .getConversionFromCentimetersPerSecondSquared("8.0235641526359876", 5);
         TestHelper.waitFor(() ->
                         ((mAccelerationView.mFpssValue != null)
                                 && (mAccelerationView.mMpssValue != null)
@@ -68,7 +68,7 @@ public class AccelerationTest {
     @Test
     public void testFeetPerSecondSquaredConversion() throws Exception {
         mAccelerationPresenter
-                .getConversionFromFeetPerSecondSquaredResults("2.5064318986478525", 10);
+                .getConversionFromFeetPerSecondSquared("2.5064318986478525", 10);
         TestHelper.waitFor(() ->
                         ((mAccelerationView.mCmpssValue != null)
                                 && (mAccelerationView.mMpssValue != null)
@@ -81,7 +81,7 @@ public class AccelerationTest {
         assertEquals("0.077902285", mAccelerationView.mSgValue);
 
         mAccelerationPresenter
-                .getConversionFromFeetPerSecondSquaredResults("2.5064318986478525", 5);
+                .getConversionFromFeetPerSecondSquared("2.5064318986478525", 5);
         TestHelper.waitFor(() ->
                         ((mAccelerationView.mCmpssValue != null)
                                 && (mAccelerationView.mMpssValue != null)
@@ -99,7 +99,7 @@ public class AccelerationTest {
     @Test
     public void testMetersPerSecondSquaredConversion() throws Exception {
         mAccelerationPresenter
-                .getConversionFromMetersPerSecondSquaredResults("1.568946531647201", 10);
+                .getConversionFromMetersPerSecondSquared("1.568946531647201", 10);
         TestHelper.waitFor(() ->
                         ((mAccelerationView.mCmpssValue != null)
                                 && (mAccelerationView.mFpssValue != null)
@@ -112,7 +112,7 @@ public class AccelerationTest {
         assertEquals("0.1599880216", mAccelerationView.mSgValue);
 
         mAccelerationPresenter
-                .getConversionFromMetersPerSecondSquaredResults("1.568946531647201", 5);
+                .getConversionFromMetersPerSecondSquared("1.568946531647201", 5);
         TestHelper.waitFor(() ->
                         ((mAccelerationView.mCmpssValue != null)
                                 && (mAccelerationView.mFpssValue != null)

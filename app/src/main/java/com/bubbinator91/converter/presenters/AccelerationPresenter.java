@@ -34,7 +34,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
     }
 
     @Override
-    public void getConversionFromCentimetersPerSecondSquaredResults(String cmpss, int decimalPlaces) {
+    public void getConversionFromCentimetersPerSecondSquared(String cmpss, int decimalPlaces) {
         CentimetersPerSecondSquared.toAll(cmpss, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
@@ -46,7 +46,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
     }
 
     @Override
-    public void getConversionFromFeetPerSecondSquaredResults(String fpss, int decimalPlaces) {
+    public void getConversionFromFeetPerSecondSquared(String fpss, int decimalPlaces) {
         FeetPerSecondSquared.toAll(fpss, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
@@ -58,7 +58,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
     }
 
     @Override
-    public void getConversionFromMetersPerSecondSquaredResults(String mpss, int decimalPlaces) {
+    public void getConversionFromMetersPerSecondSquared(String mpss, int decimalPlaces) {
         MetersPerSecondSquared.toAll(mpss, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)

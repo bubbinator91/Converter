@@ -8,11 +8,11 @@ import com.bubbinator91.converter.interfaces.view.IFuelConsumptionView;
  * {@link com.bubbinator91.converter.ui.fragments.FuelConsumptionFragment}
  */
 public interface IFuelConsumptionPresenter extends IConverterPresenter<IFuelConsumptionView> {
-    void getConversionFromKilometersPerLiterResults(String kpl, int decimalPlaces);
+    void getConversionFromKilometersPerLiter(String kpl, int decimalPlaces);
 
-    void getConversionFromLitersPer100KilometersResults(String l100k, int decimalPlaces);
+    void getConversionFromLitersPer100Kilometers(String l100km, int decimalPlaces);
 
-    void getConversionFromUKMilesPerGallonResults(String ukmpg, int decimalPlaces);
+    void getConversionFromUKMilesPerGallon(String ukmpg, int decimalPlaces);
 
-    void getConversionFromUSMilesPerGallonResults(String usmpg, int decimalPlaces);
+    void getConversionFromUSMilesPerGallon(String usmpg, int decimalPlaces);
 }

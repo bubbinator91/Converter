@@ -77,7 +77,7 @@ public class FuelConsumptionFragment
                         removeTextChangedListeners("mTextWatcherUsmpg");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherUsmpg");
-                        getPresenter().getConversionFromUSMilesPerGallonResults(
+                        getPresenter().getConversionFromUSMilesPerGallon(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -94,7 +94,7 @@ public class FuelConsumptionFragment
                         removeTextChangedListeners("mTextWatcherUkmpg");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherUkmpg");
-                        getPresenter().getConversionFromUKMilesPerGallonResults(
+                        getPresenter().getConversionFromUKMilesPerGallon(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -111,7 +111,7 @@ public class FuelConsumptionFragment
                         removeTextChangedListeners("mTextWatcherKpl");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherKpl");
-                        getPresenter().getConversionFromKilometersPerLiterResults(
+                        getPresenter().getConversionFromKilometersPerLiter(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -128,7 +128,7 @@ public class FuelConsumptionFragment
                         removeTextChangedListeners("mTextWatcherL100k");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherL100k");
-                        getPresenter().getConversionFromLitersPer100KilometersResults(
+                        getPresenter().getConversionFromLitersPer100Kilometers(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -165,7 +165,7 @@ public class FuelConsumptionFragment
         if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_USMPG) {
             if (mEditTextUsmpg.getText() != null) {
                 Utils.sanitizeEditable(mEditTextUsmpg.getText());
-                getPresenter().getConversionFromUSMilesPerGallonResults(
+                getPresenter().getConversionFromUSMilesPerGallon(
                         mEditTextUsmpg.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -173,7 +173,7 @@ public class FuelConsumptionFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_UKMPG) {
             if (mEditTextUkmpg.getText() != null) {
                 Utils.sanitizeEditable(mEditTextUkmpg.getText());
-                getPresenter().getConversionFromUKMilesPerGallonResults(
+                getPresenter().getConversionFromUKMilesPerGallon(
                         mEditTextUkmpg.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -181,7 +181,7 @@ public class FuelConsumptionFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KPL) {
             if (mEditTextKpl.getText() != null) {
                 Utils.sanitizeEditable(mEditTextKpl.getText());
-                getPresenter().getConversionFromKilometersPerLiterResults(
+                getPresenter().getConversionFromKilometersPerLiter(
                         mEditTextKpl.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -189,7 +189,7 @@ public class FuelConsumptionFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_L100K) {
             if (mEditTextL100k.getText() != null) {
                 Utils.sanitizeEditable(mEditTextL100k.getText());
-                getPresenter().getConversionFromLitersPer100KilometersResults(
+                getPresenter().getConversionFromLitersPer100Kilometers(
                         mEditTextL100k.getText().toString(),
                         getNumOfDecimalPlaces()
                 );

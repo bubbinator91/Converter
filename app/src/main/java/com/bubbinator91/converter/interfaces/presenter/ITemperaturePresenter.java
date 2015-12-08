@@ -8,9 +8,9 @@ import com.bubbinator91.converter.interfaces.view.ITemperatureView;
  * {@link com.bubbinator91.converter.ui.fragments.TemperatureFragment}
  */
 public interface ITemperaturePresenter extends IConverterPresenter<ITemperatureView> {
-    void getConversionFromCelsiusResults(String celsius, int decimalPlaces);
+    void getConversionFromCelsius(String celsius, int decimalPlaces);
 
-    void getConversionFromFahrenheitResults(String fahrenheit, int decimalPlaces);
+    void getConversionFromFahrenheit(String fahrenheit, int decimalPlaces);
 
-    void getConversionFromKelvinResults(String kelvin, int decimalPlaces);
+    void getConversionFromKelvin(String kelvin, int decimalPlaces);
 }

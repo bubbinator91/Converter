@@ -8,11 +8,11 @@ import com.bubbinator91.converter.interfaces.base.IConverterPresenter;
  * {@link com.bubbinator91.converter.ui.fragments.AccelerationFragment}
  */
 public interface IAccelerationPresenter extends IConverterPresenter<IAccelerationView> {
-    void getConversionFromCentimetersPerSecondSquaredResults(String cmpss, int decimalPlaces);
+    void getConversionFromCentimetersPerSecondSquared(String cmpss, int decimalPlaces);
 
-    void getConversionFromFeetPerSecondSquaredResults(String fpss, int decimalPlaces);
+    void getConversionFromFeetPerSecondSquared(String fpss, int decimalPlaces);
 
-    void getConversionFromMetersPerSecondSquaredResults(String mpss, int decimalPlaces);
+    void getConversionFromMetersPerSecondSquared(String mpss, int decimalPlaces);
 
     void getConversionFromStandardGravity(String sg, int decimalPlaces);
 }

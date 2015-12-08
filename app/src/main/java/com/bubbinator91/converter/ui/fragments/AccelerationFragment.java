@@ -80,7 +80,7 @@ public class AccelerationFragment
                         removeTextChangedListeners("mTextWatcherCmpss");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherCmpss");
-                        getPresenter().getConversionFromCentimetersPerSecondSquaredResults(
+                        getPresenter().getConversionFromCentimetersPerSecondSquared(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -97,7 +97,7 @@ public class AccelerationFragment
                         removeTextChangedListeners("mTextWatcherFpss");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherFpss");
-                        getPresenter().getConversionFromFeetPerSecondSquaredResults(
+                        getPresenter().getConversionFromFeetPerSecondSquared(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -114,7 +114,7 @@ public class AccelerationFragment
                         removeTextChangedListeners("mTextWatcherMpss");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherMpss");
-                        getPresenter().getConversionFromMetersPerSecondSquaredResults(
+                        getPresenter().getConversionFromMetersPerSecondSquared(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -168,7 +168,7 @@ public class AccelerationFragment
         if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_CMPSS) {
             if (mEditTextCmpss.getText() != null) {
                 Utils.sanitizeEditable(mEditTextCmpss.getText());
-                getPresenter().getConversionFromCentimetersPerSecondSquaredResults(
+                getPresenter().getConversionFromCentimetersPerSecondSquared(
                         mEditTextCmpss.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -176,7 +176,7 @@ public class AccelerationFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_FPSS) {
             if (mEditTextFpss.getText() != null) {
                 Utils.sanitizeEditable(mEditTextFpss.getText());
-                getPresenter().getConversionFromFeetPerSecondSquaredResults(
+                getPresenter().getConversionFromFeetPerSecondSquared(
                         mEditTextFpss.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -184,7 +184,7 @@ public class AccelerationFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_MPSS) {
             if (mEditTextMpss.getText() != null) {
                 Utils.sanitizeEditable(mEditTextMpss.getText());
-                getPresenter().getConversionFromMetersPerSecondSquaredResults(
+                getPresenter().getConversionFromMetersPerSecondSquared(
                         mEditTextMpss.getText().toString(),
                         getNumOfDecimalPlaces()
                 );

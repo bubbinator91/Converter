@@ -33,7 +33,7 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     }
 
     @Override
-    public void getConversionFromCelsiusResults(String celsius, int decimalPlaces) {
+    public void getConversionFromCelsius(String celsius, int decimalPlaces) {
         Celsius.toAll(celsius, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
@@ -45,7 +45,7 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     }
 
     @Override
-    public void getConversionFromFahrenheitResults(String fahrenheit, int decimalPlaces) {
+    public void getConversionFromFahrenheit(String fahrenheit, int decimalPlaces) {
         Fahrenheit.toAll(fahrenheit, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
@@ -57,7 +57,7 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     }
 
     @Override
-    public void getConversionFromKelvinResults(String kelvin, int decimalPlaces) {
+    public void getConversionFromKelvin(String kelvin, int decimalPlaces) {
         Kelvin.toAll(kelvin, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)

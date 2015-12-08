@@ -37,7 +37,7 @@ public class FuelConsumptionTest {
     @Test
     public void testUSMilesPerGallonConversion() throws Exception {
         mFuelConsumptionPresenter
-                .getConversionFromUSMilesPerGallonResults("2.15235645123659", 10);
+                .getConversionFromUSMilesPerGallon("2.15235645123659", 10);
         TestHelper.waitFor(() -> ((mFuelConsumptionView.mUkmpgValue != null)
                 && (mFuelConsumptionView.mKplValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
@@ -48,7 +48,7 @@ public class FuelConsumptionTest {
         assertEquals("109.2823557168", mFuelConsumptionView.mL100kValue);
 
         mFuelConsumptionPresenter
-                .getConversionFromUSMilesPerGallonResults("2.15235645123659", 5);
+                .getConversionFromUSMilesPerGallon("2.15235645123659", 5);
         TestHelper.waitFor(() -> ((mFuelConsumptionView.mUkmpgValue != null)
                 && (mFuelConsumptionView.mKplValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
@@ -64,7 +64,7 @@ public class FuelConsumptionTest {
     @Test
     public void testUKMilesPerGallonConversion() throws Exception {
         mFuelConsumptionPresenter
-                .getConversionFromUKMilesPerGallonResults("3.6589456897564", 10);
+                .getConversionFromUKMilesPerGallon("3.6589456897564", 10);
         TestHelper.waitFor(() -> ((mFuelConsumptionView.mUsmpgValue != null)
                 && (mFuelConsumptionView.mKplValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
@@ -75,7 +75,7 @@ public class FuelConsumptionTest {
         assertEquals("77.2028229669", mFuelConsumptionView.mL100kValue);
 
         mFuelConsumptionPresenter
-                .getConversionFromUKMilesPerGallonResults("3.6589456897564", 5);
+                .getConversionFromUKMilesPerGallon("3.6589456897564", 5);
         TestHelper.waitFor(() -> ((mFuelConsumptionView.mUsmpgValue != null)
                 && (mFuelConsumptionView.mKplValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
@@ -91,7 +91,7 @@ public class FuelConsumptionTest {
     @Test
     public void testKilometersPerLiterConversion() throws Exception {
         mFuelConsumptionPresenter
-                .getConversionFromKilometersPerLiterResults("4.5613258749654", 10);
+                .getConversionFromKilometersPerLiter("4.5613258749654", 10);
         TestHelper.waitFor(() -> ((mFuelConsumptionView.mUsmpgValue != null)
                 && (mFuelConsumptionView.mUkmpgValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
@@ -102,7 +102,7 @@ public class FuelConsumptionTest {
         assertEquals("21.923450054", mFuelConsumptionView.mL100kValue);
 
         mFuelConsumptionPresenter
-                .getConversionFromKilometersPerLiterResults("4.5613258749654", 5);
+                .getConversionFromKilometersPerLiter("4.5613258749654", 5);
         TestHelper.waitFor(() -> ((mFuelConsumptionView.mUsmpgValue != null)
                 && (mFuelConsumptionView.mUkmpgValue != null)
                 && (mFuelConsumptionView.mL100kValue != null)));
@@ -118,7 +118,7 @@ public class FuelConsumptionTest {
     @Test
     public void testLitersPer100KilometersConversion() throws Exception {
         mFuelConsumptionPresenter
-                .getConversionFromLitersPer100KilometersResults("8.56498658974125", 10);
+                .getConversionFromLitersPer100Kilometers("8.56498658974125", 10);
         TestHelper.waitFor(() -> ((mFuelConsumptionView.mUsmpgValue != null)
                 && (mFuelConsumptionView.mUkmpgValue != null)
                 && (mFuelConsumptionView.mKplValue != null)));
@@ -129,7 +129,7 @@ public class FuelConsumptionTest {
         assertEquals("11.6754415144", mFuelConsumptionView.mKplValue);
 
         mFuelConsumptionPresenter
-                .getConversionFromLitersPer100KilometersResults("8.56498658974125", 5);
+                .getConversionFromLitersPer100Kilometers("8.56498658974125", 5);
         TestHelper.waitFor(() -> ((mFuelConsumptionView.mUsmpgValue != null)
                 && (mFuelConsumptionView.mUkmpgValue != null)
                 && (mFuelConsumptionView.mKplValue != null)));

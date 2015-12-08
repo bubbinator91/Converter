@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 /**
@@ -15,50 +13,47 @@ import static org.junit.Assert.*;
 public class UKMilesPerGallonTest {
 
     @Test
-    public void testGetInstance() throws Exception {
-        UKMilesPerGallon ukmpg = UKMilesPerGallon.getInstance();
-
-        assertNotNull(ukmpg);
-    }
-
-    @Test
     public void testToAll() throws Exception {
-        List<String> results = UKMilesPerGallon.getInstance().toAll("3.6589456897564", 10);
+        // Should be using a TestSubscriber here, but this works just fine
 
-        assertNotNull(results);
-        assertEquals("3.0467096187", results.get(0));
-        assertEquals("1.295289423", results.get(1));
-        assertEquals("77.2028229669", results.get(2));
+        UKMilesPerGallon.toAll("3.6589456897564", 10)
+                .subscribe(results -> {
+                    assertNotNull(results);
+                    assertEquals("3.0467096187", results.get(0));
+                    assertEquals("1.295289423", results.get(1));
+                    assertEquals("77.2028229669", results.get(2));
+                });
 
-        results = UKMilesPerGallon.getInstance().toAll("3.6589456897564", 5);
-
-        assertNotNull(results);
-        assertEquals("3.04671", results.get(0));
-        assertEquals("1.29529", results.get(1));
-        assertEquals("77.20282", results.get(2));
+        UKMilesPerGallon.toAll("3.6589456897564", 5)
+                .subscribe(results -> {
+                    assertNotNull(results);
+                    assertEquals("3.04671", results.get(0));
+                    assertEquals("1.29529", results.get(1));
+                    assertEquals("77.20282", results.get(2));
+                });
     }
 
     @Test
     public void testToUSMilesPerGallon() throws Exception {
         assertEquals("3.0467096187",
-                UKMilesPerGallon.getInstance().toUSMilesPerGallon("3.6589456897564", 10));
+                UKMilesPerGallon.toUSMilesPerGallon("3.6589456897564", 10));
         assertEquals("3.04671",
-                UKMilesPerGallon.getInstance().toUSMilesPerGallon("3.6589456897564", 5));
+                UKMilesPerGallon.toUSMilesPerGallon("3.6589456897564", 5));
     }
 
     @Test
     public void testToKilometersPerLiter() throws Exception {
         assertEquals("1.295289423",
-                UKMilesPerGallon.getInstance().toKilometersPerLiter("3.6589456897564", 10));
+                UKMilesPerGallon.toKilometersPerLiter("3.6589456897564", 10));
         assertEquals("1.29529",
-                UKMilesPerGallon.getInstance().toKilometersPerLiter("3.6589456897564", 5));
+                UKMilesPerGallon.toKilometersPerLiter("3.6589456897564", 5));
     }
 
     @Test
     public void testToLitersPer100Kilometers() throws Exception {
         assertEquals("77.2028229669",
-                UKMilesPerGallon.getInstance().toLitersPer100Kilometers("3.6589456897564", 10));
+                UKMilesPerGallon.toLitersPer100Kilometers("3.6589456897564", 10));
         assertEquals("77.20282",
-                UKMilesPerGallon.getInstance().toLitersPer100Kilometers("3.6589456897564", 5));
+                UKMilesPerGallon.toLitersPer100Kilometers("3.6589456897564", 5));
     }
 }

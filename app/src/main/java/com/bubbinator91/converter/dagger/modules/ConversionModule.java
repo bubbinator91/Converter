@@ -1,7 +1,6 @@
 package com.bubbinator91.converter.dagger.modules;
 
 import com.bubbinator91.converter.conversion.datatransferspeed.DataTransferSpeed;
-import com.bubbinator91.converter.conversion.fuelconsumption.FuelConsumption;
 import com.bubbinator91.converter.conversion.length.Length;
 import com.bubbinator91.converter.conversion.speed.Speed;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
@@ -19,12 +18,6 @@ public class ConversionModule {
     @ActivityScope
     protected DataTransferSpeed providesDataTransferSpeed() {
         return new DataTransferSpeed();
-    }
-
-    @Provides
-    @ActivityScope
-    protected FuelConsumption providesFuelConsumption() {
-        return new FuelConsumption();
     }
 
     @Provides

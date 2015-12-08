@@ -75,7 +75,7 @@ public class TemperatureFragment
                         removeTextChangedListeners("mTextWatcherCelsius");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherCelsius");
-                        getPresenter().getConversionFromCelsiusResults(
+                        getPresenter().getConversionFromCelsius(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -92,8 +92,10 @@ public class TemperatureFragment
                         removeTextChangedListeners("mTextWatcherFahrenheit");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherFahrenheit");
-                        getPresenter().getConversionFromFahrenheitResults(s.toString(),
-                                getNumOfDecimalPlaces());
+                        getPresenter().getConversionFromFahrenheit(
+                                s.toString(),
+                                getNumOfDecimalPlaces()
+                        );
                     }
                 }
             };
@@ -107,7 +109,7 @@ public class TemperatureFragment
                         removeTextChangedListeners("mTextWatcherKelvin");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherKelvin");
-                        getPresenter().getConversionFromKelvinResults(
+                        getPresenter().getConversionFromKelvin(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -141,7 +143,7 @@ public class TemperatureFragment
         if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_CELSIUS) {
             if (mEditTextCelsius.getText() != null) {
                 Utils.sanitizeEditable(mEditTextCelsius.getText());
-                getPresenter().getConversionFromCelsiusResults(
+                getPresenter().getConversionFromCelsius(
                         mEditTextCelsius.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -149,7 +151,7 @@ public class TemperatureFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_FAHRENHEIT) {
             if (mEditTextFahrenheit.getText() != null) {
                 Utils.sanitizeEditable(mEditTextFahrenheit.getText());
-                getPresenter().getConversionFromFahrenheitResults(
+                getPresenter().getConversionFromFahrenheit(
                         mEditTextFahrenheit.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -157,7 +159,7 @@ public class TemperatureFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KELVIN) {
             if (mEditTextKelvin.getText() != null) {
                 Utils.sanitizeEditable(mEditTextKelvin.getText());
-                getPresenter().getConversionFromKelvinResults(
+                getPresenter().getConversionFromKelvin(
                         mEditTextKelvin.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
