@@ -2,7 +2,6 @@ package com.bubbinator91.converter.dagger.modules;
 
 import com.bubbinator91.converter.conversion.datatransferspeed.DataTransferSpeed;
 import com.bubbinator91.converter.conversion.length.Length;
-import com.bubbinator91.converter.conversion.speed.Speed;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
 
 import dagger.Module;
@@ -24,11 +23,5 @@ public class ConversionModule {
     @ActivityScope
     protected Length providesLength() {
         return new Length();
-    }
-
-    @Provides
-    @ActivityScope
-    protected Speed providesSpeed() {
-        return new Speed();
     }
 }

@@ -2,7 +2,6 @@ package com.bubbinator91.converter.dagger.modules;
 
 import com.bubbinator91.converter.conversion.datatransferspeed.DataTransferSpeed;
 import com.bubbinator91.converter.conversion.length.Length;
-import com.bubbinator91.converter.conversion.speed.Speed;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
 import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
 import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;
@@ -63,9 +62,8 @@ public class PresenterModule {
     @Provides
     @ActivityScope
     ISpeedPresenter providesSpeedPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                                           @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
-                                           Speed speed) {
-        return new SpeedPresenter(mainScheduler, computationScheduler, speed);
+                                           @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
+        return new SpeedPresenter(mainScheduler, computationScheduler);
     }
 
     @Provides

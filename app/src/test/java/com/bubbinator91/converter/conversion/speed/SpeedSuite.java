@@ -13,6 +13,5 @@ import org.junit.runners.Suite;
         KnotsTest.class,
         MetersPerSecondTest.class,
         MilesPerHourTest.class,
-        SpeedTest.class
 })
 public class SpeedSuite {}

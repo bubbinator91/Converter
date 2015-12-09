@@ -8,91 +8,97 @@ public class MockSpeedView implements ISpeedView {
 
     public String mFpsValue = null, mKnotValue = null, mKphValue = null, mMpsValue = null,
             mMphValue = null;
-    public int mFpsError = -1, mKnotError = -1, mKphError = -1, mMpsError = -1, mMphError = -1;
+    public boolean mFpsError = false, mKnotError = false, mKphError = false, mMpsError = false,
+            mMphError = false;
 
     @Override
-    public void displayConversionFromFeetPerSecondResults(List<String> results, int errorCode) {
-        if (results != null) {
-            mKnotValue = results.get(0);
-            mKphValue = results.get(1);
-            mMpsValue = results.get(2);
-            mMphValue = results.get(3);
-        } else {
-            mKnotValue = null;
-            mKphValue = null;
-            mMpsValue = null;
-            mMphValue = null;
-        }
-
-        mFpsError = errorCode;
+    public void displayConversionFromFeetPerSecondResults(List<String> results) {
+        mKnotValue = results.get(0);
+        mKphValue = results.get(1);
+        mMpsValue = results.get(2);
+        mMphValue = results.get(3);
+        mFpsError = false;
     }
 
     @Override
-    public void displayConversionFromKnotsResults(List<String> results, int errorCode) {
-        if (results != null) {
-            mFpsValue = results.get(0);
-            mKphValue = results.get(1);
-            mMpsValue = results.get(2);
-            mMphValue = results.get(3);
-        } else {
-            mFpsValue = null;
-            mKphValue = null;
-            mMpsValue = null;
-            mMphValue = null;
-        }
-
-        mKnotError = errorCode;
+    public void displayConversionFromFeetPerSecondError(Throwable error) {
+        mKnotValue = null;
+        mKphValue = null;
+        mMpsValue = null;
+        mMphValue = null;
+        mFpsError = true;
     }
 
     @Override
-    public void displayConversionFromKilometersPerHourResults(List<String> results, int errorCode) {
-        if (results != null) {
-            mFpsValue = results.get(0);
-            mKnotValue = results.get(1);
-            mMpsValue = results.get(2);
-            mMphValue = results.get(3);
-        } else {
-            mFpsValue = null;
-            mKnotValue = null;
-            mMpsValue = null;
-            mMphValue = null;
-        }
-
-        mKphError = errorCode;
+    public void displayConversionFromKnotsResults(List<String> results) {
+        mFpsValue = results.get(0);
+        mKphValue = results.get(1);
+        mMpsValue = results.get(2);
+        mMphValue = results.get(3);
+        mKnotError = false;
     }
 
     @Override
-    public void displayConversionFromMetersPerSecondResults(List<String> results, int errorCode) {
-        if (results != null) {
-            mFpsValue = results.get(0);
-            mKnotValue = results.get(1);
-            mKphValue = results.get(2);
-            mMphValue = results.get(3);
-        } else {
-            mFpsValue = null;
-            mKnotValue = null;
-            mKphValue = null;
-            mMphValue = null;
-        }
-
-        mMpsError = errorCode;
+    public void displayConversionFromKnotsError(Throwable error) {
+        mFpsValue = null;
+        mKphValue = null;
+        mMpsValue = null;
+        mMphValue = null;
+        mKnotError = true;
     }
 
     @Override
-    public void displayConversionFromMilesPerHourResults(List<String> results, int errorCode) {
-        if (results != null) {
-            mFpsValue = results.get(0);
-            mKnotValue = results.get(1);
-            mKphValue = results.get(2);
-            mMpsValue = results.get(3);
-        } else {
-            mFpsValue = null;
-            mKnotValue = null;
-            mKphValue = null;
-            mMpsValue = null;
-        }
+    public void displayConversionFromKilometersPerHourResults(List<String> results) {
+        mFpsValue = results.get(0);
+        mKnotValue = results.get(1);
+        mMpsValue = results.get(2);
+        mMphValue = results.get(3);
+        mKphError = false;
+    }
 
-        mMphError = errorCode;
+    @Override
+    public void displayConversionFromKilometersPerHourError(Throwable error) {
+        mFpsValue = null;
+        mKnotValue = null;
+        mMpsValue = null;
+        mMphValue = null;
+        mKphError = true;
+    }
+
+    @Override
+    public void displayConversionFromMetersPerSecondResults(List<String> results) {
+        mFpsValue = results.get(0);
+        mKnotValue = results.get(1);
+        mKphValue = results.get(2);
+        mMphValue = results.get(3);
+        mMpsError = false;
+    }
+
+    @Override
+    public void displayConversionFromMetersPerSecondError(Throwable error) {
+        mFpsValue = null;
+        mKnotValue = null;
+        mKphValue = null;
+        mMphValue = null;
+        mMpsError = true;
+    }
+
+    @Override
+    public void displayConversionFromMilesPerHourResults(List<String> results) {
+        mFpsValue = results.get(0);
+        mKnotValue = results.get(1);
+        mKphValue = results.get(2);
+        mMpsValue = results.get(3);
+        mMphError = false;
+    }
+
+    @Override
+    public void displayConversionFromMilesPerHourError(Throwable error) {
+        mFpsValue = null;
+        mKnotValue = null;
+        mKphValue = null;
+        mMpsValue = null;
+        mMphError = true;
     }
 
     @Override
@@ -112,10 +118,10 @@ public class MockSpeedView implements ISpeedView {
         mMpsValue = null;
         mMphValue = null;
 
-        mFpsError = -1;
-        mKnotError = -1;
-        mKphError = -1;
-        mMpsError = -1;
-        mMphError = -1;
+        mFpsError = false;
+        mKnotError = false;
+        mKphError = false;
+        mMpsError = false;
+        mMphError = false;
     }
 }

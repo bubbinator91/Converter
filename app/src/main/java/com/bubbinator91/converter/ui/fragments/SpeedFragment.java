@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bubbinator91.converter.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.interfaces.presenter.ISpeedPresenter;
 import com.bubbinator91.converter.interfaces.view.ISpeedView;
@@ -85,7 +85,7 @@ public class SpeedFragment
                         removeTextChangedListeners("mTextWatcherFps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherFps");
-                        getPresenter().getConversionFromFeetPerSecondResults(
+                        getPresenter().getConversionFromFeetPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -102,7 +102,7 @@ public class SpeedFragment
                         removeTextChangedListeners("mTextWatcherKnot");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherKnot");
-                        getPresenter().getConversionFromKnotsResults(
+                        getPresenter().getConversionFromKnots(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -119,7 +119,7 @@ public class SpeedFragment
                         removeTextChangedListeners("mTextWatcherKph");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherKph");
-                        getPresenter().getConversionFromKilometersPerHourResults(
+                        getPresenter().getConversionFromKilometersPerHour(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -136,7 +136,7 @@ public class SpeedFragment
                         removeTextChangedListeners("mTextWatcherMps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherMps");
-                        getPresenter().getConversionFromMetersPerSecondResults(
+                        getPresenter().getConversionFromMetersPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -153,7 +153,7 @@ public class SpeedFragment
                         removeTextChangedListeners("mTextWatcherMph");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherMph");
-                        getPresenter().getConversionFromMilesPerHourResults(
+                        getPresenter().getConversionFromMilesPerHour(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -192,7 +192,7 @@ public class SpeedFragment
         if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_FPS) {
             if (mEditTextFps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextFps.getText());
-                getPresenter().getConversionFromFeetPerSecondResults(
+                getPresenter().getConversionFromFeetPerSecond(
                         mEditTextFps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -200,7 +200,7 @@ public class SpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KNOT) {
             if (mEditTextKnot.getText() != null) {
                 Utils.sanitizeEditable(mEditTextKnot.getText());
-                getPresenter().getConversionFromKnotsResults(
+                getPresenter().getConversionFromKnots(
                         mEditTextKnot.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -208,7 +208,7 @@ public class SpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KPH) {
             if (mEditTextKph.getText() != null) {
                 Utils.sanitizeEditable(mEditTextKph.getText());
-                getPresenter().getConversionFromKilometersPerHourResults(
+                getPresenter().getConversionFromKilometersPerHour(
                         mEditTextKph.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -216,7 +216,7 @@ public class SpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_MPS) {
             if (mEditTextMps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextMps.getText());
-                getPresenter().getConversionFromMetersPerSecondResults(
+                getPresenter().getConversionFromMetersPerSecond(
                         mEditTextMps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -224,7 +224,7 @@ public class SpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_MPH) {
             if (mEditTextMph.getText() != null) {
                 Utils.sanitizeEditable(mEditTextMph.getText());
-                getPresenter().getConversionFromMilesPerHourResults(
+                getPresenter().getConversionFromMilesPerHour(
                         mEditTextMph.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -264,228 +264,188 @@ public class SpeedFragment
     // region Overridden ISpeedView methods
 
     @Override
-    public void displayConversionFromFeetPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromFeetPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromFeetPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromFeetPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromFeetPerSecondResults");
+        mTextInputLayoutFps.setErrorEnabled(false);
+        mTextInputLayoutKnot.setErrorEnabled(false);
+        mTextInputLayoutKph.setErrorEnabled(false);
+        mTextInputLayoutMps.setErrorEnabled(false);
+        mTextInputLayoutMph.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutFps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutFps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutFps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutFps.setErrorEnabled(false);
-                    mTextInputLayoutKnot.setErrorEnabled(false);
-                    mTextInputLayoutKph.setErrorEnabled(false);
-                    mTextInputLayoutMps.setErrorEnabled(false);
-                    mTextInputLayoutMph.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextKnot.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKph.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextKnot.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKph.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMph.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromFeetPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromFeetPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromKilometersPerHourResults(List<String> results, int errorCode) {
+    public void displayConversionFromFeetPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutFps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutFps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutFps.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromFeetPerSecondError");
+        mEditTextKnot.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKph.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMph.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromFeetPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromKilometersPerHourResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromKilometersPerHourResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromKilometersPerHourResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromKilometersPerHourResults");
+        mTextInputLayoutFps.setErrorEnabled(false);
+        mTextInputLayoutKnot.setErrorEnabled(false);
+        mTextInputLayoutKph.setErrorEnabled(false);
+        mTextInputLayoutMps.setErrorEnabled(false);
+        mTextInputLayoutMph.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutKph.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutKph.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutKph.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutFps.setErrorEnabled(false);
-                    mTextInputLayoutKnot.setErrorEnabled(false);
-                    mTextInputLayoutKph.setErrorEnabled(false);
-                    mTextInputLayoutMps.setErrorEnabled(false);
-                    mTextInputLayoutMph.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKnot.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextFps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKnot.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMph.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromKilometersPerHourResults");
-        }
+        addTextChangedListeners("displayConversionFromKilometersPerHourResults");
     }
 
     @Override
-    public void displayConversionFromKnotsResults(List<String> results, int errorCode) {
+    public void displayConversionFromKilometersPerHourError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutKph.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutKph.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutKph.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromKilometersPerHourError");
+        mEditTextFps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKnot.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMph.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromKilometersPerHourError");
+    }
+
+    @Override
+    public void displayConversionFromKnotsResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromKnotsResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromKnotsResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromKnotsResults");
+        mTextInputLayoutFps.setErrorEnabled(false);
+        mTextInputLayoutKnot.setErrorEnabled(false);
+        mTextInputLayoutKph.setErrorEnabled(false);
+        mTextInputLayoutMps.setErrorEnabled(false);
+        mTextInputLayoutMph.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutKnot.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutKnot.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutKnot.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutFps.setErrorEnabled(false);
-                    mTextInputLayoutKnot.setErrorEnabled(false);
-                    mTextInputLayoutKph.setErrorEnabled(false);
-                    mTextInputLayoutMps.setErrorEnabled(false);
-                    mTextInputLayoutMph.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKph.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextFps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKph.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMph.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromKnotsResults");
-        }
+        addTextChangedListeners("displayConversionFromKnotsResults");
     }
 
     @Override
-    public void displayConversionFromMetersPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromKnotsError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutKnot.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutKnot.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutKnot.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromKnotsError");
+        mEditTextFps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKph.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMph.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromKnotsError");
+    }
+
+    @Override
+    public void displayConversionFromMetersPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromMetersPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromMetersPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromMetersPerSecondResults");
+        mTextInputLayoutFps.setErrorEnabled(false);
+        mTextInputLayoutKnot.setErrorEnabled(false);
+        mTextInputLayoutKph.setErrorEnabled(false);
+        mTextInputLayoutMps.setErrorEnabled(false);
+        mTextInputLayoutMph.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutMps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutMps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutMps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutFps.setErrorEnabled(false);
-                    mTextInputLayoutKnot.setErrorEnabled(false);
-                    mTextInputLayoutKph.setErrorEnabled(false);
-                    mTextInputLayoutMps.setErrorEnabled(false);
-                    mTextInputLayoutMph.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKnot.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKph.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMph.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextFps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKnot.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKph.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMph.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromMetersPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromMetersPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromMilesPerHourResults(List<String> results, int errorCode) {
-        Timber.tag(TAG + ".displayConversionFromMilesPerHourResults").i("Entered");
-
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromMilesPerHourResults");
-
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutMph.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutMph.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutMph.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutFps.setErrorEnabled(false);
-                    mTextInputLayoutKnot.setErrorEnabled(false);
-                    mTextInputLayoutKph.setErrorEnabled(false);
-                    mTextInputLayoutMps.setErrorEnabled(false);
-                    mTextInputLayoutMph.setErrorEnabled(false);
-                    break;
-            }
-
-            mEditTextFps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKnot.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKph.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromMilesPerHourResults");
+    public void displayConversionFromMetersPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutMps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutMps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutMps.setError(getString(R.string.conversion_error_conversion_error));
         }
+
+        removeTextChangedListeners("displayConversionFromMetersPerSecondError");
+        mEditTextFps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKnot.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKph.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMph.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromMetersPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromMilesPerHourResults(List<String> results) {
+        Timber.tag(TAG + ".displayConversionFromMilesPerHourResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromMilesPerHourResults");
+
+        mTextInputLayoutFps.setErrorEnabled(false);
+        mTextInputLayoutKnot.setErrorEnabled(false);
+        mTextInputLayoutKph.setErrorEnabled(false);
+        mTextInputLayoutMps.setErrorEnabled(false);
+        mTextInputLayoutMph.setErrorEnabled(false);
+
+        mEditTextFps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKnot.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKph.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+
+        addTextChangedListeners("displayConversionFromMilesPerHourResults");
+    }
+
+    @Override
+    public void displayConversionFromMilesPerHourError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutMph.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutMph.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutMph.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromMilesPerHourError");
+        mEditTextFps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKnot.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKph.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromMilesPerHourError");
     }
 
     // endregion

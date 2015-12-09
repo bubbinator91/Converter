@@ -8,13 +8,23 @@ import java.util.List;
  * View interface for the {@link com.bubbinator91.converter.ui.fragments.SpeedFragment}
  */
 public interface ISpeedView extends IConverterView {
-    void displayConversionFromFeetPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromFeetPerSecondResults(List<String> results);
 
-    void displayConversionFromKilometersPerHourResults(List<String> results, int errorCode);
+    void displayConversionFromFeetPerSecondError(Throwable error);
 
-    void displayConversionFromKnotsResults(List<String> results, int errorCode);
+    void displayConversionFromKilometersPerHourResults(List<String> results);
 
-    void displayConversionFromMetersPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromKilometersPerHourError(Throwable error);
 
-    void displayConversionFromMilesPerHourResults(List<String> results, int errorCode);
+    void displayConversionFromKnotsResults(List<String> results);
+
+    void displayConversionFromKnotsError(Throwable error);
+
+    void displayConversionFromMetersPerSecondResults(List<String> results);
+
+    void displayConversionFromMetersPerSecondError(Throwable error);
+
+    void displayConversionFromMilesPerHourResults(List<String> results);
+
+    void displayConversionFromMilesPerHourError(Throwable error);
 }

@@ -8,13 +8,13 @@ import com.bubbinator91.converter.interfaces.view.ISpeedView;
  * {@link com.bubbinator91.converter.ui.fragments.SpeedFragment}
  */
 public interface ISpeedPresenter extends IConverterPresenter<ISpeedView> {
-    void getConversionFromFeetPerSecondResults(String fps, int decimalPlaces);
+    void getConversionFromFeetPerSecond(String fps, int decimalPlaces);
 
-    void getConversionFromKilometersPerHourResults(String kph, int decimalPlaces);
+    void getConversionFromKilometersPerHour(String kph, int decimalPlaces);
 
-    void getConversionFromKnotsResults(String knots, int decimalPlaces);
+    void getConversionFromKnots(String knots, int decimalPlaces);
 
-    void getConversionFromMetersPerSecondResults(String mps, int decimalPlaces);
+    void getConversionFromMetersPerSecond(String mps, int decimalPlaces);
 
-    void getConversionFromMilesPerHourResults(String mph, int decimalPlaces);
+    void getConversionFromMilesPerHour(String mph, int decimalPlaces);
 }
