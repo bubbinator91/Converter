@@ -8,19 +8,35 @@ import java.util.List;
  * View interface for the {@link com.bubbinator91.converter.ui.fragments.LengthFragment}
  */
 public interface ILengthView extends IConverterView {
-    void displayConversionFromCentimetersResults(List<String> results, int errorCode);
+    void displayConversionFromInchesResults(List<String> results);
 
-    void displayConversionFromFeetResults(List<String> results, int errorCode);
+    void displayConversionFromInchesError(Throwable error);
 
-    void displayConversionFromInchesResults(List<String> results, int errorCode);
+    void displayConversionFromFeetResults(List<String> results);
 
-    void displayConversionFromKilometersResults(List<String> results, int errorCode);
+    void displayConversionFromFeetError(Throwable error);
 
-    void displayConversionFromMetersResults(List<String> results, int errorCode);
+    void displayConversionFromYardsResults(List<String> results);
 
-    void displayConversionFromMilesResults(List<String> results, int errorCode);
+    void displayConversionFromYardsError(Throwable error);
 
-    void displayConversionFromMillimetersResults(List<String> results, int errorCode);
+    void displayConversionFromMilesResults(List<String> results);
 
-    void displayConversionFromYardsResults(List<String> results, int errorCode);
+    void displayConversionFromMilesError(Throwable error);
+
+    void displayConversionFromMillimetersResults(List<String> results);
+
+    void displayConversionFromMillimetersError(Throwable error);
+
+    void displayConversionFromCentimetersResults(List<String> results);
+
+    void displayConversionFromCentimetersError(Throwable error);
+
+    void displayConversionFromMetersResults(List<String> results);
+
+    void displayConversionFromMetersError(Throwable error);
+
+    void displayConversionFromKilometersResults(List<String> results);
+
+    void displayConversionFromKilometersError(Throwable error);
 }

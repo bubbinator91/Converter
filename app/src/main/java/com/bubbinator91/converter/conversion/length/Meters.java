@@ -1,13 +1,13 @@
 package com.bubbinator91.converter.conversion.length;
 
-import com.bubbinator91.converter.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.converter.conversion.util.Tuple;
 import com.bubbinator91.converter.conversion.util.Unit;
 import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
+
+import rx.Observable;
 
 /**
  * Handles the conversion from meters to other units of length
@@ -17,80 +17,54 @@ public class Meters extends Unit {
     // Prevents class from being instantiated directly
     private Meters() {}
 
-    // region Singleton items
-
-    /**
-     * Holds the instance of the {@link Meters} class. Private so that only the Meters class can
-     * use it, and static so that it can carry a static instance of the Meters class.
-     */
-    private static class MetersInstance {
-        private static final Meters INSTANCE = new Meters();
-    }
-
-    /**
-     * Gets the instance of the {@link Meters} class from the MetersInstance class. Protected so
-     * that only members of the same package can use this method, such as {@link Length}.
-     *
-     * @return  An instance of the {@link Meters} class.
-     */
-    protected static Meters getInstance() {
-        return MetersInstance.INSTANCE;
-    }
-
-    // endregion
-
     // region Public methods
 
     /**
      * Takes in the meters value as a {@link String} and converts it to inches, feet, yards, miles,
-     * millimeters, centimeters, and kilometers.
+     * millimeters, centimeters, and kilometers by emitting an {@link Observable}. When
+     * subscribing, make sure to also handle the onError() call.
      *
      * @param meters            The meters value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
-     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
-     *          inches, feet, yards, miles, millimeters, centimeters, and kilometers values (in that
-     *          order; they will be empty {@link String}s if there is an error), and the second item
-     *          is one of the error codes found in {@link ConversionErrorCodes} as an
-     *          {@link Integer} object, or null if the <code>meters</code> parameter is null;
+     * @return  An {@link Observable}, created with a call to defer(), that will either emit a
+     *           {@link List} containing the equivalent inches, feet, yards, miles, millimeters,
+     *           centimeters, and kilometers values (in that order; they will be empty
+     *           {@link String}s if there is valid, non-numerical input, such as a leading decimal
+     *           point), a null value if the <code>meters</code> parameter is null, or an error if
+     *           an {@link Exception} was thrown.
      */
-    public Tuple<List<String>, Integer> toAll(String meters, int decimalPlaces) {
-        if (meters == null) {
-            return null;
-        }
-
-        int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        List<String> results = new LinkedList<>();
-        int error = ConversionErrorCodes.ERROR_NONE;
-
-        if (isNumeric(meters)) {
+    public static Observable<List<String>> toAll(final String meters, final int decimalPlaces) {
+        return Observable.defer(() -> {
             try {
-                results.add(toInches(meters, roundingLength));
-                results.add(toFeet(meters, roundingLength));
-                results.add(toYards(meters, roundingLength));
-                results.add(toMiles(meters, roundingLength));
-                results.add(toMillimeters(meters, roundingLength));
-                results.add(toCentimeters(meters, roundingLength));
-                results.add(toKilometers(meters, roundingLength));
-            } catch (NumberFormatException e) {
-                results.clear();
-                addEmptyItems(results, 7);
-                error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
-            } catch (ValueBelowZeroException e) {
-                results.clear();
-                addEmptyItems(results, 7);
-                error = ConversionErrorCodes.ERROR_BELOW_ZERO;
-            }
-        } else if (meters.equals(".") || meters.equals("")) {
-            results.clear();
-            addEmptyItems(results, 7);
-        } else {
-            addEmptyItems(results, 7);
-            error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
-        }
+                if (meters == null) {
+                    return Observable.just(null);
+                }
 
-        return new Tuple<>(results, error);
+                int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
+                List<String> results = new LinkedList<>();
+
+                if (isNumeric(meters)) {
+                    results.add(toInches(meters, roundingLength));
+                    results.add(toFeet(meters, roundingLength));
+                    results.add(toYards(meters, roundingLength));
+                    results.add(toMiles(meters, roundingLength));
+                    results.add(toMillimeters(meters, roundingLength));
+                    results.add(toCentimeters(meters, roundingLength));
+                    results.add(toKilometers(meters, roundingLength));
+                } else if (meters.equals(".") || meters.equals("")) {
+                    results.clear();
+                    addEmptyItems(results, 7);
+                } else {
+                    throw new NumberFormatException("Input was not numeric.");
+                }
+
+                return Observable.just(results);
+            } catch (Exception e) {
+                return Observable.error(e);
+            }
+        });
     }
 
     /**
@@ -98,16 +72,16 @@ public class Meters extends Unit {
      *
      * @param meters            The meters value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent inches value as a {@link String}, or null if the <code>meters</code>
-     *          parameter is null.
+     *           parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toInches(String meters, int decimalPlaces)
+    public static String toInches(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -134,16 +108,16 @@ public class Meters extends Unit {
      *
      * @param meters            The meters value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent feet value as a {@link String}, or null if the <code>meters</code>
-     *          parameter is null.
+     *           parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toFeet(String meters, int decimalPlaces)
+    public static String toFeet(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -170,16 +144,16 @@ public class Meters extends Unit {
      *
      * @param meters            The meters value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent yards value as a {@link String}, or null if the <code>meters</code>
-     *          parameter is null.
+     *           parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toYards(String meters, int decimalPlaces)
+    public static String toYards(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -206,16 +180,16 @@ public class Meters extends Unit {
      *
      * @param meters            The meters value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent miles value as a {@link String}, or null if the <code>meters</code>
-     *          parameter is null.
+     *           parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toMiles(String meters, int decimalPlaces)
+    public static String toMiles(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -242,16 +216,16 @@ public class Meters extends Unit {
      *
      * @param meters            The meters value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent millimeters value as a {@link String}, or null if the
-     *          <code>meters</code> parameter is null.
+     *           <code>meters</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toMillimeters(String meters, int decimalPlaces)
+    public static String toMillimeters(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -278,16 +252,16 @@ public class Meters extends Unit {
      *
      * @param meters            The meters value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent centimeters value as a {@link String}, or null if the
-     *          <code>meters</code> parameter is null.
+     *           <code>meters</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toCentimeters(String meters, int decimalPlaces)
+    public static String toCentimeters(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;
@@ -314,16 +288,16 @@ public class Meters extends Unit {
      *
      * @param meters            The meters value as a {@link String}. Should not be null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent kilometers value as a {@link String}, or null if the
-     *          <code>meters</code> parameter is null.
+     *           <code>meters</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toKilometers(String meters, int decimalPlaces)
+    public static String toKilometers(String meters, int decimalPlaces)
             throws NumberFormatException, ValueBelowZeroException {
         if (meters == null) {
             return null;

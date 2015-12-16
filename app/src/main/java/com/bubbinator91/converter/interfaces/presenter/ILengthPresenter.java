@@ -8,19 +8,19 @@ import com.bubbinator91.converter.interfaces.view.ILengthView;
  * {@link com.bubbinator91.converter.ui.fragments.LengthFragment}
  */
 public interface ILengthPresenter extends IConverterPresenter<ILengthView> {
-    void getConversionFromCentimetersResults(String centimeters, int decimalPlaces);
+    void getConversionFromInches(String inches, int decimalPlaces);
 
-    void getConversionFromFeetResults(String feet, int decimalPlaces);
+    void getConversionFromFeet(String feet, int decimalPlaces);
 
-    void getConversionFromInchesResults(String inches, int decimalPlaces);
+    void getConversionFromYards(String yards, int decimalPlaces);
 
-    void getConversionFromKilometersResults(String kilometers, int decimalPlaces);
+    void getConversionFromMiles(String miles, int decimalPlaces);
 
-    void getConversionFromMetersResults(String meters, int decimalPlaces);
+    void getConversionFromMillimeters(String millimeters, int decimalPlaces);
 
-    void getConversionFromMilesResults(String miles, int decimalPlaces);
+    void getConversionFromCentimeters(String centimeters, int decimalPlaces);
 
-    void getConversionFromMillimetersResults(String millimeters, int decimalPlaces);
+    void getConversionFromMeters(String meters, int decimalPlaces);
 
-    void getConversionFromYardsResults(String yards, int decimalPlaces);
+    void getConversionFromKilometers(String kilometers, int decimalPlaces);
 }

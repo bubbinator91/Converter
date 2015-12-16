@@ -1,6 +1,13 @@
 package com.bubbinator91.converter.presenters;
 
-import com.bubbinator91.converter.conversion.length.Length;
+import com.bubbinator91.converter.conversion.length.Centimeters;
+import com.bubbinator91.converter.conversion.length.Feet;
+import com.bubbinator91.converter.conversion.length.Inches;
+import com.bubbinator91.converter.conversion.length.Kilometers;
+import com.bubbinator91.converter.conversion.length.Meters;
+import com.bubbinator91.converter.conversion.length.Miles;
+import com.bubbinator91.converter.conversion.length.Millimeters;
+import com.bubbinator91.converter.conversion.length.Yards;
 import com.bubbinator91.converter.interfaces.presenter.ILengthPresenter;
 import com.bubbinator91.converter.interfaces.view.ILengthView;
 import com.bubbinator91.converter.util.Globals;
@@ -16,18 +23,15 @@ import rx.Scheduler;
  */
 public class LengthPresenter implements ILengthPresenter {
 
-    private final Length length;
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
     private ILengthView mLengthView;
 
     public LengthPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                           @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler,
-                           Length length) {
+                           @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         this.mainScheduler = mainScheduler;
         this.computationScheduler = computationScheduler;
-        this.length = length;
     }
 
     @Override
@@ -36,130 +40,90 @@ public class LengthPresenter implements ILengthPresenter {
     }
 
     @Override
-    public void getConversionFromCentimetersResults(String centimeters, int decimalPlaces) {
-        Observable.just(length.Centimeters().toAll(centimeters, decimalPlaces))
+    public void getConversionFromInches(String inches, int decimalPlaces) {
+        Inches.toAll(inches, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mLengthView
-                                .displayConversionFromCentimetersResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .subscribe(
+                        mLengthView::displayConversionFromInchesResults,
+                        mLengthView::displayConversionFromInchesError
+                );
     }
 
     @Override
-    public void getConversionFromFeetResults(String feet, int decimalPlaces) {
-        Observable.just(length.Feet().toAll(feet, decimalPlaces))
+    public void getConversionFromFeet(String feet, int decimalPlaces) {
+        Feet.toAll(feet, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mLengthView
-                                .displayConversionFromFeetResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .subscribe(
+                        mLengthView::displayConversionFromFeetResults,
+                        mLengthView::displayConversionFromFeetError
+                );
     }
 
     @Override
-    public void getConversionFromInchesResults(String inches, int decimalPlaces) {
-        Observable.just(length.Inches().toAll(inches, decimalPlaces))
+    public void getConversionFromYards(String yards, int decimalPlaces) {
+        Yards.toAll(yards, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mLengthView
-                                .displayConversionFromInchesResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .subscribe(
+                        mLengthView::displayConversionFromYardsResults,
+                        mLengthView::displayConversionFromYardsError
+                );
     }
 
     @Override
-    public void getConversionFromKilometersResults(String kilometers, int decimalPlaces) {
-        Observable.just(length.Kilometers().toAll(kilometers, decimalPlaces))
+    public void getConversionFromMiles(String miles, int decimalPlaces) {
+        Miles.toAll(miles, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mLengthView
-                                .displayConversionFromKilometersResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .subscribe(
+                        mLengthView::displayConversionFromMilesResults,
+                        mLengthView::displayConversionFromMilesError
+                );
     }
 
     @Override
-    public void getConversionFromMetersResults(String meters, int decimalPlaces) {
-        Observable.just(length.Meters().toAll(meters, decimalPlaces))
+    public void getConversionFromMillimeters(String millimeters, int decimalPlaces) {
+        Millimeters.toAll(millimeters, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mLengthView
-                                .displayConversionFromMetersResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .subscribe(
+                        mLengthView::displayConversionFromMillimetersResults,
+                        mLengthView::displayConversionFromMillimetersError
+                );
     }
 
     @Override
-    public void getConversionFromMilesResults(String miles, int decimalPlaces) {
-        Observable.just(length.Miles().toAll(miles, decimalPlaces))
+    public void getConversionFromCentimeters(String centimeters, int decimalPlaces) {
+        Centimeters.toAll(centimeters, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mLengthView
-                                .displayConversionFromMilesResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .subscribe(
+                        mLengthView::displayConversionFromCentimetersResults,
+                        mLengthView::displayConversionFromCentimetersError
+                );
     }
 
     @Override
-    public void getConversionFromMillimetersResults(String millimeters, int decimalPlaces) {
-        Observable.just(length.Millimeters().toAll(millimeters, decimalPlaces))
+    public void getConversionFromMeters(String meters, int decimalPlaces) {
+        Meters.toAll(meters, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mLengthView
-                                .displayConversionFromMillimetersResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .subscribe(
+                        mLengthView::displayConversionFromMetersResults,
+                        mLengthView::displayConversionFromMetersError
+                );
     }
 
     @Override
-    public void getConversionFromYardsResults(String yards, int decimalPlaces) {
-        Observable.just(length.Yards().toAll(yards, decimalPlaces))
+    public void getConversionFromKilometers(String kilometers, int decimalPlaces) {
+        Kilometers.toAll(kilometers, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
-                .subscribe(conversionResults -> {
-                    if (conversionResults != null) {
-                        mLengthView
-                                .displayConversionFromYardsResults(
-                                        conversionResults.getFirst(),
-                                        conversionResults.getSecond()
-                                );
-                    }
-                });
+                .subscribe(
+                        mLengthView::displayConversionFromKilometersResults,
+                        mLengthView::displayConversionFromKilometersError
+                );
     }
 }
