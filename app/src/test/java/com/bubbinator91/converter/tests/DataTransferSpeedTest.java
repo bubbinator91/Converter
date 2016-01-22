@@ -36,7 +36,7 @@ public class DataTransferSpeedTest {
     @Test
     public void testBitsPerSecondConversion() throws Exception {
         mDataTransferSpeedPresenter
-                .getConversionFromBitsPerSecondResults("8000000000.9764326598653", 10);
+                .getConversionFromBitsPerSecond("8000000000.9764326598653", 10);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
                 && (mDataTransferSpeedView.mKbypsValue != null)
@@ -47,7 +47,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mBpsError);
+        assertEquals(false, mDataTransferSpeedView.mBpsError);
         assertEquals("1000000000.1220540825", mDataTransferSpeedView.mBypsValue);
         assertEquals("8000000.0009764327", mDataTransferSpeedView.mKbpsValue);
         assertEquals("1000000.0001220541", mDataTransferSpeedView.mKbypsValue);
@@ -59,7 +59,7 @@ public class DataTransferSpeedTest {
         assertEquals("0.001", mDataTransferSpeedView.mTbypsValue);
 
         mDataTransferSpeedPresenter
-                .getConversionFromBitsPerSecondResults("8000000000.9764326598653", 5);
+                .getConversionFromBitsPerSecond("8000000000.9764326598653", 5);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
                 && (mDataTransferSpeedView.mKbypsValue != null)
@@ -70,7 +70,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mBpsError);
+        assertEquals(false, mDataTransferSpeedView.mBpsError);
         assertEquals("1000000000.12205", mDataTransferSpeedView.mBypsValue);
         assertEquals("8000000.00098", mDataTransferSpeedView.mKbpsValue);
         assertEquals("1000000.00012", mDataTransferSpeedView.mKbypsValue);
@@ -87,7 +87,7 @@ public class DataTransferSpeedTest {
     @Test
     public void testBytesPerSecondConversion() throws Exception {
         mDataTransferSpeedPresenter
-                .getConversionFromBytesPerSecondResults("1000000009.764953261346", 10);
+                .getConversionFromBytesPerSecond("1000000009.764953261346", 10);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
                 && (mDataTransferSpeedView.mKbypsValue != null)
@@ -98,7 +98,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mBypsError);
+        assertEquals(false, mDataTransferSpeedView.mBypsError);
         assertEquals("8000000078.1196260908", mDataTransferSpeedView.mBpsValue);
         assertEquals("8000000.0781196261", mDataTransferSpeedView.mKbpsValue);
         assertEquals("1000000.0097649533", mDataTransferSpeedView.mKbypsValue);
@@ -110,7 +110,7 @@ public class DataTransferSpeedTest {
         assertEquals("0.001", mDataTransferSpeedView.mTbypsValue);
 
         mDataTransferSpeedPresenter
-                .getConversionFromBytesPerSecondResults("1000000009.764953261346", 5);
+                .getConversionFromBytesPerSecond("1000000009.764953261346", 5);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
                 && (mDataTransferSpeedView.mKbypsValue != null)
@@ -121,7 +121,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mBypsError);
+        assertEquals(false, mDataTransferSpeedView.mBypsError);
         assertEquals("8000000078.11963", mDataTransferSpeedView.mBpsValue);
         assertEquals("8000000.07812", mDataTransferSpeedView.mKbpsValue);
         assertEquals("1000000.00976", mDataTransferSpeedView.mKbypsValue);
@@ -138,7 +138,7 @@ public class DataTransferSpeedTest {
     @Test
     public void testKilobitsPerSecondConversion() throws Exception {
         mDataTransferSpeedPresenter
-                .getConversionFromKilobitsPerSecondResults("8000008.9764953164976", 10);
+                .getConversionFromKilobitsPerSecond("8000008.9764953164976", 10);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbypsValue != null)
@@ -149,7 +149,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mKbpsError);
+        assertEquals(false, mDataTransferSpeedView.mKbpsError);
         assertEquals("8000008976.4953164976", mDataTransferSpeedView.mBpsValue);
         assertEquals("1000001122.0619145622", mDataTransferSpeedView.mBypsValue);
         assertEquals("1000001.1220619146", mDataTransferSpeedView.mKbypsValue);
@@ -161,7 +161,7 @@ public class DataTransferSpeedTest {
         assertEquals("0.0010000011", mDataTransferSpeedView.mTbypsValue);
 
         mDataTransferSpeedPresenter
-                .getConversionFromKilobitsPerSecondResults("8000008.9764953164976", 5);
+                .getConversionFromKilobitsPerSecond("8000008.9764953164976", 5);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbypsValue != null)
@@ -172,7 +172,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mKbpsError);
+        assertEquals(false, mDataTransferSpeedView.mKbpsError);
         assertEquals("8000008976.49532", mDataTransferSpeedView.mBpsValue);
         assertEquals("1000001122.06191", mDataTransferSpeedView.mBypsValue);
         assertEquals("1000001.12206", mDataTransferSpeedView.mKbypsValue);
@@ -189,7 +189,7 @@ public class DataTransferSpeedTest {
     @Test
     public void testKilobytesPerSecondConversion() throws Exception {
         mDataTransferSpeedPresenter
-                .getConversionFromKilobytesPerSecondResults("1000001.122061915316", 10);
+                .getConversionFromKilobytesPerSecond("1000001.122061915316", 10);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -200,7 +200,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mKbypsError);
+        assertEquals(false, mDataTransferSpeedView.mKbypsError);
         assertEquals("8000008976.495322528", mDataTransferSpeedView.mBpsValue);
         assertEquals("1000001122.061915316", mDataTransferSpeedView.mBypsValue);
         assertEquals("8000008.9764953225", mDataTransferSpeedView.mKbpsValue);
@@ -212,7 +212,7 @@ public class DataTransferSpeedTest {
         assertEquals("0.0010000011", mDataTransferSpeedView.mTbypsValue);
 
         mDataTransferSpeedPresenter
-                .getConversionFromKilobytesPerSecondResults("1000001.122061915316", 5);
+                .getConversionFromKilobytesPerSecond("1000001.122061915316", 5);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -223,7 +223,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mKbypsError);
+        assertEquals(false, mDataTransferSpeedView.mKbypsError);
         assertEquals("8000008976.49532", mDataTransferSpeedView.mBpsValue);
         assertEquals("1000001122.06192", mDataTransferSpeedView.mBypsValue);
         assertEquals("8000008.9765", mDataTransferSpeedView.mKbpsValue);
@@ -240,7 +240,7 @@ public class DataTransferSpeedTest {
     @Test
     public void testMegabitsPerSecondConversion() throws Exception {
         mDataTransferSpeedPresenter
-                .getConversionFromMegabitsPerSecondResults("8009.976435623164", 10);
+                .getConversionFromMegabitsPerSecond("8009.976435623164", 10);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -251,7 +251,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mMbpsError);
+        assertEquals(false, mDataTransferSpeedView.mMbpsError);
         assertEquals("8009976435.623164", mDataTransferSpeedView.mBpsValue);
         assertEquals("1001247054.4528955", mDataTransferSpeedView.mBypsValue);
         assertEquals("8009976.435623164", mDataTransferSpeedView.mKbpsValue);
@@ -263,7 +263,7 @@ public class DataTransferSpeedTest {
         assertEquals("0.0010012471", mDataTransferSpeedView.mTbypsValue);
 
         mDataTransferSpeedPresenter
-                .getConversionFromMegabitsPerSecondResults("8009.976435623164", 5);
+                .getConversionFromMegabitsPerSecond("8009.976435623164", 5);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -274,7 +274,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mMbpsError);
+        assertEquals(false, mDataTransferSpeedView.mMbpsError);
         assertEquals("8009976435.62316", mDataTransferSpeedView.mBpsValue);
         assertEquals("1001247054.4529", mDataTransferSpeedView.mBypsValue);
         assertEquals("8009976.43562", mDataTransferSpeedView.mKbpsValue);
@@ -291,7 +291,7 @@ public class DataTransferSpeedTest {
     @Test
     public void testMegabytesPerSecondConversion() throws Exception {
         mDataTransferSpeedPresenter
-                .getConversionFromMegabytesPerSecondResults("1005.9764326594613", 10);
+                .getConversionFromMegabytesPerSecond("1005.9764326594613", 10);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -302,7 +302,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mMbypsError);
+        assertEquals(false, mDataTransferSpeedView.mMbypsError);
         assertEquals("8047811461.2756904", mDataTransferSpeedView.mBpsValue);
         assertEquals("1005976432.6594613", mDataTransferSpeedView.mBypsValue);
         assertEquals("8047811.4612756904", mDataTransferSpeedView.mKbpsValue);
@@ -314,7 +314,7 @@ public class DataTransferSpeedTest {
         assertEquals("0.0010059764", mDataTransferSpeedView.mTbypsValue);
 
         mDataTransferSpeedPresenter
-                .getConversionFromMegabytesPerSecondResults("1005.9764326594613", 5);
+                .getConversionFromMegabytesPerSecond("1005.9764326594613", 5);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -325,7 +325,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mMbypsError);
+        assertEquals(false, mDataTransferSpeedView.mMbypsError);
         assertEquals("8047811461.27569", mDataTransferSpeedView.mBpsValue);
         assertEquals("1005976432.65946", mDataTransferSpeedView.mBypsValue);
         assertEquals("8047811.46128", mDataTransferSpeedView.mKbpsValue);
@@ -342,7 +342,7 @@ public class DataTransferSpeedTest {
     @Test
     public void testGigabitsPerSecondConversion() throws Exception {
         mDataTransferSpeedPresenter
-                .getConversionFromGigabitsPerSecondResults("8.946731926437619", 10);
+                .getConversionFromGigabitsPerSecond("8.946731926437619", 10);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -353,7 +353,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mGbpsError);
+        assertEquals(false, mDataTransferSpeedView.mGbpsError);
         assertEquals("8946731926.437619", mDataTransferSpeedView.mBpsValue);
         assertEquals("1118341490.804702375", mDataTransferSpeedView.mBypsValue);
         assertEquals("8946731.926437619", mDataTransferSpeedView.mKbpsValue);
@@ -365,7 +365,7 @@ public class DataTransferSpeedTest {
         assertEquals("0.0011183415", mDataTransferSpeedView.mTbypsValue);
 
         mDataTransferSpeedPresenter
-                .getConversionFromGigabitsPerSecondResults("8.946731926437619", 5);
+                .getConversionFromGigabitsPerSecond("8.946731926437619", 5);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -376,7 +376,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mGbpsError);
+        assertEquals(false, mDataTransferSpeedView.mGbpsError);
         assertEquals("8946731926.43762", mDataTransferSpeedView.mBpsValue);
         assertEquals("1118341490.8047", mDataTransferSpeedView.mBypsValue);
         assertEquals("8946731.92644", mDataTransferSpeedView.mKbpsValue);
@@ -393,7 +393,7 @@ public class DataTransferSpeedTest {
     @Test
     public void testGigabytesPerSecondConversion() throws Exception {
         mDataTransferSpeedPresenter
-                .getConversionFromGigabytesPerSecondResults("2.8946231649761316296", 10);
+                .getConversionFromGigabytesPerSecond("2.8946231649761316296", 10);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -404,7 +404,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mGbypsError);
+        assertEquals(false, mDataTransferSpeedView.mGbypsError);
         assertEquals("23156985319.8090530368", mDataTransferSpeedView.mBpsValue);
         assertEquals("2894623164.9761316296", mDataTransferSpeedView.mBypsValue);
         assertEquals("23156985.319809053", mDataTransferSpeedView.mKbpsValue);
@@ -416,7 +416,7 @@ public class DataTransferSpeedTest {
         assertEquals("0.0028946232", mDataTransferSpeedView.mTbypsValue);
 
         mDataTransferSpeedPresenter
-                .getConversionFromGigabytesPerSecondResults("2.8946231649761316296", 5);
+                .getConversionFromGigabytesPerSecond("2.8946231649761316296", 5);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -427,7 +427,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mTbpsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mGbypsError);
+        assertEquals(false, mDataTransferSpeedView.mGbypsError);
         assertEquals("23156985319.80905", mDataTransferSpeedView.mBpsValue);
         assertEquals("2894623164.97613", mDataTransferSpeedView.mBypsValue);
         assertEquals("23156985.31981", mDataTransferSpeedView.mKbpsValue);
@@ -444,7 +444,7 @@ public class DataTransferSpeedTest {
     @Test
     public void testTerabitsPerSecondConversion() throws Exception {
         mDataTransferSpeedPresenter
-                .getConversionFromTerabitsPerSecondResults("0.59461326596492331649564319", 10);
+                .getConversionFromTerabitsPerSecond("0.59461326596492331649564319", 10);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -455,7 +455,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mGbypsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mTbpsError);
+        assertEquals(false, mDataTransferSpeedView.mTbpsError);
         assertEquals("594613265964.9233164956", mDataTransferSpeedView.mBpsValue);
         assertEquals("74326658245.615414562", mDataTransferSpeedView.mBypsValue);
         assertEquals("594613265.9649233165", mDataTransferSpeedView.mKbpsValue);
@@ -467,7 +467,7 @@ public class DataTransferSpeedTest {
         assertEquals("0.0743266582", mDataTransferSpeedView.mTbypsValue);
 
         mDataTransferSpeedPresenter
-                .getConversionFromTerabitsPerSecondResults("0.59461326596492331649564319", 5);
+                .getConversionFromTerabitsPerSecond("0.59461326596492331649564319", 5);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -478,7 +478,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mGbypsValue != null)
                 && (mDataTransferSpeedView.mTbypsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mTbpsError);
+        assertEquals(false, mDataTransferSpeedView.mTbpsError);
         assertEquals("594613265964.92332", mDataTransferSpeedView.mBpsValue);
         assertEquals("74326658245.61541", mDataTransferSpeedView.mBypsValue);
         assertEquals("594613265.96492", mDataTransferSpeedView.mKbpsValue);
@@ -495,7 +495,7 @@ public class DataTransferSpeedTest {
     @Test
     public void testTerabytesPerSecondConversion() throws Exception {
         mDataTransferSpeedPresenter
-                .getConversionFromTerabytesPerSecondResults("0.0264976532649164376495623", 10);
+                .getConversionFromTerabytesPerSecond("0.0264976532649164376495623", 10);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -506,7 +506,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mGbypsValue != null)
                 && (mDataTransferSpeedView.mTbpsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mTbypsError);
+        assertEquals(false, mDataTransferSpeedView.mTbypsError);
         assertEquals("211981226119.3315011965", mDataTransferSpeedView.mBpsValue);
         assertEquals("26497653264.9164376496", mDataTransferSpeedView.mBypsValue);
         assertEquals("211981226.1193315012", mDataTransferSpeedView.mKbpsValue);
@@ -518,7 +518,7 @@ public class DataTransferSpeedTest {
         assertEquals("0.2119812261", mDataTransferSpeedView.mTbpsValue);
 
         mDataTransferSpeedPresenter
-                .getConversionFromTerabytesPerSecondResults("0.0264976532649164376495623", 5);
+                .getConversionFromTerabytesPerSecond("0.0264976532649164376495623", 5);
         TestHelper.waitFor(() -> ((mDataTransferSpeedView.mBpsValue != null)
                 && (mDataTransferSpeedView.mBypsValue != null)
                 && (mDataTransferSpeedView.mKbpsValue != null)
@@ -529,7 +529,7 @@ public class DataTransferSpeedTest {
                 && (mDataTransferSpeedView.mGbypsValue != null)
                 && (mDataTransferSpeedView.mTbpsValue != null)));
 
-        assertEquals(0, mDataTransferSpeedView.mTbypsError);
+        assertEquals(false, mDataTransferSpeedView.mTbypsError);
         assertEquals("211981226119.3315", mDataTransferSpeedView.mBpsValue);
         assertEquals("26497653264.91644", mDataTransferSpeedView.mBypsValue);
         assertEquals("211981226.11933", mDataTransferSpeedView.mKbpsValue);

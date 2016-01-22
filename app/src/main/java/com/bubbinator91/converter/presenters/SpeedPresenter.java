@@ -40,6 +40,7 @@ public class SpeedPresenter implements ISpeedPresenter {
         FeetPerSecond.toAll(fps, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mSpeedView::displayConversionFromFeetPerSecondResults,
                         mSpeedView::displayConversionFromFeetPerSecondError
@@ -51,6 +52,7 @@ public class SpeedPresenter implements ISpeedPresenter {
         KilometersPerHour.toAll(kph, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mSpeedView::displayConversionFromKilometersPerHourResults,
                         mSpeedView::displayConversionFromKilometersPerHourError
@@ -62,6 +64,7 @@ public class SpeedPresenter implements ISpeedPresenter {
         Knots.toAll(knots, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mSpeedView::displayConversionFromKnotsResults,
                         mSpeedView::displayConversionFromKnotsError
@@ -73,6 +76,7 @@ public class SpeedPresenter implements ISpeedPresenter {
         MetersPerSecond.toAll(mps, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mSpeedView::displayConversionFromMetersPerSecondResults,
                         mSpeedView::displayConversionFromMetersPerSecondError
@@ -84,6 +88,7 @@ public class SpeedPresenter implements ISpeedPresenter {
         MilesPerHour.toAll(mph, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mSpeedView::displayConversionFromMilesPerHourResults,
                         mSpeedView::displayConversionFromMilesPerHourError

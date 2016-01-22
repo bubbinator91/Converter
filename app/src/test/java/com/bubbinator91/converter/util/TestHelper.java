@@ -3,7 +3,6 @@ package com.bubbinator91.converter.util;
 import com.bubbinator91.converter.dagger.components.DaggerTestClassInjector;
 import com.bubbinator91.converter.dagger.components.TestClassInjector;
 import com.bubbinator91.converter.dagger.mock.modules.MockThreadModule;
-import com.bubbinator91.converter.dagger.modules.ConversionModule;
 import com.bubbinator91.converter.dagger.modules.PresenterModule;
 
 public class TestHelper {
@@ -13,7 +12,6 @@ public class TestHelper {
         if (sTestClassInjector == null) {
             sTestClassInjector = DaggerTestClassInjector
                     .builder()
-                    .conversionModule(new ConversionModule())
                     .presenterModule(new PresenterModule())
                     .threadModule(new MockThreadModule())
                     .build();

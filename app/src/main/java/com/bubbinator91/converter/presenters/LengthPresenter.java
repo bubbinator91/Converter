@@ -44,6 +44,7 @@ public class LengthPresenter implements ILengthPresenter {
         Inches.toAll(inches, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mLengthView::displayConversionFromInchesResults,
                         mLengthView::displayConversionFromInchesError
@@ -55,6 +56,7 @@ public class LengthPresenter implements ILengthPresenter {
         Feet.toAll(feet, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mLengthView::displayConversionFromFeetResults,
                         mLengthView::displayConversionFromFeetError
@@ -66,6 +68,7 @@ public class LengthPresenter implements ILengthPresenter {
         Yards.toAll(yards, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mLengthView::displayConversionFromYardsResults,
                         mLengthView::displayConversionFromYardsError
@@ -77,6 +80,7 @@ public class LengthPresenter implements ILengthPresenter {
         Miles.toAll(miles, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mLengthView::displayConversionFromMilesResults,
                         mLengthView::displayConversionFromMilesError
@@ -88,6 +92,7 @@ public class LengthPresenter implements ILengthPresenter {
         Millimeters.toAll(millimeters, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mLengthView::displayConversionFromMillimetersResults,
                         mLengthView::displayConversionFromMillimetersError
@@ -99,6 +104,7 @@ public class LengthPresenter implements ILengthPresenter {
         Centimeters.toAll(centimeters, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mLengthView::displayConversionFromCentimetersResults,
                         mLengthView::displayConversionFromCentimetersError
@@ -110,6 +116,7 @@ public class LengthPresenter implements ILengthPresenter {
         Meters.toAll(meters, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mLengthView::displayConversionFromMetersResults,
                         mLengthView::displayConversionFromMetersError
@@ -121,6 +128,7 @@ public class LengthPresenter implements ILengthPresenter {
         Kilometers.toAll(kilometers, decimalPlaces)
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
+                .filter(conversionResults -> conversionResults != null)
                 .subscribe(
                         mLengthView::displayConversionFromKilometersResults,
                         mLengthView::displayConversionFromKilometersError

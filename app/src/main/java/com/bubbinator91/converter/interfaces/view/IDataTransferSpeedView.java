@@ -8,23 +8,43 @@ import java.util.List;
  * View interface for the {@link com.bubbinator91.converter.ui.fragments.DataTransferSpeedFragment}
  */
 public interface IDataTransferSpeedView extends IConverterView {
-    void displayConversionFromBitsPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromBitsPerSecondResults(List<String> results);
 
-    void displayConversionFromBytesPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromBitsPerSecondError(Throwable error);
 
-    void displayConversionFromKilobitsPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromBytesPerSecondResults(List<String> results);
 
-    void displayConversionFromKilobytesPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromBytesPerSecondError(Throwable error);
 
-    void displayConversionFromMegabitsPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromKilobitsPerSecondResults(List<String> results);
 
-    void displayConversionFromMegabytesPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromKilobitsPerSecondError(Throwable error);
 
-    void displayConversionFromGigabitsPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromKilobytesPerSecondResults(List<String> results);
 
-    void displayConversionFromGigabytesPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromKilobytesPerSecondError(Throwable error);
 
-    void displayConversionFromTerabitsPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromMegabitsPerSecondResults(List<String> results);
 
-    void displayConversionFromTerabytesPerSecondResults(List<String> results, int errorCode);
+    void displayConversionFromMegabitsPerSecondError(Throwable error);
+
+    void displayConversionFromMegabytesPerSecondResults(List<String> results);
+
+    void displayConversionFromMegabytesPerSecondError(Throwable error);
+
+    void displayConversionFromGigabitsPerSecondResults(List<String> results);
+
+    void displayConversionFromGigabitsPerSecondError(Throwable error);
+
+    void displayConversionFromGigabytesPerSecondResults(List<String> results);
+
+    void displayConversionFromGigabytesPerSecondError(Throwable error);
+
+    void displayConversionFromTerabitsPerSecondResults(List<String> results);
+
+    void displayConversionFromTerabitsPerSecondError(Throwable error);
+
+    void displayConversionFromTerabytesPerSecondResults(List<String> results);
+
+    void displayConversionFromTerabytesPerSecondError(Throwable error);
 }

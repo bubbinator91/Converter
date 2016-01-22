@@ -1,13 +1,13 @@
 package com.bubbinator91.converter.conversion.datatransferspeed;
 
-import com.bubbinator91.converter.conversion.util.ConversionErrorCodes;
-import com.bubbinator91.converter.conversion.util.Tuple;
 import com.bubbinator91.converter.conversion.util.Unit;
 import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
+
+import rx.Observable;
 
 /**
  * Handles the conversion from gigabytes per second to other units of data transfer speed
@@ -17,30 +17,6 @@ public class GigabytesPerSecond extends Unit {
     // Prevents class from being instantiated directly
     private GigabytesPerSecond() {}
 
-    // region Singleton items
-
-    /**
-     * Holds the instance of the {@link GigabytesPerSecond} class. Private so that only the
-     * GigabytesPerSecond class can use it, and static so that it can carry a static instance of the
-     * GigabytesPerSecond class.
-     */
-    private static class GigabytesPerSecondInstance {
-        private static final GigabytesPerSecond INSTANCE = new GigabytesPerSecond();
-    }
-
-    /**
-     * Gets the instance of the {@link GigabytesPerSecond} class from the GigabytesPerSecondInstance
-     * class. Protected so that only members of the same package can use this method, such as
-     * {@link DataTransferSpeed}.
-     *
-     * @return  An instance of the {@link GigabytesPerSecond} class.
-     */
-    protected static GigabytesPerSecond getInstance() {
-        return GigabytesPerSecondInstance.INSTANCE;
-    }
-
-    // endregion
-
     // region Public methods
 
     /**
@@ -49,56 +25,51 @@ public class GigabytesPerSecond extends Unit {
      * megabytes per second, gigabits per second, terabits per second, and terabytes per second.
      *
      * @param gbyps             The gigabytes per second value as a {@link String}. Should not be
-     *                          null.
+     *                           null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
-     * @return  A {@link Tuple}, where the first item is a {@link List} containing the equivalent
-     *          bits per second, bytes per second, kilobits per second, kilobytes per second,
-     *          megabits per second, megabytes per second, gigabits per second, terabits per
-     *          second, and terabytes per second values (in that order; they will be empty
-     *          {@link String}s if there is an error), and the second item is one of the error codes
-     *          found in {@link ConversionErrorCodes} as an {@link Integer} object, or null if the
-     *          <code>gbyps</code> parameter is null;
+     * @return  An {@link Observable}, created with a call to defer(), that will either emit a
+     *           {@link List} containing the equivalent bits per second, bytes per second,
+     *           kilobits per second, kilobytes per second, megabits per second, megabytes per
+     *           second, gigabits per second, terabits per second, and terabytes per second values
+     *           (in that order; they will be empty {@link String}s if there is valid,
+     *           non-numerical input, such as a leading decimal point), a null value if the
+     *           <code>gbyps</code> parameter is null, or an error if an {@link Exception} was
+     *           thrown.
      */
-    public Tuple<List<String>, Integer> toAll(String gbyps, int decimalPlaces) {
-        if (gbyps == null) {
-            return null;
-        }
-
-        int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
-        List<String> results = new LinkedList<>();
-        int error = ConversionErrorCodes.ERROR_NONE;
-
-        if (isNumeric(gbyps)) {
+    public static Observable<List<String>> toAll(final String gbyps, final int decimalPlaces) {
+        return Observable.defer(() -> {
             try {
-                results.add(toBitsPerSecond(gbyps, roundingLength));
-                results.add(toBytesPerSecond(gbyps, roundingLength));
-                results.add(toKilobitsPerSecond(gbyps, roundingLength));
-                results.add(toKilobytesPerSecond(gbyps, roundingLength));
-                results.add(toMegabitsPerSecond(gbyps, roundingLength));
-                results.add(toMegabytesPerSecond(gbyps, roundingLength));
-                results.add(toGigabitsPerSecond(gbyps, roundingLength));
-                results.add(toTerabitsPerSecond(gbyps, roundingLength));
-                results.add(toTerabytesPerSecond(gbyps, roundingLength));
-            } catch (NumberFormatException e) {
-                results.clear();
-                addEmptyItems(results, 9);
-                error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
-            } catch (ValueBelowZeroException e) {
-                results.clear();
-                addEmptyItems(results, 9);
-                error = ConversionErrorCodes.ERROR_BELOW_ZERO;
-            }
-        } else if (gbyps.equals(".") || gbyps.equals("")) {
-            results.clear();
-            addEmptyItems(results, 9);
-        } else {
-            addEmptyItems(results, 9);
-            error = ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC;
-        }
+                if (gbyps == null) {
+                    return null;
+                }
 
-        return new Tuple<>(results, error);
+                int roundingLength = (decimalPlaces < 0) ? 0 : decimalPlaces;
+                List<String> results = new LinkedList<>();
+
+                if (isNumeric(gbyps)) {
+                    results.add(toBitsPerSecond(gbyps, roundingLength));
+                    results.add(toBytesPerSecond(gbyps, roundingLength));
+                    results.add(toKilobitsPerSecond(gbyps, roundingLength));
+                    results.add(toKilobytesPerSecond(gbyps, roundingLength));
+                    results.add(toMegabitsPerSecond(gbyps, roundingLength));
+                    results.add(toMegabytesPerSecond(gbyps, roundingLength));
+                    results.add(toGigabitsPerSecond(gbyps, roundingLength));
+                    results.add(toTerabitsPerSecond(gbyps, roundingLength));
+                    results.add(toTerabytesPerSecond(gbyps, roundingLength));
+                } else if (gbyps.equals(".") || gbyps.equals("")) {
+                    results.clear();
+                    addEmptyItems(results, 9);
+                } else {
+                    throw new NumberFormatException("Input was not numeric.");
+                }
+
+                return Observable.just(results);
+            } catch (Exception e) {
+                return Observable.error(e);
+            }
+        });
     }
 
     /**
@@ -106,18 +77,18 @@ public class GigabytesPerSecond extends Unit {
      * second.
      *
      * @param gbyps             The gigabytes per second value as a {@link String}. Should not be
-     *                          null.
+     *                           null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent bits per second value as a {@link String}, or null if the
-     *          <code>gbyps</code> parameter is null.
+     *           <code>gbyps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toBitsPerSecond(String gbyps, int decimalPlaces) throws
+    public static String toBitsPerSecond(String gbyps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (gbyps == null) {
             return null;
@@ -144,18 +115,18 @@ public class GigabytesPerSecond extends Unit {
      * second.
      *
      * @param gbyps             The gigabytes per second value as a {@link String}. Should not be
-     *                          null.
+     *                           null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent bytes per second value as a {@link String}, or null if the
-     *          <code>gbyps</code> parameter is null.
+     *           <code>gbyps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toBytesPerSecond(String gbyps, int decimalPlaces) throws
+    public static String toBytesPerSecond(String gbyps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (gbyps == null) {
             return null;
@@ -182,18 +153,18 @@ public class GigabytesPerSecond extends Unit {
      * second.
      *
      * @param gbyps             The gigabytes per second value as a {@link String}. Should not be
-     *                          null.
+     *                           null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent kilobits per second value as a {@link String}, or null if the
-     *          <code>gbyps</code> parameter is null.
+     *           <code>gbyps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toKilobitsPerSecond(String gbyps, int decimalPlaces) throws
+    public static String toKilobitsPerSecond(String gbyps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (gbyps == null) {
             return null;
@@ -220,18 +191,18 @@ public class GigabytesPerSecond extends Unit {
      * second.
      *
      * @param gbyps             The gigabytes per second value as a {@link String}. Should not be
-     *                          null.
+     *                           null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent kilobytes per second value as a {@link String}, or null if the
-     *          <code>gbyps</code> parameter is null.
+     *           <code>gbyps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toKilobytesPerSecond(String gbyps, int decimalPlaces) throws
+    public static String toKilobytesPerSecond(String gbyps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (gbyps == null) {
             return null;
@@ -258,18 +229,18 @@ public class GigabytesPerSecond extends Unit {
      * second.
      *
      * @param gbyps             The gigabytes per second value as a {@link String}. Should not be
-     *                          null.
+     *                           null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent megabits per second value as a {@link String}, or null if the
-     *          <code>gbyps</code> parameter is null.
+     *           <code>gbyps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toMegabitsPerSecond(String gbyps, int decimalPlaces) throws
+    public static String toMegabitsPerSecond(String gbyps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (gbyps == null) {
             return null;
@@ -296,18 +267,18 @@ public class GigabytesPerSecond extends Unit {
      * second.
      *
      * @param gbyps             The gigabytes per second value as a {@link String}. Should not be
-     *                          null.
+     *                           null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent megabytes per second value as a {@link String}, or null if the
-     *          <code>gbyps</code> parameter is null.
+     *           <code>gbyps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toMegabytesPerSecond(String gbyps, int decimalPlaces) throws
+    public static String toMegabytesPerSecond(String gbyps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (gbyps == null) {
             return null;
@@ -334,18 +305,18 @@ public class GigabytesPerSecond extends Unit {
      * second.
      *
      * @param gbyps             The gigabytes per second value as a {@link String}. Should not be
-     *                          null.
+     *                           null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent gigabits per second value as a {@link String}, or null if the
-     *          <code>gbyps</code> parameter is null.
+     *           <code>gbyps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toGigabitsPerSecond(String gbyps, int decimalPlaces) throws
+    public static String toGigabitsPerSecond(String gbyps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (gbyps == null) {
             return null;
@@ -372,18 +343,18 @@ public class GigabytesPerSecond extends Unit {
      * second.
      *
      * @param gbyps             The gigabytes per second value as a {@link String}. Should not be
-     *                          null.
+     *                           null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent terabits per second value as a {@link String}, or null if the
-     *          <code>gbyps</code> parameter is null.
+     *           <code>gbyps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toTerabitsPerSecond(String gbyps, int decimalPlaces) throws
+    public static String toTerabitsPerSecond(String gbyps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (gbyps == null) {
             return null;
@@ -410,18 +381,18 @@ public class GigabytesPerSecond extends Unit {
      * second.
      *
      * @param gbyps             The gigabytes per second value as a {@link String}. Should not be
-     *                          null.
+     *                           null.
      * @param decimalPlaces     The number of decimal places to round to. If below zero, will be
-     *                          treated as if it was zero.
+     *                           treated as if it was zero.
      *
      * @return  The equivalent terabytes per second value as a {@link String}, or null if the
-     *          <code>gbyps</code> parameter is null.
+     *           <code>gbyps</code> parameter is null.
      *
      * @throws  NumberFormatException       Thrown if the input {@link String} is not a valid
-     *                                      number.
+     *                                       number.
      * @throws  ValueBelowZeroException     Thrown if the input {@link String} is below zero.
      */
-    public String toTerabytesPerSecond(String gbyps, int decimalPlaces) throws
+    public static String toTerabytesPerSecond(String gbyps, int decimalPlaces) throws
             NumberFormatException, ValueBelowZeroException {
         if (gbyps == null) {
             return null;

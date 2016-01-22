@@ -8,23 +8,23 @@ import com.bubbinator91.converter.interfaces.view.IDataTransferSpeedView;
  * {@link com.bubbinator91.converter.ui.fragments.DataTransferSpeedFragment}
  */
 public interface IDataTransferSpeedPresenter extends IConverterPresenter<IDataTransferSpeedView> {
-    void getConversionFromBitsPerSecondResults(String bps, int decimalPlaces);
+    void getConversionFromBitsPerSecond(String bps, int decimalPlaces);
 
-    void getConversionFromBytesPerSecondResults(String byps, int decimalPlaces);
+    void getConversionFromBytesPerSecond(String byps, int decimalPlaces);
 
-    void getConversionFromKilobitsPerSecondResults(String kbps, int decimalPlaces);
+    void getConversionFromKilobitsPerSecond(String kbps, int decimalPlaces);
 
-    void getConversionFromKilobytesPerSecondResults(String kbyps, int decimalPlaces);
+    void getConversionFromKilobytesPerSecond(String kbyps, int decimalPlaces);
 
-    void getConversionFromMegabitsPerSecondResults(String mbps, int decimalPlaces);
+    void getConversionFromMegabitsPerSecond(String mbps, int decimalPlaces);
 
-    void getConversionFromMegabytesPerSecondResults(String mbyps, int decimalPlaces);
+    void getConversionFromMegabytesPerSecond(String mbyps, int decimalPlaces);
 
-    void getConversionFromGigabitsPerSecondResults(String gbps, int decimalPlaces);
+    void getConversionFromGigabitsPerSecond(String gbps, int decimalPlaces);
 
-    void getConversionFromGigabytesPerSecondResults(String gbyps, int decimalPlaces);
+    void getConversionFromGigabytesPerSecond(String gbyps, int decimalPlaces);
 
-    void getConversionFromTerabitsPerSecondResults(String tbps, int decimalPlaces);
+    void getConversionFromTerabitsPerSecond(String tbps, int decimalPlaces);
 
-    void getConversionFromTerabytesPerSecondResults(String tbyps, int decimalPlaces);
+    void getConversionFromTerabytesPerSecond(String tbyps, int decimalPlaces);
 }

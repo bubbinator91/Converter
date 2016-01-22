@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 /**
@@ -15,112 +13,107 @@ import static org.junit.Assert.*;
 public class GigabitsPerSecondTest {
 
     @Test
-    public void testGetInstance() throws Exception {
-        GigabitsPerSecond gbps = GigabitsPerSecond.getInstance();
-
-        assertNotNull(gbps);
-    }
-
-    @Test
     public void testToAll() throws Exception {
-        List<String> results =
-                GigabitsPerSecond.getInstance().toAll("8.946731926437619", 10).getFirst();
+        // Should be using a TestSubscriber here, but this works just fine
 
-        assertNotNull(results);
-        assertEquals("8946731926.437619", results.get(0));
-        assertEquals("1118341490.804702375", results.get(1));
-        assertEquals("8946731.926437619", results.get(2));
-        assertEquals("1118341.4908047024", results.get(3));
-        assertEquals("8946.7319264376", results.get(4));
-        assertEquals("1118.3414908047", results.get(5));
-        assertEquals("1.1183414908", results.get(6));
-        assertEquals("0.0089467319", results.get(7));
-        assertEquals("0.0011183415", results.get(8));
+        GigabitsPerSecond.toAll("8.946731926437619", 10)
+                .subscribe(results -> {
+                    assertNotNull(results);
+                    assertEquals("8946731926.437619", results.get(0));
+                    assertEquals("1118341490.804702375", results.get(1));
+                    assertEquals("8946731.926437619", results.get(2));
+                    assertEquals("1118341.4908047024", results.get(3));
+                    assertEquals("8946.7319264376", results.get(4));
+                    assertEquals("1118.3414908047", results.get(5));
+                    assertEquals("1.1183414908", results.get(6));
+                    assertEquals("0.0089467319", results.get(7));
+                    assertEquals("0.0011183415", results.get(8));
+                });
 
-        results =
-                GigabitsPerSecond.getInstance().toAll("8.946731926437619", 5).getFirst();
-
-        assertNotNull(results);
-        assertEquals("8946731926.43762", results.get(0));
-        assertEquals("1118341490.8047", results.get(1));
-        assertEquals("8946731.92644", results.get(2));
-        assertEquals("1118341.4908", results.get(3));
-        assertEquals("8946.73193", results.get(4));
-        assertEquals("1118.34149", results.get(5));
-        assertEquals("1.11834", results.get(6));
-        assertEquals("0.00895", results.get(7));
-        assertEquals("0.00112", results.get(8));
+        GigabitsPerSecond.toAll("8.946731926437619", 5)
+                .subscribe(results -> {
+                    assertNotNull(results);
+                    assertEquals("8946731926.43762", results.get(0));
+                    assertEquals("1118341490.8047", results.get(1));
+                    assertEquals("8946731.92644", results.get(2));
+                    assertEquals("1118341.4908", results.get(3));
+                    assertEquals("8946.73193", results.get(4));
+                    assertEquals("1118.34149", results.get(5));
+                    assertEquals("1.11834", results.get(6));
+                    assertEquals("0.00895", results.get(7));
+                    assertEquals("0.00112", results.get(8));
+                });
     }
 
     @Test
     public void testToBitsPerSecond() throws Exception {
         assertEquals("8946731926.437619",
-                GigabitsPerSecond.getInstance().toBitsPerSecond("8.946731926437619", 10));
+                GigabitsPerSecond.toBitsPerSecond("8.946731926437619", 10));
         assertEquals("8946731926.43762",
-                GigabitsPerSecond.getInstance().toBitsPerSecond("8.946731926437619", 5));
+                GigabitsPerSecond.toBitsPerSecond("8.946731926437619", 5));
     }
 
     @Test
     public void testToBytesPerSecond() throws Exception {
         assertEquals("1118341490.804702375",
-                GigabitsPerSecond.getInstance().toBytesPerSecond("8.946731926437619", 10));
+                GigabitsPerSecond.toBytesPerSecond("8.946731926437619", 10));
         assertEquals("1118341490.8047",
-                GigabitsPerSecond.getInstance().toBytesPerSecond("8.946731926437619", 5));
+                GigabitsPerSecond.toBytesPerSecond("8.946731926437619", 5));
     }
 
     @Test
     public void testToKilobitsPerSecond() throws Exception {
         assertEquals("8946731.926437619",
-                GigabitsPerSecond.getInstance().toKilobitsPerSecond("8.946731926437619", 10));
+                GigabitsPerSecond.toKilobitsPerSecond("8.946731926437619", 10));
         assertEquals("8946731.92644",
-                GigabitsPerSecond.getInstance().toKilobitsPerSecond("8.946731926437619", 5));
+                GigabitsPerSecond.toKilobitsPerSecond("8.946731926437619", 5));
     }
 
     @Test
     public void testToKilobytesPerSecond() throws Exception {
         assertEquals("1118341.4908047024",
-                GigabitsPerSecond.getInstance().toKilobytesPerSecond("8.946731926437619", 10));
+                GigabitsPerSecond.toKilobytesPerSecond("8.946731926437619", 10));
         assertEquals("1118341.4908",
-                GigabitsPerSecond.getInstance().toKilobytesPerSecond("8.946731926437619", 5));
+                GigabitsPerSecond.toKilobytesPerSecond("8.946731926437619", 5));
     }
 
     @Test
     public void testToMegabitsPerSecond() throws Exception {
         assertEquals("8946.7319264376",
-                GigabitsPerSecond.getInstance().toMegabitsPerSecond("8.946731926437619", 10));
+                GigabitsPerSecond.toMegabitsPerSecond("8.946731926437619", 10));
         assertEquals("8946.73193",
-                GigabitsPerSecond.getInstance().toMegabitsPerSecond("8.946731926437619", 5));
+                GigabitsPerSecond.toMegabitsPerSecond("8.946731926437619", 5));
     }
 
     @Test
     public void testToMegabytesPerSecond() throws Exception {
         assertEquals("1118.3414908047",
-                GigabitsPerSecond.getInstance().toMegabytesPerSecond("8.946731926437619", 10));
+                GigabitsPerSecond.toMegabytesPerSecond("8.946731926437619", 10));
         assertEquals("1118.34149",
-                GigabitsPerSecond.getInstance().toMegabytesPerSecond("8.946731926437619", 5));
+                GigabitsPerSecond.toMegabytesPerSecond("8.946731926437619", 5));
     }
 
     @Test
     public void testToGigabytesPerSecond() throws Exception {
         assertEquals("1.1183414908",
-                GigabitsPerSecond.getInstance().toGigabytesPerSecond("8.946731926437619", 10));
+                GigabitsPerSecond.toGigabytesPerSecond("8.946731926437619", 10));
         assertEquals("1.11834",
-                GigabitsPerSecond.getInstance().toGigabytesPerSecond("8.946731926437619", 5));
+                GigabitsPerSecond.toGigabytesPerSecond("8.946731926437619", 5));
     }
 
     @Test
     public void testToTerabitsPerSecond() throws Exception {
         assertEquals("0.0089467319",
-                GigabitsPerSecond.getInstance().toTerabitsPerSecond("8.946731926437619", 10));
+                GigabitsPerSecond.toTerabitsPerSecond("8.946731926437619", 10));
         assertEquals("0.00895",
-                GigabitsPerSecond.getInstance().toTerabitsPerSecond("8.946731926437619", 5));
+                GigabitsPerSecond.toTerabitsPerSecond("8.946731926437619", 5));
     }
 
     @Test
     public void testToTerabytesPerSecond() throws Exception {
         assertEquals("0.0011183415",
-                GigabitsPerSecond.getInstance().toTerabytesPerSecond("8.946731926437619", 10));
+                GigabitsPerSecond.toTerabytesPerSecond("8.946731926437619", 10));
         assertEquals("0.00112",
-                GigabitsPerSecond.getInstance().toTerabytesPerSecond("8.946731926437619", 5));
+                GigabitsPerSecond.toTerabytesPerSecond("8.946731926437619", 5));
     }
 }

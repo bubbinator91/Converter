@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bubbinator91.converter.conversion.util.ConversionErrorCodes;
 import com.bubbinator91.converter.R;
+import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;
 import com.bubbinator91.converter.interfaces.view.IDataTransferSpeedView;
@@ -102,7 +102,7 @@ public class DataTransferSpeedFragment
                         removeTextChangedListeners("mTextWatcherBps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherBps");
-                        getPresenter().getConversionFromBitsPerSecondResults(
+                        getPresenter().getConversionFromBitsPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -119,7 +119,7 @@ public class DataTransferSpeedFragment
                         removeTextChangedListeners("mTextWatcherByps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherByps");
-                        getPresenter().getConversionFromBytesPerSecondResults(
+                        getPresenter().getConversionFromBytesPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -136,7 +136,7 @@ public class DataTransferSpeedFragment
                         removeTextChangedListeners("mTextWatcherKbps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherKbps");
-                        getPresenter().getConversionFromKilobitsPerSecondResults(
+                        getPresenter().getConversionFromKilobitsPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -153,7 +153,7 @@ public class DataTransferSpeedFragment
                         removeTextChangedListeners("mTextWatcherKbyps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherKbyps");
-                        getPresenter().getConversionFromKilobytesPerSecondResults(
+                        getPresenter().getConversionFromKilobytesPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -170,7 +170,7 @@ public class DataTransferSpeedFragment
                         removeTextChangedListeners("mTextWatcherMbps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherMbps");
-                        getPresenter().getConversionFromMegabitsPerSecondResults(
+                        getPresenter().getConversionFromMegabitsPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -187,7 +187,7 @@ public class DataTransferSpeedFragment
                         removeTextChangedListeners("mTextWatcherMbyps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherMbyps");
-                        getPresenter().getConversionFromMegabytesPerSecondResults(
+                        getPresenter().getConversionFromMegabytesPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -204,7 +204,7 @@ public class DataTransferSpeedFragment
                         removeTextChangedListeners("mTextWatcherGbps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherGbps");
-                        getPresenter().getConversionFromGigabitsPerSecondResults(
+                        getPresenter().getConversionFromGigabitsPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -221,7 +221,7 @@ public class DataTransferSpeedFragment
                         removeTextChangedListeners("mTextWatcherGbyps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherGbyps");
-                        getPresenter().getConversionFromGigabytesPerSecondResults(
+                        getPresenter().getConversionFromGigabytesPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -238,7 +238,7 @@ public class DataTransferSpeedFragment
                         removeTextChangedListeners("mTextWatcherTbps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherTbps");
-                        getPresenter().getConversionFromTerabitsPerSecondResults(
+                        getPresenter().getConversionFromTerabitsPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -255,7 +255,7 @@ public class DataTransferSpeedFragment
                         removeTextChangedListeners("mTextWatcherTbyps");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("mTextWatcherTbyps");
-                        getPresenter().getConversionFromTerabytesPerSecondResults(
+                        getPresenter().getConversionFromTerabytesPerSecond(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -304,7 +304,7 @@ public class DataTransferSpeedFragment
         if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_BPS) {
             if (mEditTextBps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextBps.getText());
-                getPresenter().getConversionFromBitsPerSecondResults(
+                getPresenter().getConversionFromBitsPerSecond(
                         mEditTextBps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -312,7 +312,7 @@ public class DataTransferSpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_BYPS) {
             if (mEditTextByps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextByps.getText());
-                getPresenter().getConversionFromBytesPerSecondResults(
+                getPresenter().getConversionFromBytesPerSecond(
                         mEditTextByps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -320,7 +320,7 @@ public class DataTransferSpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KBPS) {
             if (mEditTextKbps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextKbps.getText());
-                getPresenter().getConversionFromKilobitsPerSecondResults(
+                getPresenter().getConversionFromKilobitsPerSecond(
                         mEditTextKbps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -328,7 +328,7 @@ public class DataTransferSpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KBYPS) {
             if (mEditTextKbyps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextKbyps.getText());
-                getPresenter().getConversionFromKilobytesPerSecondResults(
+                getPresenter().getConversionFromKilobytesPerSecond(
                         mEditTextKbyps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -336,7 +336,7 @@ public class DataTransferSpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_MBPS) {
             if (mEditTextMbps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextMbps.getText());
-                getPresenter().getConversionFromMegabitsPerSecondResults(
+                getPresenter().getConversionFromMegabitsPerSecond(
                         mEditTextMbps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -344,7 +344,7 @@ public class DataTransferSpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_MBYPS) {
             if (mEditTextMbyps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextMbyps.getText());
-                getPresenter().getConversionFromMegabytesPerSecondResults(
+                getPresenter().getConversionFromMegabytesPerSecond(
                         mEditTextMbyps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -352,7 +352,7 @@ public class DataTransferSpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_GBPS) {
             if (mEditTextGbps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextGbps.getText());
-                getPresenter().getConversionFromGigabitsPerSecondResults(
+                getPresenter().getConversionFromGigabitsPerSecond(
                         mEditTextGbps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -360,7 +360,7 @@ public class DataTransferSpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_GBYPS) {
             if (mEditTextGbyps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextGbyps.getText());
-                getPresenter().getConversionFromGigabytesPerSecondResults(
+                getPresenter().getConversionFromGigabytesPerSecond(
                         mEditTextGbyps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -368,7 +368,7 @@ public class DataTransferSpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_TBPS) {
             if (mEditTextTbps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextTbps.getText());
-                getPresenter().getConversionFromTerabitsPerSecondResults(
+                getPresenter().getConversionFromTerabitsPerSecond(
                         mEditTextTbps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -376,7 +376,7 @@ public class DataTransferSpeedFragment
         } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_TBYPS) {
             if (mEditTextTbyps.getText() != null) {
                 Utils.sanitizeEditable(mEditTextTbyps.getText());
-                getPresenter().getConversionFromTerabytesPerSecondResults(
+                getPresenter().getConversionFromTerabytesPerSecond(
                         mEditTextTbyps.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
@@ -420,605 +420,524 @@ public class DataTransferSpeedFragment
 
     // region Overridden IDataTransferSpeedView methods
 
-
     @Override
-    public void displayConversionFromBitsPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromBitsPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromBitsPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromBitsPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromBitsPerSecondResults");
+        mTextInputLayoutBps.setErrorEnabled(false);
+        mTextInputLayoutByps.setErrorEnabled(false);
+        mTextInputLayoutKbps.setErrorEnabled(false);
+        mTextInputLayoutKbyps.setErrorEnabled(false);
+        mTextInputLayoutMbps.setErrorEnabled(false);
+        mTextInputLayoutMbyps.setErrorEnabled(false);
+        mTextInputLayoutGbps.setErrorEnabled(false);
+        mTextInputLayoutGbyps.setErrorEnabled(false);
+        mTextInputLayoutTbps.setErrorEnabled(false);
+        mTextInputLayoutTbyps.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutBps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutBps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutBps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutBps.setErrorEnabled(false);
-                    mTextInputLayoutByps.setErrorEnabled(false);
-                    mTextInputLayoutKbps.setErrorEnabled(false);
-                    mTextInputLayoutKbyps.setErrorEnabled(false);
-                    mTextInputLayoutMbps.setErrorEnabled(false);
-                    mTextInputLayoutMbyps.setErrorEnabled(false);
-                    mTextInputLayoutGbps.setErrorEnabled(false);
-                    mTextInputLayoutGbyps.setErrorEnabled(false);
-                    mTextInputLayoutTbps.setErrorEnabled(false);
-                    mTextInputLayoutTbyps.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextByps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextByps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbps.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbyps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbyps.setText(results.get(4),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbps.setText(results.get(5),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbyps.setText(results.get(6),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbps.setText(results.get(7),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbyps.setText(results.get(8),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromBitsPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromBitsPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromBytesPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromBitsPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutBps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutBps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutBps.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromBitsPerSecondError");
+        mEditTextByps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromBitsPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromBytesPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromBytesPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromBytesPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromBytesPerSecondResults");
+        mTextInputLayoutBps.setErrorEnabled(false);
+        mTextInputLayoutByps.setErrorEnabled(false);
+        mTextInputLayoutKbps.setErrorEnabled(false);
+        mTextInputLayoutKbyps.setErrorEnabled(false);
+        mTextInputLayoutMbps.setErrorEnabled(false);
+        mTextInputLayoutMbyps.setErrorEnabled(false);
+        mTextInputLayoutGbps.setErrorEnabled(false);
+        mTextInputLayoutGbyps.setErrorEnabled(false);
+        mTextInputLayoutTbps.setErrorEnabled(false);
+        mTextInputLayoutTbyps.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutByps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutByps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutByps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutBps.setErrorEnabled(false);
-                    mTextInputLayoutByps.setErrorEnabled(false);
-                    mTextInputLayoutKbps.setErrorEnabled(false);
-                    mTextInputLayoutKbyps.setErrorEnabled(false);
-                    mTextInputLayoutMbps.setErrorEnabled(false);
-                    mTextInputLayoutMbyps.setErrorEnabled(false);
-                    mTextInputLayoutGbps.setErrorEnabled(false);
-                    mTextInputLayoutGbyps.setErrorEnabled(false);
-                    mTextInputLayoutTbps.setErrorEnabled(false);
-                    mTextInputLayoutTbyps.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextBps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextBps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbps.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbyps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbyps.setText(results.get(4),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbps.setText(results.get(5),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbyps.setText(results.get(6),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbps.setText(results.get(7),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbyps.setText(results.get(8),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromBytesPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromBytesPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromKilobitsPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromBytesPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutByps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutByps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutByps.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromBytesPerSecondError");
+        mEditTextBps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromBytesPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromKilobitsPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromKilobitsPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromKilobitsPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromKilobitsPerSecondResults");
+        mTextInputLayoutBps.setErrorEnabled(false);
+        mTextInputLayoutByps.setErrorEnabled(false);
+        mTextInputLayoutKbps.setErrorEnabled(false);
+        mTextInputLayoutKbyps.setErrorEnabled(false);
+        mTextInputLayoutMbps.setErrorEnabled(false);
+        mTextInputLayoutMbyps.setErrorEnabled(false);
+        mTextInputLayoutGbps.setErrorEnabled(false);
+        mTextInputLayoutGbyps.setErrorEnabled(false);
+        mTextInputLayoutTbps.setErrorEnabled(false);
+        mTextInputLayoutTbyps.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutKbps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutKbps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutKbps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutBps.setErrorEnabled(false);
-                    mTextInputLayoutByps.setErrorEnabled(false);
-                    mTextInputLayoutKbps.setErrorEnabled(false);
-                    mTextInputLayoutKbyps.setErrorEnabled(false);
-                    mTextInputLayoutMbps.setErrorEnabled(false);
-                    mTextInputLayoutMbyps.setErrorEnabled(false);
-                    mTextInputLayoutGbps.setErrorEnabled(false);
-                    mTextInputLayoutGbyps.setErrorEnabled(false);
-                    mTextInputLayoutTbps.setErrorEnabled(false);
-                    mTextInputLayoutTbyps.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextBps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextBps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextByps.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbyps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbyps.setText(results.get(4),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbps.setText(results.get(5),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbyps.setText(results.get(6),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbps.setText(results.get(7),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbyps.setText(results.get(8),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromKilobitsPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromKilobitsPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromKilobytesPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromKilobitsPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutKbps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutKbps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutKbps.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromKilobitsPerSecondError");
+        mEditTextBps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromKilobitsPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromKilobytesPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromKilobytesPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromKilobytesPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromKilobytesPerSecondResults");
+        mTextInputLayoutBps.setErrorEnabled(false);
+        mTextInputLayoutByps.setErrorEnabled(false);
+        mTextInputLayoutKbps.setErrorEnabled(false);
+        mTextInputLayoutKbyps.setErrorEnabled(false);
+        mTextInputLayoutMbps.setErrorEnabled(false);
+        mTextInputLayoutMbyps.setErrorEnabled(false);
+        mTextInputLayoutGbps.setErrorEnabled(false);
+        mTextInputLayoutGbyps.setErrorEnabled(false);
+        mTextInputLayoutTbps.setErrorEnabled(false);
+        mTextInputLayoutTbyps.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutKbyps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutKbyps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutKbyps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutBps.setErrorEnabled(false);
-                    mTextInputLayoutByps.setErrorEnabled(false);
-                    mTextInputLayoutKbps.setErrorEnabled(false);
-                    mTextInputLayoutKbyps.setErrorEnabled(false);
-                    mTextInputLayoutMbps.setErrorEnabled(false);
-                    mTextInputLayoutMbyps.setErrorEnabled(false);
-                    mTextInputLayoutGbps.setErrorEnabled(false);
-                    mTextInputLayoutGbyps.setErrorEnabled(false);
-                    mTextInputLayoutTbps.setErrorEnabled(false);
-                    mTextInputLayoutTbyps.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextBps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextBps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextByps.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbyps.setText(results.get(4),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbps.setText(results.get(5),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbyps.setText(results.get(6),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbps.setText(results.get(7),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbyps.setText(results.get(8),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromKilobytesPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromKilobytesPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromMegabitsPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromKilobytesPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutKbyps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutKbyps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutKbyps.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromKilobytesPerSecondError");
+        mEditTextBps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromKilobytesPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromMegabitsPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromMegabitsPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromMegabitsPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromMegabitsPerSecondResults");
+        mTextInputLayoutBps.setErrorEnabled(false);
+        mTextInputLayoutByps.setErrorEnabled(false);
+        mTextInputLayoutKbps.setErrorEnabled(false);
+        mTextInputLayoutKbyps.setErrorEnabled(false);
+        mTextInputLayoutMbps.setErrorEnabled(false);
+        mTextInputLayoutMbyps.setErrorEnabled(false);
+        mTextInputLayoutGbps.setErrorEnabled(false);
+        mTextInputLayoutGbyps.setErrorEnabled(false);
+        mTextInputLayoutTbps.setErrorEnabled(false);
+        mTextInputLayoutTbyps.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutMbps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutMbps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutMbps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutBps.setErrorEnabled(false);
-                    mTextInputLayoutByps.setErrorEnabled(false);
-                    mTextInputLayoutKbps.setErrorEnabled(false);
-                    mTextInputLayoutKbyps.setErrorEnabled(false);
-                    mTextInputLayoutMbps.setErrorEnabled(false);
-                    mTextInputLayoutMbyps.setErrorEnabled(false);
-                    mTextInputLayoutGbps.setErrorEnabled(false);
-                    mTextInputLayoutGbyps.setErrorEnabled(false);
-                    mTextInputLayoutTbps.setErrorEnabled(false);
-                    mTextInputLayoutTbyps.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextBps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextBps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextByps.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbyps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbyps.setText(results.get(4),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbps.setText(results.get(5),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbyps.setText(results.get(6),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbps.setText(results.get(7),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbyps.setText(results.get(8),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromMegabitsPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromMegabitsPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromMegabytesPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromMegabitsPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutMbps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutMbps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutMbps.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromMegabitsPerSecondError");
+        mEditTextBps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromMegabitsPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromMegabytesPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromMegabytesPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromMegabytesPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromMegabytesPerSecondResults");
+        mTextInputLayoutBps.setErrorEnabled(false);
+        mTextInputLayoutByps.setErrorEnabled(false);
+        mTextInputLayoutKbps.setErrorEnabled(false);
+        mTextInputLayoutKbyps.setErrorEnabled(false);
+        mTextInputLayoutMbps.setErrorEnabled(false);
+        mTextInputLayoutMbyps.setErrorEnabled(false);
+        mTextInputLayoutGbps.setErrorEnabled(false);
+        mTextInputLayoutGbyps.setErrorEnabled(false);
+        mTextInputLayoutTbps.setErrorEnabled(false);
+        mTextInputLayoutTbyps.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutMbyps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutMbyps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutMbyps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutBps.setErrorEnabled(false);
-                    mTextInputLayoutByps.setErrorEnabled(false);
-                    mTextInputLayoutKbps.setErrorEnabled(false);
-                    mTextInputLayoutKbyps.setErrorEnabled(false);
-                    mTextInputLayoutMbps.setErrorEnabled(false);
-                    mTextInputLayoutMbyps.setErrorEnabled(false);
-                    mTextInputLayoutGbps.setErrorEnabled(false);
-                    mTextInputLayoutGbyps.setErrorEnabled(false);
-                    mTextInputLayoutTbps.setErrorEnabled(false);
-                    mTextInputLayoutTbyps.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextBps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextBps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextByps.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbyps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbps.setText(results.get(4),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbps.setText(results.get(5),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbyps.setText(results.get(6),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbps.setText(results.get(7),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbyps.setText(results.get(8),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromMegabytesPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromMegabytesPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromGigabitsPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromMegabytesPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutMbyps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutMbyps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutMbyps.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromMegabytesPerSecondError");
+        mEditTextBps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromMegabytesPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromGigabitsPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromGigabitsPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromGigabitsPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromGigabitsPerSecondResults");
+        mTextInputLayoutBps.setErrorEnabled(false);
+        mTextInputLayoutByps.setErrorEnabled(false);
+        mTextInputLayoutKbps.setErrorEnabled(false);
+        mTextInputLayoutKbyps.setErrorEnabled(false);
+        mTextInputLayoutMbps.setErrorEnabled(false);
+        mTextInputLayoutMbyps.setErrorEnabled(false);
+        mTextInputLayoutGbps.setErrorEnabled(false);
+        mTextInputLayoutGbyps.setErrorEnabled(false);
+        mTextInputLayoutTbps.setErrorEnabled(false);
+        mTextInputLayoutTbyps.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutGbps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutGbps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutGbps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutBps.setErrorEnabled(false);
-                    mTextInputLayoutByps.setErrorEnabled(false);
-                    mTextInputLayoutKbps.setErrorEnabled(false);
-                    mTextInputLayoutKbyps.setErrorEnabled(false);
-                    mTextInputLayoutMbps.setErrorEnabled(false);
-                    mTextInputLayoutMbyps.setErrorEnabled(false);
-                    mTextInputLayoutGbps.setErrorEnabled(false);
-                    mTextInputLayoutGbyps.setErrorEnabled(false);
-                    mTextInputLayoutTbps.setErrorEnabled(false);
-                    mTextInputLayoutTbyps.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextBps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextBps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextByps.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbyps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbps.setText(results.get(4),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbyps.setText(results.get(5),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbyps.setText(results.get(6),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbps.setText(results.get(7),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbyps.setText(results.get(8),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromGigabitsPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromGigabitsPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromGigabytesPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromGigabitsPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutGbps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutGbps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutGbps.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromGigabitsPerSecondError");
+        mEditTextBps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromGigabitsPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromGigabytesPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromGigabytesPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromGigabytesPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromGigabytesPerSecondResults");
+        mTextInputLayoutBps.setErrorEnabled(false);
+        mTextInputLayoutByps.setErrorEnabled(false);
+        mTextInputLayoutKbps.setErrorEnabled(false);
+        mTextInputLayoutKbyps.setErrorEnabled(false);
+        mTextInputLayoutMbps.setErrorEnabled(false);
+        mTextInputLayoutMbyps.setErrorEnabled(false);
+        mTextInputLayoutGbps.setErrorEnabled(false);
+        mTextInputLayoutGbyps.setErrorEnabled(false);
+        mTextInputLayoutTbps.setErrorEnabled(false);
+        mTextInputLayoutTbyps.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutGbyps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutGbyps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutGbyps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutBps.setErrorEnabled(false);
-                    mTextInputLayoutByps.setErrorEnabled(false);
-                    mTextInputLayoutKbps.setErrorEnabled(false);
-                    mTextInputLayoutKbyps.setErrorEnabled(false);
-                    mTextInputLayoutMbps.setErrorEnabled(false);
-                    mTextInputLayoutMbyps.setErrorEnabled(false);
-                    mTextInputLayoutGbps.setErrorEnabled(false);
-                    mTextInputLayoutGbyps.setErrorEnabled(false);
-                    mTextInputLayoutTbps.setErrorEnabled(false);
-                    mTextInputLayoutTbyps.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextBps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextBps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextByps.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbyps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbps.setText(results.get(4),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbyps.setText(results.get(5),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbps.setText(results.get(6),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbps.setText(results.get(7),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbyps.setText(results.get(8),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromGigabytesPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromGigabytesPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromTerabitsPerSecondResults(List<String> results, int errorCode) {
+    public void displayConversionFromGigabytesPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutGbyps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutGbyps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutGbyps.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromGigabytesPerSecondError");
+        mEditTextBps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromGigabytesPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromTerabitsPerSecondResults(List<String> results) {
         Timber.tag(TAG + ".displayConversionFromTerabitsPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromTerabitsPerSecondResults");
 
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromTerabitsPerSecondResults");
+        mTextInputLayoutBps.setErrorEnabled(false);
+        mTextInputLayoutByps.setErrorEnabled(false);
+        mTextInputLayoutKbps.setErrorEnabled(false);
+        mTextInputLayoutKbyps.setErrorEnabled(false);
+        mTextInputLayoutMbps.setErrorEnabled(false);
+        mTextInputLayoutMbyps.setErrorEnabled(false);
+        mTextInputLayoutGbps.setErrorEnabled(false);
+        mTextInputLayoutGbyps.setErrorEnabled(false);
+        mTextInputLayoutTbps.setErrorEnabled(false);
+        mTextInputLayoutTbyps.setErrorEnabled(false);
 
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutTbps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutTbps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutTbps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutBps.setErrorEnabled(false);
-                    mTextInputLayoutByps.setErrorEnabled(false);
-                    mTextInputLayoutKbps.setErrorEnabled(false);
-                    mTextInputLayoutKbyps.setErrorEnabled(false);
-                    mTextInputLayoutMbps.setErrorEnabled(false);
-                    mTextInputLayoutMbyps.setErrorEnabled(false);
-                    mTextInputLayoutGbps.setErrorEnabled(false);
-                    mTextInputLayoutGbyps.setErrorEnabled(false);
-                    mTextInputLayoutTbps.setErrorEnabled(false);
-                    mTextInputLayoutTbyps.setErrorEnabled(false);
-                    break;
-            }
+        mEditTextBps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
 
-            mEditTextBps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextByps.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbyps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbps.setText(results.get(4),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbyps.setText(results.get(5),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbps.setText(results.get(6),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbyps.setText(results.get(7),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbyps.setText(results.get(8),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromTerabitsPerSecondResults");
-        }
+        addTextChangedListeners("displayConversionFromTerabitsPerSecondResults");
     }
 
     @Override
-    public void displayConversionFromTerabytesPerSecondResults(List<String> results, int errorCode) {
-        Timber.tag(TAG + ".displayConversionFromTerabytesPerSecondResults").i("Entered");
-
-        if (results != null) {
-            removeTextChangedListeners(".displayConversionFromTerabytesPerSecondResults");
-
-            switch (errorCode) {
-                case ConversionErrorCodes.ERROR_BELOW_ZERO:
-                    mTextInputLayoutTbyps.setError(getString(
-                            R.string.conversion_error_below_zero
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_INPUT_NOT_NUMERIC:
-                    mTextInputLayoutTbyps.setError(getString(
-                            R.string.conversion_error_input_not_numeric
-                    ));
-                    break;
-                case ConversionErrorCodes.ERROR_UNKNOWN:
-                    mTextInputLayoutTbyps.setError(getString(
-                            R.string.conversion_error_conversion_error
-                    ));
-                    break;
-                default:
-                    mTextInputLayoutBps.setErrorEnabled(false);
-                    mTextInputLayoutByps.setErrorEnabled(false);
-                    mTextInputLayoutKbps.setErrorEnabled(false);
-                    mTextInputLayoutKbyps.setErrorEnabled(false);
-                    mTextInputLayoutMbps.setErrorEnabled(false);
-                    mTextInputLayoutMbyps.setErrorEnabled(false);
-                    mTextInputLayoutGbps.setErrorEnabled(false);
-                    mTextInputLayoutGbyps.setErrorEnabled(false);
-                    mTextInputLayoutTbps.setErrorEnabled(false);
-                    mTextInputLayoutTbyps.setErrorEnabled(false);
-                    break;
-            }
-
-            mEditTextBps.setText(results.get(0),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextByps.setText(results.get(1),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbps.setText(results.get(2),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextKbyps.setText(results.get(3),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbps.setText(results.get(4),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextMbyps.setText(results.get(5),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbps.setText(results.get(6),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextGbyps.setText(results.get(7),
-                    AppCompatTextView.BufferType.EDITABLE);
-            mEditTextTbps.setText(results.get(8),
-                    AppCompatTextView.BufferType.EDITABLE);
-
-            addTextChangedListeners(".displayConversionFromTerabytesPerSecondResults");
+    public void displayConversionFromTerabitsPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutTbps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutTbps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutTbps.setError(getString(R.string.conversion_error_conversion_error));
         }
+
+        removeTextChangedListeners("displayConversionFromTerabitsPerSecondError");
+        mEditTextBps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromTerabitsPerSecondError");
+    }
+
+    @Override
+    public void displayConversionFromTerabytesPerSecondResults(List<String> results) {
+        Timber.tag(TAG + ".displayConversionFromTerabytesPerSecondResults").i("Entered");
+        removeTextChangedListeners("displayConversionFromTerabytesPerSecondResults");
+
+        mTextInputLayoutBps.setErrorEnabled(false);
+        mTextInputLayoutByps.setErrorEnabled(false);
+        mTextInputLayoutKbps.setErrorEnabled(false);
+        mTextInputLayoutKbyps.setErrorEnabled(false);
+        mTextInputLayoutMbps.setErrorEnabled(false);
+        mTextInputLayoutMbyps.setErrorEnabled(false);
+        mTextInputLayoutGbps.setErrorEnabled(false);
+        mTextInputLayoutGbyps.setErrorEnabled(false);
+        mTextInputLayoutTbps.setErrorEnabled(false);
+        mTextInputLayoutTbyps.setErrorEnabled(false);
+
+        mEditTextBps.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText(results.get(3), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText(results.get(4), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText(results.get(5), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText(results.get(6), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText(results.get(7), AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText(results.get(8), AppCompatTextView.BufferType.EDITABLE);
+
+        addTextChangedListeners("displayConversionFromTerabytesPerSecondResults");
+    }
+
+    @Override
+    public void displayConversionFromTerabytesPerSecondError(Throwable error) {
+        if (error instanceof NumberFormatException) {
+            mTextInputLayoutTbyps.setError(getString(R.string.conversion_error_input_not_numeric));
+        } else if (error instanceof ValueBelowZeroException) {
+            mTextInputLayoutTbyps.setError(getString(R.string.conversion_error_below_zero));
+        } else {
+            mTextInputLayoutTbyps.setError(getString(R.string.conversion_error_conversion_error));
+        }
+
+        removeTextChangedListeners("displayConversionFromTerabytesPerSecondError");
+        mEditTextBps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextByps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextKbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextMbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextGbyps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        mEditTextTbps.setText("", AppCompatTextView.BufferType.EDITABLE);
+        addTextChangedListeners("displayConversionFromTerabytesPerSecondError");
     }
 
     // endregion
