@@ -32,6 +32,11 @@ public class AccelerationPresenter implements IAccelerationPresenter {
     public void registerView(IAccelerationView view) {
         accelerationView = view;
     }
+    
+    @Override
+    public void unregisterView() {
+        accelerationView = null;
+    }
 
     @Override
     public void getConversionFromCentimetersPerSecondSquared(String cmpss, int decimalPlaces) {

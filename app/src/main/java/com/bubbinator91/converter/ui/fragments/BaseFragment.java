@@ -17,6 +17,7 @@ import com.bubbinator91.converter.BuildConfig;
 import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.interfaces.base.IConverterPresenter;
 import com.bubbinator91.converter.util.Globals;
+import com.bubbinator91.converter.util.PresenterCache;
 
 import timber.log.Timber;
 
@@ -69,8 +70,6 @@ public abstract class BaseFragment<T extends IConverterPresenter>
         requiredScrollView = ((ScrollView) rootView.findViewById(getScrollViewResource()));
         requiredScrollView.getViewTreeObserver().addOnScrollChangedListener(this);
 
-        registerViewWithPresenter();
-
         wasCreated = true;
 
         return rootView;
@@ -91,6 +90,8 @@ public abstract class BaseFragment<T extends IConverterPresenter>
         if (numOfDecimalPlaces == -1) {
             numOfDecimalPlaces = 8;
         }
+
+        registerViewWithPresenter();
     }
 
     @Override
@@ -108,6 +109,15 @@ public abstract class BaseFragment<T extends IConverterPresenter>
         }
 
         wasCreated = false;
+
+        unregisterViewWithPresenter();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        PresenterCache.getInstance().savePresenter(getPresenter(), outState);
     }
 
     // endregion
@@ -236,6 +246,13 @@ public abstract class BaseFragment<T extends IConverterPresenter>
     }
 
     /**
+     * Tells the presenter that the view needs to be unregistered.
+     */
+    protected void unregisterViewWithPresenter() {
+        getPresenter().unregisterView();
+    }
+
+    /**
      * Gets a value indicating whether or not the fragment was resumed or fully created.
      *
      * @return  True if fragment was just resumed; false if it was fully created.
@@ -291,6 +308,8 @@ public abstract class BaseFragment<T extends IConverterPresenter>
      * a link to the View (the activity) so that it can notify when it needs to update.
      */
     protected abstract void registerViewWithPresenter();
+
+    //protected abstract void unregisterViewWithPresenter();
 
     // endregion
 }

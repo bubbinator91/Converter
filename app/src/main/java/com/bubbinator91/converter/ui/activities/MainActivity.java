@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -57,7 +56,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Timber.tag(TAG + ".onCreate").i("Entered");
         ButterKnife.bind(this);
-        wasActivityRestarted = false;
+        wasActivityRestarted = (savedInstanceState != null);
         setToolbarIcon(-1, true);
 
         navigationView.setNavigationItemSelectedListener(menuItem -> {
@@ -98,11 +97,12 @@ public class MainActivity extends BaseActivity {
         super.onStart();
         Timber.tag(TAG + ".onStart").i("Entered");
 
+        lastSelectedFragment = getSharedPreferences().getString(STATE_SELECTED_FRAGMENT, "null");
+        Timber.tag(TAG + ".onStart").i("lastSelectedFragment = " + lastSelectedFragment);
+
         if (!wasActivityRestarted) {
             Timber.tag(TAG + ".onStart").i("Activity was not restarted");
 
-            lastSelectedFragment = getSharedPreferences().getString(STATE_SELECTED_FRAGMENT, "null");
-            Timber.tag(TAG + ".onStart").i("lastSelectedFragment = " + lastSelectedFragment);
             if (!GlobalsManager.INSTANCE.isGoingToMainActivityFromSettings()) {
                 if (!lastSelectedFragment.equals("null")) {
                     switchToFragment(lastSelectedFragment);

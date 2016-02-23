@@ -14,6 +14,7 @@ import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
 import com.bubbinator91.converter.interfaces.view.IAccelerationView;
+import com.bubbinator91.converter.util.PresenterCache;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
@@ -60,6 +61,15 @@ public class AccelerationFragment
     @Bind(R.id.textInputLayout_acceleration_sg)     TextInputLayout textInputLayoutSg;
 
     // region Lifecycle methods
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            accelerationPresenter = PresenterCache.getInstance().restorePresenter(savedInstanceState);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

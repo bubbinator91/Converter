@@ -14,6 +14,7 @@ import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;
 import com.bubbinator91.converter.interfaces.view.IDataTransferSpeedView;
+import com.bubbinator91.converter.util.PresenterCache;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
@@ -82,6 +83,15 @@ public class DataTransferSpeedFragment
     @Bind(R.id.textInputLayout_data_transfer_speed_tbyps)   TextInputLayout textInputLayoutTbyps;
 
     // region Lifecycle methods
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            dataTransferSpeedPresenter = PresenterCache.getInstance().restorePresenter(savedInstanceState);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

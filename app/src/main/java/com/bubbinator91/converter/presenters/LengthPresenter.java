@@ -14,7 +14,6 @@ import com.bubbinator91.converter.util.Globals;
 
 import javax.inject.Named;
 
-import rx.Observable;
 import rx.Scheduler;
 
 /**
@@ -22,7 +21,6 @@ import rx.Scheduler;
  * {@link com.bubbinator91.converter.ui.fragments.LengthFragment}
  */
 public class LengthPresenter implements ILengthPresenter {
-
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
@@ -37,6 +35,11 @@ public class LengthPresenter implements ILengthPresenter {
     @Override
     public void registerView(ILengthView view) {
         lengthView = view;
+    }
+    
+    @Override
+    public void unregisterView() {
+        lengthView = null;
     }
 
     @Override

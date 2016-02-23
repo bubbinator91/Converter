@@ -14,6 +14,7 @@ import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.interfaces.presenter.ISpeedPresenter;
 import com.bubbinator91.converter.interfaces.view.ISpeedView;
+import com.bubbinator91.converter.util.PresenterCache;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
@@ -65,6 +66,15 @@ public class SpeedFragment
     @Bind(R.id.textInputLayout_speed_mph)   TextInputLayout textInputLayoutMph;
 
     // region Lifecycle methods
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            speedPresenter = PresenterCache.getInstance().restorePresenter(savedInstanceState);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

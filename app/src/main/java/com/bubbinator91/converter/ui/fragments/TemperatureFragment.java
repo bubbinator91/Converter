@@ -14,6 +14,7 @@ import com.bubbinator91.converter.conversion.util.ValueBelowZeroException;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.interfaces.presenter.ITemperaturePresenter;
 import com.bubbinator91.converter.interfaces.view.ITemperatureView;
+import com.bubbinator91.converter.util.PresenterCache;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
@@ -55,6 +56,15 @@ public class TemperatureFragment
     @Bind(R.id.textInputLayout_temperature_kelvin)      TextInputLayout textInputLayoutKelvin;
 
     // region Lifecycle methods
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            temperaturePresenter = PresenterCache.getInstance().restorePresenter(savedInstanceState);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -115,6 +125,7 @@ public class TemperatureFragment
                 }
             };
         }
+
         return getRootView();
     }
 

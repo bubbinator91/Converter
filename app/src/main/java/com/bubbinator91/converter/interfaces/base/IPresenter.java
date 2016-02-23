@@ -5,4 +5,6 @@ package com.bubbinator91.converter.interfaces.base;
  */
 public interface IPresenter<T extends IView> {
     void registerView(T activity);
+
+    void unregisterView();
 }

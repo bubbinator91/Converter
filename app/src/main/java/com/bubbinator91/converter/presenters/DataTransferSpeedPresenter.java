@@ -23,7 +23,6 @@ import rx.Scheduler;
  * {@link com.bubbinator91.converter.ui.fragments.DataTransferSpeedFragment}
  */
 public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
-
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
@@ -38,6 +37,11 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     @Override
     public void registerView(IDataTransferSpeedView view) {
         dataTransferSpeedView = view;
+    }
+    
+    @Override
+    public void unregisterView() {
+        dataTransferSpeedView = null;
     }
 
     @Override

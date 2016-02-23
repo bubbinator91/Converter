@@ -22,7 +22,6 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
 
     private IFuelConsumptionView fuelConsumptionView;
 
-
     public FuelConsumptionPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
                                     @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         this.mainScheduler = mainScheduler;
@@ -32,6 +31,11 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
     @Override
     public void registerView(IFuelConsumptionView view) {
         fuelConsumptionView = view;
+    }
+    
+    @Override
+    public void unregisterView() {
+        fuelConsumptionView = null;
     }
 
     @Override

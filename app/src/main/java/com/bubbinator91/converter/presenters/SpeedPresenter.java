@@ -18,7 +18,6 @@ import rx.Scheduler;
  * {@link com.bubbinator91.converter.ui.fragments.SpeedFragment}
  */
 public class SpeedPresenter implements ISpeedPresenter {
-
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
@@ -33,6 +32,11 @@ public class SpeedPresenter implements ISpeedPresenter {
     @Override
     public void registerView(ISpeedView view) {
         speedView = view;
+    }
+    
+    @Override
+    public void unregisterView() {
+        speedView = null;
     }
 
     @Override

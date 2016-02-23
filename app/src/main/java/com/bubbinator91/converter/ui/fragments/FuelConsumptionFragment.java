@@ -14,6 +14,7 @@ import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.interfaces.presenter.IFuelConsumptionPresenter;
 import com.bubbinator91.converter.interfaces.view.IFuelConsumptionView;
+import com.bubbinator91.converter.util.PresenterCache;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
 
@@ -56,6 +57,15 @@ public class FuelConsumptionFragment
     @Bind(R.id.textInputLayout_fuel_consumption_l100k)  TextInputLayout textInputLayoutL100k;
 
     // region Lifecycle methods
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            fuelConsumptionPresenter = PresenterCache.getInstance().restorePresenter(savedInstanceState);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

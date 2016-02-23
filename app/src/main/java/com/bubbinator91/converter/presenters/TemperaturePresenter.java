@@ -33,6 +33,11 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     }
 
     @Override
+    public void unregisterView() {
+        temperatureView = null;
+    }
+
+    @Override
     public void getConversionFromCelsius(String celsius, int decimalPlaces) {
         Celsius.toAll(celsius, decimalPlaces)
                 .subscribeOn(computationScheduler)
