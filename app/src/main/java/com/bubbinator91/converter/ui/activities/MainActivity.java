@@ -42,8 +42,8 @@ public class MainActivity extends BaseActivity {
     private final String TAG = MainActivity.class.getSimpleName();
     private final String STATE_SELECTED_FRAGMENT = "selected_fragment";
 
-    @Bind(R.id.activity_main_layout) DrawerLayout mDrawerLayout;
-    @Bind(R.id.drawer_view) NavigationView mNavigationView;
+    @Bind(R.id.activity_main_layout) DrawerLayout drawerLayout;
+    @Bind(R.id.drawer_view) NavigationView navigationView;
 
     private ActionBarDrawerToggle toolbarDrawerToggle;
     private String lastSelectedFragment = null;
@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity {
         wasActivityRestarted = false;
         setToolbarIcon(-1, true);
 
-        mNavigationView.setNavigationItemSelectedListener(menuItem -> {
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
                     if (!lastSelectedFragment.equals(menuItem.getTitle().toString())) {
                         switchToFragment(menuItem.getTitle().toString());
                     }
@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
         );
 
         toolbarDrawerToggle = new ActionBarDrawerToggle(this,
-                mDrawerLayout,
+                drawerLayout,
                 getToolbar(),
                 R.string.app_name,
                 R.string.app_name) {
@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity {
             }
         };
 
-        mDrawerLayout.setDrawerListener(toolbarDrawerToggle);
+        drawerLayout.setDrawerListener(toolbarDrawerToggle);
         toolbarDrawerToggle.syncState();
     }
 
@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
+                drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.action_settings:
                 InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
@@ -221,7 +221,7 @@ public class MainActivity extends BaseActivity {
         setNavigationDrawerItemChecked(fragmentName);
         lastSelectedFragment = fragmentName;
         getToolbar().setTitle(fragmentName);
-        mDrawerLayout.closeDrawer(GravityCompat.START);
+        drawerLayout.closeDrawer(GravityCompat.START);
 
         saveLastSelectedFragment();
     }
@@ -231,17 +231,17 @@ public class MainActivity extends BaseActivity {
         Timber.tag(TAG + ".setNavigationDrawerItemChecked").i("fragmentName = " + itemName);
 
         if (itemName.equals(getString(R.string.title_acceleration))) {
-            mNavigationView.getMenu().findItem(R.id.nav_acceleration).setChecked(true);
+            navigationView.getMenu().findItem(R.id.nav_acceleration).setChecked(true);
         } else if (itemName.equals(getString(R.string.title_data_transfer_speed))) {
-            mNavigationView.getMenu().findItem(R.id.nav_dts).setChecked(true);
+            navigationView.getMenu().findItem(R.id.nav_dts).setChecked(true);
         } else if (itemName.equals(getString(R.string.title_fuel_consumption))) {
-            mNavigationView.getMenu().findItem(R.id.nav_fuel).setChecked(true);
+            navigationView.getMenu().findItem(R.id.nav_fuel).setChecked(true);
         } else if (itemName.equals(getString(R.string.title_length))) {
-            mNavigationView.getMenu().findItem(R.id.nav_length).setChecked(true);
+            navigationView.getMenu().findItem(R.id.nav_length).setChecked(true);
         } else if (itemName.equals(getString(R.string.title_speed))) {
-            mNavigationView.getMenu().findItem(R.id.nav_speed).setChecked(true);
+            navigationView.getMenu().findItem(R.id.nav_speed).setChecked(true);
         } else if (itemName.equals(getString(R.string.title_temperature))) {
-            mNavigationView.getMenu().findItem(R.id.nav_temperature).setChecked(true);
+            navigationView.getMenu().findItem(R.id.nav_temperature).setChecked(true);
         } else {
             Timber.tag(TAG + ".setFragmentRelatedProperties")
                     .e("itemName parameter is invalid");
@@ -275,6 +275,7 @@ public class MainActivity extends BaseActivity {
             fragmentToSwitchTo = null;
         }
 
+        drawerLayout.closeDrawer(GravityCompat.START);
         mainThreadHandler.postDelayed(() -> {
                     if (fragmentToSwitchTo != null) {
                         try {
@@ -286,7 +287,6 @@ public class MainActivity extends BaseActivity {
 
                             lastSelectedFragment = fragmentName;
                             getToolbar().setTitle(fragmentName);
-                            mDrawerLayout.closeDrawer(GravityCompat.START);
                             saveLastSelectedFragment();
                         } catch (IllegalStateException e) {
                             Timber.tag(TAG + ".changeToFragment").e(e.getMessage());
@@ -295,7 +295,7 @@ public class MainActivity extends BaseActivity {
                         }
                     }
                 }
-                , 225
+                , 150
         );
     }
 
