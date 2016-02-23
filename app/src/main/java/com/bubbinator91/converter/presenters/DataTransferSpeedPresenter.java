@@ -27,7 +27,7 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
-    private IDataTransferSpeedView mDataTransferSpeedView;
+    private IDataTransferSpeedView dataTransferSpeedView;
 
     public DataTransferSpeedPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
                                       @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
@@ -36,8 +36,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     }
 
     @Override
-    public void registerView(IDataTransferSpeedView activity) {
-        mDataTransferSpeedView = activity;
+    public void registerView(IDataTransferSpeedView view) {
+        dataTransferSpeedView = view;
     }
 
     @Override
@@ -47,8 +47,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mDataTransferSpeedView::displayConversionFromBitsPerSecondResults,
-                        mDataTransferSpeedView::displayConversionFromBitsPerSecondError
+                        dataTransferSpeedView::displayConversionFromBitsPerSecondResults,
+                        dataTransferSpeedView::displayConversionFromBitsPerSecondError
                 );
     }
 
@@ -59,8 +59,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mDataTransferSpeedView::displayConversionFromBytesPerSecondResults,
-                        mDataTransferSpeedView::displayConversionFromBytesPerSecondError
+                        dataTransferSpeedView::displayConversionFromBytesPerSecondResults,
+                        dataTransferSpeedView::displayConversionFromBytesPerSecondError
                 );
     }
 
@@ -71,8 +71,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mDataTransferSpeedView::displayConversionFromKilobitsPerSecondResults,
-                        mDataTransferSpeedView::displayConversionFromKilobitsPerSecondError
+                        dataTransferSpeedView::displayConversionFromKilobitsPerSecondResults,
+                        dataTransferSpeedView::displayConversionFromKilobitsPerSecondError
                 );
     }
 
@@ -83,8 +83,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mDataTransferSpeedView::displayConversionFromKilobytesPerSecondResults,
-                        mDataTransferSpeedView::displayConversionFromKilobytesPerSecondError
+                        dataTransferSpeedView::displayConversionFromKilobytesPerSecondResults,
+                        dataTransferSpeedView::displayConversionFromKilobytesPerSecondError
                 );
     }
 
@@ -95,8 +95,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mDataTransferSpeedView::displayConversionFromMegabitsPerSecondResults,
-                        mDataTransferSpeedView::displayConversionFromMegabitsPerSecondError
+                        dataTransferSpeedView::displayConversionFromMegabitsPerSecondResults,
+                        dataTransferSpeedView::displayConversionFromMegabitsPerSecondError
                 );
     }
 
@@ -107,8 +107,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mDataTransferSpeedView::displayConversionFromMegabytesPerSecondResults,
-                        mDataTransferSpeedView::displayConversionFromMegabytesPerSecondError
+                        dataTransferSpeedView::displayConversionFromMegabytesPerSecondResults,
+                        dataTransferSpeedView::displayConversionFromMegabytesPerSecondError
                 );
     }
 
@@ -119,8 +119,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mDataTransferSpeedView::displayConversionFromGigabitsPerSecondResults,
-                        mDataTransferSpeedView::displayConversionFromGigabitsPerSecondError
+                        dataTransferSpeedView::displayConversionFromGigabitsPerSecondResults,
+                        dataTransferSpeedView::displayConversionFromGigabitsPerSecondError
                 );
     }
 
@@ -131,8 +131,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mDataTransferSpeedView::displayConversionFromGigabytesPerSecondResults,
-                        mDataTransferSpeedView::displayConversionFromGigabytesPerSecondError
+                        dataTransferSpeedView::displayConversionFromGigabytesPerSecondResults,
+                        dataTransferSpeedView::displayConversionFromGigabytesPerSecondError
                 );
     }
 
@@ -143,8 +143,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mDataTransferSpeedView::displayConversionFromTerabitsPerSecondResults,
-                        mDataTransferSpeedView::displayConversionFromTerabitsPerSecondError
+                        dataTransferSpeedView::displayConversionFromTerabitsPerSecondResults,
+                        dataTransferSpeedView::displayConversionFromTerabitsPerSecondError
                 );
     }
 
@@ -155,8 +155,8 @@ public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mDataTransferSpeedView::displayConversionFromTerabytesPerSecondResults,
-                        mDataTransferSpeedView::displayConversionFromTerabytesPerSecondError
+                        dataTransferSpeedView::displayConversionFromTerabytesPerSecondResults,
+                        dataTransferSpeedView::displayConversionFromTerabytesPerSecondError
                 );
     }
 }

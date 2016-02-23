@@ -21,161 +21,161 @@ import static org.junit.Assert.*;
 public class SpeedTest {
 
     @Inject
-    MockSpeedView mSpeedView;
+    MockSpeedView speedView;
     @Inject
-    ISpeedPresenter mSpeedPresenter;
+    ISpeedPresenter speedPresenter;
 
     @Before
     public void setUp() throws Exception {
         TestHelper.getTestClassInjector()
                 .inject(this);
 
-        assertNotNull(mSpeedView);
-        assertNotNull(mSpeedPresenter);
+        assertNotNull(speedView);
+        assertNotNull(speedPresenter);
     }
 
     @Test
     public void testFeetPerSecondConversion() throws Exception {
-        mSpeedPresenter.getConversionFromFeetPerSecond("4.3465986431", 10);
-        TestHelper.waitFor(() -> ((mSpeedView.mKnotValue != null)
-                && (mSpeedView.mKphValue != null)
-                && (mSpeedView.mMpsValue != null)
-                && (mSpeedView.mMphValue != null)));
+        speedPresenter.getConversionFromFeetPerSecond("4.3465986431", 10);
+        TestHelper.waitFor(() -> ((speedView.knotValue != null)
+                && (speedView.kphValue != null)
+                && (speedView.mpsValue != null)
+                && (speedView.mphValue != null)));
 
-        assertEquals(false, mSpeedView.mFpsError);
-        assertEquals("2.5752892868", mSpeedView.mKnotValue);
-        assertEquals("4.7694357591", mSpeedView.mKphValue);
-        assertEquals("1.3248432664", mSpeedView.mMpsValue);
-        assertEquals("2.9635899839", mSpeedView.mMphValue);
+        assertEquals(false, speedView.fpsError);
+        assertEquals("2.5752892868", speedView.knotValue);
+        assertEquals("4.7694357591", speedView.kphValue);
+        assertEquals("1.3248432664", speedView.mpsValue);
+        assertEquals("2.9635899839", speedView.mphValue);
 
-        mSpeedPresenter.getConversionFromFeetPerSecond("4.3465986431", 5);
-        TestHelper.waitFor(() -> ((mSpeedView.mKnotValue != null)
-                && (mSpeedView.mKphValue != null)
-                && (mSpeedView.mMpsValue != null)
-                && (mSpeedView.mMphValue != null)));
+        speedPresenter.getConversionFromFeetPerSecond("4.3465986431", 5);
+        TestHelper.waitFor(() -> ((speedView.knotValue != null)
+                && (speedView.kphValue != null)
+                && (speedView.mpsValue != null)
+                && (speedView.mphValue != null)));
 
-        assertEquals(false, mSpeedView.mFpsError);
-        assertEquals("2.57529", mSpeedView.mKnotValue);
-        assertEquals("4.76944", mSpeedView.mKphValue);
-        assertEquals("1.32484", mSpeedView.mMpsValue);
-        assertEquals("2.96359", mSpeedView.mMphValue);
+        assertEquals(false, speedView.fpsError);
+        assertEquals("2.57529", speedView.knotValue);
+        assertEquals("4.76944", speedView.kphValue);
+        assertEquals("1.32484", speedView.mpsValue);
+        assertEquals("2.96359", speedView.mphValue);
 
-        mSpeedView.resetValues();
+        speedView.resetValues();
     }
 
     @Test
     public void testKnotsConversion() throws Exception {
-        mSpeedPresenter.getConversionFromKnots("3.465923564312", 10);
-        TestHelper.waitFor(() -> ((mSpeedView.mFpsValue != null)
-                && (mSpeedView.mKphValue != null)
-                && (mSpeedView.mMpsValue != null)
-                && (mSpeedView.mMphValue != null)));
+        speedPresenter.getConversionFromKnots("3.465923564312", 10);
+        TestHelper.waitFor(() -> ((speedView.fpsValue != null)
+                && (speedView.kphValue != null)
+                && (speedView.mpsValue != null)
+                && (speedView.mphValue != null)));
 
-        assertEquals(false, mSpeedView.mKnotError);
-        assertEquals("5.8498199558", mSpeedView.mFpsValue);
-        assertEquals("6.4188904411", mSpeedView.mKphValue);
-        assertEquals("1.7830251225", mSpeedView.mMpsValue);
-        assertEquals("3.9885136062", mSpeedView.mMphValue);
+        assertEquals(false, speedView.knotError);
+        assertEquals("5.8498199558", speedView.fpsValue);
+        assertEquals("6.4188904411", speedView.kphValue);
+        assertEquals("1.7830251225", speedView.mpsValue);
+        assertEquals("3.9885136062", speedView.mphValue);
 
-        mSpeedPresenter.getConversionFromKnots("3.465923564312", 5);
-        TestHelper.waitFor(() -> ((mSpeedView.mFpsValue != null)
-                && (mSpeedView.mKphValue != null)
-                && (mSpeedView.mMpsValue != null)
-                && (mSpeedView.mMphValue != null)));
+        speedPresenter.getConversionFromKnots("3.465923564312", 5);
+        TestHelper.waitFor(() -> ((speedView.fpsValue != null)
+                && (speedView.kphValue != null)
+                && (speedView.mpsValue != null)
+                && (speedView.mphValue != null)));
 
-        assertEquals(false, mSpeedView.mKnotError);
-        assertEquals("5.84982", mSpeedView.mFpsValue);
-        assertEquals("6.41889", mSpeedView.mKphValue);
-        assertEquals("1.78303", mSpeedView.mMpsValue);
-        assertEquals("3.98851", mSpeedView.mMphValue);
+        assertEquals(false, speedView.knotError);
+        assertEquals("5.84982", speedView.fpsValue);
+        assertEquals("6.41889", speedView.kphValue);
+        assertEquals("1.78303", speedView.mpsValue);
+        assertEquals("3.98851", speedView.mphValue);
 
-        mSpeedView.resetValues();
+        speedView.resetValues();
     }
 
     @Test
     public void testKilometersPerHourConversion() throws Exception {
-        mSpeedPresenter.getConversionFromKilometersPerHour("7.5806235947", 10);
-        TestHelper.waitFor(() -> ((mSpeedView.mFpsValue != null)
-                && (mSpeedView.mKnotValue != null)
-                && (mSpeedView.mMpsValue != null)
-                && (mSpeedView.mMphValue != null)));
+        speedPresenter.getConversionFromKilometersPerHour("7.5806235947", 10);
+        TestHelper.waitFor(() -> ((speedView.fpsValue != null)
+                && (speedView.knotValue != null)
+                && (speedView.mpsValue != null)
+                && (speedView.mphValue != null)));
 
-        assertEquals(false, mSpeedView.mKphError);
-        assertEquals("6.9085589774", mSpeedView.mFpsValue);
-        assertEquals("4.0932092844", mSpeedView.mKnotValue);
-        assertEquals("2.1057287763", mSpeedView.mMpsValue);
-        assertEquals("4.7103811209", mSpeedView.mMphValue);
+        assertEquals(false, speedView.kphError);
+        assertEquals("6.9085589774", speedView.fpsValue);
+        assertEquals("4.0932092844", speedView.knotValue);
+        assertEquals("2.1057287763", speedView.mpsValue);
+        assertEquals("4.7103811209", speedView.mphValue);
 
-        mSpeedPresenter.getConversionFromKilometersPerHour("7.5806235947", 5);
-        TestHelper.waitFor(() -> ((mSpeedView.mFpsValue != null)
-                && (mSpeedView.mKnotValue != null)
-                && (mSpeedView.mMpsValue != null)
-                && (mSpeedView.mMphValue != null)));
+        speedPresenter.getConversionFromKilometersPerHour("7.5806235947", 5);
+        TestHelper.waitFor(() -> ((speedView.fpsValue != null)
+                && (speedView.knotValue != null)
+                && (speedView.mpsValue != null)
+                && (speedView.mphValue != null)));
 
-        assertEquals(false, mSpeedView.mKphError);
-        assertEquals("6.90856", mSpeedView.mFpsValue);
-        assertEquals("4.09321", mSpeedView.mKnotValue);
-        assertEquals("2.10573", mSpeedView.mMpsValue);
-        assertEquals("4.71038", mSpeedView.mMphValue);
+        assertEquals(false, speedView.kphError);
+        assertEquals("6.90856", speedView.fpsValue);
+        assertEquals("4.09321", speedView.knotValue);
+        assertEquals("2.10573", speedView.mpsValue);
+        assertEquals("4.71038", speedView.mphValue);
 
-        mSpeedView.resetValues();
+        speedView.resetValues();
     }
 
     @Test
     public void testMetersPerSecondConversion() throws Exception {
-        mSpeedPresenter.getConversionFromMetersPerSecond("2.894653261712", 10);
-        TestHelper.waitFor(() -> ((mSpeedView.mFpsValue != null)
-                && (mSpeedView.mKnotValue != null)
-                && (mSpeedView.mKphValue != null)
-                && (mSpeedView.mMphValue != null)));
+        speedPresenter.getConversionFromMetersPerSecond("2.894653261712", 10);
+        TestHelper.waitFor(() -> ((speedView.fpsValue != null)
+                && (speedView.knotValue != null)
+                && (speedView.kphValue != null)
+                && (speedView.mphValue != null)));
 
-        assertEquals(false, mSpeedView.mMpsError);
-        assertEquals("9.4968939033", mSpeedView.mFpsValue);
-        assertEquals("5.6267558003", mSpeedView.mKnotValue);
-        assertEquals("10.4207517422", mSpeedView.mKphValue);
-        assertEquals("6.475154934", mSpeedView.mMphValue);
+        assertEquals(false, speedView.mpsError);
+        assertEquals("9.4968939033", speedView.fpsValue);
+        assertEquals("5.6267558003", speedView.knotValue);
+        assertEquals("10.4207517422", speedView.kphValue);
+        assertEquals("6.475154934", speedView.mphValue);
 
-        mSpeedPresenter.getConversionFromMetersPerSecond("2.894653261712", 5);
-        TestHelper.waitFor(() -> ((mSpeedView.mFpsValue != null)
-                && (mSpeedView.mKnotValue != null)
-                && (mSpeedView.mKphValue != null)
-                && (mSpeedView.mMphValue != null)));
+        speedPresenter.getConversionFromMetersPerSecond("2.894653261712", 5);
+        TestHelper.waitFor(() -> ((speedView.fpsValue != null)
+                && (speedView.knotValue != null)
+                && (speedView.kphValue != null)
+                && (speedView.mphValue != null)));
 
-        assertEquals(false, mSpeedView.mMpsError);
-        assertEquals("9.49689", mSpeedView.mFpsValue);
-        assertEquals("5.62676", mSpeedView.mKnotValue);
-        assertEquals("10.42075", mSpeedView.mKphValue);
-        assertEquals("6.47515", mSpeedView.mMphValue);
+        assertEquals(false, speedView.mpsError);
+        assertEquals("9.49689", speedView.fpsValue);
+        assertEquals("5.62676", speedView.knotValue);
+        assertEquals("10.42075", speedView.kphValue);
+        assertEquals("6.47515", speedView.mphValue);
 
-        mSpeedView.resetValues();
+        speedView.resetValues();
     }
 
     @Test
     public void testMilesPerHourConversion() throws Exception {
-        mSpeedPresenter.getConversionFromMilesPerHour("5.346592653461", 10);
-        TestHelper.waitFor(() -> ((mSpeedView.mFpsValue != null)
-                && (mSpeedView.mKnotValue != null)
-                && (mSpeedView.mKphValue != null)
-                && (mSpeedView.mMpsValue != null)));
+        speedPresenter.getConversionFromMilesPerHour("5.346592653461", 10);
+        TestHelper.waitFor(() -> ((speedView.fpsValue != null)
+                && (speedView.knotValue != null)
+                && (speedView.kphValue != null)
+                && (speedView.mpsValue != null)));
 
-        assertEquals(false, mSpeedView.mMphError);
-        assertEquals("7.8416692251", mSpeedView.mFpsValue);
-        assertEquals("4.646061991", mSpeedView.mKnotValue);
-        assertEquals("8.6045068073", mSpeedView.mKphValue);
-        assertEquals("2.3901407798", mSpeedView.mMpsValue);
+        assertEquals(false, speedView.mphError);
+        assertEquals("7.8416692251", speedView.fpsValue);
+        assertEquals("4.646061991", speedView.knotValue);
+        assertEquals("8.6045068073", speedView.kphValue);
+        assertEquals("2.3901407798", speedView.mpsValue);
 
-        mSpeedPresenter.getConversionFromMilesPerHour("5.346592653461", 5);
-        TestHelper.waitFor(() -> ((mSpeedView.mFpsValue != null)
-                && (mSpeedView.mKnotValue != null)
-                && (mSpeedView.mKphValue != null)
-                && (mSpeedView.mMpsValue != null)));
+        speedPresenter.getConversionFromMilesPerHour("5.346592653461", 5);
+        TestHelper.waitFor(() -> ((speedView.fpsValue != null)
+                && (speedView.knotValue != null)
+                && (speedView.kphValue != null)
+                && (speedView.mpsValue != null)));
 
-        assertEquals(false, mSpeedView.mMphError);
-        assertEquals("7.84167", mSpeedView.mFpsValue);
-        assertEquals("4.64606", mSpeedView.mKnotValue);
-        assertEquals("8.60451", mSpeedView.mKphValue);
-        assertEquals("2.39014", mSpeedView.mMpsValue);
+        assertEquals(false, speedView.mphError);
+        assertEquals("7.84167", speedView.fpsValue);
+        assertEquals("4.64606", speedView.knotValue);
+        assertEquals("8.60451", speedView.kphValue);
+        assertEquals("2.39014", speedView.mpsValue);
 
-        mSpeedView.resetValues();
+        speedView.resetValues();
     }
 }

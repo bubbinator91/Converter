@@ -21,140 +21,140 @@ import static org.junit.Assert.*;
 public class AccelerationTest {
 
     @Inject
-    MockAccelerationView mAccelerationView;
+    MockAccelerationView accelerationView;
     @Inject
-    IAccelerationPresenter mAccelerationPresenter;
+    IAccelerationPresenter accelerationPresenter;
 
     @Before
     public void setUp() throws Exception {
         TestHelper.getTestClassInjector()
                 .inject(this);
 
-        assertNotNull(mAccelerationView);
-        assertNotNull(mAccelerationPresenter);
+        assertNotNull(accelerationView);
+        assertNotNull(accelerationPresenter);
     }
 
     @Test
     public void testCentimetersPerSecondSquaredConversion() throws Exception {
-        mAccelerationPresenter
+        accelerationPresenter
                 .getConversionFromCentimetersPerSecondSquared("8.0235641526359876", 10);
         TestHelper.waitFor(() ->
-                        ((mAccelerationView.mFpssValue != null)
-                                && (mAccelerationView.mMpssValue != null)
-                                && (mAccelerationView.mSgValue != null))
+                        ((accelerationView.fpssValue != null)
+                                && (accelerationView.mpssValue != null)
+                                && (accelerationView.sgValue != null))
         );
 
-        assertEquals(false, mAccelerationView.mCmpssError);
-        assertEquals("0.2632402937", mAccelerationView.mFpssValue);
-        assertEquals("0.0802356415", mAccelerationView.mMpssValue);
-        assertEquals("0.0081817585", mAccelerationView.mSgValue);
+        assertEquals(false, accelerationView.cmpssError);
+        assertEquals("0.2632402937", accelerationView.fpssValue);
+        assertEquals("0.0802356415", accelerationView.mpssValue);
+        assertEquals("0.0081817585", accelerationView.sgValue);
 
-        mAccelerationPresenter
+        accelerationPresenter
                 .getConversionFromCentimetersPerSecondSquared("8.0235641526359876", 5);
         TestHelper.waitFor(() ->
-                        ((mAccelerationView.mFpssValue != null)
-                                && (mAccelerationView.mMpssValue != null)
-                                && (mAccelerationView.mSgValue != null))
+                        ((accelerationView.fpssValue != null)
+                                && (accelerationView.mpssValue != null)
+                                && (accelerationView.sgValue != null))
         );
 
-        assertEquals(false, mAccelerationView.mCmpssError);
-        assertEquals("0.26324", mAccelerationView.mFpssValue);
-        assertEquals("0.08024", mAccelerationView.mMpssValue);
-        assertEquals("0.00818", mAccelerationView.mSgValue);
+        assertEquals(false, accelerationView.cmpssError);
+        assertEquals("0.26324", accelerationView.fpssValue);
+        assertEquals("0.08024", accelerationView.mpssValue);
+        assertEquals("0.00818", accelerationView.sgValue);
 
-        mAccelerationView.resetValues();
+        accelerationView.resetValues();
     }
 
     @Test
     public void testFeetPerSecondSquaredConversion() throws Exception {
-        mAccelerationPresenter
+        accelerationPresenter
                 .getConversionFromFeetPerSecondSquared("2.5064318986478525", 10);
         TestHelper.waitFor(() ->
-                        ((mAccelerationView.mCmpssValue != null)
-                                && (mAccelerationView.mMpssValue != null)
-                                && (mAccelerationView.mSgValue != null))
+                        ((accelerationView.cmpssValue != null)
+                                && (accelerationView.mpssValue != null)
+                                && (accelerationView.sgValue != null))
         );
 
-        assertEquals(false, mAccelerationView.mFpssError);
-        assertEquals("76.3960442711", mAccelerationView.mCmpssValue);
-        assertEquals("0.7639604427", mAccelerationView.mMpssValue);
-        assertEquals("0.077902285", mAccelerationView.mSgValue);
+        assertEquals(false, accelerationView.fpssError);
+        assertEquals("76.3960442711", accelerationView.cmpssValue);
+        assertEquals("0.7639604427", accelerationView.mpssValue);
+        assertEquals("0.077902285", accelerationView.sgValue);
 
-        mAccelerationPresenter
+        accelerationPresenter
                 .getConversionFromFeetPerSecondSquared("2.5064318986478525", 5);
         TestHelper.waitFor(() ->
-                        ((mAccelerationView.mCmpssValue != null)
-                                && (mAccelerationView.mMpssValue != null)
-                                && (mAccelerationView.mSgValue != null))
+                        ((accelerationView.cmpssValue != null)
+                                && (accelerationView.mpssValue != null)
+                                && (accelerationView.sgValue != null))
         );
 
-        assertEquals(false, mAccelerationView.mFpssError);
-        assertEquals("76.39604", mAccelerationView.mCmpssValue);
-        assertEquals("0.76396", mAccelerationView.mMpssValue);
-        assertEquals("0.0779", mAccelerationView.mSgValue);
+        assertEquals(false, accelerationView.fpssError);
+        assertEquals("76.39604", accelerationView.cmpssValue);
+        assertEquals("0.76396", accelerationView.mpssValue);
+        assertEquals("0.0779", accelerationView.sgValue);
 
-        mAccelerationView.resetValues();
+        accelerationView.resetValues();
     }
 
     @Test
     public void testMetersPerSecondSquaredConversion() throws Exception {
-        mAccelerationPresenter
+        accelerationPresenter
                 .getConversionFromMetersPerSecondSquared("1.568946531647201", 10);
         TestHelper.waitFor(() ->
-                        ((mAccelerationView.mCmpssValue != null)
-                                && (mAccelerationView.mFpssValue != null)
-                                && (mAccelerationView.mSgValue != null))
+                        ((accelerationView.cmpssValue != null)
+                                && (accelerationView.fpssValue != null)
+                                && (accelerationView.sgValue != null))
         );
 
-        assertEquals(false, mAccelerationView.mMpssError);
-        assertEquals("156.8946531647", mAccelerationView.mCmpssValue);
-        assertEquals("5.1474623742", mAccelerationView.mFpssValue);
-        assertEquals("0.1599880216", mAccelerationView.mSgValue);
+        assertEquals(false, accelerationView.mpssError);
+        assertEquals("156.8946531647", accelerationView.cmpssValue);
+        assertEquals("5.1474623742", accelerationView.fpssValue);
+        assertEquals("0.1599880216", accelerationView.sgValue);
 
-        mAccelerationPresenter
+        accelerationPresenter
                 .getConversionFromMetersPerSecondSquared("1.568946531647201", 5);
         TestHelper.waitFor(() ->
-                        ((mAccelerationView.mCmpssValue != null)
-                                && (mAccelerationView.mFpssValue != null)
-                                && (mAccelerationView.mSgValue != null))
+                        ((accelerationView.cmpssValue != null)
+                                && (accelerationView.fpssValue != null)
+                                && (accelerationView.sgValue != null))
         );
 
-        assertEquals(false, mAccelerationView.mMpssError);
-        assertEquals("156.89465", mAccelerationView.mCmpssValue);
-        assertEquals("5.14746", mAccelerationView.mFpssValue);
-        assertEquals("0.15999", mAccelerationView.mSgValue);
+        assertEquals(false, accelerationView.mpssError);
+        assertEquals("156.89465", accelerationView.cmpssValue);
+        assertEquals("5.14746", accelerationView.fpssValue);
+        assertEquals("0.15999", accelerationView.sgValue);
 
-        mAccelerationView.resetValues();
+        accelerationView.resetValues();
     }
 
     @Test
     public void testStandardGravityConversion() throws Exception {
-        mAccelerationPresenter
+        accelerationPresenter
                 .getConversionFromStandardGravity("0.564859764825136", 10);
         TestHelper.waitFor(() ->
-                        ((mAccelerationView.mCmpssValue != null)
-                                && (mAccelerationView.mFpssValue != null)
-                                && (mAccelerationView.mMpssValue != null))
+                        ((accelerationView.cmpssValue != null)
+                                && (accelerationView.fpssValue != null)
+                                && (accelerationView.mpssValue != null))
         );
 
-        assertEquals(false, mAccelerationView.mSgError);
-        assertEquals("553.9382012603", mAccelerationView.mCmpssValue);
-        assertEquals("18.1738255006", mAccelerationView.mFpssValue);
-        assertEquals("5.5393820126", mAccelerationView.mMpssValue);
+        assertEquals(false, accelerationView.sgError);
+        assertEquals("553.9382012603", accelerationView.cmpssValue);
+        assertEquals("18.1738255006", accelerationView.fpssValue);
+        assertEquals("5.5393820126", accelerationView.mpssValue);
 
-        mAccelerationPresenter
+        accelerationPresenter
                 .getConversionFromStandardGravity("0.564859764825136", 5);
         TestHelper.waitFor(() ->
-                        ((mAccelerationView.mCmpssValue != null)
-                                && (mAccelerationView.mFpssValue != null)
-                                && (mAccelerationView.mMpssValue != null))
+                        ((accelerationView.cmpssValue != null)
+                                && (accelerationView.fpssValue != null)
+                                && (accelerationView.mpssValue != null))
         );
 
-        assertEquals(false, mAccelerationView.mSgError);
-        assertEquals("553.9382", mAccelerationView.mCmpssValue);
-        assertEquals("18.17383", mAccelerationView.mFpssValue);
-        assertEquals("5.53938", mAccelerationView.mMpssValue);
+        assertEquals(false, accelerationView.sgError);
+        assertEquals("553.9382", accelerationView.cmpssValue);
+        assertEquals("18.17383", accelerationView.fpssValue);
+        assertEquals("5.53938", accelerationView.mpssValue);
 
-        mAccelerationView.resetValues();
+        accelerationView.resetValues();
     }
 }

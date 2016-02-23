@@ -21,79 +21,79 @@ import static org.junit.Assert.*;
 public class TemperatureTest {
 
     @Inject
-    MockTemperatureView mTemperatureView;
+    MockTemperatureView temperatureView;
     @Inject
-    ITemperaturePresenter mTemperaturePresenter;
+    ITemperaturePresenter temperaturePresenter;
 
     @Before
     public void setUp() throws Exception {
         TestHelper.getTestClassInjector()
                 .inject(this);
 
-        assertNotNull(mTemperatureView);
-        assertNotNull(mTemperaturePresenter);
+        assertNotNull(temperatureView);
+        assertNotNull(temperaturePresenter);
     }
 
     @Test
     public void testCelsiusConversion() throws Exception {
-        mTemperaturePresenter.getConversionFromCelsius("20.9764956236", 10);
-        TestHelper.waitFor(() -> ((mTemperatureView.mFahrenheitValue != null)
-                && (mTemperatureView.mKelvinValue != null)));
+        temperaturePresenter.getConversionFromCelsius("20.9764956236", 10);
+        TestHelper.waitFor(() -> ((temperatureView.fahrenheitValue != null)
+                && (temperatureView.kelvinValue != null)));
 
-        assertEquals(false, mTemperatureView.mCelsiusError);
-        assertEquals("69.7576921225", mTemperatureView.mFahrenheitValue);
-        assertEquals("294.1264956236", mTemperatureView.mKelvinValue);
+        assertEquals(false, temperatureView.celsiusError);
+        assertEquals("69.7576921225", temperatureView.fahrenheitValue);
+        assertEquals("294.1264956236", temperatureView.kelvinValue);
 
-        mTemperaturePresenter.getConversionFromCelsius("20.9764956236", 5);
-        TestHelper.waitFor(() -> ((mTemperatureView.mFahrenheitValue != null)
-                && (mTemperatureView.mKelvinValue != null)));
+        temperaturePresenter.getConversionFromCelsius("20.9764956236", 5);
+        TestHelper.waitFor(() -> ((temperatureView.fahrenheitValue != null)
+                && (temperatureView.kelvinValue != null)));
 
-        assertEquals(false, mTemperatureView.mCelsiusError);
-        assertEquals("69.75769", mTemperatureView.mFahrenheitValue);
-        assertEquals("294.1265", mTemperatureView.mKelvinValue);
+        assertEquals(false, temperatureView.celsiusError);
+        assertEquals("69.75769", temperatureView.fahrenheitValue);
+        assertEquals("294.1265", temperatureView.kelvinValue);
 
-        mTemperatureView.resetValues();
+        temperatureView.resetValues();
     }
 
     @Test
     public void testFahrenheitConversion() throws Exception {
-        mTemperaturePresenter.getConversionFromFahrenheit("80.9467316594316", 10);
-        TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
-                && (mTemperatureView.mKelvinValue != null)));
+        temperaturePresenter.getConversionFromFahrenheit("80.9467316594316", 10);
+        TestHelper.waitFor(() -> ((temperatureView.celsiusValue != null)
+                && (temperatureView.kelvinValue != null)));
 
-        assertEquals(false, mTemperatureView.mFahrenheitError);
-        assertEquals("27.1926286997", mTemperatureView.mCelsiusValue);
-        assertEquals("300.3426286997", mTemperatureView.mKelvinValue);
+        assertEquals(false, temperatureView.fahrenheitError);
+        assertEquals("27.1926286997", temperatureView.celsiusValue);
+        assertEquals("300.3426286997", temperatureView.kelvinValue);
 
-        mTemperaturePresenter.getConversionFromFahrenheit("80.9467316594316", 5);
-        TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
-                && (mTemperatureView.mKelvinValue != null)));
+        temperaturePresenter.getConversionFromFahrenheit("80.9467316594316", 5);
+        TestHelper.waitFor(() -> ((temperatureView.celsiusValue != null)
+                && (temperatureView.kelvinValue != null)));
 
-        assertEquals(false, mTemperatureView.mFahrenheitError);
-        assertEquals("27.19263", mTemperatureView.mCelsiusValue);
-        assertEquals("300.34263", mTemperatureView.mKelvinValue);
+        assertEquals(false, temperatureView.fahrenheitError);
+        assertEquals("27.19263", temperatureView.celsiusValue);
+        assertEquals("300.34263", temperatureView.kelvinValue);
 
-        mTemperatureView.resetValues();
+        temperatureView.resetValues();
     }
 
     @Test
     public void testKelvinConversion() throws Exception {
-        mTemperaturePresenter.getConversionFromKelvin("310.9764326946", 10);
-        TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
-                && (mTemperatureView.mFahrenheitValue != null)));
+        temperaturePresenter.getConversionFromKelvin("310.9764326946", 10);
+        TestHelper.waitFor(() -> ((temperatureView.celsiusValue != null)
+                && (temperatureView.fahrenheitValue != null)));
 
-        assertEquals(false, mTemperatureView.mKelvinError);
-        assertEquals("37.8264326946", mTemperatureView.mCelsiusValue);
-        assertEquals("100.0875788503", mTemperatureView.mFahrenheitValue);
+        assertEquals(false, temperatureView.kelvinError);
+        assertEquals("37.8264326946", temperatureView.celsiusValue);
+        assertEquals("100.0875788503", temperatureView.fahrenheitValue);
 
-        mTemperaturePresenter.getConversionFromKelvin("310.9764326946", 5);
-        TestHelper.waitFor(() -> ((mTemperatureView.mCelsiusValue != null)
-                && (mTemperatureView.mFahrenheitValue != null)));
+        temperaturePresenter.getConversionFromKelvin("310.9764326946", 5);
+        TestHelper.waitFor(() -> ((temperatureView.celsiusValue != null)
+                && (temperatureView.fahrenheitValue != null)));
 
-        assertEquals(false, mTemperatureView.mKelvinError);
-        assertEquals("37.82643", mTemperatureView.mCelsiusValue);
-        assertEquals("100.08758", mTemperatureView.mFahrenheitValue);
+        assertEquals(false, temperatureView.kelvinError);
+        assertEquals("37.82643", temperatureView.celsiusValue);
+        assertEquals("100.08758", temperatureView.fahrenheitValue);
 
-        mTemperatureView.resetValues();
+        temperatureView.resetValues();
     }
 }

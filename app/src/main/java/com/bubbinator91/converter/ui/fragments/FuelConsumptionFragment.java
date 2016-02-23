@@ -41,22 +41,19 @@ public class FuelConsumptionFragment
     private static final String L100K_VALUE_PERSIST_KEY = "FUEL_CONSUMPTION_FRAGMENT_L100K_VALUE";
     private static final String LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY = "FUEL_CONSUMPTION_FRAGMENT_LETF_VALUE";
 
-    private SimpleTextWatcher mTextWatcherUsmpg, mTextWatcherUkmpg, mTextWatcherKpl,
-            mTextWatcherL100k;
+    private SimpleTextWatcher textWatcherUsmpg, textWatcherUkmpg, textWatcherKpl, textWatcherL100k;
 
-    private int mLastEditTextFocused;
+    @Inject IFuelConsumptionPresenter fuelConsumptionPresenter;
 
-    @Inject IFuelConsumptionPresenter mFuelConsumptionPresenter;
+    @Bind(R.id.editText_fuel_consumption_usmpg) AppCompatEditText editTextUsmpg;
+    @Bind(R.id.editText_fuel_consumption_ukmpg) AppCompatEditText editTextUkmpg;
+    @Bind(R.id.editText_fuel_consumption_kpl)   AppCompatEditText editTextKpl;
+    @Bind(R.id.editText_fuel_consumption_l100k) AppCompatEditText editTextL100k;
 
-    @Bind(R.id.editText_fuel_consumption_usmpg) AppCompatEditText mEditTextUsmpg;
-    @Bind(R.id.editText_fuel_consumption_ukmpg) AppCompatEditText mEditTextUkmpg;
-    @Bind(R.id.editText_fuel_consumption_kpl)   AppCompatEditText mEditTextKpl;
-    @Bind(R.id.editText_fuel_consumption_l100k) AppCompatEditText mEditTextL100k;
-
-    @Bind(R.id.textInputLayout_fuel_consumption_usmpg)  TextInputLayout mTextInputLayoutUsmpg;
-    @Bind(R.id.textInputLayout_fuel_consumption_ukmpg)  TextInputLayout mTextInputLayoutUkmpg;
-    @Bind(R.id.textInputLayout_fuel_consumption_kpl)    TextInputLayout mTextInputLayoutKpl;
-    @Bind(R.id.textInputLayout_fuel_consumption_l100k)  TextInputLayout mTextInputLayoutL100k;
+    @Bind(R.id.textInputLayout_fuel_consumption_usmpg)  TextInputLayout textInputLayoutUsmpg;
+    @Bind(R.id.textInputLayout_fuel_consumption_ukmpg)  TextInputLayout textInputLayoutUkmpg;
+    @Bind(R.id.textInputLayout_fuel_consumption_kpl)    TextInputLayout textInputLayoutKpl;
+    @Bind(R.id.textInputLayout_fuel_consumption_l100k)  TextInputLayout textInputLayoutL100k;
 
     // region Lifecycle methods
 
@@ -68,15 +65,15 @@ public class FuelConsumptionFragment
         if (getRootView() != null) {
             ButterKnife.bind(this, getRootView());
 
-            mTextWatcherUsmpg = new SimpleTextWatcher() {
+            textWatcherUsmpg = new SimpleTextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
-                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_USMPG;
+                    setLastEditTextFocused(LAST_EDIT_TEXT_FOCUSED_USMPG);
 
                     if (s != null) {
-                        removeTextChangedListeners("mTextWatcherUsmpg");
+                        removeTextChangedListeners("textWatcherUsmpg");
                         Utils.sanitizeEditable(s);
-                        addTextChangedListeners("mTextWatcherUsmpg");
+                        addTextChangedListeners("textWatcherUsmpg");
                         getPresenter().getConversionFromUSMilesPerGallon(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
@@ -85,15 +82,15 @@ public class FuelConsumptionFragment
                 }
             };
 
-            mTextWatcherUkmpg = new SimpleTextWatcher() {
+            textWatcherUkmpg = new SimpleTextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
-                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_UKMPG;
+                    setLastEditTextFocused(LAST_EDIT_TEXT_FOCUSED_UKMPG);
 
                     if (s != null) {
-                        removeTextChangedListeners("mTextWatcherUkmpg");
+                        removeTextChangedListeners("textWatcherUkmpg");
                         Utils.sanitizeEditable(s);
-                        addTextChangedListeners("mTextWatcherUkmpg");
+                        addTextChangedListeners("textWatcherUkmpg");
                         getPresenter().getConversionFromUKMilesPerGallon(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
@@ -102,15 +99,15 @@ public class FuelConsumptionFragment
                 }
             };
 
-            mTextWatcherKpl = new SimpleTextWatcher() {
+            textWatcherKpl = new SimpleTextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
-                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_KPL;
+                    setLastEditTextFocused(LAST_EDIT_TEXT_FOCUSED_KPL);
 
                     if (s != null) {
-                        removeTextChangedListeners("mTextWatcherKpl");
+                        removeTextChangedListeners("textWatcherKpl");
                         Utils.sanitizeEditable(s);
-                        addTextChangedListeners("mTextWatcherKpl");
+                        addTextChangedListeners("textWatcherKpl");
                         getPresenter().getConversionFromKilometersPerLiter(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
@@ -119,15 +116,15 @@ public class FuelConsumptionFragment
                 }
             };
 
-            mTextWatcherL100k = new SimpleTextWatcher() {
+            textWatcherL100k = new SimpleTextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
-                    mLastEditTextFocused = LAST_EDIT_TEXT_FOCUSED_L100K;
+                    setLastEditTextFocused(LAST_EDIT_TEXT_FOCUSED_L100K);
 
                     if (s != null) {
-                        removeTextChangedListeners("mTextWatcherL100k");
+                        removeTextChangedListeners("textWatcherL100k");
                         Utils.sanitizeEditable(s);
-                        addTextChangedListeners("mTextWatcherL100k");
+                        addTextChangedListeners("textWatcherL100k");
                         getPresenter().getConversionFromLitersPer100Kilometers(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
@@ -152,45 +149,45 @@ public class FuelConsumptionFragment
                     && (getSharedPreferences().getString(UKMPG_VALUE_PERSIST_KEY, null) != null)
                     && (getSharedPreferences().getString(KPL_VALUE_PERSIST_KEY, null) != null)
                     && (getSharedPreferences().getString(L100K_VALUE_PERSIST_KEY, null) != null)) {
-                mEditTextUsmpg.setText(getSharedPreferences().getString(USMPG_VALUE_PERSIST_KEY, ""));
-                mEditTextUkmpg.setText(getSharedPreferences().getString(UKMPG_VALUE_PERSIST_KEY, ""));
-                mEditTextKpl.setText(getSharedPreferences().getString(KPL_VALUE_PERSIST_KEY, ""));
-                mEditTextL100k.setText(getSharedPreferences().getString(L100K_VALUE_PERSIST_KEY, ""));
+                editTextUsmpg.setText(getSharedPreferences().getString(USMPG_VALUE_PERSIST_KEY, ""));
+                editTextUkmpg.setText(getSharedPreferences().getString(UKMPG_VALUE_PERSIST_KEY, ""));
+                editTextKpl.setText(getSharedPreferences().getString(KPL_VALUE_PERSIST_KEY, ""));
+                editTextL100k.setText(getSharedPreferences().getString(L100K_VALUE_PERSIST_KEY, ""));
             }
             if (getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, -1) != -1) {
-                mLastEditTextFocused = getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, 0);
+                setLastEditTextFocused(getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, 0));
             }
         }
 
-        if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_USMPG) {
-            if (mEditTextUsmpg.getText() != null) {
-                Utils.sanitizeEditable(mEditTextUsmpg.getText());
+        if (getLastEditTextFocused() == LAST_EDIT_TEXT_FOCUSED_USMPG) {
+            if (editTextUsmpg.getText() != null) {
+                Utils.sanitizeEditable(editTextUsmpg.getText());
                 getPresenter().getConversionFromUSMilesPerGallon(
-                        mEditTextUsmpg.getText().toString(),
+                        editTextUsmpg.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
             }
-        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_UKMPG) {
-            if (mEditTextUkmpg.getText() != null) {
-                Utils.sanitizeEditable(mEditTextUkmpg.getText());
+        } else if (getLastEditTextFocused() == LAST_EDIT_TEXT_FOCUSED_UKMPG) {
+            if (editTextUkmpg.getText() != null) {
+                Utils.sanitizeEditable(editTextUkmpg.getText());
                 getPresenter().getConversionFromUKMilesPerGallon(
-                        mEditTextUkmpg.getText().toString(),
+                        editTextUkmpg.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
             }
-        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_KPL) {
-            if (mEditTextKpl.getText() != null) {
-                Utils.sanitizeEditable(mEditTextKpl.getText());
+        } else if (getLastEditTextFocused() == LAST_EDIT_TEXT_FOCUSED_KPL) {
+            if (editTextKpl.getText() != null) {
+                Utils.sanitizeEditable(editTextKpl.getText());
                 getPresenter().getConversionFromKilometersPerLiter(
-                        mEditTextKpl.getText().toString(),
+                        editTextKpl.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
             }
-        } else if (mLastEditTextFocused == LAST_EDIT_TEXT_FOCUSED_L100K) {
-            if (mEditTextL100k.getText() != null) {
-                Utils.sanitizeEditable(mEditTextL100k.getText());
+        } else if (getLastEditTextFocused() == LAST_EDIT_TEXT_FOCUSED_L100K) {
+            if (editTextL100k.getText() != null) {
+                Utils.sanitizeEditable(editTextL100k.getText());
                 getPresenter().getConversionFromLitersPer100Kilometers(
-                        mEditTextL100k.getText().toString(),
+                        editTextL100k.getText().toString(),
                         getNumOfDecimalPlaces()
                 );
             }
@@ -207,11 +204,11 @@ public class FuelConsumptionFragment
         if (getSharedPreferences() != null) {
             getSharedPreferences()
                     .edit()
-                    .putString(USMPG_VALUE_PERSIST_KEY, mEditTextUsmpg.getText().toString())
-                    .putString(UKMPG_VALUE_PERSIST_KEY, mEditTextUkmpg.getText().toString())
-                    .putString(KPL_VALUE_PERSIST_KEY, mEditTextKpl.getText().toString())
-                    .putString(L100K_VALUE_PERSIST_KEY, mEditTextL100k.getText().toString())
-                    .putInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, mLastEditTextFocused)
+                    .putString(USMPG_VALUE_PERSIST_KEY, editTextUsmpg.getText().toString())
+                    .putString(UKMPG_VALUE_PERSIST_KEY, editTextUkmpg.getText().toString())
+                    .putString(KPL_VALUE_PERSIST_KEY, editTextKpl.getText().toString())
+                    .putString(L100K_VALUE_PERSIST_KEY, editTextL100k.getText().toString())
+                    .putInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, getLastEditTextFocused())
                     .apply();
         }
     }
@@ -232,14 +229,14 @@ public class FuelConsumptionFragment
         Timber.tag(TAG + ".displayConversionFromKilometersPerLiterResults").i("Entered");
         removeTextChangedListeners(".displayConversionFromKilometersPerLiterResults");
 
-        mTextInputLayoutUsmpg.setErrorEnabled(false);
-        mTextInputLayoutUkmpg.setErrorEnabled(false);
-        mTextInputLayoutKpl.setErrorEnabled(false);
-        mTextInputLayoutL100k.setErrorEnabled(false);
+        textInputLayoutUsmpg.setErrorEnabled(false);
+        textInputLayoutUkmpg.setErrorEnabled(false);
+        textInputLayoutKpl.setErrorEnabled(false);
+        textInputLayoutL100k.setErrorEnabled(false);
 
-        mEditTextUsmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-        mEditTextUkmpg.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-        mEditTextL100k.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        editTextUsmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        editTextUkmpg.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        editTextL100k.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
 
         addTextChangedListeners(".displayConversionFromKilometersPerLiterResults");
     }
@@ -247,17 +244,17 @@ public class FuelConsumptionFragment
     @Override
     public void displayConversionFromKilometersPerLiterError(Throwable error) {
         if (error instanceof NumberFormatException) {
-            mTextInputLayoutKpl.setError(getString(R.string.conversion_error_input_not_numeric));
+            textInputLayoutKpl.setError(getString(R.string.conversion_error_input_not_numeric));
         } else if (error instanceof ValueBelowZeroException) {
-            mTextInputLayoutKpl.setError(getString(R.string.conversion_error_below_zero));
+            textInputLayoutKpl.setError(getString(R.string.conversion_error_below_zero));
         } else {
-            mTextInputLayoutKpl.setError(getString(R.string.conversion_error_conversion_error));
+            textInputLayoutKpl.setError(getString(R.string.conversion_error_conversion_error));
         }
 
         removeTextChangedListeners(".displayConversionFromKilometersPerLiterError");
-        mEditTextUsmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
-        mEditTextUkmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
-        mEditTextL100k.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextUsmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextUkmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextL100k.setText("", AppCompatTextView.BufferType.EDITABLE);
         addTextChangedListeners(".displayConversionFromKilometersPerLiterError");
     }
 
@@ -266,14 +263,14 @@ public class FuelConsumptionFragment
         Timber.tag(TAG + ".displayConversionFromLitersPer100KilometersResults").i("Entered");
         removeTextChangedListeners(".displayConversionFromLitersPer100KilometersResults");
 
-        mTextInputLayoutUsmpg.setErrorEnabled(false);
-        mTextInputLayoutUkmpg.setErrorEnabled(false);
-        mTextInputLayoutKpl.setErrorEnabled(false);
-        mTextInputLayoutL100k.setErrorEnabled(false);
+        textInputLayoutUsmpg.setErrorEnabled(false);
+        textInputLayoutUkmpg.setErrorEnabled(false);
+        textInputLayoutKpl.setErrorEnabled(false);
+        textInputLayoutL100k.setErrorEnabled(false);
 
-        mEditTextUsmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-        mEditTextUkmpg.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-        mEditTextKpl.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        editTextUsmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        editTextUkmpg.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        editTextKpl.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
 
         addTextChangedListeners(".displayConversionFromLitersPer100KilometersResults");
     }
@@ -281,17 +278,17 @@ public class FuelConsumptionFragment
     @Override
     public void displayConversionFromLitersPer100KilometersError(Throwable error) {
         if (error instanceof NumberFormatException) {
-            mTextInputLayoutL100k.setError(getString(R.string.conversion_error_input_not_numeric));
+            textInputLayoutL100k.setError(getString(R.string.conversion_error_input_not_numeric));
         } else if (error instanceof ValueBelowZeroException) {
-            mTextInputLayoutL100k.setError(getString(R.string.conversion_error_below_zero));
+            textInputLayoutL100k.setError(getString(R.string.conversion_error_below_zero));
         } else {
-            mTextInputLayoutL100k.setError(getString(R.string.conversion_error_conversion_error));
+            textInputLayoutL100k.setError(getString(R.string.conversion_error_conversion_error));
         }
 
         removeTextChangedListeners(".displayConversionFromLitersPer100KilometersError");
-        mEditTextUsmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
-        mEditTextUkmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
-        mEditTextKpl.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextUsmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextUkmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextKpl.setText("", AppCompatTextView.BufferType.EDITABLE);
         addTextChangedListeners(".displayConversionFromLitersPer100KilometersError");
     }
 
@@ -300,14 +297,14 @@ public class FuelConsumptionFragment
         Timber.tag(TAG + ".displayConversionFromUKMilesPerGallonResults").i("Entered");
         removeTextChangedListeners(".displayConversionFromUKMilesPerGallonResults");
 
-        mTextInputLayoutUsmpg.setErrorEnabled(false);
-        mTextInputLayoutUkmpg.setErrorEnabled(false);
-        mTextInputLayoutKpl.setErrorEnabled(false);
-        mTextInputLayoutL100k.setErrorEnabled(false);
+        textInputLayoutUsmpg.setErrorEnabled(false);
+        textInputLayoutUkmpg.setErrorEnabled(false);
+        textInputLayoutKpl.setErrorEnabled(false);
+        textInputLayoutL100k.setErrorEnabled(false);
 
-        mEditTextUsmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-        mEditTextKpl.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-        mEditTextL100k.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        editTextUsmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        editTextKpl.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        editTextL100k.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
 
         addTextChangedListeners(".displayConversionFromUKMilesPerGallonResults");
     }
@@ -315,17 +312,17 @@ public class FuelConsumptionFragment
     @Override
     public void displayConversionFromUKMilesPerGallonError(Throwable error) {
         if (error instanceof NumberFormatException) {
-            mTextInputLayoutUkmpg.setError(getString(R.string.conversion_error_input_not_numeric));
+            textInputLayoutUkmpg.setError(getString(R.string.conversion_error_input_not_numeric));
         } else if (error instanceof ValueBelowZeroException) {
-            mTextInputLayoutUkmpg.setError(getString(R.string.conversion_error_below_zero));
+            textInputLayoutUkmpg.setError(getString(R.string.conversion_error_below_zero));
         } else {
-            mTextInputLayoutUkmpg.setError(getString(R.string.conversion_error_conversion_error));
+            textInputLayoutUkmpg.setError(getString(R.string.conversion_error_conversion_error));
         }
 
         removeTextChangedListeners(".displayConversionFromUKMilesPerGallonError");
-        mEditTextUsmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
-        mEditTextKpl.setText("", AppCompatTextView.BufferType.EDITABLE);
-        mEditTextL100k.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextUsmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextKpl.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextL100k.setText("", AppCompatTextView.BufferType.EDITABLE);
         addTextChangedListeners(".displayConversionFromUKMilesPerGallonError");
     }
 
@@ -334,14 +331,14 @@ public class FuelConsumptionFragment
         Timber.tag(TAG + ".displayConversionFromUSMilesPerGallonResults").i("Entered");
         removeTextChangedListeners(".displayConversionFromUSMilesPerGallonResults");
 
-        mTextInputLayoutUsmpg.setErrorEnabled(false);
-        mTextInputLayoutUkmpg.setErrorEnabled(false);
-        mTextInputLayoutKpl.setErrorEnabled(false);
-        mTextInputLayoutL100k.setErrorEnabled(false);
+        textInputLayoutUsmpg.setErrorEnabled(false);
+        textInputLayoutUkmpg.setErrorEnabled(false);
+        textInputLayoutKpl.setErrorEnabled(false);
+        textInputLayoutL100k.setErrorEnabled(false);
 
-        mEditTextUkmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-        mEditTextKpl.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-        mEditTextL100k.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
+        editTextUkmpg.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
+        editTextKpl.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
+        editTextL100k.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
 
         addTextChangedListeners(".displayConversionFromUSMilesPerGallonResults");
     }
@@ -349,17 +346,17 @@ public class FuelConsumptionFragment
     @Override
     public void displayConversionFromUSMilesPerGallonError(Throwable error) {
         if (error instanceof NumberFormatException) {
-            mTextInputLayoutUsmpg.setError(getString(R.string.conversion_error_input_not_numeric));
+            textInputLayoutUsmpg.setError(getString(R.string.conversion_error_input_not_numeric));
         } else if (error instanceof ValueBelowZeroException) {
-            mTextInputLayoutUsmpg.setError(getString(R.string.conversion_error_below_zero));
+            textInputLayoutUsmpg.setError(getString(R.string.conversion_error_below_zero));
         } else {
-            mTextInputLayoutUsmpg.setError(getString(R.string.conversion_error_conversion_error));
+            textInputLayoutUsmpg.setError(getString(R.string.conversion_error_conversion_error));
         }
 
         removeTextChangedListeners(".displayConversionFromUSMilesPerGallonError");
-        mEditTextUkmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
-        mEditTextKpl.setText("", AppCompatTextView.BufferType.EDITABLE);
-        mEditTextL100k.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextUkmpg.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextKpl.setText("", AppCompatTextView.BufferType.EDITABLE);
+        editTextL100k.setText("", AppCompatTextView.BufferType.EDITABLE);
         addTextChangedListeners(".displayConversionFromUSMilesPerGallonError");
     }
 
@@ -375,10 +372,10 @@ public class FuelConsumptionFragment
             Timber.tag(TAG + ".addTextChangedListeners").i("Entered");
         }
 
-        mEditTextUsmpg.addTextChangedListener(mTextWatcherUsmpg);
-        mEditTextUkmpg.addTextChangedListener(mTextWatcherUkmpg);
-        mEditTextKpl.addTextChangedListener(mTextWatcherKpl);
-        mEditTextL100k.addTextChangedListener(mTextWatcherL100k);
+        editTextUsmpg.addTextChangedListener(textWatcherUsmpg);
+        editTextUkmpg.addTextChangedListener(textWatcherUkmpg);
+        editTextKpl.addTextChangedListener(textWatcherKpl);
+        editTextL100k.addTextChangedListener(textWatcherL100k);
     }
 
     @Override
@@ -389,10 +386,10 @@ public class FuelConsumptionFragment
             Timber.tag(TAG + ".removeTextChangedListeners").i("Entered");
         }
 
-        mEditTextUsmpg.removeTextChangedListener(mTextWatcherUsmpg);
-        mEditTextUkmpg.removeTextChangedListener(mTextWatcherUkmpg);
-        mEditTextKpl.removeTextChangedListener(mTextWatcherKpl);
-        mEditTextL100k.removeTextChangedListener(mTextWatcherL100k);
+        editTextUsmpg.removeTextChangedListener(textWatcherUsmpg);
+        editTextUkmpg.removeTextChangedListener(textWatcherUkmpg);
+        editTextKpl.removeTextChangedListener(textWatcherKpl);
+        editTextL100k.removeTextChangedListener(textWatcherL100k);
     }
 
     // endregion
@@ -410,13 +407,13 @@ public class FuelConsumptionFragment
 
     @Override
     protected IFuelConsumptionPresenter getPresenter() {
-        if (mFuelConsumptionPresenter == null) {
+        if (fuelConsumptionPresenter == null) {
             DaggerFragmentInjectorComponent
                     .create()
                     .inject(this);
         }
 
-        return mFuelConsumptionPresenter;
+        return fuelConsumptionPresenter;
     }
 
     @Override

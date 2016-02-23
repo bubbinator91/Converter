@@ -25,19 +25,19 @@ import static android.support.test.espresso.assertion.ViewAssertions.*;
 @LargeTest
 public class LengthFragmentTest {
     @Rule
-    public ActivityTestRule<TestActivity> mActivityTestRule = new ActivityTestRule<>(TestActivity.class);
+    public ActivityTestRule<TestActivity> activityTestRule = new ActivityTestRule<>(TestActivity.class);
 
-    private TestActivity mActivity;
+    private TestActivity activity;
 
     @Before
     public void setUp() throws Exception {
-        mActivity = mActivityTestRule.getActivity();
+        activity = activityTestRule.getActivity();
     }
 
     @Test
     public void convertToAllFromInches() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_inch)).perform(scrollTo(), clearText(), typeText("1.258633885023369824"));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("0.1048861571")));
@@ -48,8 +48,8 @@ public class LengthFragmentTest {
         onView(withId(R.id.editText_length_meter)).check(matches(withText("0.0319693007")));
         onView(withId(R.id.editText_length_kilometer)).check(matches(withText("0.0000319693")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_inch)).perform(scrollTo(), clearText(), typeText("1.258633885023369824"));
         onView(withId(R.id.editText_length_foot)).check(matches(withText("0.10489")));
@@ -63,8 +63,8 @@ public class LengthFragmentTest {
 
     @Test
     public void convertToAllFromFeet() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_foot)).perform(scrollTo(), clearText(), typeText("10.694673465926534"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("128.3360815911")));
@@ -75,8 +75,8 @@ public class LengthFragmentTest {
         onView(withId(R.id.editText_length_meter)).check(matches(withText("3.2597364724")));
         onView(withId(R.id.editText_length_kilometer)).check(matches(withText("0.0032597365")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_foot)).perform(scrollTo(), clearText(), typeText("10.694673465926534"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("128.33608")));
@@ -90,8 +90,8 @@ public class LengthFragmentTest {
 
     @Test
     public void convertToAllFromYards() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_yard)).perform(scrollTo(), clearText(), typeText("94.677446"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("3408.388056")));
@@ -102,8 +102,8 @@ public class LengthFragmentTest {
         onView(withId(R.id.editText_length_meter)).check(matches(withText("86.5730566224")));
         onView(withId(R.id.editText_length_kilometer)).check(matches(withText("0.0865730566")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_yard)).perform(scrollTo(), clearText(), typeText("94.677446"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("3408.38806")));
@@ -117,8 +117,8 @@ public class LengthFragmentTest {
 
     @Test
     public void convertToAllFromMiles() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_mile)).perform(scrollTo(), clearText(), typeText("8.569852369523695441288"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("542985.8461330213")));
@@ -129,8 +129,8 @@ public class LengthFragmentTest {
         onView(withId(R.id.editText_length_meter)).check(matches(withText("13791.8404917787")));
         onView(withId(R.id.editText_length_kilometer)).check(matches(withText("13.7918404918")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_mile)).perform(scrollTo(), clearText(), typeText("8.569852369523695441288"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("542985.84613")));
@@ -144,8 +144,8 @@ public class LengthFragmentTest {
 
     @Test
     public void convertToAllFromMillimeters() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_millimeter)).perform(scrollTo(), clearText(), typeText("58.85236982258084"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("2.317022434")));
@@ -156,8 +156,8 @@ public class LengthFragmentTest {
         onView(withId(R.id.editText_length_meter)).check(matches(withText("0.0588523698")));
         onView(withId(R.id.editText_length_kilometer)).check(matches(withText("0.0000588524")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_millimeter)).perform(scrollTo(), clearText(), typeText("58.85236982258084"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("2.31702")));
@@ -171,8 +171,8 @@ public class LengthFragmentTest {
 
     @Test
     public void convertToAllFromCentimeters() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_centimeter)).perform(scrollTo(), clearText(), typeText("56943.98653164976"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("22418.8923352952")));
@@ -183,8 +183,8 @@ public class LengthFragmentTest {
         onView(withId(R.id.editText_length_meter)).check(matches(withText("569.4398653165")));
         onView(withId(R.id.editText_length_kilometer)).check(matches(withText("0.5694398653")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_centimeter)).perform(scrollTo(), clearText(), typeText("56943.98653164976"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("22418.89234")));
@@ -198,8 +198,8 @@ public class LengthFragmentTest {
 
     @Test
     public void convertToAllFromMeters() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_meter)).perform(scrollTo(), clearText(), typeText("824.3642518597643169"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("32455.2855062899")));
@@ -210,8 +210,8 @@ public class LengthFragmentTest {
         onView(withId(R.id.editText_length_centimeter)).check(matches(withText("82436.4251859764")));
         onView(withId(R.id.editText_length_kilometer)).check(matches(withText("0.8243642519")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_meter)).perform(scrollTo(), clearText(), typeText("824.3642518597643169"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("32455.28551")));
@@ -225,8 +225,8 @@ public class LengthFragmentTest {
 
     @Test
     public void convertToAllFromKilometers() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_kilometer)).perform(scrollTo(), clearText(), typeText("8.5649764312526591"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("337203.7965060102")));
@@ -237,8 +237,8 @@ public class LengthFragmentTest {
         onView(withId(R.id.editText_length_centimeter)).check(matches(withText("856497.6431252659")));
         onView(withId(R.id.editText_length_meter)).check(matches(withText("8564.9764312527")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Length");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Length");
 
         onView(withId(R.id.editText_length_kilometer)).perform(scrollTo(), clearText(), typeText("8.5649764312526591"));
         onView(withId(R.id.editText_length_inch)).check(matches(withText("337203.79651")));

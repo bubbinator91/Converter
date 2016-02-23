@@ -25,26 +25,26 @@ import static android.support.test.espresso.assertion.ViewAssertions.*;
 @LargeTest
 public class TemperatureFragmentTest {
     @Rule
-    public ActivityTestRule<TestActivity> mActivityTestRule = new ActivityTestRule<>(TestActivity.class);
+    public ActivityTestRule<TestActivity> activityTestRule = new ActivityTestRule<>(TestActivity.class);
 
-    private TestActivity mActivity;
+    private TestActivity activity;
 
     @Before
     public void setUp() throws Exception {
-        mActivity = mActivityTestRule.getActivity();
+        activity = activityTestRule.getActivity();
     }
 
     @Test
     public void convertToAllFromCelsius() {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Temperature");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Temperature");
 
         onView(withId(R.id.editText_temperature_celsius)).perform(scrollTo(), clearText(), typeText("20.9764956236"));
         onView(withId(R.id.editText_temperature_fahrenheit)).check(matches(withText("69.7576921225")));
         onView(withId(R.id.editText_temperature_kelvin)).check(matches(withText("294.1264956236")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Temperature");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Temperature");
 
         onView(withId(R.id.editText_temperature_celsius)).perform(scrollTo(), clearText(), typeText("20.9764956236"));
         onView(withId(R.id.editText_temperature_fahrenheit)).check(matches(withText("69.75769")));
@@ -53,15 +53,15 @@ public class TemperatureFragmentTest {
 
     @Test
     public void convertToAllFromFahrenheit() {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Temperature");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Temperature");
 
         onView(withId(R.id.editText_temperature_fahrenheit)).perform(scrollTo(), clearText(), typeText("80.9467316594316"));
         onView(withId(R.id.editText_temperature_celsius)).check(matches(withText("27.1926286997")));
         onView(withId(R.id.editText_temperature_kelvin)).check(matches(withText("300.3426286997")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Temperature");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Temperature");
 
         onView(withId(R.id.editText_temperature_fahrenheit)).perform(scrollTo(), clearText(), typeText("80.9467316594316"));
         onView(withId(R.id.editText_temperature_celsius)).check(matches(withText("27.19263")));
@@ -70,15 +70,15 @@ public class TemperatureFragmentTest {
 
     @Test
     public void convertToAllFromKelvin() {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Temperature");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Temperature");
 
         onView(withId(R.id.editText_temperature_kelvin)).perform(scrollTo(), clearText(), typeText("310.9764326946"));
         onView(withId(R.id.editText_temperature_celsius)).check(matches(withText("37.8264326946")));
         onView(withId(R.id.editText_temperature_fahrenheit)).check(matches(withText("100.0875788503")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Temperature");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Temperature");
 
         onView(withId(R.id.editText_temperature_kelvin)).perform(scrollTo(), clearText(), typeText("310.9764326946"));
         onView(withId(R.id.editText_temperature_celsius)).check(matches(withText("37.82643")));

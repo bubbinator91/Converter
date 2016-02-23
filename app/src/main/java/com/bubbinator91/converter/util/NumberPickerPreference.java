@@ -15,10 +15,10 @@ import com.bubbinator91.converter.R;
 import timber.log.Timber;
 
 public class NumberPickerPreference extends DialogPreference {
-    private final String TAG = "NumberPickerPreference";
+    private final String TAG = DialogPreference.class.getSimpleName();
 
-    private NumberPicker mNumberPicker;
-    private Context mContext;
+    private NumberPicker numberPicker;
+    private Context context;
 
     public NumberPickerPreference(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -26,7 +26,7 @@ public class NumberPickerPreference extends DialogPreference {
 
         setDialogLayoutResource(R.layout.util_preference_number_picker);
         setPersistent(false);
-        mContext = context;
+        this.context = context;
     }
 
     @Override
@@ -34,12 +34,12 @@ public class NumberPickerPreference extends DialogPreference {
         super.onBindDialogView(view);
         Timber.tag(TAG + ".onBindDialogView").i("Entered");
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mNumberPicker = ((NumberPicker)view.findViewById(R.id.preferences_number_picker));
-        mNumberPicker.setMinValue(0);
-        mNumberPicker.setMaxValue(20);
-        mNumberPicker.setWrapSelectorWheel(true);
-        mNumberPicker.setValue(
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        numberPicker = ((NumberPicker)view.findViewById(R.id.preferences_number_picker));
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(20);
+        numberPicker.setWrapSelectorWheel(true);
+        numberPicker.setValue(
                 Integer.parseInt(
                         sharedPreferences.getString(
                                 Globals.PREFERENCE_DECIMAL_PLACES,
@@ -57,7 +57,7 @@ public class NumberPickerPreference extends DialogPreference {
 
         if (result) {
             SharedPreferences.Editor editor = getEditor();
-            editor.putString(Globals.PREFERENCE_DECIMAL_PLACES, Integer.toString(mNumberPicker.getValue()));
+            editor.putString(Globals.PREFERENCE_DECIMAL_PLACES, Integer.toString(numberPicker.getValue()));
             editor.commit();
         }
     }

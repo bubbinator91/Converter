@@ -30,13 +30,13 @@ public abstract class BaseFragment<T extends IConverterPresenter>
         implements ViewTreeObserver.OnScrollChangedListener {
     private final String TAG = BaseFragment.class.getSimpleName();
 
-    private SharedPreferences mPrefs = null;
-    private int numOfDecimalPlaces = -1;
+    private static SharedPreferences sharedPreferences = null;
 
     private View rootView = null;
-    private ScrollView mScrollView = null;
-    private int mToolbarHeight = 0, mToolbarOffset = 0, lastY = 0;
-    private boolean wasCreated;
+    private ScrollView requiredScrollView = null;
+    private int toolbarHeight = 0, toolbarOffset = 0, lastY = 0, numOfDecimalPlaces = -1;
+    private int lastEditTextFocused;
+    private boolean wasCreated = true;
 
     // region Lifecycle methods
 
@@ -57,17 +57,17 @@ public abstract class BaseFragment<T extends IConverterPresenter>
         Timber.tag(TAG + "." + getChildTag() + ".onCreateView").i("Entered");
         rootView = inflater.inflate(getLayoutResource(), container, false);
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
         TypedArray actionBarAttrs = getActivity()
                 .obtainStyledAttributes(new int[] {
                         android.R.attr.actionBarSize
                 });
-        mToolbarHeight = ((int) actionBarAttrs.getDimension(0, 0) + 10);
+        toolbarHeight = ((int) actionBarAttrs.getDimension(0, 0) + 10);
         actionBarAttrs.recycle();
 
-        mScrollView = ((ScrollView) rootView.findViewById(getScrollViewResource()));
-        mScrollView.getViewTreeObserver().addOnScrollChangedListener(this);
+        requiredScrollView = ((ScrollView) rootView.findViewById(getScrollViewResource()));
+        requiredScrollView.getViewTreeObserver().addOnScrollChangedListener(this);
 
         registerViewWithPresenter();
 
@@ -81,12 +81,12 @@ public abstract class BaseFragment<T extends IConverterPresenter>
         super.onResume();
         Timber.tag(TAG + "." + getChildTag() + ".onResume").i("Entered");
 
-        if (mPrefs == null) {
-            mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        if (sharedPreferences == null) {
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         }
-        if (mPrefs != null) {
+        if (sharedPreferences != null) {
             numOfDecimalPlaces =
-                    Integer.parseInt(mPrefs.getString(Globals.PREFERENCE_DECIMAL_PLACES, "-1"));
+                    Integer.parseInt(sharedPreferences.getString(Globals.PREFERENCE_DECIMAL_PLACES, "-1"));
         }
         if (numOfDecimalPlaces == -1) {
             numOfDecimalPlaces = 8;
@@ -101,9 +101,9 @@ public abstract class BaseFragment<T extends IConverterPresenter>
         Toolbar toolbar = ((Toolbar) getActivity().findViewById(R.id.toolbar));
         if (toolbar != null) {
             // Animate toolbar down if hidden
-            while (mToolbarOffset > 0) {
-                toolbar.animate().y(-mToolbarOffset);
-                --mToolbarOffset;
+            while (toolbarOffset > 0) {
+                toolbar.animate().y(-toolbarOffset);
+                --toolbarOffset;
             }
         }
 
@@ -123,13 +123,13 @@ public abstract class BaseFragment<T extends IConverterPresenter>
         if (isAdded()) {
             // Get the difference in scroll positions between the current call to onScrollChanged()
             // and the last call to onScrollChanged()
-            int dy = (mScrollView.getScrollY() - lastY);
+            int dy = (requiredScrollView.getScrollY() - lastY);
 
             // Make sure that the toolbar isn't in some weird position
-            if (mToolbarOffset > mToolbarHeight) {
-                mToolbarOffset = mToolbarHeight;
-            } else if (mToolbarOffset < 0) {
-                mToolbarOffset = 0;
+            if (toolbarOffset > toolbarHeight) {
+                toolbarOffset = toolbarHeight;
+            } else if (toolbarOffset < 0) {
+                toolbarOffset = 0;
             }
 
             // TODO Good idea to implement dagger here
@@ -143,11 +143,11 @@ public abstract class BaseFragment<T extends IConverterPresenter>
                 // fragments that have 3 conversion options or more, when the third conversion
                 // textbox is selected and the keyboard appears, the toolbar will hide so that the
                 // first 2 conversions remain on screen.
-                if ((dy > 0) && (mScrollView.getScrollY() > (mToolbarHeight - 20))) {
+                if ((dy > 0) && (requiredScrollView.getScrollY() > (toolbarHeight - 20))) {
                     if (toolbar != null) {
-                        while (mToolbarOffset < mToolbarHeight) {
-                            toolbar.animate().y(-mToolbarOffset);
-                            ++mToolbarOffset;
+                        while (toolbarOffset < toolbarHeight) {
+                            toolbar.animate().y(-toolbarOffset);
+                            ++toolbarOffset;
                         }
                     }
                 }
@@ -156,13 +156,13 @@ public abstract class BaseFragment<T extends IConverterPresenter>
                 // greater than the height of the toolbar, check the speed of the user's scrolling.
                 // This allows the user to scroll slow enough to keep the toolbar off the screen if
                 // they want to.
-                else if ((dy < 0) && (mScrollView.getScrollY() > mToolbarHeight)) {
+                else if ((dy < 0) && (requiredScrollView.getScrollY() > toolbarHeight)) {
                     // If the user has scrolled more than 5 units, animate the toolbar on to the
                     // screen
                     if ((dy < -5) && (toolbar != null)) {
-                        while (mToolbarOffset > 0) {
-                            toolbar.animate().y(-mToolbarOffset);
-                            --mToolbarOffset;
+                        while (toolbarOffset > 0) {
+                            toolbar.animate().y(-toolbarOffset);
+                            --toolbarOffset;
                         }
                     }
                 }
@@ -171,11 +171,11 @@ public abstract class BaseFragment<T extends IConverterPresenter>
                 // less than the height of the toolbar, animate the toolbar on to the screen. This
                 // forcibly animates the toolbar back onto the screen when the top of the ScrollView
                 // is just below the bottom of the status bar.
-                else if ((dy < 0) && (mScrollView.getScrollY() < mToolbarHeight)) {
+                else if ((dy < 0) && (requiredScrollView.getScrollY() < toolbarHeight)) {
                     if (toolbar != null) {
-                        while (mToolbarOffset > 0) {
-                            toolbar.animate().y(-mToolbarOffset);
-                            --mToolbarOffset;
+                        while (toolbarOffset > 0) {
+                            toolbar.animate().y(-toolbarOffset);
+                            --toolbarOffset;
                         }
                     }
                 }
@@ -185,7 +185,7 @@ public abstract class BaseFragment<T extends IConverterPresenter>
             }
 
             // Store the last position of the ScrollView for later use.
-            lastY = mScrollView.getScrollY();
+            lastY = requiredScrollView.getScrollY();
         }
     }
 
@@ -194,7 +194,18 @@ public abstract class BaseFragment<T extends IConverterPresenter>
      *
      * @return  The number of decimal places to round to.
      */
-    protected int getNumOfDecimalPlaces() { return numOfDecimalPlaces; }
+    protected int getNumOfDecimalPlaces() {
+        return numOfDecimalPlaces;
+    }
+
+    /**
+     * Gets the integer value of the last EditText focused.
+     *
+     * @return  The integer value of the last EditText focused.
+     */
+    protected int getLastEditTextFocused() {
+        return lastEditTextFocused;
+    }
 
     /**
      * Gets the root view that was inflated in {@link #onCreate(Bundle)}.
@@ -208,7 +219,21 @@ public abstract class BaseFragment<T extends IConverterPresenter>
      *
      * @return  A {@link SharedPreferences} object.
      */
-    protected SharedPreferences getSharedPreferences() { return mPrefs; }
+    protected SharedPreferences getSharedPreferences() {
+        if (sharedPreferences == null) {
+            sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(getActivity().getApplicationContext());
+        }
+        
+        return sharedPreferences;
+    }
+
+    /**
+     * Sets the internal value of the last focused EditText.
+     */
+    protected void setLastEditTextFocused(int lastEditTextFocused) {
+        this.lastEditTextFocused = lastEditTextFocused;
+    }
 
     /**
      * Gets a value indicating whether or not the fragment was resumed or fully created.

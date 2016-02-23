@@ -26,28 +26,36 @@ public enum GlobalsManager {
      *
      * @return  false if the app is not transitioning to the main activity; true otherwise.
      */
-    public boolean isGoingToMainActivityFromSettings() { return isGoingBackToMainActivityFromSettings; }
+    public boolean isGoingToMainActivityFromSettings() {
+        return isGoingBackToMainActivityFromSettings;
+    }
 
     /**
      * Gets the status of whether or not information messages should be written to the logcat.
      *
      * @return  false if information messages should not be written; true otherwise.
      */
-    public boolean isLogcatEnabled() { return isLogcatEnabled; }
+    public boolean isLogcatEnabled() {
+        return isLogcatEnabled;
+    }
 
     /**
      * Gets the status of whether or not the user has already seen the first run information.
      *
      * @return  false if the user has already seen the first run information; true otherwise.
      */
-    public boolean isFirstRun() { return isFirstRun; }
+    public boolean isFirstRun() {
+        return isFirstRun;
+    }
 
     /**
      * Gets the amount of decimal places the text fields should display after a conversion.
      *
      * @return  An integer value containing the amount of decimal places to display.
      */
-    public int decimalPlaceLength() { return decimalPlaceLength; }
+    public int decimalPlaceLength() {
+        return decimalPlaceLength;
+    }
 
     /**
      * Sets the status of whether or not the app is transitioning to the main activity from the
@@ -64,7 +72,9 @@ public enum GlobalsManager {
      *
      * @param state     false if information messages should not be written; true otherwise.
      */
-    public void setIsLogcatEnabled(boolean state) { isLogcatEnabled = state; }
+    public void setIsLogcatEnabled(boolean state) {
+        isLogcatEnabled = state;
+    }
 
     /**
      * Sets the status of whether or not the user has already seen the first run information.
@@ -72,12 +82,16 @@ public enum GlobalsManager {
      * @param state     false if the user has already seen the first run information; true
      *                  otherwise.
      */
-    public void setIsFirstRun(boolean state) { isFirstRun = state; }
+    public void setIsFirstRun(boolean state) {
+        isFirstRun = state;
+    }
 
     /**
      * Sets the amount of decimal places the text fields should display after a conversion.
      *
      * @param length    An integer value containing the amount of decimal places to display.
      */
-    public void setDecimalPlaceLength(int length) { decimalPlaceLength = length; }
+    public void setDecimalPlaceLength(int length) {
+        decimalPlaceLength = length;
+    }
 }

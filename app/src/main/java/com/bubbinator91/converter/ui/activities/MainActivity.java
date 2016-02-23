@@ -40,18 +40,15 @@ import timber.log.Timber;
  */
 public class MainActivity extends BaseActivity {
     private final String TAG = MainActivity.class.getSimpleName();
-
-    @Bind(R.id.activity_main_layout)
-    DrawerLayout mDrawerLayout;
-    @Bind(R.id.drawer_view)
-    NavigationView mNavigationView;
-
-    private ActionBarDrawerToggle mActionBarDrawerToggle;
-    private String lastSelectedFragment = null;
     private final String STATE_SELECTED_FRAGMENT = "selected_fragment";
-    private Handler mHandler = new Handler();
+
+    @Bind(R.id.activity_main_layout) DrawerLayout mDrawerLayout;
+    @Bind(R.id.drawer_view) NavigationView mNavigationView;
+
+    private ActionBarDrawerToggle toolbarDrawerToggle;
+    private String lastSelectedFragment = null;
+    private Handler mainThreadHandler = new Handler();
     private boolean wasActivityRestarted = false;
-    private SharedPreferences mPrefs;
 
     // region Lifecycle methods
 
@@ -71,7 +68,7 @@ public class MainActivity extends BaseActivity {
                 }
         );
 
-        mActionBarDrawerToggle = new ActionBarDrawerToggle(this,
+        toolbarDrawerToggle = new ActionBarDrawerToggle(this,
                 mDrawerLayout,
                 getToolbar(),
                 R.string.app_name,
@@ -85,8 +82,8 @@ public class MainActivity extends BaseActivity {
             }
         };
 
-        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
-        mActionBarDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(toolbarDrawerToggle);
+        toolbarDrawerToggle.syncState();
     }
 
     @Override
@@ -104,9 +101,7 @@ public class MainActivity extends BaseActivity {
         if (!wasActivityRestarted) {
             Timber.tag(TAG + ".onStart").i("Activity was not restarted");
 
-            mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-            lastSelectedFragment = mPrefs.getString(STATE_SELECTED_FRAGMENT, "null");
+            lastSelectedFragment = getSharedPreferences().getString(STATE_SELECTED_FRAGMENT, "null");
             Timber.tag(TAG + ".onStart").i("lastSelectedFragment = " + lastSelectedFragment);
             if (!GlobalsManager.INSTANCE.isGoingToMainActivityFromSettings()) {
                 if (!lastSelectedFragment.equals("null")) {
@@ -212,8 +207,8 @@ public class MainActivity extends BaseActivity {
 
     private void saveLastSelectedFragment() {
         Timber.tag(TAG + ".saveLastSelectedFragment").i("Entered");
-        if (mPrefs != null) {
-            SharedPreferences.Editor editor = mPrefs.edit();
+        if (getSharedPreferences() != null) {
+            SharedPreferences.Editor editor = getSharedPreferences().edit();
             editor.putString(STATE_SELECTED_FRAGMENT, lastSelectedFragment);
             editor.apply();
         }
@@ -280,7 +275,7 @@ public class MainActivity extends BaseActivity {
             fragmentToSwitchTo = null;
         }
 
-        mHandler.postDelayed(() -> {
+        mainThreadHandler.postDelayed(() -> {
                     if (fragmentToSwitchTo != null) {
                         try {
                             getFragmentManager().beginTransaction()

@@ -25,7 +25,9 @@ import timber.log.Timber;
 public abstract class BaseActivity extends AppCompatActivity {
 	private final String TAG = BaseActivity.class.getSimpleName();
 
-	private Toolbar mToolbar;
+	private static SharedPreferences sharedPreferences = null;
+
+	private Toolbar toolbar;
 
 	// region Lifecycle methods
 
@@ -69,9 +71,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                     Snackbar.LENGTH_LONG).show();
 		}
 
-		mToolbar = ((Toolbar) findViewById(R.id.toolbar));
-		setSupportActionBar(mToolbar);
-		if ((mToolbar != null) && (getSupportActionBar() != null)) {
+		toolbar = ((Toolbar) findViewById(R.id.toolbar));
+		setSupportActionBar(toolbar);
+		if ((toolbar != null) && (getSupportActionBar() != null)) {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setHomeButtonEnabled(true);
 		}
@@ -81,9 +83,23 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 	// region Helper methods
 
+    /**
+     * Gets the {@link SharedPreferences} object for use in any child class.
+     *
+     * @return  A {@link SharedPreferences} object.
+     */
+    protected SharedPreferences getSharedPreferences() {
+        if (sharedPreferences == null) {
+            sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(this.getApplicationContext());
+        }
+
+        return sharedPreferences;
+    }
+
 	protected Toolbar getToolbar() {
 		Timber.tag(TAG + "." + getChildTag() + ".getToolbar").i("Entered");
-		return mToolbar;
+		return toolbar;
 	}
 
 	/**
@@ -100,11 +116,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 	 */
 	protected void setToolbarIcon(int iconResId, boolean enableHomeIcon) {
 		Timber.tag(TAG + "." + getChildTag() + ".setToolbarIcon").i("Entered");
-		if ((mToolbar != null) && (getSupportActionBar() != null)) {
+		if ((toolbar != null) && (getSupportActionBar() != null)) {
 			if (enableHomeIcon) {
 				getSupportActionBar().setDisplayShowHomeEnabled(true);
 			} else {
-				mToolbar.setNavigationIcon(iconResId);
+				toolbar.setNavigationIcon(iconResId);
 			}
 		}
 	}

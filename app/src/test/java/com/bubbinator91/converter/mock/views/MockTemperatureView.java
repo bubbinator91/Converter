@@ -6,49 +6,49 @@ import java.util.List;
 
 public class MockTemperatureView implements ITemperatureView {
 
-    public String mCelsiusValue = null, mFahrenheitValue = null, mKelvinValue = null;
-    public boolean mCelsiusError = false, mFahrenheitError = false, mKelvinError = false;
+    public String celsiusValue = null, fahrenheitValue = null, kelvinValue = null;
+    public boolean celsiusError = false, fahrenheitError = false, kelvinError = false;
 
     @Override
     public void displayConversionFromCelsiusResults(List<String> results) {
-        mFahrenheitValue = results.get(0);
-        mKelvinValue = results.get(1);
-        mCelsiusError = false;
+        fahrenheitValue = results.get(0);
+        kelvinValue = results.get(1);
+        celsiusError = false;
     }
 
     @Override
     public void displayConversionFromCelsiusError(Throwable error) {
-        mFahrenheitValue = null;
-        mKelvinValue = null;
-        mCelsiusError = true;
+        fahrenheitValue = null;
+        kelvinValue = null;
+        celsiusError = true;
     }
 
     @Override
     public void displayConversionFromFahrenheitResults(List<String> results) {
-        mCelsiusValue = results.get(0);
-        mKelvinValue = results.get(1);
-        mFahrenheitError = false;
+        celsiusValue = results.get(0);
+        kelvinValue = results.get(1);
+        fahrenheitError = false;
     }
 
     @Override
     public void displayConversionFromFahrenheitError(Throwable error) {
-        mCelsiusValue = null;
-        mKelvinValue = null;
-        mFahrenheitError = true;
+        celsiusValue = null;
+        kelvinValue = null;
+        fahrenheitError = true;
     }
 
     @Override
     public void displayConversionFromKelvinResults(List<String> results) {
-        mCelsiusValue = results.get(0);
-        mFahrenheitValue = results.get(1);
-        mKelvinError = false;
+        celsiusValue = results.get(0);
+        fahrenheitValue = results.get(1);
+        kelvinError = false;
     }
 
     @Override
     public void displayConversionFromKelvinError(Throwable error) {
-        mCelsiusValue = null;
-        mFahrenheitValue = null;
-        mKelvinError = true;
+        celsiusValue = null;
+        fahrenheitValue = null;
+        kelvinError = true;
     }
 
     @Override
@@ -62,12 +62,12 @@ public class MockTemperatureView implements ITemperatureView {
     }
 
     public void resetValues() {
-        mCelsiusValue = null;
-        mFahrenheitValue = null;
-        mKelvinValue = null;
+        celsiusValue = null;
+        fahrenheitValue = null;
+        kelvinValue = null;
 
-        mCelsiusError = false;
-        mFahrenheitError = false;
-        mKelvinError = false;
+        celsiusError = false;
+        fahrenheitError = false;
+        kelvinError = false;
     }
 }

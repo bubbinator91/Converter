@@ -19,7 +19,7 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
-    private ITemperatureView mTemperatureView;
+    private ITemperatureView temperatureView;
 
     public TemperaturePresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
                                 @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
@@ -28,8 +28,8 @@ public class TemperaturePresenter implements ITemperaturePresenter {
     }
 
     @Override
-    public void registerView(ITemperatureView activity) {
-        mTemperatureView = activity;
+    public void registerView(ITemperatureView view) {
+        temperatureView = view;
     }
 
     @Override
@@ -39,8 +39,8 @@ public class TemperaturePresenter implements ITemperaturePresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mTemperatureView::displayConversionFromCelsiusResults,
-                        mTemperatureView::displayConversionFromCelsiusError
+                        temperatureView::displayConversionFromCelsiusResults,
+                        temperatureView::displayConversionFromCelsiusError
                 );
     }
 
@@ -51,8 +51,8 @@ public class TemperaturePresenter implements ITemperaturePresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mTemperatureView::displayConversionFromFahrenheitResults,
-                        mTemperatureView::displayConversionFromFahrenheitError
+                        temperatureView::displayConversionFromFahrenheitResults,
+                        temperatureView::displayConversionFromFahrenheitError
                 );
     }
 
@@ -63,8 +63,8 @@ public class TemperaturePresenter implements ITemperaturePresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mTemperatureView::displayConversionFromKelvinResults,
-                        mTemperatureView::displayConversionFromKelvinError
+                        temperatureView::displayConversionFromKelvinResults,
+                        temperatureView::displayConversionFromKelvinError
                 );
     }
 }

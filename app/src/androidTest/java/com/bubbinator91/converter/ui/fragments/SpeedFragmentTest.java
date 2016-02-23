@@ -25,19 +25,19 @@ import static android.support.test.espresso.assertion.ViewAssertions.*;
 @LargeTest
 public class SpeedFragmentTest {
     @Rule
-    public ActivityTestRule<TestActivity> mActivityTestRule = new ActivityTestRule<>(TestActivity.class);
+    public ActivityTestRule<TestActivity> activityTestRule = new ActivityTestRule<>(TestActivity.class);
 
-    private TestActivity mActivity;
+    private TestActivity activity;
 
     @Before
     public void setUp() throws Exception {
-        mActivity = mActivityTestRule.getActivity();
+        activity = activityTestRule.getActivity();
     }
 
     @Test
     public void convertToAllFromFps() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Speed");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Speed");
 
         onView(withId(R.id.editText_speed_fps)).perform(scrollTo(), clearText(), typeText("4.3465986431"));
         onView(withId(R.id.editText_speed_knot)).check(matches(withText("2.5752892868")));
@@ -45,8 +45,8 @@ public class SpeedFragmentTest {
         onView(withId(R.id.editText_speed_mps)).check(matches(withText("1.3248432664")));
         onView(withId(R.id.editText_speed_mph)).check(matches(withText("2.9635899839")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Speed");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Speed");
 
         onView(withId(R.id.editText_speed_fps)).perform(scrollTo(), clearText(), typeText("4.3465986431"));
         onView(withId(R.id.editText_speed_knot)).check(matches(withText("2.57529")));
@@ -57,8 +57,8 @@ public class SpeedFragmentTest {
 
     @Test
     public void convertToAllFromKnot() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Speed");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Speed");
 
         onView(withId(R.id.editText_speed_knot)).perform(scrollTo(), clearText(), typeText("3.465923564312"));
         onView(withId(R.id.editText_speed_fps)).check(matches(withText("5.8498199558")));
@@ -66,8 +66,8 @@ public class SpeedFragmentTest {
         onView(withId(R.id.editText_speed_mps)).check(matches(withText("1.7830251225")));
         onView(withId(R.id.editText_speed_mph)).check(matches(withText("3.9885136062")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Speed");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Speed");
 
         onView(withId(R.id.editText_speed_knot)).perform(scrollTo(), clearText(), typeText("3.465923564312"));
         onView(withId(R.id.editText_speed_fps)).check(matches(withText("5.84982")));
@@ -78,8 +78,8 @@ public class SpeedFragmentTest {
 
     @Test
     public void convertToAllFromKph() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Speed");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Speed");
 
         onView(withId(R.id.editText_speed_kph)).perform(scrollTo(), clearText(), typeText("7.5806235947"));
         onView(withId(R.id.editText_speed_fps)).check(matches(withText("6.9085589774")));
@@ -87,8 +87,8 @@ public class SpeedFragmentTest {
         onView(withId(R.id.editText_speed_mps)).check(matches(withText("2.1057287763")));
         onView(withId(R.id.editText_speed_mph)).check(matches(withText("4.7103811209")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Speed");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Speed");
 
         onView(withId(R.id.editText_speed_kph)).perform(scrollTo(), clearText(), typeText("7.5806235947"));
         onView(withId(R.id.editText_speed_fps)).check(matches(withText("6.90856")));
@@ -99,8 +99,8 @@ public class SpeedFragmentTest {
 
     @Test
     public void convertToAllFromMps() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Speed");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Speed");
 
         onView(withId(R.id.editText_speed_mps)).perform(scrollTo(), clearText(), typeText("2.894653261712"));
         onView(withId(R.id.editText_speed_fps)).check(matches(withText("9.4968939033")));
@@ -108,8 +108,8 @@ public class SpeedFragmentTest {
         onView(withId(R.id.editText_speed_kph)).check(matches(withText("10.4207517422")));
         onView(withId(R.id.editText_speed_mph)).check(matches(withText("6.475154934")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Speed");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Speed");
 
         onView(withId(R.id.editText_speed_mps)).perform(scrollTo(), clearText(), typeText("2.894653261712"));
         onView(withId(R.id.editText_speed_fps)).check(matches(withText("9.49689")));
@@ -120,8 +120,8 @@ public class SpeedFragmentTest {
 
     @Test
     public void convertToAllFromMph() throws Exception {
-        mActivity.setDecimalPlaces(10);
-        mActivity.loadFragment("Speed");
+        activity.setDecimalPlaces(10);
+        activity.loadFragment("Speed");
 
         onView(withId(R.id.editText_speed_mph)).perform(scrollTo(), clearText(), typeText("5.346592653461"));
         onView(withId(R.id.editText_speed_fps)).check(matches(withText("7.8416692251")));
@@ -129,8 +129,8 @@ public class SpeedFragmentTest {
         onView(withId(R.id.editText_speed_kph)).check(matches(withText("8.6045068073")));
         onView(withId(R.id.editText_speed_mps)).check(matches(withText("2.3901407798")));
 
-        mActivity.setDecimalPlaces(5);
-        mActivity.loadFragment("Speed");
+        activity.setDecimalPlaces(5);
+        activity.loadFragment("Speed");
 
         onView(withId(R.id.editText_speed_mph)).perform(scrollTo(), clearText(), typeText("5.346592653461"));
         onView(withId(R.id.editText_speed_fps)).check(matches(withText("7.84167")));

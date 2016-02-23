@@ -6,71 +6,71 @@ import java.util.List;
 
 public class MockAccelerationView implements IAccelerationView {
 
-    public String mCmpssValue = null, mFpssValue = null, mMpssValue = null, mSgValue = null;
-    public boolean mCmpssError = false, mFpssError = false, mMpssError = false, mSgError = false;
+    public String cmpssValue = null, fpssValue = null, mpssValue = null, sgValue = null;
+    public boolean cmpssError = false, fpssError = false, mpssError = false, sgError = false;
 
     @Override
     public void displayConversionFromCentimetersPerSecondSquaredResults(List<String> results) {
-        mFpssValue = results.get(0);
-        mMpssValue = results.get(1);
-        mSgValue = results.get(2);
-        mCmpssError = false;
+        fpssValue = results.get(0);
+        mpssValue = results.get(1);
+        sgValue = results.get(2);
+        cmpssError = false;
     }
 
     @Override
     public void displayConversionFromCentimetersPerSecondSquaredError(Throwable error) {
-        mFpssValue = null;
-        mMpssValue = null;
-        mSgValue = null;
-        mCmpssError = true;
+        fpssValue = null;
+        mpssValue = null;
+        sgValue = null;
+        cmpssError = true;
     }
 
     @Override
     public void displayConversionFromFeetPerSecondSquaredResults(List<String> results) {
-        mCmpssValue = results.get(0);
-        mMpssValue = results.get(1);
-        mSgValue = results.get(2);
-        mFpssError = false;
+        cmpssValue = results.get(0);
+        mpssValue = results.get(1);
+        sgValue = results.get(2);
+        fpssError = false;
     }
 
     @Override
     public void displayConversionFromFeetPerSecondSquaredError(Throwable error) {
-        mCmpssValue = null;
-        mMpssValue = null;
-        mSgValue = null;
-        mFpssError = true;
+        cmpssValue = null;
+        mpssValue = null;
+        sgValue = null;
+        fpssError = true;
     }
 
     @Override
     public void displayConversionFromMetersPerSecondSquaredResults(List<String> results) {
-        mCmpssValue = results.get(0);
-        mFpssValue = results.get(1);
-        mSgValue = results.get(2);
-        mMpssError = false;
+        cmpssValue = results.get(0);
+        fpssValue = results.get(1);
+        sgValue = results.get(2);
+        mpssError = false;
     }
 
     @Override
     public void displayConversionFromMetersPerSecondSquaredError(Throwable error) {
-        mCmpssValue = null;
-        mFpssValue = null;
-        mSgValue = null;
-        mMpssError = true;
+        cmpssValue = null;
+        fpssValue = null;
+        sgValue = null;
+        mpssError = true;
     }
 
     @Override
     public void displayConversionFromStandardGravityResults(List<String> results) {
-        mCmpssValue = results.get(0);
-        mFpssValue = results.get(1);
-        mMpssValue = results.get(2);
-        mSgError = false;
+        cmpssValue = results.get(0);
+        fpssValue = results.get(1);
+        mpssValue = results.get(2);
+        sgError = false;
     }
 
     @Override
     public void displayConversionFromStandardGravityError(Throwable error) {
-        mCmpssValue = null;
-        mFpssValue = null;
-        mMpssValue = null;
-        mSgError = true;
+        cmpssValue = null;
+        fpssValue = null;
+        mpssValue = null;
+        sgError = true;
     }
 
     @Override
@@ -84,14 +84,14 @@ public class MockAccelerationView implements IAccelerationView {
     }
 
     public void resetValues() {
-        mCmpssValue = null;
-        mFpssValue = null;
-        mMpssValue = null;
-        mSgValue = null;
+        cmpssValue = null;
+        fpssValue = null;
+        mpssValue = null;
+        sgValue = null;
 
-        mCmpssError = false;
-        mFpssError = false;
-        mMpssError = false;
-        mSgError = false;
+        cmpssError = false;
+        fpssError = false;
+        mpssError = false;
+        sgError = false;
     }
 }

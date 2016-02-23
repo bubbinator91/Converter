@@ -20,7 +20,7 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
-    private IFuelConsumptionView mFuelConsumptionView;
+    private IFuelConsumptionView fuelConsumptionView;
 
 
     public FuelConsumptionPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
@@ -30,8 +30,8 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
     }
 
     @Override
-    public void registerView(IFuelConsumptionView activity) {
-        mFuelConsumptionView = activity;
+    public void registerView(IFuelConsumptionView view) {
+        fuelConsumptionView = view;
     }
 
     @Override
@@ -41,8 +41,8 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mFuelConsumptionView::displayConversionFromKilometersPerLiterResults,
-                        mFuelConsumptionView::displayConversionFromKilometersPerLiterError
+                        fuelConsumptionView::displayConversionFromKilometersPerLiterResults,
+                        fuelConsumptionView::displayConversionFromKilometersPerLiterError
                 );
     }
 
@@ -53,8 +53,8 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mFuelConsumptionView::displayConversionFromLitersPer100KilometersResults,
-                        mFuelConsumptionView::displayConversionFromLitersPer100KilometersError
+                        fuelConsumptionView::displayConversionFromLitersPer100KilometersResults,
+                        fuelConsumptionView::displayConversionFromLitersPer100KilometersError
                 );
     }
 
@@ -65,8 +65,8 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mFuelConsumptionView::displayConversionFromUKMilesPerGallonResults,
-                        mFuelConsumptionView::displayConversionFromUKMilesPerGallonError
+                        fuelConsumptionView::displayConversionFromUKMilesPerGallonResults,
+                        fuelConsumptionView::displayConversionFromUKMilesPerGallonError
                 );
     }
 
@@ -77,8 +77,8 @@ public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mFuelConsumptionView::displayConversionFromUSMilesPerGallonResults,
-                        mFuelConsumptionView::displayConversionFromUSMilesPerGallonError
+                        fuelConsumptionView::displayConversionFromUSMilesPerGallonResults,
+                        fuelConsumptionView::displayConversionFromUSMilesPerGallonError
                 );
     }
 }

@@ -26,7 +26,7 @@ public class LengthPresenter implements ILengthPresenter {
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
-    private ILengthView mLengthView;
+    private ILengthView lengthView;
 
     public LengthPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
                            @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
@@ -35,8 +35,8 @@ public class LengthPresenter implements ILengthPresenter {
     }
 
     @Override
-    public void registerView(ILengthView activity) {
-        mLengthView = activity;
+    public void registerView(ILengthView view) {
+        lengthView = view;
     }
 
     @Override
@@ -46,8 +46,8 @@ public class LengthPresenter implements ILengthPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mLengthView::displayConversionFromInchesResults,
-                        mLengthView::displayConversionFromInchesError
+                        lengthView::displayConversionFromInchesResults,
+                        lengthView::displayConversionFromInchesError
                 );
     }
 
@@ -58,8 +58,8 @@ public class LengthPresenter implements ILengthPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mLengthView::displayConversionFromFeetResults,
-                        mLengthView::displayConversionFromFeetError
+                        lengthView::displayConversionFromFeetResults,
+                        lengthView::displayConversionFromFeetError
                 );
     }
 
@@ -70,8 +70,8 @@ public class LengthPresenter implements ILengthPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mLengthView::displayConversionFromYardsResults,
-                        mLengthView::displayConversionFromYardsError
+                        lengthView::displayConversionFromYardsResults,
+                        lengthView::displayConversionFromYardsError
                 );
     }
 
@@ -82,8 +82,8 @@ public class LengthPresenter implements ILengthPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mLengthView::displayConversionFromMilesResults,
-                        mLengthView::displayConversionFromMilesError
+                        lengthView::displayConversionFromMilesResults,
+                        lengthView::displayConversionFromMilesError
                 );
     }
 
@@ -94,8 +94,8 @@ public class LengthPresenter implements ILengthPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mLengthView::displayConversionFromMillimetersResults,
-                        mLengthView::displayConversionFromMillimetersError
+                        lengthView::displayConversionFromMillimetersResults,
+                        lengthView::displayConversionFromMillimetersError
                 );
     }
 
@@ -106,8 +106,8 @@ public class LengthPresenter implements ILengthPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mLengthView::displayConversionFromCentimetersResults,
-                        mLengthView::displayConversionFromCentimetersError
+                        lengthView::displayConversionFromCentimetersResults,
+                        lengthView::displayConversionFromCentimetersError
                 );
     }
 
@@ -118,8 +118,8 @@ public class LengthPresenter implements ILengthPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mLengthView::displayConversionFromMetersResults,
-                        mLengthView::displayConversionFromMetersError
+                        lengthView::displayConversionFromMetersResults,
+                        lengthView::displayConversionFromMetersError
                 );
     }
 
@@ -130,8 +130,8 @@ public class LengthPresenter implements ILengthPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mLengthView::displayConversionFromKilometersResults,
-                        mLengthView::displayConversionFromKilometersError
+                        lengthView::displayConversionFromKilometersResults,
+                        lengthView::displayConversionFromKilometersError
                 );
     }
 }

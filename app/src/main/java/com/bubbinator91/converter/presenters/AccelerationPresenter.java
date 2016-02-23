@@ -20,7 +20,7 @@ public class AccelerationPresenter implements IAccelerationPresenter {
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
-    private IAccelerationView mAccelerationView;
+    private IAccelerationView accelerationView;
 
     public AccelerationPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
                                  @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
@@ -29,8 +29,8 @@ public class AccelerationPresenter implements IAccelerationPresenter {
     }
 
     @Override
-    public void registerView(IAccelerationView activity) {
-        mAccelerationView = activity;
+    public void registerView(IAccelerationView view) {
+        accelerationView = view;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class AccelerationPresenter implements IAccelerationPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mAccelerationView::displayConversionFromCentimetersPerSecondSquaredResults,
-                        mAccelerationView::displayConversionFromCentimetersPerSecondSquaredError
+                        accelerationView::displayConversionFromCentimetersPerSecondSquaredResults,
+                        accelerationView::displayConversionFromCentimetersPerSecondSquaredError
                 );
     }
 
@@ -52,8 +52,8 @@ public class AccelerationPresenter implements IAccelerationPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mAccelerationView::displayConversionFromFeetPerSecondSquaredResults,
-                        mAccelerationView::displayConversionFromFeetPerSecondSquaredError
+                        accelerationView::displayConversionFromFeetPerSecondSquaredResults,
+                        accelerationView::displayConversionFromFeetPerSecondSquaredError
                 );
     }
 
@@ -64,8 +64,8 @@ public class AccelerationPresenter implements IAccelerationPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mAccelerationView::displayConversionFromMetersPerSecondSquaredResults,
-                        mAccelerationView::displayConversionFromMetersPerSecondSquaredError
+                        accelerationView::displayConversionFromMetersPerSecondSquaredResults,
+                        accelerationView::displayConversionFromMetersPerSecondSquaredError
                 );
     }
 
@@ -76,8 +76,8 @@ public class AccelerationPresenter implements IAccelerationPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mAccelerationView::displayConversionFromStandardGravityResults,
-                        mAccelerationView::displayConversionFromStandardGravityError
+                        accelerationView::displayConversionFromStandardGravityResults,
+                        accelerationView::displayConversionFromStandardGravityError
                 );
     }
 }

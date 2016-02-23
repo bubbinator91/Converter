@@ -6,291 +6,291 @@ import java.util.List;
 
 public class MockDataTransferSpeedView implements IDataTransferSpeedView {
 
-    public String mBpsValue = null, mBypsValue = null, mKbpsValue = null, mKbypsValue = null,
-            mMbpsValue = null, mMbypsValue = null, mGbpsValue = null, mGbypsValue = null,
-            mTbpsValue = null, mTbypsValue = null;
-    public boolean mBpsError = false, mBypsError = false, mKbpsError = false, mKbypsError = false,
-            mMbpsError = false, mMbypsError = false, mGbpsError = false, mGbypsError = false,
-            mTbpsError = false, mTbypsError = false;
+    public String bpsValue = null, bypsValue = null, kbpsValue = null, kbypsValue = null,
+            mbpsValue = null, mbypsValue = null, gbpsValue = null, gbypsValue = null,
+            tbpsValue = null, tbypsValue = null;
+    public boolean bpsError = false, bypsError = false, kbpsError = false, kbypsError = false,
+            mbpsError = false, mbypsError = false, gbpsError = false, gbypsError = false,
+            tbpsError = false, tbypsError = false;
 
     @Override
     public void displayConversionFromBitsPerSecondResults(List<String> results) {
-        mBypsValue = results.get(0);
-        mKbpsValue = results.get(1);
-        mKbypsValue = results.get(2);
-        mMbpsValue = results.get(3);
-        mMbypsValue = results.get(4);
-        mGbpsValue = results.get(5);
-        mGbypsValue = results.get(6);
-        mTbpsValue = results.get(7);
-        mTbypsValue = results.get(8);
-        mBpsError = false;
+        bypsValue = results.get(0);
+        kbpsValue = results.get(1);
+        kbypsValue = results.get(2);
+        mbpsValue = results.get(3);
+        mbypsValue = results.get(4);
+        gbpsValue = results.get(5);
+        gbypsValue = results.get(6);
+        tbpsValue = results.get(7);
+        tbypsValue = results.get(8);
+        bpsError = false;
     }
 
     @Override
     public void displayConversionFromBitsPerSecondError(Throwable error) {
-        mBypsValue = null;
-        mKbpsValue = null;
-        mKbypsValue = null;
-        mMbpsValue = null;
-        mMbypsValue = null;
-        mGbpsValue = null;
-        mGbypsValue = null;
-        mTbpsValue = null;
-        mTbypsValue = null;
-        mBpsError = true;
+        bypsValue = null;
+        kbpsValue = null;
+        kbypsValue = null;
+        mbpsValue = null;
+        mbypsValue = null;
+        gbpsValue = null;
+        gbypsValue = null;
+        tbpsValue = null;
+        tbypsValue = null;
+        bpsError = true;
     }
 
     @Override
     public void displayConversionFromBytesPerSecondResults(List<String> results) {
-        mBpsValue = results.get(0);
-        mKbpsValue = results.get(1);
-        mKbypsValue = results.get(2);
-        mMbpsValue = results.get(3);
-        mMbypsValue = results.get(4);
-        mGbpsValue = results.get(5);
-        mGbypsValue = results.get(6);
-        mTbpsValue = results.get(7);
-        mTbypsValue = results.get(8);
-        mBypsError = false;
+        bpsValue = results.get(0);
+        kbpsValue = results.get(1);
+        kbypsValue = results.get(2);
+        mbpsValue = results.get(3);
+        mbypsValue = results.get(4);
+        gbpsValue = results.get(5);
+        gbypsValue = results.get(6);
+        tbpsValue = results.get(7);
+        tbypsValue = results.get(8);
+        bypsError = false;
     }
 
     @Override
     public void displayConversionFromBytesPerSecondError(Throwable error) {
-        mBpsValue = null;
-        mKbpsValue = null;
-        mKbypsValue = null;
-        mMbpsValue = null;
-        mMbypsValue = null;
-        mGbpsValue = null;
-        mGbypsValue = null;
-        mTbpsValue = null;
-        mTbypsValue = null;
-        mBypsError = true;
+        bpsValue = null;
+        kbpsValue = null;
+        kbypsValue = null;
+        mbpsValue = null;
+        mbypsValue = null;
+        gbpsValue = null;
+        gbypsValue = null;
+        tbpsValue = null;
+        tbypsValue = null;
+        bypsError = true;
     }
 
     @Override
     public void displayConversionFromKilobitsPerSecondResults(List<String> results) {
-        mBpsValue = results.get(0);
-        mBypsValue = results.get(1);
-        mKbypsValue = results.get(2);
-        mMbpsValue = results.get(3);
-        mMbypsValue = results.get(4);
-        mGbpsValue = results.get(5);
-        mGbypsValue = results.get(6);
-        mTbpsValue = results.get(7);
-        mTbypsValue = results.get(8);
-        mKbpsError = false;
+        bpsValue = results.get(0);
+        bypsValue = results.get(1);
+        kbypsValue = results.get(2);
+        mbpsValue = results.get(3);
+        mbypsValue = results.get(4);
+        gbpsValue = results.get(5);
+        gbypsValue = results.get(6);
+        tbpsValue = results.get(7);
+        tbypsValue = results.get(8);
+        kbpsError = false;
     }
 
     @Override
     public void displayConversionFromKilobitsPerSecondError(Throwable error) {
-        mBpsValue = null;
-        mBypsValue = null;
-        mKbypsValue = null;
-        mMbpsValue = null;
-        mMbypsValue = null;
-        mGbpsValue = null;
-        mGbypsValue = null;
-        mTbpsValue = null;
-        mTbypsValue = null;
-        mKbpsError = true;
+        bpsValue = null;
+        bypsValue = null;
+        kbypsValue = null;
+        mbpsValue = null;
+        mbypsValue = null;
+        gbpsValue = null;
+        gbypsValue = null;
+        tbpsValue = null;
+        tbypsValue = null;
+        kbpsError = true;
     }
 
     @Override
     public void displayConversionFromKilobytesPerSecondResults(List<String> results) {
-        mBpsValue = results.get(0);
-        mBypsValue = results.get(1);
-        mKbpsValue = results.get(2);
-        mMbpsValue = results.get(3);
-        mMbypsValue = results.get(4);
-        mGbpsValue = results.get(5);
-        mGbypsValue = results.get(6);
-        mTbpsValue = results.get(7);
-        mTbypsValue = results.get(8);
-        mKbypsError = false;
+        bpsValue = results.get(0);
+        bypsValue = results.get(1);
+        kbpsValue = results.get(2);
+        mbpsValue = results.get(3);
+        mbypsValue = results.get(4);
+        gbpsValue = results.get(5);
+        gbypsValue = results.get(6);
+        tbpsValue = results.get(7);
+        tbypsValue = results.get(8);
+        kbypsError = false;
     }
 
     @Override
     public void displayConversionFromKilobytesPerSecondError(Throwable error) {
-        mBpsValue = null;
-        mBypsValue = null;
-        mKbpsValue = null;
-        mMbpsValue = null;
-        mMbypsValue = null;
-        mGbpsValue = null;
-        mGbypsValue = null;
-        mTbpsValue = null;
-        mTbypsValue = null;
-        mKbypsError = true;
+        bpsValue = null;
+        bypsValue = null;
+        kbpsValue = null;
+        mbpsValue = null;
+        mbypsValue = null;
+        gbpsValue = null;
+        gbypsValue = null;
+        tbpsValue = null;
+        tbypsValue = null;
+        kbypsError = true;
     }
 
     @Override
     public void displayConversionFromMegabitsPerSecondResults(List<String> results) {
-        mBpsValue = results.get(0);
-        mBypsValue = results.get(1);
-        mKbpsValue = results.get(2);
-        mKbypsValue = results.get(3);
-        mMbypsValue = results.get(4);
-        mGbpsValue = results.get(5);
-        mGbypsValue = results.get(6);
-        mTbpsValue = results.get(7);
-        mTbypsValue = results.get(8);
-        mMbpsError = false;
+        bpsValue = results.get(0);
+        bypsValue = results.get(1);
+        kbpsValue = results.get(2);
+        kbypsValue = results.get(3);
+        mbypsValue = results.get(4);
+        gbpsValue = results.get(5);
+        gbypsValue = results.get(6);
+        tbpsValue = results.get(7);
+        tbypsValue = results.get(8);
+        mbpsError = false;
     }
 
     @Override
     public void displayConversionFromMegabitsPerSecondError(Throwable error) {
-        mBpsValue = null;
-        mBypsValue = null;
-        mKbpsValue = null;
-        mKbypsValue = null;
-        mMbypsValue = null;
-        mGbpsValue = null;
-        mGbypsValue = null;
-        mTbpsValue = null;
-        mTbypsValue = null;
-        mMbpsError = true;
+        bpsValue = null;
+        bypsValue = null;
+        kbpsValue = null;
+        kbypsValue = null;
+        mbypsValue = null;
+        gbpsValue = null;
+        gbypsValue = null;
+        tbpsValue = null;
+        tbypsValue = null;
+        mbpsError = true;
     }
 
     @Override
     public void displayConversionFromMegabytesPerSecondResults(List<String> results) {
-        mBpsValue = results.get(0);
-        mBypsValue = results.get(1);
-        mKbpsValue = results.get(2);
-        mKbypsValue = results.get(3);
-        mMbpsValue = results.get(4);
-        mGbpsValue = results.get(5);
-        mGbypsValue = results.get(6);
-        mTbpsValue = results.get(7);
-        mTbypsValue = results.get(8);
-        mMbypsError = false;
+        bpsValue = results.get(0);
+        bypsValue = results.get(1);
+        kbpsValue = results.get(2);
+        kbypsValue = results.get(3);
+        mbpsValue = results.get(4);
+        gbpsValue = results.get(5);
+        gbypsValue = results.get(6);
+        tbpsValue = results.get(7);
+        tbypsValue = results.get(8);
+        mbypsError = false;
     }
 
     @Override
     public void displayConversionFromMegabytesPerSecondError(Throwable error) {
-        mBpsValue = null;
-        mBypsValue = null;
-        mKbpsValue = null;
-        mKbypsValue = null;
-        mMbpsValue = null;
-        mGbpsValue = null;
-        mGbypsValue = null;
-        mTbpsValue = null;
-        mTbypsValue = null;
-        mMbypsError = true;
+        bpsValue = null;
+        bypsValue = null;
+        kbpsValue = null;
+        kbypsValue = null;
+        mbpsValue = null;
+        gbpsValue = null;
+        gbypsValue = null;
+        tbpsValue = null;
+        tbypsValue = null;
+        mbypsError = true;
     }
 
     @Override
     public void displayConversionFromGigabitsPerSecondResults(List<String> results) {
-        mBpsValue = results.get(0);
-        mBypsValue = results.get(1);
-        mKbpsValue = results.get(2);
-        mKbypsValue = results.get(3);
-        mMbpsValue = results.get(4);
-        mMbypsValue = results.get(5);
-        mGbypsValue = results.get(6);
-        mTbpsValue = results.get(7);
-        mTbypsValue = results.get(8);
-        mGbpsError = false;
+        bpsValue = results.get(0);
+        bypsValue = results.get(1);
+        kbpsValue = results.get(2);
+        kbypsValue = results.get(3);
+        mbpsValue = results.get(4);
+        mbypsValue = results.get(5);
+        gbypsValue = results.get(6);
+        tbpsValue = results.get(7);
+        tbypsValue = results.get(8);
+        gbpsError = false;
     }
 
     @Override
     public void displayConversionFromGigabitsPerSecondError(Throwable error) {
-        mBpsValue = null;
-        mBypsValue = null;
-        mKbpsValue = null;
-        mKbypsValue = null;
-        mMbpsValue = null;
-        mMbypsValue = null;
-        mGbypsValue = null;
-        mTbpsValue = null;
-        mTbypsValue = null;
-        mGbpsError = true;
+        bpsValue = null;
+        bypsValue = null;
+        kbpsValue = null;
+        kbypsValue = null;
+        mbpsValue = null;
+        mbypsValue = null;
+        gbypsValue = null;
+        tbpsValue = null;
+        tbypsValue = null;
+        gbpsError = true;
     }
 
     @Override
     public void displayConversionFromGigabytesPerSecondResults(List<String> results) {
-        mBpsValue = results.get(0);
-        mBypsValue = results.get(1);
-        mKbpsValue = results.get(2);
-        mKbypsValue = results.get(3);
-        mMbpsValue = results.get(4);
-        mMbypsValue = results.get(5);
-        mGbpsValue = results.get(6);
-        mTbpsValue = results.get(7);
-        mTbypsValue = results.get(8);
-        mGbypsError = false;
+        bpsValue = results.get(0);
+        bypsValue = results.get(1);
+        kbpsValue = results.get(2);
+        kbypsValue = results.get(3);
+        mbpsValue = results.get(4);
+        mbypsValue = results.get(5);
+        gbpsValue = results.get(6);
+        tbpsValue = results.get(7);
+        tbypsValue = results.get(8);
+        gbypsError = false;
     }
 
     @Override
     public void displayConversionFromGigabytesPerSecondError(Throwable error) {
-        mBpsValue = null;
-        mBypsValue = null;
-        mKbpsValue = null;
-        mKbypsValue = null;
-        mMbpsValue = null;
-        mMbypsValue = null;
-        mGbpsValue = null;
-        mTbpsValue = null;
-        mTbypsValue = null;
-        mGbypsError = true;
+        bpsValue = null;
+        bypsValue = null;
+        kbpsValue = null;
+        kbypsValue = null;
+        mbpsValue = null;
+        mbypsValue = null;
+        gbpsValue = null;
+        tbpsValue = null;
+        tbypsValue = null;
+        gbypsError = true;
     }
 
     @Override
     public void displayConversionFromTerabitsPerSecondResults(List<String> results) {
-        mBpsValue = results.get(0);
-        mBypsValue = results.get(1);
-        mKbpsValue = results.get(2);
-        mKbypsValue = results.get(3);
-        mMbpsValue = results.get(4);
-        mMbypsValue = results.get(5);
-        mGbpsValue = results.get(6);
-        mGbypsValue = results.get(7);
-        mTbypsValue = results.get(8);
-        mTbpsError = false;
+        bpsValue = results.get(0);
+        bypsValue = results.get(1);
+        kbpsValue = results.get(2);
+        kbypsValue = results.get(3);
+        mbpsValue = results.get(4);
+        mbypsValue = results.get(5);
+        gbpsValue = results.get(6);
+        gbypsValue = results.get(7);
+        tbypsValue = results.get(8);
+        tbpsError = false;
     }
 
     @Override
     public void displayConversionFromTerabitsPerSecondError(Throwable error) {
-        mBpsValue = null;
-        mBypsValue = null;
-        mKbpsValue = null;
-        mKbypsValue = null;
-        mMbpsValue = null;
-        mMbypsValue = null;
-        mGbpsValue = null;
-        mGbypsValue = null;
-        mTbypsValue = null;
-        mTbpsError = true;
+        bpsValue = null;
+        bypsValue = null;
+        kbpsValue = null;
+        kbypsValue = null;
+        mbpsValue = null;
+        mbypsValue = null;
+        gbpsValue = null;
+        gbypsValue = null;
+        tbypsValue = null;
+        tbpsError = true;
     }
 
     @Override
     public void displayConversionFromTerabytesPerSecondResults(List<String> results) {
-        mBpsValue = results.get(0);
-        mBypsValue = results.get(1);
-        mKbpsValue = results.get(2);
-        mKbypsValue = results.get(3);
-        mMbpsValue = results.get(4);
-        mMbypsValue = results.get(5);
-        mGbpsValue = results.get(6);
-        mGbypsValue = results.get(7);
-        mTbpsValue = results.get(8);
-        mTbypsError = false;
+        bpsValue = results.get(0);
+        bypsValue = results.get(1);
+        kbpsValue = results.get(2);
+        kbypsValue = results.get(3);
+        mbpsValue = results.get(4);
+        mbypsValue = results.get(5);
+        gbpsValue = results.get(6);
+        gbypsValue = results.get(7);
+        tbpsValue = results.get(8);
+        tbypsError = false;
     }
 
     @Override
     public void displayConversionFromTerabytesPerSecondError(Throwable error) {
-        mBpsValue = null;
-        mBypsValue = null;
-        mKbpsValue = null;
-        mKbypsValue = null;
-        mMbpsValue = null;
-        mMbypsValue = null;
-        mGbpsValue = null;
-        mGbypsValue = null;
-        mTbpsValue = null;
-        mTbypsError = true;
+        bpsValue = null;
+        bypsValue = null;
+        kbpsValue = null;
+        kbypsValue = null;
+        mbpsValue = null;
+        mbypsValue = null;
+        gbpsValue = null;
+        gbypsValue = null;
+        tbpsValue = null;
+        tbypsError = true;
     }
 
     @Override
@@ -304,26 +304,26 @@ public class MockDataTransferSpeedView implements IDataTransferSpeedView {
     }
 
     public void resetValues() {
-        mBpsValue = null;
-        mBypsValue = null;
-        mKbpsValue = null;
-        mKbypsValue = null;
-        mMbpsValue = null;
-        mMbypsValue = null;
-        mGbpsValue = null;
-        mGbypsValue = null;
-        mTbpsValue = null;
-        mTbypsValue = null;
+        bpsValue = null;
+        bypsValue = null;
+        kbpsValue = null;
+        kbypsValue = null;
+        mbpsValue = null;
+        mbypsValue = null;
+        gbpsValue = null;
+        gbypsValue = null;
+        tbpsValue = null;
+        tbypsValue = null;
 
-        mBpsError = false;
-        mBypsError = false;
-        mKbpsError = false;
-        mKbypsError = false;
-        mMbpsError = false;
-        mMbypsError = false;
-        mGbpsError = false;
-        mGbypsError = false;
-        mTbpsError = false;
-        mTbypsError = false;
+        bpsError = false;
+        bypsError = false;
+        kbpsError = false;
+        kbypsError = false;
+        mbpsError = false;
+        mbypsError = false;
+        gbpsError = false;
+        gbypsError = false;
+        tbpsError = false;
+        tbypsError = false;
     }
 }

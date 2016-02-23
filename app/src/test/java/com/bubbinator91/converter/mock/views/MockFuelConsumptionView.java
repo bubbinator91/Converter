@@ -6,71 +6,71 @@ import java.util.List;
 
 public class MockFuelConsumptionView implements IFuelConsumptionView {
 
-    public String mUsmpgValue = null, mUkmpgValue = null, mKplValue = null, mL100kValue = null;
-    public boolean mUsmpgError = false, mUkmpgError = false, mKplError = false, mL100kError = false;
+    public String usmpgValue = null, ukmpgValue = null, kplValue = null, l100kValue = null;
+    public boolean usmpgError = false, ukmpgError = false, kplError = false, l100kError = false;
 
     @Override
     public void displayConversionFromUSMilesPerGallonResults(List<String> results) {
-        mUkmpgValue = results.get(0);
-        mKplValue = results.get(1);
-        mL100kValue = results.get(2);
-        mUsmpgError = false;
+        ukmpgValue = results.get(0);
+        kplValue = results.get(1);
+        l100kValue = results.get(2);
+        usmpgError = false;
     }
 
     @Override
     public void displayConversionFromUSMilesPerGallonError(Throwable error) {
-        mUkmpgValue = null;
-        mKplValue = null;
-        mL100kValue = null;
-        mUsmpgError = true;
+        ukmpgValue = null;
+        kplValue = null;
+        l100kValue = null;
+        usmpgError = true;
     }
 
     @Override
     public void displayConversionFromUKMilesPerGallonResults(List<String> results) {
-        mUsmpgValue = results.get(0);
-        mKplValue = results.get(1);
-        mL100kValue = results.get(2);
-        mUkmpgError = false;
+        usmpgValue = results.get(0);
+        kplValue = results.get(1);
+        l100kValue = results.get(2);
+        ukmpgError = false;
     }
 
     @Override
     public void displayConversionFromUKMilesPerGallonError(Throwable error) {
-        mUsmpgValue = null;
-        mKplValue = null;
-        mL100kValue = null;
-        mUkmpgError = true;
+        usmpgValue = null;
+        kplValue = null;
+        l100kValue = null;
+        ukmpgError = true;
     }
 
     @Override
     public void displayConversionFromKilometersPerLiterResults(List<String> results) {
-        mUsmpgValue = results.get(0);
-        mUkmpgValue = results.get(1);
-        mL100kValue = results.get(2);
-        mKplError = false;
+        usmpgValue = results.get(0);
+        ukmpgValue = results.get(1);
+        l100kValue = results.get(2);
+        kplError = false;
     }
 
     @Override
     public void displayConversionFromKilometersPerLiterError(Throwable error) {
-        mUsmpgValue = null;
-        mUkmpgValue = null;
-        mL100kValue = null;
-        mKplError = true;
+        usmpgValue = null;
+        ukmpgValue = null;
+        l100kValue = null;
+        kplError = true;
     }
 
     @Override
     public void displayConversionFromLitersPer100KilometersResults(List<String> results) {
-        mUsmpgValue = results.get(0);
-        mUkmpgValue = results.get(1);
-        mKplValue = results.get(2);
-        mL100kError = false;
+        usmpgValue = results.get(0);
+        ukmpgValue = results.get(1);
+        kplValue = results.get(2);
+        l100kError = false;
     }
 
     @Override
     public void displayConversionFromLitersPer100KilometersError(Throwable error) {
-        mUsmpgValue = null;
-        mUkmpgValue = null;
-        mKplValue = null;
-        mL100kError = true;
+        usmpgValue = null;
+        ukmpgValue = null;
+        kplValue = null;
+        l100kError = true;
     }
 
     @Override
@@ -84,14 +84,14 @@ public class MockFuelConsumptionView implements IFuelConsumptionView {
     }
 
     public void resetValues() {
-        mUsmpgValue = null;
-        mUkmpgValue = null;
-        mKplValue = null;
-        mL100kValue = null;
+        usmpgValue = null;
+        ukmpgValue = null;
+        kplValue = null;
+        l100kValue = null;
 
-        mUsmpgError = false;
-        mUkmpgError = false;
-        mKplError = false;
-        mL100kError = false;
+        usmpgError = false;
+        ukmpgError = false;
+        kplError = false;
+        l100kError = false;
     }
 }

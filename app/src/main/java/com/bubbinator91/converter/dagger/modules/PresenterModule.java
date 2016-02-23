@@ -29,43 +29,49 @@ import rx.Scheduler;
 public class PresenterModule {
     @Provides
     @ActivityScope
-    IAccelerationPresenter providesAccelerationPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                                                         @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
+    IAccelerationPresenter providesAccelerationPresenter(
+            @Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+            @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         return new AccelerationPresenter(mainScheduler, computationScheduler);
     }
 
     @Provides
     @ActivityScope
-    IDataTransferSpeedPresenter providesDataTransferSpeedPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                                                                   @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
+    IDataTransferSpeedPresenter providesDataTransferSpeedPresenter(
+            @Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+            @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         return new DataTransferSpeedPresenter(mainScheduler, computationScheduler);
     }
 
     @Provides
     @ActivityScope
-    IFuelConsumptionPresenter providesFuelConsumptionPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                                                               @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
+    IFuelConsumptionPresenter providesFuelConsumptionPresenter(
+            @Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+            @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         return new FuelConsumptionPresenter(mainScheduler, computationScheduler);
     }
 
     @Provides
     @ActivityScope
-    ILengthPresenter providesLengthPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                                             @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
+    ILengthPresenter providesLengthPresenter(
+            @Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+            @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         return new LengthPresenter(mainScheduler, computationScheduler);
     }
 
     @Provides
     @ActivityScope
-    ISpeedPresenter providesSpeedPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                                           @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
+    ISpeedPresenter providesSpeedPresenter(
+            @Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+            @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         return new SpeedPresenter(mainScheduler, computationScheduler);
     }
 
     @Provides
     @ActivityScope
-    ITemperaturePresenter providesTemperaturePresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-                                                       @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
+    ITemperaturePresenter providesTemperaturePresenter(
+            @Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
+            @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         return new TemperaturePresenter(mainScheduler, computationScheduler);
     }
 }

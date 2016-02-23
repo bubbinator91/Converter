@@ -22,7 +22,7 @@ public class SpeedPresenter implements ISpeedPresenter {
     private final Scheduler mainScheduler;
     private final Scheduler computationScheduler;
 
-    private ISpeedView mSpeedView;
+    private ISpeedView speedView;
 
     public SpeedPresenter(@Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
                           @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
@@ -31,8 +31,8 @@ public class SpeedPresenter implements ISpeedPresenter {
     }
 
     @Override
-    public void registerView(ISpeedView activity) {
-        mSpeedView = activity;
+    public void registerView(ISpeedView view) {
+        speedView = view;
     }
 
     @Override
@@ -42,8 +42,8 @@ public class SpeedPresenter implements ISpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mSpeedView::displayConversionFromFeetPerSecondResults,
-                        mSpeedView::displayConversionFromFeetPerSecondError
+                        speedView::displayConversionFromFeetPerSecondResults,
+                        speedView::displayConversionFromFeetPerSecondError
                 );
     }
 
@@ -54,8 +54,8 @@ public class SpeedPresenter implements ISpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mSpeedView::displayConversionFromKilometersPerHourResults,
-                        mSpeedView::displayConversionFromKilometersPerHourError
+                        speedView::displayConversionFromKilometersPerHourResults,
+                        speedView::displayConversionFromKilometersPerHourError
                 );
     }
 
@@ -66,8 +66,8 @@ public class SpeedPresenter implements ISpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mSpeedView::displayConversionFromKnotsResults,
-                        mSpeedView::displayConversionFromKnotsError
+                        speedView::displayConversionFromKnotsResults,
+                        speedView::displayConversionFromKnotsError
                 );
     }
 
@@ -78,8 +78,8 @@ public class SpeedPresenter implements ISpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mSpeedView::displayConversionFromMetersPerSecondResults,
-                        mSpeedView::displayConversionFromMetersPerSecondError
+                        speedView::displayConversionFromMetersPerSecondResults,
+                        speedView::displayConversionFromMetersPerSecondError
                 );
     }
 
@@ -90,8 +90,8 @@ public class SpeedPresenter implements ISpeedPresenter {
                 .observeOn(mainScheduler)
                 .filter(conversionResults -> conversionResults != null)
                 .subscribe(
-                        mSpeedView::displayConversionFromMilesPerHourResults,
-                        mSpeedView::displayConversionFromMilesPerHourError
+                        speedView::displayConversionFromMilesPerHourResults,
+                        speedView::displayConversionFromMilesPerHourError
                 );
     }
 }
