@@ -1,7 +1,8 @@
 package com.bubbinator91.converter.interfaces.base;
 
-import java.util.List;
-
+/**
+ * Base presenter interface for MVP
+ */
 public interface IPresenter2<V extends IView2> {
     void onResume();
 
@@ -10,6 +11,4 @@ public interface IPresenter2<V extends IView2> {
     void registerView(V view);
 
     void unregisterView();
-
-    void updateModel(List<String> valuesList);
 }

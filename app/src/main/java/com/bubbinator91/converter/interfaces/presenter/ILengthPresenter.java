@@ -2,10 +2,10 @@ package com.bubbinator91.converter.interfaces.presenter;
 
 import com.bubbinator91.converter.interfaces.base.IConverterPresenter;
 import com.bubbinator91.converter.interfaces.view.ILengthView;
+import com.bubbinator91.converter.views.fragments.LengthFragment;
 
 /**
- * Presenter interface for the presenter of
- * {@link com.bubbinator91.converter.ui.fragments.LengthFragment}
+ * Presenter interface for the presenter of {@link LengthFragment}
  */
 public interface ILengthPresenter extends IConverterPresenter<ILengthView> {
     void getConversionFromInches(String inches, int decimalPlaces);

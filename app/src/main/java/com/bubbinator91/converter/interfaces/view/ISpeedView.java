@@ -1,11 +1,12 @@
 package com.bubbinator91.converter.interfaces.view;
 
 import com.bubbinator91.converter.interfaces.base.IConverterView;
+import com.bubbinator91.converter.views.fragments.SpeedFragment;
 
 import java.util.List;
 
 /**
- * View interface for the {@link com.bubbinator91.converter.ui.fragments.SpeedFragment}
+ * View interface for the {@link SpeedFragment}
  */
 public interface ISpeedView extends IConverterView {
     void displayConversionFromFeetPerSecondResults(List<String> results);

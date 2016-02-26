@@ -7,6 +7,7 @@ import com.bubbinator91.converter.conversion.acceleration.StandardGravity;
 import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
 import com.bubbinator91.converter.interfaces.view.IAccelerationView;
 import com.bubbinator91.converter.util.Globals;
+import com.bubbinator91.converter.views.fragments.AccelerationFragment;
 
 import javax.inject.Named;
 
@@ -14,7 +15,7 @@ import rx.Scheduler;
 
 /**
  * Implementation of the {@link IAccelerationPresenter} interface for the
- * {@link com.bubbinator91.converter.ui.fragments.AccelerationFragment}
+ * {@link AccelerationFragment}
  */
 public class AccelerationPresenter implements IAccelerationPresenter {
     private final Scheduler mainScheduler;

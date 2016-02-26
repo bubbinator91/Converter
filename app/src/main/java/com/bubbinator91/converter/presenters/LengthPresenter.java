@@ -11,6 +11,7 @@ import com.bubbinator91.converter.conversion.length.Yards;
 import com.bubbinator91.converter.interfaces.presenter.ILengthPresenter;
 import com.bubbinator91.converter.interfaces.view.ILengthView;
 import com.bubbinator91.converter.util.Globals;
+import com.bubbinator91.converter.views.fragments.LengthFragment;
 
 import javax.inject.Named;
 
@@ -18,7 +19,7 @@ import rx.Scheduler;
 
 /**
  * Implementation of the {@link ILengthPresenter} interface for the
- * {@link com.bubbinator91.converter.ui.fragments.LengthFragment}
+ * {@link LengthFragment}
  */
 public class LengthPresenter implements ILengthPresenter {
     private final Scheduler mainScheduler;

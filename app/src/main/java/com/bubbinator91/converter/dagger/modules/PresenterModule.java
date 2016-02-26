@@ -64,12 +64,4 @@ public class PresenterModule {
             @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
         return new TemperaturePresenter(mainScheduler, computationScheduler);
     }
-
-    @Provides
-    @ActivityScope
-    ITemperaturePresenter2 providesTemperaturePresenter2(
-            @Named(Globals.DAGGER_MAIN_THREAD) Scheduler mainScheduler,
-            @Named(Globals.DAGGER_COMPUTATION_THREAD) Scheduler computationScheduler) {
-        return new TemperaturePresenter2(mainScheduler, computationScheduler);
-    }
 }

@@ -1,18 +1,8 @@
 package com.bubbinator91.converter.dagger.mock.modules;
 
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
-import com.bubbinator91.converter.mock.views.MockAccelerationView;
-import com.bubbinator91.converter.mock.views.MockDataTransferSpeedView;
-import com.bubbinator91.converter.mock.views.MockFuelConsumptionView;
-import com.bubbinator91.converter.mock.views.MockLengthView;
-import com.bubbinator91.converter.mock.views.MockSpeedView;
-import com.bubbinator91.converter.mock.views.MockTemperatureView;
-import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
-import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;
-import com.bubbinator91.converter.interfaces.presenter.IFuelConsumptionPresenter;
-import com.bubbinator91.converter.interfaces.presenter.ILengthPresenter;
-import com.bubbinator91.converter.interfaces.presenter.ISpeedPresenter;
-import com.bubbinator91.converter.interfaces.presenter.ITemperaturePresenter;
+import com.bubbinator91.converter.mock.views.*;
+import com.bubbinator91.converter.interfaces.presenter.*;
 
 import dagger.Module;
 import dagger.Provides;

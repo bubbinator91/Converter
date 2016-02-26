@@ -7,6 +7,7 @@ import com.bubbinator91.converter.conversion.fuelconsumption.USMilesPerGallon;
 import com.bubbinator91.converter.interfaces.presenter.IFuelConsumptionPresenter;
 import com.bubbinator91.converter.interfaces.view.IFuelConsumptionView;
 import com.bubbinator91.converter.util.Globals;
+import com.bubbinator91.converter.views.fragments.FuelConsumptionFragment;
 
 import javax.inject.Named;
 
@@ -14,7 +15,7 @@ import rx.Scheduler;
 
 /**
  * Implementation of the {@link IFuelConsumptionPresenter} interface for the
- * {@link com.bubbinator91.converter.ui.fragments.FuelConsumptionFragment}
+ * {@link FuelConsumptionFragment}
  */
 public class FuelConsumptionPresenter implements IFuelConsumptionPresenter {
     private final Scheduler mainScheduler;

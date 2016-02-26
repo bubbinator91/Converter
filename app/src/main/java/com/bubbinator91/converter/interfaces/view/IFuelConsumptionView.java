@@ -1,11 +1,12 @@
 package com.bubbinator91.converter.interfaces.view;
 
 import com.bubbinator91.converter.interfaces.base.IConverterView;
+import com.bubbinator91.converter.views.fragments.FuelConsumptionFragment;
 
 import java.util.List;
 
 /**
- * View interface for the {@link com.bubbinator91.converter.ui.fragments.FuelConsumptionFragment}
+ * View interface for the {@link FuelConsumptionFragment}
  */
 public interface IFuelConsumptionView extends IConverterView {
     void displayConversionFromKilometersPerLiterResults(List<String> results);

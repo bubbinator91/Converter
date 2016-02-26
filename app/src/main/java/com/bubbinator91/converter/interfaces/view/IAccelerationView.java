@@ -1,11 +1,12 @@
 package com.bubbinator91.converter.interfaces.view;
 
 import com.bubbinator91.converter.interfaces.base.IConverterView;
+import com.bubbinator91.converter.views.fragments.AccelerationFragment;
 
 import java.util.List;
 
 /**
- * View interface for the {@link com.bubbinator91.converter.ui.fragments.AccelerationFragment}
+ * View interface for the {@link AccelerationFragment}
  */
 public interface IAccelerationView extends IConverterView {
     void displayConversionFromCentimetersPerSecondSquaredResults(List<String> results);

@@ -1,11 +1,12 @@
 package com.bubbinator91.converter.interfaces.view;
 
 import com.bubbinator91.converter.interfaces.base.IConverterView;
+import com.bubbinator91.converter.views.fragments.LengthFragment;
 
 import java.util.List;
 
 /**
- * View interface for the {@link com.bubbinator91.converter.ui.fragments.LengthFragment}
+ * View interface for the {@link LengthFragment}
  */
 public interface ILengthView extends IConverterView {
     void displayConversionFromInchesResults(List<String> results);

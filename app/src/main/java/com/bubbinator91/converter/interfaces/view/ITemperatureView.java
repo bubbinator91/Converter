@@ -1,22 +1,20 @@
 package com.bubbinator91.converter.interfaces.view;
 
-import com.bubbinator91.converter.interfaces.base.IConverterView;
-
-import java.util.List;
+import com.bubbinator91.converter.interfaces.base.IView2;
+import com.bubbinator91.converter.models.TemperatureModel;
+import com.bubbinator91.converter.views.fragments.TemperatureFragment;
 
 /**
- * View interface for the {@link com.bubbinator91.converter.ui.fragments.TemperatureFragment}
+ * View interface for the {@link TemperatureFragment}
  */
-public interface ITemperatureView extends IConverterView {
-    void displayConversionFromCelsiusResults(List<String> results);
+public interface ITemperatureView extends IView2 {
+    void showNewValuesFromModel(TemperatureModel model);
 
-    void displayConversionFromCelsiusError(Throwable error);
+    void showNewValuesFromModelExcludingSource(TemperatureModel model, TemperatureModel.TemperatureValues source);
 
-    void displayConversionFromFahrenheitResults(List<String> results);
+    void showErrorForSource(Throwable error, TemperatureModel.TemperatureValues source);
 
-    void displayConversionFromFahrenheitError(Throwable error);
+    TemperatureModel loadModel();
 
-    void displayConversionFromKelvinResults(List<String> results);
-
-    void displayConversionFromKelvinError(Throwable error);
+    void saveModel(TemperatureModel model);
 }

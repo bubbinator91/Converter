@@ -8,6 +8,7 @@ import com.bubbinator91.converter.conversion.speed.MilesPerHour;
 import com.bubbinator91.converter.interfaces.presenter.ISpeedPresenter;
 import com.bubbinator91.converter.interfaces.view.ISpeedView;
 import com.bubbinator91.converter.util.Globals;
+import com.bubbinator91.converter.views.fragments.SpeedFragment;
 
 import javax.inject.Named;
 
@@ -15,7 +16,7 @@ import rx.Scheduler;
 
 /**
  * Implementation of the {@link ISpeedPresenter} interface for the
- * {@link com.bubbinator91.converter.ui.fragments.SpeedFragment}
+ * {@link SpeedFragment}
  */
 public class SpeedPresenter implements ISpeedPresenter {
     private final Scheduler mainScheduler;

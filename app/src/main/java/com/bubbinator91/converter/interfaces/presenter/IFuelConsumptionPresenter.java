@@ -2,10 +2,10 @@ package com.bubbinator91.converter.interfaces.presenter;
 
 import com.bubbinator91.converter.interfaces.base.IConverterPresenter;
 import com.bubbinator91.converter.interfaces.view.IFuelConsumptionView;
+import com.bubbinator91.converter.views.fragments.FuelConsumptionFragment;
 
 /**
- * Presenter interface for the presenter of
- * {@link com.bubbinator91.converter.ui.fragments.FuelConsumptionFragment}
+ * Presenter interface for the presenter of {@link FuelConsumptionFragment}
  */
 public interface IFuelConsumptionPresenter extends IConverterPresenter<IFuelConsumptionView> {
     void getConversionFromKilometersPerLiter(String kpl, int decimalPlaces);

@@ -1,65 +1,73 @@
 package com.bubbinator91.converter.mock.views;
 
 import com.bubbinator91.converter.interfaces.view.ITemperatureView;
+import com.bubbinator91.converter.models.TemperatureModel;
 
 import java.util.List;
 
 public class MockTemperatureView implements ITemperatureView {
-
     public String celsiusValue = null, fahrenheitValue = null, kelvinValue = null;
     public boolean celsiusError = false, fahrenheitError = false, kelvinError = false;
 
     @Override
-    public void displayConversionFromCelsiusResults(List<String> results) {
-        fahrenheitValue = results.get(0);
-        kelvinValue = results.get(1);
+    public void showNewValuesFromModel(TemperatureModel model) {
+        this.celsiusValue = model.getCelsius();
+        this.fahrenheitValue = model.getFahrenheit();
+        this.kelvinValue = model.getKelvin();
+
         celsiusError = false;
-    }
-
-    @Override
-    public void displayConversionFromCelsiusError(Throwable error) {
-        fahrenheitValue = null;
-        kelvinValue = null;
-        celsiusError = true;
-    }
-
-    @Override
-    public void displayConversionFromFahrenheitResults(List<String> results) {
-        celsiusValue = results.get(0);
-        kelvinValue = results.get(1);
         fahrenheitError = false;
-    }
-
-    @Override
-    public void displayConversionFromFahrenheitError(Throwable error) {
-        celsiusValue = null;
-        kelvinValue = null;
-        fahrenheitError = true;
-    }
-
-    @Override
-    public void displayConversionFromKelvinResults(List<String> results) {
-        celsiusValue = results.get(0);
-        fahrenheitValue = results.get(1);
         kelvinError = false;
     }
 
     @Override
-    public void displayConversionFromKelvinError(Throwable error) {
-        celsiusValue = null;
-        fahrenheitValue = null;
-        kelvinError = true;
+    public void showNewValuesFromModelExcludingSource(TemperatureModel model, TemperatureModel.TemperatureValues source) {
+        if (source != TemperatureModel.TemperatureValues.celsius) {
+            celsiusValue = model.getCelsius();
+        }
+        if (source != TemperatureModel.TemperatureValues.fahrenheit) {
+            fahrenheitValue = model.getFahrenheit();
+        }
+        if (source != TemperatureModel.TemperatureValues.kelvin) {
+            kelvinValue = model.getKelvin();
+        }
+
+        celsiusError = false;
+        fahrenheitError = false;
+        kelvinError = false;
     }
 
     @Override
-    public void addTextChangedListeners(String callingClassName) {
-        // No relevant implementation for testing
+    public void showErrorForSource(Throwable error, TemperatureModel.TemperatureValues source) {
+        switch (source) {
+            case celsius:
+                celsiusError = true;
+                fahrenheitValue = null;
+                kelvinValue = null;
+                break;
+            case fahrenheit:
+                fahrenheitError = true;
+                celsiusValue = null;
+                kelvinValue = null;
+                break;
+            case kelvin:
+                kelvinError = true;
+                celsiusValue = null;
+                fahrenheitValue = null;
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
-    public void removeTextChangedListeners(String callingClassName) {
-        // No relevant implementation for testing
+    public TemperatureModel loadModel() {
+        return new TemperatureModel();
     }
+
+    // No relevant implementation for testing
+    @Override
+    public void saveModel(TemperatureModel model) {}
 
     public void resetValues() {
         celsiusValue = null;

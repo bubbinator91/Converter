@@ -23,6 +23,10 @@ import com.bubbinator91.converter.util.SimpleTextWatcher;
 
 import timber.log.Timber;
 
+/**
+ * The base fragment that all fragments should inherit from. The purpose of this fragment to help
+ * reduce the amount of duplicated code.
+ */
 public abstract class BaseFragment2<P extends IPresenter2>
         extends Fragment
         implements ViewTreeObserver.OnScrollChangedListener {

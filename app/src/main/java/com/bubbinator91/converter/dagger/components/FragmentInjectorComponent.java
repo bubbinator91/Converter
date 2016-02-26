@@ -3,14 +3,8 @@ package com.bubbinator91.converter.dagger.components;
 import com.bubbinator91.converter.dagger.modules.PresenterModule;
 import com.bubbinator91.converter.dagger.modules.ThreadModule;
 import com.bubbinator91.converter.dagger.scopes.ActivityScope;
-import com.bubbinator91.converter.ui.fragments.AccelerationFragment;
-import com.bubbinator91.converter.ui.fragments.DataTransferSpeedFragment;
-import com.bubbinator91.converter.ui.fragments.FuelConsumptionFragment;
-import com.bubbinator91.converter.ui.fragments.LengthFragment;
-import com.bubbinator91.converter.ui.fragments.SpeedFragment;
-import com.bubbinator91.converter.ui.fragments.TemperatureFragment;
+import com.bubbinator91.converter.views.fragments.*;
 
-import com.bubbinator91.converter.views.fragments.TemperatureFragment2;
 import dagger.Component;
 
 /**
@@ -31,6 +25,4 @@ public interface FragmentInjectorComponent {
     void inject(SpeedFragment speedFragment);
 
     void inject(TemperatureFragment temperatureFragment);
-
-    void inject(TemperatureFragment2 temperatureFragment2);
 }

@@ -2,10 +2,10 @@ package com.bubbinator91.converter.interfaces.presenter;
 
 import com.bubbinator91.converter.interfaces.base.IConverterPresenter;
 import com.bubbinator91.converter.interfaces.view.IDataTransferSpeedView;
+import com.bubbinator91.converter.views.fragments.DataTransferSpeedFragment;
 
 /**
- * Presenter interface for the presenter of
- * {@link com.bubbinator91.converter.ui.fragments.DataTransferSpeedFragment}
+ * Presenter interface for the presenter of {@link DataTransferSpeedFragment}
  */
 public interface IDataTransferSpeedPresenter extends IConverterPresenter<IDataTransferSpeedView> {
     void getConversionFromBitsPerSecond(String bps, int decimalPlaces);

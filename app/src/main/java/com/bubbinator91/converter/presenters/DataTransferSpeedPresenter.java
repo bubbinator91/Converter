@@ -13,6 +13,7 @@ import com.bubbinator91.converter.conversion.datatransferspeed.TerabytesPerSecon
 import com.bubbinator91.converter.interfaces.presenter.IDataTransferSpeedPresenter;
 import com.bubbinator91.converter.interfaces.view.IDataTransferSpeedView;
 import com.bubbinator91.converter.util.Globals;
+import com.bubbinator91.converter.views.fragments.DataTransferSpeedFragment;
 
 import javax.inject.Named;
 
@@ -20,7 +21,7 @@ import rx.Scheduler;
 
 /**
  * Implementation of the {@link IDataTransferSpeedPresenter} interface for the
- * {@link com.bubbinator91.converter.ui.fragments.DataTransferSpeedFragment}
+ * {@link DataTransferSpeedFragment}
  */
 public class DataTransferSpeedPresenter implements IDataTransferSpeedPresenter {
     private final Scheduler mainScheduler;

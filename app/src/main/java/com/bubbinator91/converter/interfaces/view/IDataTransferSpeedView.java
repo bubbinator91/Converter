@@ -1,11 +1,12 @@
 package com.bubbinator91.converter.interfaces.view;
 
 import com.bubbinator91.converter.interfaces.base.IConverterView;
+import com.bubbinator91.converter.views.fragments.DataTransferSpeedFragment;
 
 import java.util.List;
 
 /**
- * View interface for the {@link com.bubbinator91.converter.ui.fragments.DataTransferSpeedFragment}
+ * View interface for the {@link DataTransferSpeedFragment}
  */
 public interface IDataTransferSpeedView extends IConverterView {
     void displayConversionFromBitsPerSecondResults(List<String> results);
