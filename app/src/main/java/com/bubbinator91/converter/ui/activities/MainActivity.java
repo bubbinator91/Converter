@@ -27,6 +27,7 @@ import com.bubbinator91.converter.util.GlobalsManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.bubbinator91.converter.views.fragments.TemperatureFragment2;
 import timber.log.Timber;
 
 /**
@@ -270,7 +271,7 @@ public class MainActivity extends BaseActivity {
         } else if (fragmentName.equals(getString(R.string.title_speed))) {
             fragmentToSwitchTo = new SpeedFragment();
         } else if (fragmentName.equals(getString(R.string.title_temperature))) {
-            fragmentToSwitchTo = new TemperatureFragment();
+            fragmentToSwitchTo = new TemperatureFragment2();
         } else {
             fragmentToSwitchTo = null;
         }

@@ -10,6 +10,7 @@ import com.bubbinator91.converter.ui.fragments.LengthFragment;
 import com.bubbinator91.converter.ui.fragments.SpeedFragment;
 import com.bubbinator91.converter.ui.fragments.TemperatureFragment;
 
+import com.bubbinator91.converter.views.fragments.TemperatureFragment2;
 import dagger.Component;
 
 /**
@@ -30,4 +31,6 @@ public interface FragmentInjectorComponent {
     void inject(SpeedFragment speedFragment);
 
     void inject(TemperatureFragment temperatureFragment);
+
+    void inject(TemperatureFragment2 temperatureFragment2);
 }
