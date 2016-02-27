@@ -6,7 +6,7 @@ package com.bubbinator91.converter.models;
 public class TemperatureModel {
     private String celsius, fahrenheit, kelvin;
 
-    public enum TemperatureValues {
+    public enum TemperatureUnits {
         celsius, fahrenheit, kelvin
     }
 

@@ -1,27 +1,21 @@
 package com.bubbinator91.converter.interfaces.view;
 
-import com.bubbinator91.converter.interfaces.base.IConverterView;
+import com.bubbinator91.converter.interfaces.base.IView2;
+import com.bubbinator91.converter.models.FuelConsumptionModel;
+import com.bubbinator91.converter.models.FuelConsumptionModel.FuelConsumptionUnits;
 import com.bubbinator91.converter.views.fragments.FuelConsumptionFragment;
-
-import java.util.List;
 
 /**
  * View interface for the {@link FuelConsumptionFragment}
  */
-public interface IFuelConsumptionView extends IConverterView {
-    void displayConversionFromKilometersPerLiterResults(List<String> results);
+public interface IFuelConsumptionView extends IView2 {
+    void showNewValuesFromModel(FuelConsumptionModel model);
 
-    void displayConversionFromKilometersPerLiterError(Throwable error);
+    void showNewValuesFromModelExcludingSource(FuelConsumptionModel model, FuelConsumptionUnits source);
 
-    void displayConversionFromLitersPer100KilometersResults(List<String> results);
+    void showErrorForSource(Throwable error, FuelConsumptionUnits source);
 
-    void displayConversionFromLitersPer100KilometersError(Throwable error);
+    FuelConsumptionModel loadModel();
 
-    void displayConversionFromUKMilesPerGallonResults(List<String> results);
-
-    void displayConversionFromUKMilesPerGallonError(Throwable error);
-
-    void displayConversionFromUSMilesPerGallonResults(List<String> results);
-
-    void displayConversionFromUSMilesPerGallonError(Throwable error);
+    void saveModel(FuelConsumptionModel model);
 }

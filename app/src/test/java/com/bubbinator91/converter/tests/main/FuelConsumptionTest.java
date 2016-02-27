@@ -19,7 +19,6 @@ import static org.junit.Assert.*;
  */
 @RunWith(JUnit4.class)
 public class FuelConsumptionTest {
-
     @Inject
     MockFuelConsumptionView fuelConsumptionView;
     @Inject
@@ -32,12 +31,13 @@ public class FuelConsumptionTest {
 
         assertNotNull(fuelConsumptionView);
         assertNotNull(fuelConsumptionPresenter);
+
+        fuelConsumptionPresenter.onResume();
     }
 
     @Test
     public void testUSMilesPerGallonConversion() throws Exception {
-        fuelConsumptionPresenter
-                .getConversionFromUSMilesPerGallon("2.15235645123659", 10);
+        fuelConsumptionPresenter.afterUsmpgTextChanged("2.15235645123659", 10);
         TestHelper.waitFor(() -> ((fuelConsumptionView.ukmpgValue != null)
                 && (fuelConsumptionView.kplValue != null)
                 && (fuelConsumptionView.l100kValue != null)));
@@ -47,8 +47,7 @@ public class FuelConsumptionTest {
         assertEquals("0.9150608015", fuelConsumptionView.kplValue);
         assertEquals("109.2823557168", fuelConsumptionView.l100kValue);
 
-        fuelConsumptionPresenter
-                .getConversionFromUSMilesPerGallon("2.15235645123659", 5);
+        fuelConsumptionPresenter.afterUsmpgTextChanged("2.15235645123659", 5);
         TestHelper.waitFor(() -> ((fuelConsumptionView.ukmpgValue != null)
                 && (fuelConsumptionView.kplValue != null)
                 && (fuelConsumptionView.l100kValue != null)));
@@ -63,8 +62,7 @@ public class FuelConsumptionTest {
 
     @Test
     public void testUKMilesPerGallonConversion() throws Exception {
-        fuelConsumptionPresenter
-                .getConversionFromUKMilesPerGallon("3.6589456897564", 10);
+        fuelConsumptionPresenter.afterUkmpgTextChanged("3.6589456897564", 10);
         TestHelper.waitFor(() -> ((fuelConsumptionView.usmpgValue != null)
                 && (fuelConsumptionView.kplValue != null)
                 && (fuelConsumptionView.l100kValue != null)));
@@ -74,8 +72,7 @@ public class FuelConsumptionTest {
         assertEquals("1.295289423", fuelConsumptionView.kplValue);
         assertEquals("77.2028229669", fuelConsumptionView.l100kValue);
 
-        fuelConsumptionPresenter
-                .getConversionFromUKMilesPerGallon("3.6589456897564", 5);
+        fuelConsumptionPresenter.afterUkmpgTextChanged("3.6589456897564", 5);
         TestHelper.waitFor(() -> ((fuelConsumptionView.usmpgValue != null)
                 && (fuelConsumptionView.kplValue != null)
                 && (fuelConsumptionView.l100kValue != null)));
@@ -90,8 +87,7 @@ public class FuelConsumptionTest {
 
     @Test
     public void testKilometersPerLiterConversion() throws Exception {
-        fuelConsumptionPresenter
-                .getConversionFromKilometersPerLiter("4.5613258749654", 10);
+        fuelConsumptionPresenter.afterKplTextChanged("4.5613258749654", 10);
         TestHelper.waitFor(() -> ((fuelConsumptionView.usmpgValue != null)
                 && (fuelConsumptionView.ukmpgValue != null)
                 && (fuelConsumptionView.l100kValue != null)));
@@ -101,8 +97,7 @@ public class FuelConsumptionTest {
         assertEquals("12.8848760393", fuelConsumptionView.ukmpgValue);
         assertEquals("21.923450054", fuelConsumptionView.l100kValue);
 
-        fuelConsumptionPresenter
-                .getConversionFromKilometersPerLiter("4.5613258749654", 5);
+        fuelConsumptionPresenter.afterKplTextChanged("4.5613258749654", 5);
         TestHelper.waitFor(() -> ((fuelConsumptionView.usmpgValue != null)
                 && (fuelConsumptionView.ukmpgValue != null)
                 && (fuelConsumptionView.l100kValue != null)));
@@ -117,8 +112,7 @@ public class FuelConsumptionTest {
 
     @Test
     public void testLitersPer100KilometersConversion() throws Exception {
-        fuelConsumptionPresenter
-                .getConversionFromLitersPer100Kilometers("8.56498658974125", 10);
+        fuelConsumptionPresenter.afterL100kmTextChanged("8.56498658974125", 10);
         TestHelper.waitFor(() -> ((fuelConsumptionView.usmpgValue != null)
                 && (fuelConsumptionView.ukmpgValue != null)
                 && (fuelConsumptionView.kplValue != null)));
@@ -128,8 +122,7 @@ public class FuelConsumptionTest {
         assertEquals("32.9808965107", fuelConsumptionView.ukmpgValue);
         assertEquals("11.6754415144", fuelConsumptionView.kplValue);
 
-        fuelConsumptionPresenter
-                .getConversionFromLitersPer100Kilometers("8.56498658974125", 5);
+        fuelConsumptionPresenter.afterL100kmTextChanged("8.56498658974125", 5);
         TestHelper.waitFor(() -> ((fuelConsumptionView.usmpgValue != null)
                 && (fuelConsumptionView.ukmpgValue != null)
                 && (fuelConsumptionView.kplValue != null)));

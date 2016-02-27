@@ -2,6 +2,7 @@ package com.bubbinator91.converter.interfaces.view;
 
 import com.bubbinator91.converter.interfaces.base.IView2;
 import com.bubbinator91.converter.models.TemperatureModel;
+import com.bubbinator91.converter.models.TemperatureModel.TemperatureUnits;
 import com.bubbinator91.converter.views.fragments.TemperatureFragment;
 
 /**
@@ -10,9 +11,9 @@ import com.bubbinator91.converter.views.fragments.TemperatureFragment;
 public interface ITemperatureView extends IView2 {
     void showNewValuesFromModel(TemperatureModel model);
 
-    void showNewValuesFromModelExcludingSource(TemperatureModel model, TemperatureModel.TemperatureValues source);
+    void showNewValuesFromModelExcludingSource(TemperatureModel model, TemperatureUnits source);
 
-    void showErrorForSource(Throwable error, TemperatureModel.TemperatureValues source);
+    void showErrorForSource(Throwable error, TemperatureUnits source);
 
     TemperatureModel loadModel();
 

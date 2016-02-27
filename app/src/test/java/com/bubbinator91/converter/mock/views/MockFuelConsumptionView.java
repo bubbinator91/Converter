@@ -1,87 +1,87 @@
 package com.bubbinator91.converter.mock.views;
 
 import com.bubbinator91.converter.interfaces.view.IFuelConsumptionView;
-
-import java.util.List;
+import com.bubbinator91.converter.models.FuelConsumptionModel;
+import com.bubbinator91.converter.models.FuelConsumptionModel.FuelConsumptionUnits;
 
 public class MockFuelConsumptionView implements IFuelConsumptionView {
-
     public String usmpgValue = null, ukmpgValue = null, kplValue = null, l100kValue = null;
     public boolean usmpgError = false, ukmpgError = false, kplError = false, l100kError = false;
 
     @Override
-    public void displayConversionFromUSMilesPerGallonResults(List<String> results) {
-        ukmpgValue = results.get(0);
-        kplValue = results.get(1);
-        l100kValue = results.get(2);
+    public void showNewValuesFromModel(FuelConsumptionModel model) {
+        this.usmpgValue = model.getUsmpg();
+        this.ukmpgValue = model.getUkmpg();
+        this.kplValue = model.getKpl();
+        this.l100kValue = model.getL100km();
+
         usmpgError = false;
-    }
-
-    @Override
-    public void displayConversionFromUSMilesPerGallonError(Throwable error) {
-        ukmpgValue = null;
-        kplValue = null;
-        l100kValue = null;
-        usmpgError = true;
-    }
-
-    @Override
-    public void displayConversionFromUKMilesPerGallonResults(List<String> results) {
-        usmpgValue = results.get(0);
-        kplValue = results.get(1);
-        l100kValue = results.get(2);
         ukmpgError = false;
-    }
-
-    @Override
-    public void displayConversionFromUKMilesPerGallonError(Throwable error) {
-        usmpgValue = null;
-        kplValue = null;
-        l100kValue = null;
-        ukmpgError = true;
-    }
-
-    @Override
-    public void displayConversionFromKilometersPerLiterResults(List<String> results) {
-        usmpgValue = results.get(0);
-        ukmpgValue = results.get(1);
-        l100kValue = results.get(2);
         kplError = false;
-    }
-
-    @Override
-    public void displayConversionFromKilometersPerLiterError(Throwable error) {
-        usmpgValue = null;
-        ukmpgValue = null;
-        l100kValue = null;
-        kplError = true;
-    }
-
-    @Override
-    public void displayConversionFromLitersPer100KilometersResults(List<String> results) {
-        usmpgValue = results.get(0);
-        ukmpgValue = results.get(1);
-        kplValue = results.get(2);
         l100kError = false;
     }
 
     @Override
-    public void displayConversionFromLitersPer100KilometersError(Throwable error) {
-        usmpgValue = null;
-        ukmpgValue = null;
-        kplValue = null;
-        l100kError = true;
+    public void showNewValuesFromModelExcludingSource(FuelConsumptionModel model, FuelConsumptionUnits source) {
+        if (source != FuelConsumptionUnits.usmpg) {
+            usmpgValue = model.getUsmpg();
+        }
+        if (source != FuelConsumptionUnits.ukmpg) {
+            ukmpgValue = model.getUkmpg();
+        }
+        if (source != FuelConsumptionUnits.kpl) {
+            kplValue = model.getKpl();
+        }
+        if (source != FuelConsumptionUnits.l100km) {
+            l100kValue = model.getL100km();
+        }
+
+        usmpgError = false;
+        ukmpgError = false;
+        kplError = false;
+        l100kError = false;
     }
 
     @Override
-    public void addTextChangedListeners(String callingClassName) {
-        // No relevant implementation for testing
+    public void showErrorForSource(Throwable error, FuelConsumptionUnits source) {
+        switch (source) {
+            case usmpg:
+                usmpgError = true;
+                ukmpgValue = null;
+                kplValue = null;
+                l100kValue = null;
+                break;
+            case ukmpg:
+                ukmpgError = true;
+                usmpgValue = null;
+                kplValue = null;
+                l100kValue = null;
+                break;
+            case kpl:
+                kplError = true;
+                usmpgValue = null;
+                ukmpgValue = null;
+                l100kValue = null;
+                break;
+            case l100km:
+                l100kError = true;
+                usmpgValue = null;
+                ukmpgValue = null;
+                kplValue = null;
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
-    public void removeTextChangedListeners(String callingClassName) {
-        // No relevant implementation for testing
+    public FuelConsumptionModel loadModel() {
+        return new FuelConsumptionModel();
     }
+
+    // No relevant implementation for testing
+    @Override
+    public void saveModel(FuelConsumptionModel model) {}
 
     public void resetValues() {
         usmpgValue = null;

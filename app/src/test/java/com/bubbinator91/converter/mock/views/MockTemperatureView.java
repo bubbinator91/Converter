@@ -2,8 +2,7 @@ package com.bubbinator91.converter.mock.views;
 
 import com.bubbinator91.converter.interfaces.view.ITemperatureView;
 import com.bubbinator91.converter.models.TemperatureModel;
-
-import java.util.List;
+import com.bubbinator91.converter.models.TemperatureModel.TemperatureUnits;
 
 public class MockTemperatureView implements ITemperatureView {
     public String celsiusValue = null, fahrenheitValue = null, kelvinValue = null;
@@ -21,14 +20,14 @@ public class MockTemperatureView implements ITemperatureView {
     }
 
     @Override
-    public void showNewValuesFromModelExcludingSource(TemperatureModel model, TemperatureModel.TemperatureValues source) {
-        if (source != TemperatureModel.TemperatureValues.celsius) {
+    public void showNewValuesFromModelExcludingSource(TemperatureModel model, TemperatureUnits source) {
+        if (source != TemperatureUnits.celsius) {
             celsiusValue = model.getCelsius();
         }
-        if (source != TemperatureModel.TemperatureValues.fahrenheit) {
+        if (source != TemperatureUnits.fahrenheit) {
             fahrenheitValue = model.getFahrenheit();
         }
-        if (source != TemperatureModel.TemperatureValues.kelvin) {
+        if (source != TemperatureUnits.kelvin) {
             kelvinValue = model.getKelvin();
         }
 
@@ -38,7 +37,7 @@ public class MockTemperatureView implements ITemperatureView {
     }
 
     @Override
-    public void showErrorForSource(Throwable error, TemperatureModel.TemperatureValues source) {
+    public void showErrorForSource(Throwable error, TemperatureUnits source) {
         switch (source) {
             case celsius:
                 celsiusError = true;

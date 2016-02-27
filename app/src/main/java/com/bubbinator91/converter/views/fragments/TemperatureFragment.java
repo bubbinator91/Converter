@@ -14,6 +14,7 @@ import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorCompon
 import com.bubbinator91.converter.interfaces.presenter.ITemperaturePresenter;
 import com.bubbinator91.converter.interfaces.view.ITemperatureView;
 import com.bubbinator91.converter.models.TemperatureModel;
+import com.bubbinator91.converter.models.TemperatureModel.TemperatureUnits;
 import com.bubbinator91.converter.util.PresenterCache;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
@@ -154,7 +155,7 @@ public class TemperatureFragment
     }
 
     @Override
-    public void showNewValuesFromModelExcludingSource(TemperatureModel model, TemperatureModel.TemperatureValues source) {
+    public void showNewValuesFromModelExcludingSource(TemperatureModel model, TemperatureUnits source) {
         Timber.tag(TAG + ".showNewValuesFromModelExcludingSource").i("Entered");
         removeTextChangedListeners("showNewValuesFromModelExcludingSource");
 
@@ -162,13 +163,13 @@ public class TemperatureFragment
         textInputLayoutFahrenheit.setErrorEnabled(false);
         textInputLayoutKelvin.setErrorEnabled(false);
 
-        if (source != TemperatureModel.TemperatureValues.celsius) {
+        if (source != TemperatureUnits.celsius) {
             editTextCelsius.setText(model.getCelsius(), AppCompatEditText.BufferType.EDITABLE);
         }
-        if (source != TemperatureModel.TemperatureValues.fahrenheit) {
+        if (source != TemperatureUnits.fahrenheit) {
             editTextFahrenheit.setText(model.getFahrenheit(), AppCompatEditText.BufferType.EDITABLE);
         }
-        if (source != TemperatureModel.TemperatureValues.kelvin) {
+        if (source != TemperatureUnits.kelvin) {
             editTextKelvin.setText(model.getKelvin(), AppCompatEditText.BufferType.EDITABLE);
         }
 
@@ -176,7 +177,7 @@ public class TemperatureFragment
     }
 
     @Override
-    public void showErrorForSource(Throwable error, TemperatureModel.TemperatureValues source) {
+    public void showErrorForSource(Throwable error, TemperatureUnits source) {
         Timber.tag(TAG + ".showErrorForSource").i("Entered");
         removeTextChangedListeners("showErrorForSource");
 

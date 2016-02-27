@@ -1,12 +1,10 @@
 package com.bubbinator91.converter.presenters;
 
-import com.bubbinator91.converter.conversion.temperature.Celsius;
-import com.bubbinator91.converter.conversion.temperature.Fahrenheit;
-import com.bubbinator91.converter.conversion.temperature.Kelvin;
+import com.bubbinator91.converter.conversion.temperature.*;
 import com.bubbinator91.converter.interfaces.presenter.ITemperaturePresenter;
 import com.bubbinator91.converter.interfaces.view.ITemperatureView;
 import com.bubbinator91.converter.models.TemperatureModel;
-import com.bubbinator91.converter.models.TemperatureModel.TemperatureValues;
+import com.bubbinator91.converter.models.TemperatureModel.TemperatureUnits;
 import com.bubbinator91.converter.presenters.base.BaseTemperaturePresenter;
 import com.bubbinator91.converter.util.Globals;
 import com.bubbinator91.converter.views.fragments.TemperatureFragment;
@@ -56,12 +54,12 @@ public class TemperaturePresenter
     }
 
     @Override
-    protected void updateViewExceptSource(TemperatureValues source) {
+    protected void updateViewExceptSource(TemperatureUnits source) {
         getView().showNewValuesFromModelExcludingSource(getModel(), source);
     }
 
     @Override
-    protected void updateViewForError(Throwable error, TemperatureValues source) {
+    protected void updateViewForError(Throwable error, TemperatureUnits source) {
         getView().showErrorForSource(error, source);
     }
 
@@ -87,9 +85,9 @@ public class TemperaturePresenter
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
                 .subscribe(notUsed -> {
-                    updateViewExceptSource(TemperatureValues.celsius);
+                    updateViewExceptSource(TemperatureUnits.celsius);
                 }, error -> {
-                    updateViewForError(error, TemperatureValues.celsius);
+                    updateViewForError(error, TemperatureUnits.celsius);
                 });
     }
 
@@ -105,9 +103,9 @@ public class TemperaturePresenter
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
                 .subscribe(notUsed -> {
-                    updateViewExceptSource(TemperatureValues.fahrenheit);
+                    updateViewExceptSource(TemperatureUnits.fahrenheit);
                 }, error -> {
-                    updateViewForError(error, TemperatureValues.fahrenheit);
+                    updateViewForError(error, TemperatureUnits.fahrenheit);
                 });
     }
 
@@ -123,9 +121,9 @@ public class TemperaturePresenter
                 .subscribeOn(computationScheduler)
                 .observeOn(mainScheduler)
                 .subscribe(notUsed -> {
-                    updateViewExceptSource(TemperatureValues.kelvin);
+                    updateViewExceptSource(TemperatureUnits.kelvin);
                 }, error -> {
-                    updateViewForError(error, TemperatureValues.kelvin);
+                    updateViewForError(error, TemperatureUnits.kelvin);
                 });
     }
 }
