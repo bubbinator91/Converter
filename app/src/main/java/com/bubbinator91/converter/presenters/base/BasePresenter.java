@@ -9,8 +9,9 @@ import java.util.List;
  *
  * @param <M>   The type of model that will be used.
  * @param <V>   The type of view that will be used.
+ * @param <U>   The type of units that will be used. Should be an enum.
  */
-public abstract class BasePresenter<M, V> {
+public abstract class BasePresenter<M, V, U> {
     private M model;
     private V view;
 
@@ -47,4 +48,8 @@ public abstract class BasePresenter<M, V> {
     protected abstract void updateModel(List<String> values);
 
     protected abstract void updateView();
+
+    protected abstract void updateViewExceptSource(U source);
+
+    protected abstract void updateViewForError(Throwable error, U source);
 }

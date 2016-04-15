@@ -14,12 +14,12 @@ import com.bubbinator91.converter.R;
 import com.bubbinator91.converter.dagger.components.DaggerFragmentInjectorComponent;
 import com.bubbinator91.converter.interfaces.presenter.IAccelerationPresenter;
 import com.bubbinator91.converter.interfaces.view.IAccelerationView;
+import com.bubbinator91.converter.models.AccelerationModel;
+import com.bubbinator91.converter.models.AccelerationModel.AccelerationUnits;
 import com.bubbinator91.converter.util.PresenterCache;
 import com.bubbinator91.converter.util.SimpleTextWatcher;
 import com.bubbinator91.converter.util.Utils;
-import com.bubbinator91.converter.views.base.BaseFragment;
-
-import java.util.List;
+import com.bubbinator91.converter.views.base.BaseFragment2;
 
 import javax.inject.Inject;
 
@@ -32,20 +32,14 @@ import timber.log.Timber;
  * Squared (m/s^2), and Standard Gravity
  */
 public class AccelerationFragment
-        extends BaseFragment<IAccelerationPresenter>
+        extends BaseFragment2<IAccelerationPresenter>
         implements IAccelerationView {
     private static final String TAG = AccelerationFragment.class.getSimpleName();
-
-    private static final int LAST_EDIT_TEXT_FOCUSED_CMPSS = 0;
-    private static final int LAST_EDIT_TEXT_FOCUSED_FPSS = 1;
-    private static final int LAST_EDIT_TEXT_FOCUSED_MPSS = 2;
-    private static final int LAST_EDIT_TEXT_FOCUSED_SG = 3;
 
     private static final String CMPSS_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_CMPSS_VALUE";
     private static final String FPSS_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_FPSS_VALUE";
     private static final String MPSS_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_MPSS_VALUE";
     private static final String SG_VALUE_PERSIST_KEY = "ACCELERATION_FRAGMENT_SG_VALUE";
-    private static final String LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY = "ACCELERATION_FRAGMENT_LETF_VALUE";
 
     private SimpleTextWatcher textWatcherCmpss, textWatcherFpss, textWatcherMpss, textWatcherSg;
 
@@ -83,13 +77,11 @@ public class AccelerationFragment
             textWatcherCmpss = new SimpleTextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
-                    setLastEditTextFocused(LAST_EDIT_TEXT_FOCUSED_CMPSS);
-
                     if (s != null) {
                         removeTextChangedListeners("textWatcherCmpss");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("textWatcherCmpss");
-                        getPresenter().getConversionFromCentimetersPerSecondSquared(
+                        getPresenter().afterCmpssTextChanged(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -100,13 +92,11 @@ public class AccelerationFragment
             textWatcherFpss = new SimpleTextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
-                    setLastEditTextFocused(LAST_EDIT_TEXT_FOCUSED_FPSS);
-
                     if (s != null) {
                         removeTextChangedListeners("textWatcherFpss");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("textWatcherFpss");
-                        getPresenter().getConversionFromFeetPerSecondSquared(
+                        getPresenter().afterFpssTextChanged(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -117,13 +107,11 @@ public class AccelerationFragment
             textWatcherMpss = new SimpleTextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
-                    setLastEditTextFocused(LAST_EDIT_TEXT_FOCUSED_MPSS);
-
                     if (s != null) {
                         removeTextChangedListeners("textWatcherMpss");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("textWatcherMpss");
-                        getPresenter().getConversionFromMetersPerSecondSquared(
+                        getPresenter().afterMpssTextChanged(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -134,13 +122,11 @@ public class AccelerationFragment
             textWatcherSg = new SimpleTextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
-                    setLastEditTextFocused(LAST_EDIT_TEXT_FOCUSED_SG);
-
                     if (s != null) {
                         removeTextChangedListeners("textWatcherSg");
                         Utils.sanitizeEditable(s);
                         addTextChangedListeners("textWatcherSg");
-                        getPresenter().getConversionFromStandardGravity(
+                        getPresenter().afterSgTextChanged(
                                 s.toString(),
                                 getNumOfDecimalPlaces()
                         );
@@ -157,58 +143,8 @@ public class AccelerationFragment
         super.onResume();
         Timber.tag(TAG + ".onResume").i("Entered");
 
-        removeTextChangedListeners("onResume");
-
-        if (!wasResumed() && (getSharedPreferences() != null)) {
-            if ((getSharedPreferences().getString(CMPSS_VALUE_PERSIST_KEY, null) != null)
-                    && (getSharedPreferences().getString(FPSS_VALUE_PERSIST_KEY, null) != null)
-                    && (getSharedPreferences().getString(MPSS_VALUE_PERSIST_KEY, null) != null)
-                    && (getSharedPreferences().getString(SG_VALUE_PERSIST_KEY, null) != null)) {
-                editTextCmpss.setText(getSharedPreferences().getString(CMPSS_VALUE_PERSIST_KEY, ""));
-                editTextFpss.setText(getSharedPreferences().getString(FPSS_VALUE_PERSIST_KEY, ""));
-                editTextMpss.setText(getSharedPreferences().getString(MPSS_VALUE_PERSIST_KEY, ""));
-                editTextSg.setText(getSharedPreferences().getString(SG_VALUE_PERSIST_KEY, ""));
-            }
-            if (getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, -1) != -1) {
-                setLastEditTextFocused(getSharedPreferences().getInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, 0));
-            }
-        }
-
-        if (getLastEditTextFocused() == LAST_EDIT_TEXT_FOCUSED_CMPSS) {
-            if (editTextCmpss.getText() != null) {
-                Utils.sanitizeEditable(editTextCmpss.getText());
-                getPresenter().getConversionFromCentimetersPerSecondSquared(
-                        editTextCmpss.getText().toString(),
-                        getNumOfDecimalPlaces()
-                );
-            }
-        } else if (getLastEditTextFocused() == LAST_EDIT_TEXT_FOCUSED_FPSS) {
-            if (editTextFpss.getText() != null) {
-                Utils.sanitizeEditable(editTextFpss.getText());
-                getPresenter().getConversionFromFeetPerSecondSquared(
-                        editTextFpss.getText().toString(),
-                        getNumOfDecimalPlaces()
-                );
-            }
-        } else if (getLastEditTextFocused() == LAST_EDIT_TEXT_FOCUSED_MPSS) {
-            if (editTextMpss.getText() != null) {
-                Utils.sanitizeEditable(editTextMpss.getText());
-                getPresenter().getConversionFromMetersPerSecondSquared(
-                        editTextMpss.getText().toString(),
-                        getNumOfDecimalPlaces()
-                );
-            }
-        } else if (getLastEditTextFocused() == LAST_EDIT_TEXT_FOCUSED_SG) {
-            if (editTextSg.getText() != null) {
-                Utils.sanitizeEditable(editTextSg.getText());
-                getPresenter().getConversionFromStandardGravity(
-                        editTextSg.getText().toString(),
-                        getNumOfDecimalPlaces()
-                );
-            }
-        } else {
-            addTextChangedListeners("onResume");
-        }
+        getPresenter().registerView(this);
+        getPresenter().onResume();
     }
 
     @Override
@@ -216,16 +152,8 @@ public class AccelerationFragment
         super.onPause();
         Timber.tag(TAG + ".onPause").i("Entered");
 
-        if (getSharedPreferences() != null) {
-            getSharedPreferences()
-                    .edit()
-                    .putString(CMPSS_VALUE_PERSIST_KEY, editTextCmpss.getText().toString())
-                    .putString(FPSS_VALUE_PERSIST_KEY, editTextFpss.getText().toString())
-                    .putString(MPSS_VALUE_PERSIST_KEY, editTextMpss.getText().toString())
-                    .putString(SG_VALUE_PERSIST_KEY, editTextSg.getText().toString())
-                    .putInt(LAST_EDIT_TEXT_FOCUSED_PERSIST_KEY, getLastEditTextFocused())
-                    .apply();
-        }
+        getPresenter().onPause();
+        getPresenter().unregisterView();
     }
 
     @Override
@@ -237,147 +165,116 @@ public class AccelerationFragment
 
     // endregion
 
-    // region Overridden IAccelerationView methods
+    // region Interface methods
 
     @Override
-    public void displayConversionFromCentimetersPerSecondSquaredResults(List<String> results) {
-        Timber.tag(TAG + ".displayConversionFromCentimetersPerSecondSquaredResults").i("Entered");
-        removeTextChangedListeners(".displayConversionFromCentimetersPerSecondSquaredResults");
+    public void showNewValuesFromModel(AccelerationModel model) {
+        Timber.tag(TAG + ".showNewValuesFromModel").i("Entered");
+
+        showNewValuesFromModelExcludingSource(model, null);
+    }
+
+    @Override
+    public void showNewValuesFromModelExcludingSource(AccelerationModel model, AccelerationUnits source) {
+        Timber.tag(TAG + ".showNewValuesFromModelExcludingSource").i("Entered");
+        removeTextChangedListeners("showNewValuesFromModelExcludingSource");
 
         textInputLayoutCmpss.setErrorEnabled(false);
         textInputLayoutFpss.setErrorEnabled(false);
         textInputLayoutMpss.setErrorEnabled(false);
         textInputLayoutSg.setErrorEnabled(false);
 
-        editTextFpss.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-        editTextMpss.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-        editTextSg.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
-
-        addTextChangedListeners(".displayConversionFromCentimetersPerSecondSquaredResults");
-    }
-
-    @Override
-    public void displayConversionFromCentimetersPerSecondSquaredError(Throwable error) {
-        if (error instanceof NumberFormatException) {
-            textInputLayoutCmpss.setError(getString(R.string.conversion_error_input_not_numeric));
-        } else if (error instanceof ValueBelowZeroException) {
-            textInputLayoutCmpss.setError(getString(R.string.conversion_error_below_zero));
-        } else {
-            textInputLayoutCmpss.setError(getString(R.string.conversion_error_conversion_error));
+        if (source != AccelerationUnits.cmpss) {
+            editTextCmpss.setText(model.getCmpss(), AppCompatTextView.BufferType.EDITABLE);
+        }
+        if (source != AccelerationUnits.fpss) {
+            editTextFpss.setText(model.getFpss(), AppCompatTextView.BufferType.EDITABLE);
+        }
+        if (source != AccelerationUnits.mpss) {
+            editTextMpss.setText(model.getMpss(), AppCompatTextView.BufferType.EDITABLE);
+        }
+        if (source != AccelerationUnits.sg) {
+            editTextSg.setText(model.getSg(), AppCompatTextView.BufferType.EDITABLE);
         }
 
-        removeTextChangedListeners(".displayConversionFromCentimetersPerSecondSquaredError");
-        editTextFpss.setText("", AppCompatTextView.BufferType.EDITABLE);
-        editTextMpss.setText("", AppCompatTextView.BufferType.EDITABLE);
-        editTextSg.setText("", AppCompatTextView.BufferType.EDITABLE);
-        addTextChangedListeners(".displayConversionFromCentimetersPerSecondSquaredError");
+        addTextChangedListeners("showNewValuesFromModelExcludingSource");
     }
 
     @Override
-    public void displayConversionFromFeetPerSecondSquaredResults(List<String> results) {
-        Timber.tag(TAG + ".displayConversionFromFeetPerSecondSquaredResults").i("Entered");
-        removeTextChangedListeners(".displayConversionFromFeetPerSecondSquaredResults");
+    public void showErrorForSource(Throwable error, AccelerationUnits source) {
+        Timber.tag(TAG + ".showErrorForSource").i("Entered");
+        removeTextChangedListeners("showErrorForSource");
 
-        textInputLayoutCmpss.setErrorEnabled(false);
-        textInputLayoutFpss.setErrorEnabled(false);
-        textInputLayoutMpss.setErrorEnabled(false);
-        textInputLayoutSg.setErrorEnabled(false);
-
-        editTextCmpss.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-        editTextMpss.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-        editTextSg.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
-
-        addTextChangedListeners(".displayConversionFromFeetPerSecondSquaredResults");
-    }
-
-    @Override
-    public void displayConversionFromFeetPerSecondSquaredError(Throwable error) {
+        String errorText;
         if (error instanceof NumberFormatException) {
-            textInputLayoutFpss.setError(getString(R.string.conversion_error_input_not_numeric));
+            errorText = getString(R.string.conversion_error_input_not_numeric);
         } else if (error instanceof ValueBelowZeroException) {
-            textInputLayoutFpss.setError(getString(R.string.conversion_error_below_zero));
+            errorText = getString(R.string.conversion_error_below_zero);
         } else {
-            textInputLayoutFpss.setError(getString(R.string.conversion_error_conversion_error));
+            errorText = getString(R.string.conversion_error_conversion_error);
         }
 
-        removeTextChangedListeners(".displayConversionFromFeetPerSecondSquaredError");
-        editTextCmpss.setText("", AppCompatTextView.BufferType.EDITABLE);
-        editTextMpss.setText("", AppCompatTextView.BufferType.EDITABLE);
-        editTextSg.setText("", AppCompatTextView.BufferType.EDITABLE);
-        addTextChangedListeners(".displayConversionFromFeetPerSecondSquaredError");
-    }
-
-    @Override
-    public void displayConversionFromMetersPerSecondSquaredResults(List<String> results) {
-        Timber.tag(TAG + ".displayConversionFromMetersPerSecondSquaredResults").i("Entered");
-        removeTextChangedListeners(".displayConversionFromMetersPerSecondSquaredResults");
-
-        textInputLayoutCmpss.setErrorEnabled(false);
-        textInputLayoutFpss.setErrorEnabled(false);
-        textInputLayoutMpss.setErrorEnabled(false);
-        textInputLayoutSg.setErrorEnabled(false);
-
-        editTextCmpss.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-        editTextFpss.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-        editTextSg.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
-
-        addTextChangedListeners(".displayConversionFromMetersPerSecondSquaredResults");
-    }
-
-    @Override
-    public void displayConversionFromMetersPerSecondSquaredError(Throwable error) {
-        if (error instanceof NumberFormatException) {
-            textInputLayoutMpss.setError(getString(R.string.conversion_error_input_not_numeric));
-        } else if (error instanceof ValueBelowZeroException) {
-            textInputLayoutMpss.setError(getString(R.string.conversion_error_below_zero));
-        } else {
-            textInputLayoutMpss.setError(getString(R.string.conversion_error_conversion_error));
+        switch (source) {
+            case cmpss:
+                textInputLayoutCmpss.setError(errorText);
+                editTextFpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+                editTextMpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+                editTextSg.setText("", AppCompatTextView.BufferType.EDITABLE);
+                break;
+            case fpss:
+                textInputLayoutFpss.setError(errorText);
+                editTextCmpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+                editTextMpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+                editTextSg.setText("", AppCompatTextView.BufferType.EDITABLE);
+                break;
+            case mpss:
+                textInputLayoutMpss.setError(errorText);
+                editTextCmpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+                editTextFpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+                editTextSg.setText("", AppCompatTextView.BufferType.EDITABLE);
+                break;
+            case sg:
+                textInputLayoutSg.setError(errorText);
+                editTextCmpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+                editTextFpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+                editTextMpss.setText("", AppCompatTextView.BufferType.EDITABLE);
+                break;
+            default:
+                break;
         }
 
-        removeTextChangedListeners(".displayConversionFromMetersPerSecondSquaredError");
-        editTextCmpss.setText("", AppCompatTextView.BufferType.EDITABLE);
-        editTextFpss.setText("", AppCompatTextView.BufferType.EDITABLE);
-        editTextSg.setText("", AppCompatTextView.BufferType.EDITABLE);
-        addTextChangedListeners(".displayConversionFromMetersPerSecondSquaredError");
+        addTextChangedListeners("showErrorForSource");
     }
 
     @Override
-    public void displayConversionFromStandardGravityResults(List<String> results) {
-        Timber.tag(TAG + ".displayConversionFromStandardGravityResults").i("Entered");
-        removeTextChangedListeners(".displayConversionFromStandardGravityResults");
-
-        textInputLayoutCmpss.setErrorEnabled(false);
-        textInputLayoutFpss.setErrorEnabled(false);
-        textInputLayoutMpss.setErrorEnabled(false);
-        textInputLayoutSg.setErrorEnabled(false);
-
-        editTextCmpss.setText(results.get(0), AppCompatTextView.BufferType.EDITABLE);
-        editTextFpss.setText(results.get(1), AppCompatTextView.BufferType.EDITABLE);
-        editTextMpss.setText(results.get(2), AppCompatTextView.BufferType.EDITABLE);
-
-        addTextChangedListeners(".displayConversionFromStandardGravityResults");
-    }
-
-    @Override
-    public void displayConversionFromStandardGravityError(Throwable error) {
-        if (error instanceof NumberFormatException) {
-            textInputLayoutSg.setError(getString(R.string.conversion_error_input_not_numeric));
-        } else if (error instanceof ValueBelowZeroException) {
-            textInputLayoutSg.setError(getString(R.string.conversion_error_below_zero));
+    public AccelerationModel loadModel() {
+        if (getSharedPreferences() != null) {
+            return new AccelerationModel(
+                    getSharedPreferences().getString(CMPSS_VALUE_PERSIST_KEY, "1"),
+                    getSharedPreferences().getString(FPSS_VALUE_PERSIST_KEY, "0.03280839895"),
+                    getSharedPreferences().getString(MPSS_VALUE_PERSIST_KEY, "0.01"),
+                    getSharedPreferences().getString(SG_VALUE_PERSIST_KEY, "0.001019716213")
+            );
         } else {
-            textInputLayoutSg.setError(getString(R.string.conversion_error_conversion_error));
+            return new AccelerationModel();
         }
+    }
 
-        removeTextChangedListeners(".displayConversionFromStandardGravityError");
-        editTextCmpss.setText("", AppCompatTextView.BufferType.EDITABLE);
-        editTextFpss.setText("", AppCompatTextView.BufferType.EDITABLE);
-        editTextMpss.setText("", AppCompatTextView.BufferType.EDITABLE);
-        addTextChangedListeners(".displayConversionFromStandardGravityError");
+    @Override
+    public void saveModel(AccelerationModel model) {
+        if (getSharedPreferences() != null) {
+            getSharedPreferences().edit()
+                    .putString(CMPSS_VALUE_PERSIST_KEY, model.getCmpss())
+                    .putString(FPSS_VALUE_PERSIST_KEY, model.getFpss())
+                    .putString(MPSS_VALUE_PERSIST_KEY, model.getMpss())
+                    .putString(SG_VALUE_PERSIST_KEY, model.getSg())
+                    .apply();
+        }
     }
 
     // endregion
 
-    // region Overridden IConverterView methods
+    // region Abstract methods
 
     @Override
     public void addTextChangedListeners(String callingClassName) {
@@ -407,10 +304,6 @@ public class AccelerationFragment
         editTextSg.removeTextChangedListener(textWatcherSg);
     }
 
-    // endregion
-
-    // region Overridden BaseFragment methods
-
     @Override
     protected String getChildTag() {
         return TAG;
@@ -435,11 +328,6 @@ public class AccelerationFragment
         }
 
         return accelerationPresenter;
-    }
-
-    @Override
-    protected void registerViewWithPresenter() {
-        getPresenter().registerView(this);
     }
 
     // endregion

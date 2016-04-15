@@ -10,10 +10,10 @@ public class MockFuelConsumptionView implements IFuelConsumptionView {
 
     @Override
     public void showNewValuesFromModel(FuelConsumptionModel model) {
-        this.usmpgValue = model.getUsmpg();
-        this.ukmpgValue = model.getUkmpg();
-        this.kplValue = model.getKpl();
-        this.l100kValue = model.getL100km();
+        usmpgValue = model.getUsmpg();
+        ukmpgValue = model.getUkmpg();
+        kplValue = model.getKpl();
+        l100kValue = model.getL100km();
 
         usmpgError = false;
         ukmpgError = false;

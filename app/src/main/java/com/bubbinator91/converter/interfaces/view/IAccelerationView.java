@@ -1,27 +1,21 @@
 package com.bubbinator91.converter.interfaces.view;
 
-import com.bubbinator91.converter.interfaces.base.IConverterView;
+import com.bubbinator91.converter.interfaces.base.IView2;
+import com.bubbinator91.converter.models.AccelerationModel;
+import com.bubbinator91.converter.models.AccelerationModel.AccelerationUnits;
 import com.bubbinator91.converter.views.fragments.AccelerationFragment;
-
-import java.util.List;
 
 /**
  * View interface for the {@link AccelerationFragment}
  */
-public interface IAccelerationView extends IConverterView {
-    void displayConversionFromCentimetersPerSecondSquaredResults(List<String> results);
+public interface IAccelerationView extends IView2 {
+    void showNewValuesFromModel(AccelerationModel model);
 
-    void displayConversionFromCentimetersPerSecondSquaredError(Throwable error);
+    void showNewValuesFromModelExcludingSource(AccelerationModel model, AccelerationUnits source);
 
-    void displayConversionFromFeetPerSecondSquaredResults(List<String> results);
+    void showErrorForSource(Throwable error, AccelerationUnits source);
 
-    void displayConversionFromFeetPerSecondSquaredError(Throwable error);
+    AccelerationModel loadModel();
 
-    void displayConversionFromMetersPerSecondSquaredResults(List<String> results);
-
-    void displayConversionFromMetersPerSecondSquaredError(Throwable error);
-
-    void displayConversionFromStandardGravityResults(List<String> results);
-
-    void displayConversionFromStandardGravityError(Throwable error);
+    void saveModel(AccelerationModel model);
 }

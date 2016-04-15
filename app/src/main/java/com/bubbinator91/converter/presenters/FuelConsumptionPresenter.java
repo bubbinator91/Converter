@@ -5,7 +5,7 @@ import com.bubbinator91.converter.interfaces.presenter.IFuelConsumptionPresenter
 import com.bubbinator91.converter.interfaces.view.IFuelConsumptionView;
 import com.bubbinator91.converter.models.FuelConsumptionModel;
 import com.bubbinator91.converter.models.FuelConsumptionModel.FuelConsumptionUnits;
-import com.bubbinator91.converter.presenters.base.BaseFuelConsumptionPresenter;
+import com.bubbinator91.converter.presenters.base.BasePresenter;
 import com.bubbinator91.converter.util.Globals;
 import com.bubbinator91.converter.views.fragments.FuelConsumptionFragment;
 
@@ -20,7 +20,7 @@ import rx.Scheduler;
  * {@link FuelConsumptionFragment}
  */
 public class FuelConsumptionPresenter
-        extends BaseFuelConsumptionPresenter<FuelConsumptionModel, IFuelConsumptionView>
+        extends BasePresenter<FuelConsumptionModel, IFuelConsumptionView, FuelConsumptionUnits>
         implements IFuelConsumptionPresenter {
     private final Scheduler mainScheduler, computationScheduler;
 

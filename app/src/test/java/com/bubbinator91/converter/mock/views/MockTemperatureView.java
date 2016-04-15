@@ -10,9 +10,9 @@ public class MockTemperatureView implements ITemperatureView {
 
     @Override
     public void showNewValuesFromModel(TemperatureModel model) {
-        this.celsiusValue = model.getCelsius();
-        this.fahrenheitValue = model.getFahrenheit();
-        this.kelvinValue = model.getKelvin();
+        celsiusValue = model.getCelsius();
+        fahrenheitValue = model.getFahrenheit();
+        kelvinValue = model.getKelvin();
 
         celsiusError = false;
         fahrenheitError = false;

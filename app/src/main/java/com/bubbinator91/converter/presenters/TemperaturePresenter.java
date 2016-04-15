@@ -5,7 +5,7 @@ import com.bubbinator91.converter.interfaces.presenter.ITemperaturePresenter;
 import com.bubbinator91.converter.interfaces.view.ITemperatureView;
 import com.bubbinator91.converter.models.TemperatureModel;
 import com.bubbinator91.converter.models.TemperatureModel.TemperatureUnits;
-import com.bubbinator91.converter.presenters.base.BaseTemperaturePresenter;
+import com.bubbinator91.converter.presenters.base.BasePresenter;
 import com.bubbinator91.converter.util.Globals;
 import com.bubbinator91.converter.views.fragments.TemperatureFragment;
 
@@ -20,7 +20,7 @@ import rx.Scheduler;
  * {@link TemperatureFragment}
  */
 public class TemperaturePresenter
-        extends BaseTemperaturePresenter<TemperatureModel, ITemperatureView>
+        extends BasePresenter<TemperatureModel, ITemperatureView, TemperatureUnits>
         implements ITemperaturePresenter {
     private final Scheduler mainScheduler, computationScheduler;
 
