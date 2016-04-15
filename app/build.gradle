@@ -4,7 +4,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.bubbinator91.converter"
@@ -45,6 +45,8 @@ dependencies {
     androidTestApt 'com.google.dagger:dagger-compiler:2.0.2'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    // Support library stays at 23.1.1 because of bugs introduced in newer versions.
+    // Will update when bugs with TextInputLayout are fixed in newer versions
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
