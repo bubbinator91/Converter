@@ -31,12 +31,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    dexOptions {
+        dexInProcess false
+    }
     lintOptions {
         disable 'InvalidPackage'
     }
 }
 
 dependencies {
+    retrolambdaConfig 'com.jakewharton.retrolambda:retrolambda:2.1.0-jake2'
+
     apt 'com.google.dagger:dagger-compiler:2.0.2'
     testProvided 'com.google.dagger:dagger-compiler:2.0.2'
     // needed to resolve compilation errors, thanks to tutplus.org for finding the dependency
